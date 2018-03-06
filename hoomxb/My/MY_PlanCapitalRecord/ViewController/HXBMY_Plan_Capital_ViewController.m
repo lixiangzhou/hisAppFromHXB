@@ -87,7 +87,7 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
     [self downLoadData];
     
-    self.noDataView.noDataMassage = @"暂无投资记录";
+    self.noDataView.noDataMassage = @"暂无数据";
     [self.view addSubview:self.noDataView];
     [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
@@ -131,7 +131,7 @@ static NSString *const cellID = @"cellID";
     
     
     planIDLabel.text =  @"标的ID";
-    amountLabel.text =  @"投资金额(元)";
+    amountLabel.text =  @"出借金额(元)";
     timeLabel.text =  @"时间";
     typeLabel.text =  @"状态";
     planIDLabel.textAlignment = NSTextAlignmentCenter;
@@ -153,7 +153,7 @@ static NSString *const cellID = @"cellID";
     kWeakSelf
     NSString *requestURL = @"";
     if (self.type == HXBInvestmentRecord) {
-        self.title = @"投资记录";
+        self.title = @"出借记录";
         requestURL = kHXBFin_loanRecordURL(self.planID);
     }else if(self.type == HXBTransferRecord)
     {

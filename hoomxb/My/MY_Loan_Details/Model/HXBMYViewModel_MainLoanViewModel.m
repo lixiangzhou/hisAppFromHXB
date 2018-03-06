@@ -26,7 +26,7 @@
         NSInteger termsInTotal = [self.loanModel.termsInTotal integerValue];
         _goBackLoanTimeCellValue = [NSString stringWithFormat:@"剩余期数%ld/%ld",(long)terms,(long)termsInTotal];
         
-        self.investmentAmountLable_const = @"投资金额(元)";
+        self.investmentAmountLable_const = @"出借金额(元)";
         self.toBeReceived_const = @"待收本息(元)";
         self.nextRepaymentDay_const = @"下一还款日";
     }else if (self.status.integerValue == 2){
@@ -40,9 +40,9 @@
         ///如果为收益中 （已还期数） ： 投标中（期限）
         _goBackLoanTimeCellValue = [NSString stringWithFormat:@"期限  %@个月",self.loanModel.termsInTotal];
         
-        self.investmentAmountLable_const = @"投资金额(元)";
+        self.investmentAmountLable_const = @"出借金额(元)";
         self.toBeReceived_const = @"利率";
-        self.nextRepaymentDay_const = @"投资进度";
+        self.nextRepaymentDay_const = @"出借进度";
     }
 }
 /**

@@ -7,9 +7,6 @@
 //  账户内计划详情
 
 #import "HXBMY_PlanList_DetailViewController.h"
-
-#import "HXBMYReqest_DetailRequest.h"//请求的工具类
-
 #import "HXBMYViewModel_MianPlanViewModel.h"//红利计划列表页的ViewModel
 #import "HXBMYModel_MainPlanModel.h"//红利计划列表页的Model
 
@@ -25,7 +22,6 @@
 #import "HXBMyPlanDetailsViewModel.h"
 
 @interface HXBMY_PlanList_DetailViewController ()
-@property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
@@ -33,18 +29,6 @@
 @end
 
 @implementation HXBMY_PlanList_DetailViewController
-#pragma mark - getter 
-- (HXBMYReqest_DetailRequest *)detailRequest {
-    if (!_detailRequest) {
-        _detailRequest = [[HXBMYReqest_DetailRequest alloc]init];
-    }
-    return _detailRequest;
-}
-
-//- (void)setPlanViewModel:(HXBMYViewModel_MianPlanViewModel *)planViewModel {
-//    _planViewModel = planViewModel;
-//    [self downData];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,7 +65,7 @@
     }];
     
     self.planDetailView.tipClickBlock = ^{
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月付息" Massage:@"购买该计划产品的用户，收益将会按当月时间返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月提取收益" Massage:@"收益会按月返回到账户内，如当月无此提取日，则当月最后一天为收益提取日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
@@ -202,11 +186,11 @@
         manager.typeViewManager.rightStrArray = @[viewModel.planDetailModel.incomeApproach ?: @""];
         
         if (viewModel.isMonthyPayment) {
-            manager.monthlyPamentViewManager.leftStrArray = @[@"付息日"];
+            manager.monthlyPamentViewManager.leftStrArray = @[@"收益提取日"];
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"投资记录", @"红利计划服务协议"];
+        manager.strArray = @[@"出借记录", @"红利计划服务协议"];
         
         manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;

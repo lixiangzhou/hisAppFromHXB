@@ -7,62 +7,54 @@
 //
 
 #import "HXBNoticeVCViewModel.h"
-#import "HXBBaseRequest.h"
 #import "HXBNoticModel.h"
 @interface HXBNoticeVCViewModel ()
 
-@property (nonatomic, strong) HXBBaseRequest *versionUpdateAPI;
+@property (nonatomic, assign) int dataPage;
 
 @property (nonatomic, strong) NSMutableArray <HXBNoticModel *>*noticModelArr;
 
 @end
 @implementation HXBNoticeVCViewModel
 
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andCallbackBlock: (void(^)(BOOL isSuccess))callbackBlock
 {
-    self.versionUpdateAPI.isUPReloadData = isUPReloadData;
-    self.versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
-    self.versionUpdateAPI.requestMethod = NYRequestMethodGet;
-    self.versionUpdateAPI.showHud = NO;
-    self.versionUpdateAPI.requestArgument = @{
-                                              @"page" : @(self.versionUpdateAPI.dataPage),
-                                              @"pageSize" : @kPageCount
-                                              };
+    NYBaseRequest *noticeRequest = [[NYBaseRequest alloc] initWithDelegate:self];
+    noticeRequest.requestUrl = kHXBHome_AnnounceURL;
+    noticeRequest.requestMethod = NYRequestMethodGet;
+    noticeRequest.showHud = NO;
+    if (isUPReloadData) {
+        self.dataPage = 1;
+    }
+    else {
+        self.dataPage++;
+    }
+    noticeRequest.requestArgument = @{
+                                      @"page" : @(self.dataPage),
+                                      @"pageSize" : @kPageCount
+                                      };
+    
     kWeakSelf
-    [self.versionUpdateAPI loadDataWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [noticeRequest loadData:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger totalcount = [responseObject[@"data"][@"totalCount"] integerValue];
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
-        }
-        if (successDateBlock) {
+        weakSelf.totalCount = responseObject[@"data"][@"totalCount"];
+        if (callbackBlock) {
             NSArray *modelarr = [NSArray yy_modelArrayWithClass:[HXBNoticModel class] json:responseObject[@"data"][@"dataList"]];
-            if (weakSelf.versionUpdateAPI.isUPReloadData) {
-                [self.noticModelArr removeAllObjects];
+            if (isUPReloadData) {
+                [weakSelf.noticModelArr removeAllObjects];
             }
-            [self.noticModelArr addObjectsFromArray:modelarr];
-            successDateBlock(totalcount);
+            [weakSelf.noticModelArr addObjectsFromArray:modelarr];
+            callbackBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        //        [HxbHUDProgress showTextWithMessage:@"请求失败"];
-        if (failureBlock) {
-            failureBlock(error);
+        weakSelf.dataPage--;
+        if (callbackBlock) {
+            callbackBlock(NO);
         }
     }];
     
 }
-- (HXBBaseRequest *)versionUpdateAPI
-{
-    if (!_versionUpdateAPI) {
-        _versionUpdateAPI = [[HXBBaseRequest alloc] initWithDelegate:self];
-    }
-    return _versionUpdateAPI;
-}
+
 - (NSMutableArray<HXBNoticModel *> *)noticModelArr
 {
     if (!_noticModelArr) {

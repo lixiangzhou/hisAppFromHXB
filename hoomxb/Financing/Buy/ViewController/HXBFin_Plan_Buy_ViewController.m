@@ -16,7 +16,6 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBFin_Buy_ViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
@@ -24,7 +23,7 @@
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
 #import "HXBTransactionPasswordView.h"
-
+#import "HXBRootVCManager.h"
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -88,7 +87,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, assign) BOOL isSelectLimit;
 // 是否符合标的等级购买规则
 //@property (nonatomic, assign) BOOL isMatchBuy;
-
+@property (nonatomic, strong) HXBFin_Buy_ViewModel *viewModel;
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -156,7 +155,7 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并出借", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -212,7 +211,7 @@ static NSString *const bankString = @"绑定银行卡";
     }
     
     if (_inputMoneyStr.length == 0) {
-        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+        [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue && !_hasInvestMoney) { // 超过可加入金额是，只check，不用强制到最大可加入金额
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
     }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && !_hasInvestMoney && _isFirstBuy) {
@@ -225,7 +224,7 @@ static NSString *const bankString = @"绑定银行卡";
         
         [self checkIfNeedNewPlanDatas:_inputMoneyStr];
         
-        [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+        [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
     } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
         _inputMoneyStr = _registerMultipleAmount;
@@ -234,7 +233,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [self checkIfNeedNewPlanDatas:_inputMoneyStr];
-        [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
+        [HxbHUDProgress showTextWithMessage:@"出借金额不足递增金额"];
     } else {
         BOOL isFitToBuy;
         if (_isFirstBuy) {
@@ -339,21 +338,14 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)alertSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        [weakSelf showRechargeAlertVC];
-        [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-    } andFailureBlock:^(NSError *error) {
-        NSInteger errorCode = 0;
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)error;
-            errorCode = [dic[@"status"] integerValue];
-        }else{
-            errorCode = error.code;
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+        if (isSuccess) {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf showRechargeAlertVC];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         }
-        if (errorCode != kHXBCode_Success) {
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+        else {
+           [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
 }
@@ -423,8 +415,8 @@ static NSString *const bankString = @"绑定银行卡";
         planBuySuccessVC.imageName = @"successful";
         planBuySuccessVC.buy_title = @"加入成功";
         planBuySuccessVC.buy_description =model.lockStart;
-        planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-        planBuySuccessVC.title = @"投资成功";
+        planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
+        planBuySuccessVC.title = @"加入成功";
         [planBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -433,20 +425,20 @@ static NSString *const bankString = @"绑定银行卡";
         [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-        failViewController.title = @"投资结果";
+        failViewController.title = @"加入失败";
         switch (status) {
             case kBuy_Result:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新投资";
+                failViewController.buy_ButtonTitle = @"重新出借";
                 break;
 
             case kBuy_Processing:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"处理中";
                 failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新投资";
+                failViewController.buy_ButtonTitle = @"重新出借";
                 break;
                 
                 // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
@@ -590,13 +582,16 @@ static const NSInteger topView_high = 300;
 // 获取用户信息
 - (void)getNewUserInfo {
     kWeakSelf
-    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-        [weakSelf.tableView reloadData];
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-    } andFailure:^(NSError *error) {
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+    [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if(isSuccess) {
+            weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+            [weakSelf.tableView reloadData];
+            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        }
+        else {
+            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        }
     }];
 }
 
@@ -795,5 +790,19 @@ static const NSInteger topView_high = 300;
     return _bottomView;
 }
 
+- (HXBFin_Buy_ViewModel *)viewModel {
+    if (!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBFin_Buy_ViewModel alloc] initWithBlock:^UIView *{
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
+        }];
+    }
+    return _viewModel;
+}
 
 @end

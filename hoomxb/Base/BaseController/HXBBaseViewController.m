@@ -22,7 +22,6 @@
 
 @property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
-@property (nonatomic, strong) UIButton *leftBackBtn;
 @end
 
 @implementation HXBBaseViewController

@@ -8,10 +8,12 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBBankCardModel.h"
-
+#import "HXBBaseViewModel+KEYCHAIN.h"
+@class HXBCardBinModel;
 @interface HXBBankCardViewModel : HXBBaseViewModel
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
+@property (nonatomic, strong) HXBCardBinModel *cardBinModel;
 /// 银行图片
 @property (nonatomic, copy, readonly) NSString *bankImageString;
 /// 银行名
@@ -57,4 +59,13 @@
  @return 若不通过，返回验证信息；若通过，返回nil
  */
 - (NSString *)validateTransactionPwd:(NSString *)transactionPwd;
+
+/**
+ 卡bin校验
+ 
+ @param bankNumber 银行卡号
+ @param isToast 是否需要提示信息
+ @param callBackBlock 回调
+ */
+- (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
 @end

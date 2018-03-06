@@ -10,7 +10,6 @@
 #import "HXBBankCardListViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
@@ -182,7 +181,6 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_tableView atIndex:0];
-        [_tableView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
@@ -217,10 +215,13 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-                [weakSelf checkCardBin:cardBinModel];
-            } andFailureBlock:^(NSError *error) {
-                weakSelf.mainView.isCheckFailed = YES;
+            [weakSelf.viewModel checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf checkCardBin:weakSelf.viewModel.cardBinModel];
+                }
+                else {
+                    weakSelf.mainView.isCheckFailed = YES;
+                }
             }];
         };
         

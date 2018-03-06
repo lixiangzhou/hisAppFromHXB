@@ -15,7 +15,7 @@
 #import "HXBAgreementView.h"
 #import "HXBCardBinModel.h"
 #import "IQKeyboardManager.h"
-#import "HXBOpenDepositAccountRequest.h"
+#import "HXBOpenDepositAccountVCViewModel.h"
 @interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
@@ -40,6 +40,11 @@
  存管协议
  */
 @property (nonatomic,copy) void(^clickTrustAgreement)(BOOL isThirdpart);
+
+/**
+ 卡bin校验的ViewModel
+ */
+@property (nonatomic, strong) HXBOpenDepositAccountVCViewModel *openDepositAccountVM;
 @end
 
 @implementation HXBOpenDepositAccountView
@@ -143,23 +148,27 @@
     if (self.openAccountBlock) {
         kWeakSelf
         if ([self judgeIsTure]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:self.bankNumber andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-            weakSelf.cardBinModel = cardBinModel;
-            [UIView animateWithDuration:0.5 animations:^{
-                weakSelf.y = 0;
-            }];
-            weakSelf.bankNumber = [weakSelf.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
-            NSDictionary *dic = @{
-                                  @"realName" : weakSelf.nameTextField.text,
-                                  @"identityCard" : weakSelf.idCardTextField.text,
-                                  @"password" : weakSelf.pwdTextField.text,
-                                  @"bankCard" : weakSelf.bankNumber,
-                                  @"bankReservedMobile" : weakSelf.phoneTextField.text,
-                                  @"bankCode" : weakSelf.cardBinModel.bankCode
-                                  };
-            weakSelf.openAccountBlock(dic);
-        } andFailureBlock:^(NSError *error) {
-            weakSelf.isCheckFailed = YES;
+        
+        [self.openDepositAccountVM checkCardBinResultRequestWithBankNumber:self.bankNumber andisToastTip:YES andCallBack:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.cardBinModel = weakSelf.openDepositAccountVM.cardBinModel;
+                [UIView animateWithDuration:0.5 animations:^{
+                    weakSelf.y = 0;
+                }];
+                weakSelf.bankNumber = [weakSelf.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
+                NSDictionary *dic = @{
+                                      @"realName" : weakSelf.nameTextField.text,
+                                      @"identityCard" : weakSelf.idCardTextField.text,
+                                      @"password" : weakSelf.pwdTextField.text,
+                                      @"bankCard" : weakSelf.bankNumber,
+                                      @"bankReservedMobile" : weakSelf.phoneTextField.text,
+                                      @"bankCode" : weakSelf.cardBinModel.bankCode
+                                      };
+                weakSelf.openAccountBlock(dic);
+            }
+            else {
+                 weakSelf.isCheckFailed = YES;
+            }
         }];
     }
 }
@@ -470,7 +479,7 @@
     if (!_headerTipView) {
         _headerTipView = [[HXBDepositoryHeaderView alloc] init];
         _headerTipView.titel = @"安全认证";
-        _headerTipView.describe = @"按国家规定投资用户需满18岁";
+        _headerTipView.describe = @"按国家规定出借用户需满18岁";
     }
     return _headerTipView;
 }
@@ -651,5 +660,15 @@
         _line.hidden = YES;
     }
     return _line;
+}
+
+- (HXBOpenDepositAccountVCViewModel *)openDepositAccountVM {
+    if (!_openDepositAccountVM) {
+        kWeakSelf
+        _openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
+    }
+    return _openDepositAccountVM;
 }
 @end

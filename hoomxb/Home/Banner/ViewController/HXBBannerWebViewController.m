@@ -156,7 +156,7 @@ static NSString *const HXB_Dialog = @"dialog";
     }else if ([path isEqualToString:kLoginVC]){
         if(KeyChain.isLogin) {
             kWeakSelf
-            [self.viewModel loadUserInfoWithBlock:^(BOOL isSuccess) {
+            [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
                 if(isSuccess) {
                     [weakSelf reloadPage];
                 }

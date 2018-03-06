@@ -63,6 +63,8 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
 
 @property (nonatomic, strong) HXBFinancingPlanDetailViewModel *viewModel;
 
+@property (nonatomic, strong) HXBAlertManager* alertManager;
+
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -83,6 +85,16 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadData) name:kHXBNotification_checkLoginSuccess object:nil];
 }
 
+- (HXBAlertManager *)alertManager {
+    if(!_alertManager) {
+        kWeakSelf
+        _alertManager = [[HXBAlertManager alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _alertManager;
+}
 /**
  再次获取网络数据
  */
@@ -119,7 +131,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     }
 
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+    [self.alertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
         [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }

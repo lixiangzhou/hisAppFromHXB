@@ -227,7 +227,9 @@
                 make.left.equalTo(weakSelf.leftViewArray[i].mas_right).offset(weakSelf.leftProportion);
                 make.right.equalTo(weakSelf.rightViewArray[i - 1]);
             }];
-            
+            [self.leftViewArray[i] setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+            [self.rightViewArray[i] setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+
             if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1) {
                 UIButton *infoBtn = nil;
                 UILabel *infoLab = nil;

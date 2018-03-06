@@ -9,7 +9,6 @@
 #import "HXBMY_LoanListViewController.h"
 #import "HXBMainListView_Loan.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"
-#import "HXBMYRequest.h"
 #import "HXBMYModel_AssetStatistics_Loan.h"
 #import "HXBMY_LoanList_DetailViewController.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"///资产
@@ -81,7 +80,7 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) weakSelf.loanListView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }

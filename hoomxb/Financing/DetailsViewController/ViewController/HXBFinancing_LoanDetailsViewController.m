@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic, strong) HXBFinancingLoanDetailViewModel *viewModel;
+
+@property (nonatomic, strong) HXBAlertManager* alertManager;
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
@@ -34,18 +36,28 @@
     self.viewModel = [[HXBFinancingLoanDetailViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    
     self.isRedColorWithNavigationBar = YES;
     //判断是否风险评测
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-    } andFailure:^(NSError *error) {
-        
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.availablePoint = weakSelf.viewModel.userInfoModel.availablePoint;
+            weakSelf.isIdPassed = weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isIdPassed.integerValue;
+        }
     }];
     [self setup];
     [self downLoadData];
     [self registerEvent];
+}
+
+- (HXBAlertManager *)alertManager {
+    if(!_alertManager) {
+        kWeakSelf
+        _alertManager = [[HXBAlertManager alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _alertManager;
 }
 
 - (void)clickLeftBarButtonItem {
@@ -94,6 +106,16 @@
         if ([model.optionTitle isEqualToString:weakSelf.viewModel.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.viewModel.loanDetailModel.fin_LoanInfoView_Manager;
+            
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.overDueStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.otherPlatStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.protectSolution;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.userFinanceStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.repaymentCapacity;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.punishedStatus;
+            
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.cashDrawStatus;
+            
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.riskLevel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.riskLevelDesc;
@@ -124,7 +146,7 @@
             return;
         }
         
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf.alertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
             [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfoViewModel:model];
         }];
     }];

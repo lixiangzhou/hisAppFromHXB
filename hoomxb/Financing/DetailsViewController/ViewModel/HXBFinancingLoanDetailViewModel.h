@@ -12,6 +12,7 @@
 #import "HXBFinDetail_TableView.h"
 #import "HXBFin_DetailsView_LoanDetailsView.h"
 #import "HXBFin_Loan_Buy_ViewController.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBFinancingLoanDetailViewModel : HXBBaseViewModel
 /// 散标详情页

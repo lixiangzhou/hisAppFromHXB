@@ -9,19 +9,17 @@
 #import "HxbWithdrawViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBWithdrawalsRequest.h"
 #import "HxbWithdrawResultViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBMy_Withdraw_notifitionView.h"
 #import "HXBWithdrawRecordViewController.h"
 #import "HXBWithdrawModel.h"
 #import "HXBBankCardModel.h"
 
 #import "HXBAccountWithdrawViewModel.h"
-
+#import "HXBRootVCManager.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -61,7 +59,12 @@
     self.isColourGradientNavigationBar = YES;
     kWeakSelf
     _viewModel = [[HXBAccountWithdrawViewModel alloc] initWithBlock:^UIView *{
-        return weakSelf.view;
+        if (weakSelf.presentedViewController) {
+            return weakSelf.presentedViewController.view;
+        }
+        else {
+            return weakSelf.view;
+        }
     }];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.notifitionView];
@@ -217,11 +220,14 @@
 - (void)withdrawSmscode
 {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.amountTextField.text andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
-        [weakSelf withdrawals];
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.amountTextField.text andWithType:@"sms" andWithAction:@"withdraw" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            [weakSelf withdrawals];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
+        }
+        else {
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+        }
     }];
 }
 
@@ -490,6 +496,7 @@
         };
         
         _alertVC.getVerificationCodeBlock = ^{
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf withdrawSmscode];
         };
     }
@@ -532,22 +539,6 @@
     }
     return self;
 }
-
-/**
- 回去到账时间
- */
-//- (void)getpaymentDate
-//{
-//    kWeakSelf
-//    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
-//    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
-//
-//        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
-//
-//    } andFailureBlock:^(NSError *error) {
-//
-//    }];
-//}
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {

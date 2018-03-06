@@ -26,6 +26,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
 #import "HXBHomeNewbieProductModel.h"
+#import "HXBHomePlatformIntroductionModel.h"
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -33,7 +34,6 @@
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
 
@@ -63,7 +63,7 @@
     [[HXBVersionUpdateManager sharedInstance] show];
     [self hideNavigationBar:animated];
     [self getData:YES];
-    self.homeView.userInfoViewModel = self.userInfoViewModel;
+    self.homeView.userInfoViewModel = self.homeVimewModle.userInfoModel;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -123,24 +123,29 @@
 - (void)getData:(BOOL)isUPReloadData{
     kWeakSelf
     if (KeyChain.isLogin) {
-        [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            weakSelf.userInfoViewModel = viewModel;
-            weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
-        } andFailure:^(NSError *error) {
-            if (weakSelf.userInfoViewModel) {
-                weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
-            } else {
-                weakSelf.userInfoViewModel = [[HXBRequestUserInfoViewModel alloc] init];
-                id responseObject = [PPNetworkCache httpCacheForURL:kHXBUser_UserInfoURL parameters:nil];
-                HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
-                [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
-                userInfoModel.userAssets.availablePoint = HXBIdentifier;
-                weakSelf.userInfoViewModel.userInfoModel = userInfoModel;
-                weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
+        [self.homeVimewModle downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+            if(isSuccess) {
+                weakSelf.homeView.userInfoViewModel = weakSelf.homeVimewModle.userInfoModel;
+            }
+            else{
+                if (weakSelf.homeVimewModle.userInfoModel) {
+                    weakSelf.homeView.userInfoViewModel = weakSelf.homeVimewModle.userInfoModel;
+                } else {
+                    HXBRequestUserInfoViewModel *requestUserInfoModel = [HXBRequestUserInfoViewModel new];
+                    id responseObject = [PPNetworkCache httpCacheForURL:kHXBUser_UserInfoURL parameters:nil];
+                    HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
+                    [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
+                    userInfoModel.userAssets.availablePoint = HXBIdentifier;
+                    requestUserInfoModel.userInfoModel = userInfoModel;
+
+                    weakSelf.homeVimewModle.userInfoModel = requestUserInfoModel;
+                    weakSelf.homeView.userInfoViewModel = requestUserInfoModel;
+                }
             }
         }];
-    } else {
-        self.homeView.userInfoViewModel = self.userInfoViewModel;
+    }
+    else {
+        self.homeView.userInfoViewModel = self.homeVimewModle.userInfoModel;
     }
     
     if (!self.homeView.homeBaseViewModel.homeBaseModel) {
@@ -150,10 +155,6 @@
             self.homeView.homeBaseViewModel.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         }
     }
-    
-    self.homeVimewModle = [[HXBHomeVCViewModel alloc]  initWithBlock:^UIView *{
-        return weakSelf.view;
-    }];
     
     [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
         weakSelf.homeView.homeBaseViewModel = weakSelf.homeVimewModle;
@@ -169,6 +170,16 @@
 }
 
 #pragma mark Get Methods
+
+- (HXBHomeVCViewModel *)homeVimewModle {
+    if (!_homeVimewModle) {
+        kWeakSelf
+        _homeVimewModle = [[HXBHomeVCViewModel alloc]  initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    return _homeVimewModle;
+}
 
 - (HxbHomeView *)homeView{
     if (!_homeView) {
@@ -204,7 +215,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.homeVimewModle.userInfoModel];
             }
             
         };
@@ -218,6 +229,14 @@
             [weakSelf pushToViewControllerWithModel:model];
         };
         
+        _homeView.homePlatformIntroduction = ^(HXBHomePlatformIntroductionModel *model) {
+            //进行模型转换
+            BannerModel *pushVCmodel = [[BannerModel alloc] init];
+            pushVCmodel.type = model.type;
+            pushVCmodel.link = model.url;
+            pushVCmodel.url = model.url;
+            [weakSelf pushToViewControllerWithModel:pushVCmodel];
+        };
         _homeView.newbieAreaActionBlock = ^{
             NSLog(@"点击了新手专区");
             if (weakSelf.homeVimewModle.homeBaseModel.newbieProductData.url.length > 0) {

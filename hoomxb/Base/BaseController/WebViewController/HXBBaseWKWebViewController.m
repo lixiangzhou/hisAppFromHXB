@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "HXBWKWebviewViewModel.h"
 #import "HXBWKWebViewProgressView.h"
+#import "SVGKit/SVGKImage.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
     //进度视图的高度
@@ -30,6 +31,8 @@
 
 @property (nonatomic, assign) BOOL loadResult;
 
+@property (nonatomic, strong) UIButton *closeBtn;
+
 @end
 
 @implementation HXBBaseWKWebViewController
@@ -40,6 +43,7 @@
     if (self) {
         _pageReload = YES;
         _firstLoadPage = YES;
+        _showCloseButton = NO;
     }
     return self;
 }
@@ -60,13 +64,58 @@
     
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:(NSKeyValueObservingOptionNew) context:nil];
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
+    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
     [self loadWebPage];
+}
+
+- (void)setupLeftBackBtn {
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
+    
+    [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.leftBackBtn = leftBackBtn;
+    
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [closeBtn setImage:[UIImage imageNamed:@"webView_close"] forState:(UIControlStateNormal)];
+    [closeBtn addTarget:self action:@selector(closeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.closeBtn = closeBtn;
+    self.closeBtn.hidden = YES;
+    
+    UIBarButtonItem * spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if (@available(iOS 11.0, *)) {
+        leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        closeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    } else {
+        spaceItem.width = -15;
+    }
+    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn], [[UIBarButtonItem alloc] initWithCustomView:closeBtn]];
+}
+
+- (void)leftBackBtnClick {
+    if(self.showCloseButton) {
+        if(self.webView.canGoBack) {
+            [self.webView goBack];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)closeBtnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self.webView removeObserver:self forKeyPath:@"title"];
+    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)reLoadWhenViewAppear {
@@ -89,11 +138,22 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
-
     } else if ([keyPath isEqualToString:@"title"]) {
         self.title = [NSString H5Title:self.webView.title];
+    } else if ([keyPath isEqualToString:@"contentSize"]) {
+        self.showCloseButton = self.webView.canGoBack;
     }
-    
+}
+
+- (void)setShowCloseButton:(BOOL)showCloseButton {
+    _showCloseButton = showCloseButton;
+    self.closeBtn.hidden = !showCloseButton;
+    if(showCloseButton) {
+        self.leftBackBtn.width = 25;
+    }
+    else {
+        self.leftBackBtn.width = 50;
+    }
 }
 
 #pragma mark 无网络重新加载H5

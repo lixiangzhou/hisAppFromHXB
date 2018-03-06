@@ -20,7 +20,7 @@
 - (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
     
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资债权";
+    loanJoinVC.title = @"债权转让";
     loanJoinVC.loanId = self.loanTruansferDetailModel.loanTruansferDetailModel.transferId;
     loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.placeholderStr = self.loanTruansferDetailModel.startIncrease_Amount;
@@ -34,10 +34,11 @@
 }
 
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *loanTruansferRequest = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *loanTruansferRequest = [[NYBaseRequest alloc]initWithDelegate:self];
     loanTruansferRequest.requestUrl = kHXBFin_LoanTruansfer_DetailURL(loanId.integerValue);
+    loanTruansferRequest.showHud = YES;
     
-    [loanTruansferRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [loanTruansferRequest loadData:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             if (resultBlock) {
                 resultBlock(NO);
@@ -56,7 +57,7 @@
             resultBlock(YES);
         }
         
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) {
             resultBlock(NO);
         }

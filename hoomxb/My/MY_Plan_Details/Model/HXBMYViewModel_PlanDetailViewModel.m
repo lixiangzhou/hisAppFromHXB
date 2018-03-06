@@ -9,7 +9,7 @@
 #import "HXBMYViewModel_PlanDetailViewModel.h"
 
 static NSString *kHXBUI = @"当日提取至红小宝账户";
-static NSString *kINVESTUI = @"收益再投资";
+static NSString *kINVESTUI = @"收益复投";
 static NSString *kHXB = @"HXB";
 static NSString *kINVEST = @"INVEST";
 

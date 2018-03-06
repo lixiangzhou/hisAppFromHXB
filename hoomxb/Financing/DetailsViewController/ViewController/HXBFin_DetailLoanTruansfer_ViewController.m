@@ -42,6 +42,8 @@
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic, strong) HXBLoanTruansferDetailViewModel *viewModel;
+
+@property (nonatomic, strong) HXBAlertManager* alertManager;
 @end
 
 @implementation HXBFin_DetailLoanTruansfer_ViewController
@@ -58,6 +60,17 @@
     [self setUP];
     [self setupAddView];
     [self downLoadData];
+}
+
+- (HXBAlertManager *)alertManager {
+    if(!_alertManager) {
+        kWeakSelf
+        _alertManager = [[HXBAlertManager alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _alertManager;
 }
 
 - (void) setUP {
@@ -188,6 +201,15 @@
 
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.viewModel.loanTruansferDetailModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.overDueStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.otherPlatStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.protectSolution;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.userFinanceStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.repaymentCapacity;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.punishedStatus;
+            
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.cashDrawStatus;
+            
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.descriptionStr;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevel;
@@ -211,7 +233,7 @@
     }
     ///判断是否实名。。。。
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+    [self.alertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
         [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }

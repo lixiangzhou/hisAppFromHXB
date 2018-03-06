@@ -15,7 +15,7 @@ static const char HXBRequestUserInfoViewModelKey = '\0';
 - (void)setUserInfoModel:(HXBRequestUserInfoViewModel *)userInfoModel {
     [self willChangeValueForKey:@"userInfoModel"]; // KVO
     objc_setAssociatedObject(self, &HXBRequestUserInfoViewModelKey,
-                             userInfoModel, OBJC_ASSOCIATION_ASSIGN);
+                             userInfoModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:@"userInfoModel"]; // KVO
 }
 
@@ -25,14 +25,15 @@ static const char HXBRequestUserInfoViewModelKey = '\0';
 
 #pragma mark 通过keychain加载用户信息
 - (void)downLoadUserInfo:(BOOL)isShowHud resultBlock:(void(^)(BOOL isSuccess))resultBlock {
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
         request.showHud = isShowHud;
-        request.hudDelegate = self;
+        request.hudDelegate = weakSelf;
     } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         BOOL result = NO;
         if(viewModel) {
             result = YES;
-            self.userInfoModel = viewModel;
+            weakSelf.userInfoModel = viewModel;
         }
         
         if(resultBlock) {
