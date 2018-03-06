@@ -131,13 +131,15 @@
                 if (weakSelf.homeVimewModle.userInfoModel) {
                     weakSelf.homeView.userInfoViewModel = weakSelf.homeVimewModle.userInfoModel;
                 } else {
-                    weakSelf.homeVimewModle.userInfoModel = [[HXBRequestUserInfoViewModel alloc] init];
+                    HXBRequestUserInfoViewModel *requestUserInfoModel = [HXBRequestUserInfoViewModel new];
                     id responseObject = [PPNetworkCache httpCacheForURL:kHXBUser_UserInfoURL parameters:nil];
                     HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
                     [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
                     userInfoModel.userAssets.availablePoint = HXBIdentifier;
-                    weakSelf.homeVimewModle.userInfoModel.userInfoModel = userInfoModel;
-                    weakSelf.homeView.userInfoViewModel = weakSelf.homeVimewModle.userInfoModel;
+                    requestUserInfoModel.userInfoModel = userInfoModel;
+
+                    weakSelf.homeVimewModle.userInfoModel = requestUserInfoModel;
+                    weakSelf.homeView.userInfoViewModel = requestUserInfoModel;
                 }
             }
         }];
