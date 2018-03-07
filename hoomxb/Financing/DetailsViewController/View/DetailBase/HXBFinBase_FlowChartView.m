@@ -101,7 +101,7 @@
             viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font0_4;
         }
         viewModelVM.rightLabelStr = manager.beginTime;
-        viewModelVM.leftLabelStr = @"开始收益";
+        viewModelVM.leftLabelStr = kHXB_FinPlan_Begin;
         return viewModelVM;
     }];
     [self.levaeView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
