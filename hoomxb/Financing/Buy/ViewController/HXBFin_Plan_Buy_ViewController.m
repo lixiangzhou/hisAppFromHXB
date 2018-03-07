@@ -14,7 +14,6 @@
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBFin_Plan_BuyViewModel.h"
 #import "HxbMyTopUpViewController.h"
-#import "HXBFin_Buy_ViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
@@ -24,6 +23,7 @@
 #import "HXBCouponModel.h"
 #import "HXBTransactionPasswordView.h"
 #import "HXBRootVCManager.h"
+#import "HXBFinPlanBuyViewModel.h"
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -87,7 +87,9 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, assign) BOOL isSelectLimit;
 // 是否符合标的等级购买规则
 //@property (nonatomic, assign) BOOL isMatchBuy;
-@property (nonatomic, strong) HXBFin_Buy_ViewModel *viewModel;
+
+@property (nonatomic, strong) HXBFinPlanBuyViewModel *viewModel;
+
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -101,6 +103,15 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
     _hud = [[HxbHUDProgress alloc] init];
+    
+    kWeakSelf
+    _viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
+        if (weakSelf.presentedViewController) {
+            return weakSelf.presentedViewController.view;
+        } else {
+            return weakSelf.view;
+        }
+    }];
     
     
 //    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType]; // 2.5.0版本暂时取消风险等级判断
@@ -178,19 +189,21 @@ static NSString *const bankString = @"绑定银行卡";
                                @"type": @"plan"
                                };
     kWeakSelf
-    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
-        weakSelf.discountTitle = nil;
-        weakSelf.model = model;
-        weakSelf.hasCoupon = model.hasCoupon;
-        if (model.hasCoupon) {
-            weakSelf.discountTitle = @"请选择优惠券";
+    [_viewModel bestCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.discountTitle = nil;
+            weakSelf.model = weakSelf.viewModel.bestCouponModel;
+            weakSelf.hasCoupon = weakSelf.model.hasCoupon;
+            if (weakSelf.model.hasCoupon) {
+                weakSelf.discountTitle = @"请选择优惠券";
+            } else {
+                weakSelf.discountTitle = @"暂无可用优惠券";
+            }
+            [weakSelf setUpArray];
         } else {
+            [weakSelf getBestCouponFailWithMoney:@"0" cell:nil];
             weakSelf.discountTitle = @"暂无可用优惠券";
         }
-        [weakSelf setUpArray];
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf getBestCouponFailWithMoney:@"0" cell:nil];
-        weakSelf.discountTitle = @"暂无可用优惠券";
     }];
 }
 
@@ -314,31 +327,33 @@ static NSString *const bankString = @"绑定银行卡";
     if (self.cardModel.securyMobile.length) {
         [self alertSmsCodeWithMoney:topupMoney];
     } else {
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.tableView.tableHeaderView = nil;
-            weakSelf.cardModel = model;
-            if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
-                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
-                if (!weakSelf.cardModel) {
-                    weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+        [_viewModel bankCardInfoWithResultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.tableView.tableHeaderView = nil;
+                weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
+                if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
+                    weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
+                    if (!weakSelf.cardModel) {
+                        weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+                    } else {
+                        weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+                        [weakSelf alertSmsCodeWithMoney:topupMoney];
+                    }
+                    weakSelf.topView.hasBank = YES;
                 } else {
-                    weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
-                    [weakSelf alertSmsCodeWithMoney:topupMoney];
+                    weakSelf.topView.height = kScrAdaptationH750(topView_high);
+                    weakSelf.topView.hasBank = NO;
                 }
-                weakSelf.topView.hasBank = YES;
-            } else {
-                weakSelf.topView.height = kScrAdaptationH750(topView_high);
-                weakSelf.topView.hasBank = NO;
+                weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf.tableView reloadData];
             }
-            weakSelf.tableView.tableHeaderView = weakSelf.topView;
-            [weakSelf.tableView reloadData];
         }];
     }
 }
 
 - (void)alertSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
-    [self.viewModel getVerifyCodeRequesWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+    [_viewModel getVerifyCodeRequesWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf showRechargeAlertVC];
@@ -530,19 +545,21 @@ static const NSInteger topView_high = 300;
     if ([self.hasBindCard isEqualToString:@"1"]) {
         self.topView.height = kScrAdaptationH750(topView_bank_high);
         kWeakSelf
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.cardModel = model;
-            if (!weakSelf.cardModel) {
-                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
-            } else {
-                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+        [_viewModel bankCardInfoWithResultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
+                if (!weakSelf.cardModel) {
+                    weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+                } else {
+                    weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+                }
+                [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+                weakSelf.tableView.hidden = NO;
+                weakSelf.topView.hasBank = YES;
+                weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf setUpArray];
+                [weakSelf.tableView reloadData];
             }
-            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-            weakSelf.tableView.hidden = NO;
-            weakSelf.topView.hasBank = YES;
-            weakSelf.tableView.tableHeaderView = weakSelf.topView;
-            [weakSelf setUpArray];
-            [weakSelf.tableView reloadData];
         }];
     } else {
         self.topView.height = kScrAdaptationH750(topView_high);
@@ -567,15 +584,17 @@ static const NSInteger topView_high = 300;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
     kWeakSelf
-    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
-        cell.isStartAnimation = NO;
-        if (_curruntInvestMoney == money.doubleValue) {
-            [weakSelf requestSuccessWithModel:model cell:cell money:money ];
+    [_viewModel bestCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            cell.isStartAnimation = NO;
+            if (_curruntInvestMoney == money.doubleValue) {
+                [weakSelf requestSuccessWithModel:weakSelf.viewModel.bestCouponModel cell:cell money:money ];
+            }
+        } else {
+            [weakSelf getBestCouponFailWithMoney:money cell:cell];
+            weakSelf.discountTitle = @"请选择优惠券";
+            [weakSelf changeItemWithInvestMoney:money];
         }
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf getBestCouponFailWithMoney:money cell:cell];
-        weakSelf.discountTitle = @"请选择优惠券";
-        [weakSelf changeItemWithInvestMoney:money];
     }];
 }
 
@@ -788,21 +807,6 @@ static const NSInteger topView_high = 300;
         [weakSelf requestForPlan];
     };
     return _bottomView;
-}
-
-- (HXBFin_Buy_ViewModel *)viewModel {
-    if (!_viewModel) {
-        kWeakSelf
-        _viewModel = [[HXBFin_Buy_ViewModel alloc] initWithBlock:^UIView *{
-            if (weakSelf.presentedViewController) {
-                return weakSelf.presentedViewController.view;
-            }
-            else {
-                return weakSelf.view;
-            }
-        }];
-    }
-    return _viewModel;
 }
 
 @end

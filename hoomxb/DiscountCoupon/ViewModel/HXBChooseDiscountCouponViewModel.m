@@ -17,7 +17,6 @@
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
         _chooseCouponModel = [[HXBChooseCouponModel alloc] init];
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
     }
     return self;
 }
@@ -37,28 +36,6 @@
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
         [_chooseCouponModel yy_modelSetWithDictionary:data];
-        if (resultBlock) resultBlock(YES);
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (resultBlock) resultBlock(NO);
-    }];
-}
-
-
-/**
- 最优优惠券
- 
- @param params 请求参数
- @param resultBlock 返回数据
- */
-- (void)bestCouponListWithParams: (NSDictionary *)params
-                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXB_Coupon_Best;
-    request.requestArgument = params;
-    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSDictionary *data = responseObject[kResponseData];
-        [_bestCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) resultBlock(NO);
