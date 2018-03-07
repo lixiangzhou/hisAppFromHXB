@@ -13,7 +13,7 @@
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSendSmscodeViewController.h"///短信验证的Vc
 #import "HxbSignInViewController.h"
-#import "HXBSign_InAndUPViewModel.h"
+#import "HXBSignUPViewModel.h"
 #import "HXBRootVCManager.h"
 
 ///注册按钮的title
@@ -25,7 +25,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 @property (nonatomic, strong) HXBSignUPView *signUPView;
 
-@property (nonatomic, strong) HXBSign_InAndUPViewModel *viewModel;
+@property (nonatomic, strong) HXBSignUPViewModel *viewModel;
 @end
 
 @implementation HxbSignUpViewController
@@ -183,10 +183,10 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     return _signUPView;
 }
 
-- (HXBSign_InAndUPViewModel *)viewModel {
+- (HXBSignUPViewModel *)viewModel {
     if (!_viewModel) {
         kWeakSelf
-        _viewModel = [[HXBSign_InAndUPViewModel alloc] initWithBlock:^UIView *{
+        _viewModel = [[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
             if (weakSelf.presentedViewController) {
                 return weakSelf.presentedViewController.view;
             }

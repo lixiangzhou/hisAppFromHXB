@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBSign_InAndUPViewModel.h"
+#import "HXBSignUPViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-@implementation HXBSign_InAndUPViewModel
+@implementation HXBSignUPViewModel
 
 /**
  获取充值短验

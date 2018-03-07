@@ -8,7 +8,7 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
-@interface HXBSign_InAndUPViewModel : HXBBaseViewModel
+@interface HXBSignUPViewModel : HXBBaseViewModel
 
 /**
  获取充值短验
