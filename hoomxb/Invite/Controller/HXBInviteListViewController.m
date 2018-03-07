@@ -18,11 +18,9 @@
 @property (nonatomic, strong) HXBHeadView *headView;
 @property (nonatomic, strong) HXBNoDataView *nodataView;
 @property (nonatomic, strong) HXBBaseTableView *tableView;
-
 @property (nonatomic, strong) UIView *sectionHeadView;
 @property (nonatomic, assign) BOOL isUpData;
 @property (nonatomic, strong) HXBInviteListViewModel *viewModel;
-
 @end
 
 @implementation HXBInviteListViewController
@@ -102,7 +100,6 @@
     return _sectionHeadView;
 }
 
-#pragma mark - Action
 - (void)setUpDataForInviteListWithIsUpData:(BOOL)isUpData {
     kWeakSelf
     [_viewModel inviteListWithIsUpData:isUpData resultBlock:^(BOOL isSuccess) {
@@ -114,7 +111,6 @@
 }
 
 - (void)displayInvestListView {
-    [self.tableView endRefresh];
     self.tableView.hidden = NO;
     // 如果需要展示更多
     if (self.viewModel.isShowLoadMore) {
