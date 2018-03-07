@@ -10,6 +10,8 @@
 #import "HXBSignUPAndLoginRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKit/SVGKImage.h"
+#import "HXBSignUPViewModel.h"
+
 @interface HXBModifyPhoneView ()<UITextFieldDelegate>
 
 /**
@@ -179,14 +181,15 @@
 
 #pragma mark - 事件处理
 - (void)getCodeBtnClick {
-    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist,NSString *message) {
-        if (isExist) {
-            if (self.getValidationCodeButtonClickBlock) {
-                self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
+    kWeakSelf
+    [[[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf;
+    }] checkMobileRequestWithMobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            if (weakSelf.getValidationCodeButtonClickBlock) {
+                weakSelf.getValidationCodeButtonClickBlock(weakSelf.phoneTextField.text);
             }
         }
-    } andFailureBlock:^(NSError *error) {
-        
     }];
 
 }

@@ -23,4 +23,7 @@
                               andType: (NSString *)type
                      andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
 
+
+/// 注册校验手机号
+- (void)checkMobileRequestWithMobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock;
 @end

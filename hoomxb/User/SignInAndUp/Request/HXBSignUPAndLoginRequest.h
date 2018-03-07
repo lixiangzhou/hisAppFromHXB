@@ -13,22 +13,6 @@
 /// 图形验证码， 教研图片验证码， 注册，登录
 @interface HXBSignUPAndLoginRequest : NSObject
 
-
-
-/**
- * 注册校验手机号
- * @param mobile    用户名
- */
-+ (void)checkMobileRequestWithMobile: (NSString *)mobile
-                     andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
-                     andFailureBlock: (void(^)(NSError *error))failureBlock;
-/**
- * 注册校验手机号有HUD
- * @param mobile    用户名
- */
-+ (void)checkMobileRequestHUDWithMobile: (NSString *)mobile
-                        andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
-                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 /**
  * 忘记密码校验手机号
  * @param mobile    用户名

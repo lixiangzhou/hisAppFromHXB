@@ -119,18 +119,11 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void)registerCheckMobileWithMobile:(NSString *)mobile
 {
     kWeakSelf
-    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
-        NSLog(@"%d",isExist);
-        if (!isExist) {
-            ///已有账号
-            weakSelf.signUPView.checkMobileStr = message;
+    [self.viewModel checkMobileRequestWithMobile:mobile resultBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess == NO) {
+            weakSelf.signUPView.checkMobileStr = message ? message : kAlreadyRegistered;
         }
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
-        ///已有账号
-        weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
     }];
-    
 }
 
 /**

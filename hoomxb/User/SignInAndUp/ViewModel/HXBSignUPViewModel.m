@@ -10,6 +10,13 @@
 #import "HXBOpenDepositAccountAgent.h"
 @implementation HXBSignUPViewModel
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBUser_CheckMobileURL]) {
+        return NO;
+    }
+    return [super erroStateCodeDeal:request];
+}
+
 /**
  获取充值短验
  @param mobile 手机号
@@ -41,6 +48,39 @@
             callbackBlock(YES,nil);
         }
     }];    
+}
+
+- (void)checkMobileRequestWithMobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock
+{
+    NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
+    checkMobileAPI.requestMethod = NYRequestMethodPost;
+    checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
+    
+    checkMobileAPI.requestArgument = @{
+                                       @"mobile":mobile
+                                    };
+    kWeakSelf
+    [checkMobileAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        if (resultBlock) {
+            resultBlock(YES, nil);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSDictionary *resObj = request.responseObject;
+        NSString *msg = nil;
+        if (resObj) {
+            if (resObj.statusCode == kHXBCode_Enum_CommonError) {
+                NSString *message = [resObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : resObj.message;
+                [weakSelf showToast:message];
+            } else if (resObj.statusCode == kHXBCode_Enum_ProcessingField) {
+                msg = @"请输入正确的手机号码";
+            }
+        }
+        
+        if (resultBlock) {
+            resultBlock(NO, msg);
+        }
+    }];
+    
 }
 
 @end
