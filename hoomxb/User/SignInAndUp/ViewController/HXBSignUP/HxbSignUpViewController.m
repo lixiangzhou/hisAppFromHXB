@@ -89,12 +89,10 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             }];
         }else
         {
-            [HXBSignUPAndLoginRequest checkMobileRequestHUDWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
-                if (isExist) {
+            [self.viewModel checkMobileRequestHUDWithMobile:mobile resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
                     [weakSelf presentViewController:checkCaptchVC animated:YES completion:nil];
-                    return;
                 }
-            } andFailureBlock:^(NSError *error) {
             }];
         }
     }];

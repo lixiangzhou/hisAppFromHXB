@@ -55,34 +55,6 @@
             resultBlock(NO, NO);
         }
     }];
-    
-//    [loginAPI loadData:^(NYBaseRequest *request, id responseObject) {
-//        //        kHXBResponsShowHUD;
-//        if ([responseObject[kResponseStatus] integerValue]) {
-//            if ([responseObject[kResponseStatus] integerValue] != kHXBCode_Enum_Captcha) {
-//                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-//            }
-//            if (failureBlock) {
-//                failureBlock(nil,responseObject);
-//            }
-//            return;
-//        }
-//        if (successBlock) {
-//            successBlock(YES);
-//            if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
-//                [KeyChain removeGesture];
-//                KeyChain.skipGesture = nil;
-//                KeyChain.skipGestureAlertAppeared = NO;
-//            }
-//            KeyChain.gesturePwdCount = @"5";
-//            KeyChain.mobile = mobile;
-//        }
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        if (failureBlock) {
-//            failureBlock(error,nil);
-//        }
-//        kNetWorkError(@"登录请求失败");
-//    }];
 }
 
 @end
