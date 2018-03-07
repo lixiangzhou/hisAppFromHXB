@@ -490,7 +490,7 @@ static const NSInteger topView_high = 230;
         _topView.isHiddenBtn = NO;
         _topView.hiddenProfitLabel = YES;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        _topView.creditorMoney = [NSString stringWithFormat:@"标的剩余金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.creditorMoney = [NSString stringWithFormat:@"散标剩余金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
         
         // 输入框值变化
