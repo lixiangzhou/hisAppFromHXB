@@ -23,4 +23,14 @@
                               andType: (NSString *)type
                          andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
 
+
+/**
+* 注册 请求
+* @param mobile 手机号
+* @param smscode 短信验证码
+* @param password 密码
+* @param inviteCode 邀请码
+* @param resultBlock 结果的回调
+*/
+- (void)signUPRequetWithMobile: (NSString *)mobile smscode: (NSString *)smscode password: (NSString *)password inviteCode: (NSString *)inviteCode resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 @end
