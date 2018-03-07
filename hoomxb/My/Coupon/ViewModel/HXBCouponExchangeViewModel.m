@@ -11,7 +11,7 @@
 @implementation HXBCouponExchangeViewModel
 
 /// 此处需要对 2 和 500 的错误码处理
-- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     return NO;
 }
 
@@ -40,9 +40,7 @@
         if (responseObject) {
             if (responseObject.statusCode == 2 || responseObject.statusCode == 500) {
                 weakSelf.promptMessage = responseObject.message;
-            }
-            
-            if (responseObject.statusCode != kHXBCode_Enum_ProcessingField) {
+            } else if (responseObject.statusCode != kHXBCode_Enum_ProcessingField) {
                 [myAccountListInfoAPI showToast:responseObject.message];
             }
         }
@@ -53,3 +51,4 @@
     }];
 }
 @end
+
