@@ -14,17 +14,6 @@
 @interface HXBSignUPAndLoginRequest : NSObject
 
 
-/**
- * 校验图片验证码
- * @param captcha 图验code
- * @param successBlock 成功的回调
- * @param failureBlock 失败的回调
- */
-+ (void)checkCaptcharRequestWithCaptcha: (NSString *)captcha
-                        andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
-                        andFailureBlock: (void(^)(NSError *error))failureBlock;
-
-
 
 /**
  * 注册校验手机号

@@ -119,19 +119,16 @@
     
     [self.checkCaptcha clickTrueButtonFunc:^(NSString *checkCaptChaStr) {
         //判断验证码是否正确
-        [HXBSignUPAndLoginRequest checkCaptcharRequestWithCaptcha:checkCaptChaStr andSuccessBlock:^(BOOL isSuccessBlock) {
-            //正确就dismiss
-            if (isSuccessBlock) {
-                ///通知控制器 图验通过
+        [weakSelf.viewModel checkCaptchaRequestWithCaptcha:checkCaptChaStr resultBlock:^(BOOL isSuccess, BOOL needDownload) {
+            if (isSuccess) {
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                 if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
-              
-            }else{
-                weakSelf.checkCaptcha.isCorrect = NO;
+                if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
+            } else {
+                 weakSelf.checkCaptcha.isCorrect = NO;
+                if (needDownload) {
+                    [weakSelf downCheckCaptcha];
+                }
             }
-        } andFailureBlock:^(NSError *error) {
-            weakSelf.checkCaptcha.isCorrect = NO;
-            [weakSelf downCheckCaptcha];
         }];
     }];
     

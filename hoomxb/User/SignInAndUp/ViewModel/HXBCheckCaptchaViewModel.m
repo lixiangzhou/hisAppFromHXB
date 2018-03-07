@@ -66,4 +66,23 @@
     [task resume];
 }
 
+- (void)checkCaptchaRequestWithCaptcha:(NSString *)captcha resultBlock:(void (^)(BOOL, BOOL))resultBlock
+{
+    NYBaseRequest *checkCaptchaAPI = [[NYBaseRequest alloc]initWithDelegate:self];
+    checkCaptchaAPI.requestUrl = kHXBUser_checkCaptchaURL;
+    checkCaptchaAPI.requestMethod = NYRequestMethodPost;
+    checkCaptchaAPI.requestArgument = @{
+                                        @"captcha" : captcha///图验Code
+                                        };
+    [checkCaptchaAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        if (resultBlock) {
+            resultBlock(YES, NO);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO, error != nil);
+        }
+    }];
+}
+
 @end
