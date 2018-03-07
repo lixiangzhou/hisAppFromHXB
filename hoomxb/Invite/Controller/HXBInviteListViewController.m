@@ -9,7 +9,6 @@
 #import "HXBInviteListViewController.h"
 #import "HXBHeadView.h"
 #import "HXBInviteListTableViewCell.h"
-#import "HXBInviteViewModel.h"
 #import "HXBInviteModel.h"
 #import "HXBInviteListViewModel.h"
 
