@@ -178,7 +178,7 @@
             _surplusAmount_ConstStr = @"标的金额";
             _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
-            _surplusAmount_ConstStr = @"剩余可投";
+            _surplusAmount_ConstStr = @"剩余金额";
             [self status];
         }
     }
