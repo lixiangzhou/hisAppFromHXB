@@ -204,7 +204,7 @@ static NSString *const HXB_Dialog = @"dialog";
         [HxbHUDProgress showTextWithMessage:showMessage];
     } else if ([type isEqualToString:HXB_Dialog]) {
         
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:showMessage force:1 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:showMessage force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
         [alertVC setClickXYRightButtonBlock:^{
         }];
         [self presentViewController:alertVC animated:YES completion:nil];
