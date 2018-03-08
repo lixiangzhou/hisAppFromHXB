@@ -84,20 +84,20 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 #pragma mark --- 请求参数改为字典
 // 红利 购买结果
-- (void)plan_buyReslutWithPlanID: (NSString *)planID
-                      parameter :(NSDictionary *)parameter
-                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
-                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock;
+//- (void)plan_buyReslutWithPlanID: (NSString *)planID
+//                      parameter :(NSDictionary *)parameter
+//                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
+//                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock;
 // 散标 购买结果
-- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
-                              parameter :(NSDictionary *)parameter
-                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
+//- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
+//                              parameter :(NSDictionary *)parameter
+//                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
+//                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
 /// 债权 购买结果
-- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
-                                      parameter :(NSDictionary *)parameter
-                                 andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
-                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
+//- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
+//                                      parameter :(NSDictionary *)parameter
+//                                 andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
+//                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
 
 @end
 

@@ -12,16 +12,15 @@
 #import "HXBFin_creditorChange_TableViewCell.h"
 #import "HXBFinanctingRequest.h"
 #import "HXBFBase_BuyResult_VC.h"
-#import "HXBFin_Plan_BuyViewModel.h"
 #import "HxbMyTopUpViewController.h"
-#import "HXBFin_Buy_ViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
 #import "HXBTransactionPasswordView.h"
 #import "HXBRootVCManager.h"
+#import "HXBFinLoanBuyViewModel.h"
+
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Loan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -63,7 +62,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 
-@property (nonatomic, strong) HXBFin_Buy_ViewModel *viewModel;
+@property (nonatomic, strong) HXBFinLoanBuyViewModel *viewModel;
+
 @end
 
 @implementation HXBFin_Loan_Buy_ViewController
@@ -73,7 +73,14 @@ static NSString *const bankString = @"绑定银行卡";
     self.isColourGradientNavigationBar = YES;
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
-    
+    kWeakSelf
+    _viewModel = [[HXBFinLoanBuyViewModel alloc] initWithBlock:^UIView *{
+        if (weakSelf.presentedViewController) {
+            return weakSelf.presentedViewController.view;
+        } else {
+            return weakSelf.view;
+        }
+    }];
     _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType];
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
@@ -273,13 +280,13 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
-    kWeakSelf
     if (self.cardModel.securyMobile.length) {
         [self alertSmsCodeWithMoney:topupMoney];
     } else {
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
+        kWeakSelf
+        [_viewModel getBankCardWithHud:YES resultBlock:^(BOOL isSuccess) {
             weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
-            weakSelf.cardModel = model;
+            weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
                 weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
                 if (!weakSelf.cardModel) {
@@ -331,52 +338,50 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)buyLoanWithDic:(NSDictionary *)dic {
     kWeakSelf
-    [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
-        ///加入成功
-        HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        loanBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
-        loanBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
-        loanBuySuccessVC.imageName = @"successful";
-        loanBuySuccessVC.buy_title = @"投标成功";
-        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
-        loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-        loanBuySuccessVC.title = @"购买成功";
-        [loanBuySuccessVC clickButtonWithBlock:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-        }];
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
-        HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-        failViewController.title = @"出借失败";
-        switch (status) {
-                // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
-            case kBuy_Result:
-                failViewController.imageName = @"failure";
-                failViewController.buy_title = @"出借失败";
-                failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新出借";
-                break;
-                
-                // 处理中(3016:恒丰银行处理中 -999:处理中)
-            case kBuy_Processing:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"处理中";
-                failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新出借";
-                break;
-                
-                // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
-            default:
-                [weakSelf.passwordView clearUpPassword];
-                return;
+    [_viewModel loanBuyReslutWithLoanID:self.loanId parameter:dic resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+            loanBuySuccessVC.title = @"购买成功";
+            loanBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
+            loanBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
+            loanBuySuccessVC.imageName = @"successful";
+            loanBuySuccessVC.buy_title = @"投标成功";
+            loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
+            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
+            [loanBuySuccessVC clickButtonWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            }];
+            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+            [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
+        } else {
+            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
+            failViewController.title = @"出借失败";
+            switch (weakSelf.viewModel.errorCode) {
+                case kBuy_Result:
+                    failViewController.imageName = @"failure";
+                    failViewController.buy_title = @"出借失败";
+                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
+                    failViewController.buy_ButtonTitle = @"重新出借";
+                    break;
+                    
+                case kBuy_Processing:
+                    failViewController.imageName = @"outOffTime";
+                    failViewController.buy_title = @"处理中";
+                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
+                    failViewController.buy_ButtonTitle = @"重新出借";
+                    break;
+                    
+                default:
+                    [weakSelf.passwordView clearUpPassword];
+                    return;
+            }
+            [failViewController clickButtonWithBlock:^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+            }];
+            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
         }
-        [failViewController clickButtonWithBlock:^{
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-        }];
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:failViewController animated:YES];
     }];
 }
 
@@ -436,19 +441,21 @@ static const NSInteger topView_high = 230;
     if ([self.hasBindCard isEqualToString:@"1"]) {
         self.topView.height = kScrAdaptationH750(topView_bank_high);
         kWeakSelf
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.cardModel = model;
-            if (!weakSelf.cardModel) {
-                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
-            } else {
-                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+        [_viewModel getBankCardWithHud:YES resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
+                if (!weakSelf.cardModel) {
+                    weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+                } else {
+                    weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+                }
+                [weakSelf changeItemWithInvestMoney:self.inputMoneyStr];
+                [weakSelf setUpArray];
+                weakSelf.topView.hasBank = YES;
+                weakSelf.hxbBaseVCScrollView.tableHeaderView = self.topView;
+                [weakSelf.hxbBaseVCScrollView reloadData];
+                weakSelf.hxbBaseVCScrollView.hidden = NO;
             }
-            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-            [weakSelf setUpArray];
-            weakSelf.topView.hasBank = YES;
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
-            [weakSelf.hxbBaseVCScrollView reloadData];
-            weakSelf.hxbBaseVCScrollView.hidden = NO;
         }];
     } else {
         self.topView.height = kScrAdaptationH750(topView_high);
@@ -563,21 +570,6 @@ static const NSInteger topView_high = 230;
         [weakSelf requestForLoan];
     };
     return _bottomView;
-}
-
-- (HXBFin_Buy_ViewModel *)viewModel {
-    if (!_viewModel) {
-        kWeakSelf
-        _viewModel = [[HXBFin_Buy_ViewModel alloc] initWithBlock:^UIView *{
-            if (weakSelf.presentedViewController) {
-                return weakSelf.presentedViewController.view;
-            }
-            else {
-                return weakSelf.view;
-            }
-        }];
-    }
-    return _viewModel;
 }
 
 @end

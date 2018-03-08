@@ -8,7 +8,6 @@
 
 #import "HXBChooseDiscountCouponViewController.h"
 #import "HXBChooseDiscountTableViewCell.h"
-#import "HXBChooseCouponViewModel.h"
 #import "HXBMy_Withdraw_notifitionView.h"
 #import "HXBChooseDiscountCouponViewModel.h"
 

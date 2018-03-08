@@ -718,115 +718,115 @@
 
 #pragma mark --- 请求参数改为字典
 // 红利 购买结果
-- (void)plan_buyReslutWithPlanID: (NSString *)planID
-                      parameter :(NSDictionary *)parameter
-                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
-                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock {
-    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
-    confirmBuyReslut.requestArgument = parameter;
-    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
-    confirmBuyReslut.requestMethod = NYRequestMethodPost;
-    [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
-        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
-        if (status) {
-            if ([errorType isEqualToString:@"TOAST"]) {
-                kHXBBuyErrorResponsShowHUD;
-            } else if ([errorType isEqualToString:@"RESULT"]) {
-                status = kBuy_Result;
-            } else if ([errorType isEqualToString:@"PROCESSING"]) {
-                status = kBuy_Processing;
-            }
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
-            return;
-        }
-        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
-        HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
-        
-        [reslut yy_modelSetWithDictionary:dataDic];
-        
-        if (successDateBlock) {
-            successDateBlock(reslut);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(@"", error.code);
-    }];
-}
+//- (void)plan_buyReslutWithPlanID: (NSString *)planID
+//                      parameter :(NSDictionary *)parameter
+//                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
+//                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock {
+//    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
+//    confirmBuyReslut.requestArgument = parameter;
+//    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+//    confirmBuyReslut.requestMethod = NYRequestMethodPost;
+//    [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
+//        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+//        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
+//        if (status) {
+//            if ([errorType isEqualToString:@"TOAST"]) {
+//                kHXBBuyErrorResponsShowHUD;
+//            } else if ([errorType isEqualToString:@"RESULT"]) {
+//                status = kBuy_Result;
+//            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+//                status = kBuy_Processing;
+//            }
+//            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+//            return;
+//        }
+//        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
+//        HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
+//        
+//        [reslut yy_modelSetWithDictionary:dataDic];
+//        
+//        if (successDateBlock) {
+//            successDateBlock(reslut);
+//        }
+//    } failure:^(HXBBaseRequest *request, NSError *error) {
+//        if (failureBlock) failureBlock(@"", error.code);
+//    }];
+//}
 // 散标 购买结果
-- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
-                             parameter :(NSDictionary *)parameter
-                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock {
-    HXBBaseRequest *loanBuyReslutRequest = [[HXBBaseRequest alloc]init];
-    loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
-    loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
-    loanBuyReslutRequest.requestArgument = parameter;
-    [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
-        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
-        if (status) {
-            if ([errorType isEqualToString:@"TOAST"]) {
-                kHXBBuyErrorResponsShowHUD;
-            } else if ([errorType isEqualToString:@"RESULT"]) {
-                status = kBuy_Result;
-            } else if ([errorType isEqualToString:@"PROCESSING"]) {
-                status = kBuy_Processing;
-            }
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
-            return;
-        }
-        
-        HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
-        [loanBuyResoult yy_modelSetWithDictionary:responseObject[kResponseData]];
-        
-        if (successDateBlock) {
-            successDateBlock(loanBuyResoult);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(@"", error.code);
-    }];
-}
+//- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
+//                             parameter :(NSDictionary *)parameter
+//                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
+//                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock {
+//    HXBBaseRequest *loanBuyReslutRequest = [[HXBBaseRequest alloc]init];
+//    loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
+//    loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
+//    loanBuyReslutRequest.requestArgument = parameter;
+//    [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
+//        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+//        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
+//        if (status) {
+//            if ([errorType isEqualToString:@"TOAST"]) {
+//                kHXBBuyErrorResponsShowHUD;
+//            } else if ([errorType isEqualToString:@"RESULT"]) {
+//                status = kBuy_Result;
+//            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+//                status = kBuy_Processing;
+//            }
+//            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+//            return;
+//        }
+//
+//        HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
+//        [loanBuyResoult yy_modelSetWithDictionary:responseObject[kResponseData]];
+//
+//        if (successDateBlock) {
+//            successDateBlock(loanBuyResoult);
+//        }
+//    } failure:^(HXBBaseRequest *request, NSError *error) {
+//        if (failureBlock) failureBlock(@"", error.code);
+//    }];
+//}
 
 
-///债转的购买
-- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
-                                      parameter :(NSDictionary *)parameter
-                                 andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
-                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock {
-    
-    HXBBaseRequest *loanTruansferAPI = [[HXBBaseRequest alloc] init];
-    loanTruansferAPI.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID);
-    loanTruansferAPI.requestMethod = NYRequestMethodPost;
-    loanTruansferAPI.requestArgument = parameter;
-    [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
-        
-        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
-        if (status) {
-            if ([errorType isEqualToString:@"TOAST"]) {
-                kHXBBuyErrorResponsShowHUD;
-            } else if ([errorType isEqualToString:@"RESULT"]) {
-                status = kBuy_Result;
-            } else if ([errorType isEqualToString:@"PROCESSING"]) {
-                status = kBuy_Processing;
-            }
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
-            return;
-        }
-        
-        HXBFin_LoanTruansfer_BuyResoutViewModel *result = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
-        NSDictionary *dataDic = responseObject[kResponseData];
-        [result yy_modelSetWithDictionary:dataDic];
-
-        if (successDateBlock) {
-            successDateBlock(result);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(@"", error.code);
-    }];
-
-    
-}
+/////债转的购买
+//- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
+//                                      parameter :(NSDictionary *)parameter
+//                                 andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
+//                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock {
+//
+//    HXBBaseRequest *loanTruansferAPI = [[HXBBaseRequest alloc] init];
+//    loanTruansferAPI.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID);
+//    loanTruansferAPI.requestMethod = NYRequestMethodPost;
+//    loanTruansferAPI.requestArgument = parameter;
+//    [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
+//
+//        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+//        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
+//        if (status) {
+//            if ([errorType isEqualToString:@"TOAST"]) {
+//                kHXBBuyErrorResponsShowHUD;
+//            } else if ([errorType isEqualToString:@"RESULT"]) {
+//                status = kBuy_Result;
+//            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+//                status = kBuy_Processing;
+//            }
+//            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+//            return;
+//        }
+//
+//        HXBFin_LoanTruansfer_BuyResoutViewModel *result = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
+//        NSDictionary *dataDic = responseObject[kResponseData];
+//        [result yy_modelSetWithDictionary:dataDic];
+//
+//        if (successDateBlock) {
+//            successDateBlock(result);
+//        }
+//    } failure:^(HXBBaseRequest *request, NSError *error) {
+//        if (failureBlock) failureBlock(@"", error.code);
+//    }];
+//
+//
+//}
 
 
 

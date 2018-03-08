@@ -8,13 +8,30 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBBestCouponModel.h"
-#import "HXBBankCardModel.h"
+#import "HXBFinModel_BuyResoult_PlanModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBBaseViewModel+HXBBankCardInfo.h"
 
 @interface HXBFinPlanBuyViewModel : HXBBaseViewModel
 
+/**
+ 最优优惠券Model
+ */
 @property (nonatomic, strong) HXBBestCouponModel *bestCouponModel;
-@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+/**
+ 计划购买结果Model
+ */
+@property (nonatomic, strong) HXBFinModel_BuyResoult_PlanModel *resultModel;
+/**
+ 错误状态码
+ */
+@property (nonatomic, assign) NSInteger errorCode;
+
+/**
+ 错误描述
+ */
+@property (nonatomic, copy) NSString *errorMessage;
 
 /**
  最优优惠券
@@ -27,11 +44,15 @@
 
 
 /**
- 获取银行卡信息
+ 计划购买
 
+ @param planID 计划id
+ @param parameter 请求参数
  @param resultBlock 返回数据
  */
-- (void)bankCardInfoWithResultBlock:(void(^)(BOOL isSuccess))resultBlock;
+- (void)planBuyReslutWithPlanID: (NSString *)planID
+                      parameter: (NSDictionary *)parameter
+                    resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 /**
  获取充值短验
