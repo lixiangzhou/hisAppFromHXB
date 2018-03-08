@@ -20,6 +20,26 @@
 
 @implementation HXBBankCardViewModel
 
+- (void)requestBankDataResultBlock:(void(^)(BOOL isSuccess))resultBlock {
+    
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    bankCardAPI.showHud = YES;
+    kWeakSelf
+    [bankCardAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+}
+
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBAccount_Bindcard]) {
         NSInteger status =  [request.responseObject[@"status"] integerValue];
