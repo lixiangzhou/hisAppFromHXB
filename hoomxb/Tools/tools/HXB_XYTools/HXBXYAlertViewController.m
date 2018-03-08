@@ -175,12 +175,24 @@
             make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
         }];
     } else {
-        self.leftButton.hidden = NO;
-        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-            make.width.offset(kScrAdaptationW(115));
-            make.height.offset(kScrAdaptationH(35));
-        }];
+        if (_isHIddenLeftBtn||!self.leftButtonMassage||(self.leftButtonMassage&&[self.leftButtonMassage isEqualToString:@""])) {
+            self.leftButton.hidden = YES;
+            self.rightButton.layer.cornerRadius = kScrAdaptationW(0);
+            self.rightButton.layer.masksToBounds = YES;
+            [self.rightButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view).offset(kScrAdaptationW(0));
+                make.right.equalTo(self.view).offset(kScrAdaptationW(0));
+                make.height.offset(kScrAdaptationH(40));
+                make.bottom.equalTo(self.view).offset(kScrAdaptationW(0));
+            }];
+        } else {
+            self.leftButton.hidden = NO;
+            [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+                make.width.offset(kScrAdaptationW(115));
+                make.height.offset(kScrAdaptationH(35));
+            }];
+        }
     }
     
     if (_isCenterShow) {
@@ -201,22 +213,7 @@
             
         }];
     }
-    
-    if (_isHIddenLeftBtn) {
-        self.leftButton.hidden = YES;
-        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-        }];
-    } else {
-        self.leftButton.hidden = NO;
-        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-            make.width.offset(kScrAdaptationW(115));
-            make.height.offset(kScrAdaptationH(35));
-        }];
-    }
-    
+
     if (_isScrolled == NO) {
         [_massageTextView setUserInteractionEnabled:NO];
     } else {
