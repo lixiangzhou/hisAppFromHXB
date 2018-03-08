@@ -8,9 +8,7 @@
 
 #import "HXBModifyPhoneViewController.h"
 #import "HXBModifyPhoneView.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBModifyPhoneViewModel.h"
 #import "HXBRootVCManager.h"

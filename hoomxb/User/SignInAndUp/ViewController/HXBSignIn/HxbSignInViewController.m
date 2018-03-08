@@ -10,7 +10,6 @@
 #import "HxbSignUpViewController.h"
 #import "HxbPhoneVerifyViewController.h"
 #import "HxbSignInView.h"
-#import "HXBSignUPAndLoginRequest.h"///用于请求注册登录的接口
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBRootVCManager.h"

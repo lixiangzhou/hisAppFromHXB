@@ -7,7 +7,6 @@
 //
 
 #import "HXBModifyPhoneView.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKit/SVGKImage.h"
 #import "HXBSignUPViewModel.h"

@@ -15,7 +15,6 @@
 #import "HXBSignInWaterView.h"
 #import "HXBGeneralAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
-#import "HXBSignUPAndLoginRequest.h"///数据请求
 #import "HXBSendSmscodeVCViewModel.h"
 #import "HXBRootVCManager.h"
 ///短信验证 VC

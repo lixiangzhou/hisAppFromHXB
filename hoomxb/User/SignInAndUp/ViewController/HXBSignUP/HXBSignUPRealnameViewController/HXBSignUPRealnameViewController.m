@@ -7,7 +7,6 @@
 //
 
 #import "HXBSignUPRealnameViewController.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HXBSignUPRealnameViewModel.h"
 
 ///实名认证的VC
