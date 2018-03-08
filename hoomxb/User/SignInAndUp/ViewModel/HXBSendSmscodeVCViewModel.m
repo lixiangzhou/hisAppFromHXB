@@ -72,5 +72,26 @@
     }];
 }
 
+- (void)forgotPasswordWithMobile: (NSString *)mobile smscode: (NSString *)smscode captcha: (NSString *)captcha password: (NSString *)password resultBlock:(void (^)(BOOL isSuccess))resultBlock {
+    NYBaseRequest *forgotPasswordAPI = [[NYBaseRequest alloc]init];
+    forgotPasswordAPI.requestUrl = HXBAccount_ForgotPasswordURL;
+    forgotPasswordAPI.requestArgument = @{
+                                          @"mobile" : mobile,
+                                          @"smscode" : smscode,
+                                          @"captcha" : captcha,
+                                          @"password" : password
+                                          };
+    forgotPasswordAPI.requestMethod = NYRequestMethodPost;
+    
+    [forgotPasswordAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+}
 
 @end

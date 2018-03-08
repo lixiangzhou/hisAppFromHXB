@@ -223,10 +223,10 @@
         }
         if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
-            [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:weakSelf.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            } andFailureBlock:^(NSError *error) {
-                
+            [weakSelf.viewModel forgotPasswordWithMobile:weakSelf.phonNumber smscode:smscode captcha:weakSelf.captcha password:password resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                }
             }];
         }else {
             [self.viewModel signUPRequetWithMobile:weakSelf.phonNumber smscode:smscode password:password inviteCode:inviteCode resultBlock:^(BOOL isSuccess) {

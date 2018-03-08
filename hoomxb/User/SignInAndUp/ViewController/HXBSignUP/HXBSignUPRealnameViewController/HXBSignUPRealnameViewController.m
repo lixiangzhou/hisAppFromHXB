@@ -109,14 +109,11 @@
 
 
 - (void) downLoadData_realname {
-    [HXBSignUPAndLoginRequest realnameRequestWithUserName:self.nameTextField.text andIdentityCard:self.idCardTextField.text andPassword:self.setupPasswordTextField.text andSuccessBlock:^(BOOL isExist) {
-        if (isExist) {
-            ///跳到认证成功页
-            NSLog(@"认证成功");
-            [self dismissViewControllerAnimated:YES completion:nil];
+    kWeakSelf
+    [self.viewModel realNameWithUserName:self.nameTextField.text identityCard:self.idCardTextField.text password:self.setupPasswordTextField.text resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }
-    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
-        kHXBRespons_ShowHUDWithError(self.view);
     }];
 }
 

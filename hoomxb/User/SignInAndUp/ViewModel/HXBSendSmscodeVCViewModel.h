@@ -8,6 +8,7 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
+
 @interface HXBSendSmscodeVCViewModel : HXBBaseViewModel
 
 /**
@@ -33,4 +34,8 @@
 * @param resultBlock 结果的回调
 */
 - (void)signUPRequetWithMobile: (NSString *)mobile smscode: (NSString *)smscode password: (NSString *)password inviteCode: (NSString *)inviteCode resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+
+/// 忘记密码
+- (void)forgotPasswordWithMobile: (NSString *)mobile smscode: (NSString *)smscode captcha: (NSString *)captcha password: (NSString *)password resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+
 @end
