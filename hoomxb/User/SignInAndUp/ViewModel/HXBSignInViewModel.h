@@ -16,4 +16,5 @@
  */
 - (void)loginRequetWithMobile: (NSString *)mobile password: (NSString *)password captcha: (NSString *)captcha resultBlock:(void(^)(BOOL isSuccess, BOOL needPopCaptcha))resultBlock;
 
+- (void)checkExistMobile:(NSString *)mobile resultBlock:(void(^)(BOOL isSuccess))resultBlock;
 @end

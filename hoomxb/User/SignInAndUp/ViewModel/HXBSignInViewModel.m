@@ -7,11 +7,13 @@
 //
 
 #import "HXBSignInViewModel.h"
+#import "HXBSignUPAndLoginAgent.h"
 
 @implementation HXBSignInViewModel
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    if ([request.requestUrl isEqualToString:kHXBUser_LoginURL]) {
+    if ([request.requestUrl isEqualToString:kHXBUser_LoginURL]
+        || [request.requestUrl isEqualToString:kHXBUser_CheckExistMobileURL]) {
         return NO;
     }
     return [super erroStateCodeDeal:request];
@@ -53,6 +55,27 @@
         } else {
             [self showToast:@"登录请求失败"];
             resultBlock(NO, NO);
+        }
+    }];
+}
+
+- (void)checkExistMobile:(NSString *)mobile resultBlock:(void (^)(BOOL))resultBlock
+{
+    kWeakSelf
+    [HXBSignUPAndLoginAgent checkExistMobileRequest:^(NYBaseRequest *request) {
+        request.hudDelegate = weakSelf;
+    } mobile:mobile resultBlock:^(BOOL isSuccess, NYBaseRequest *request) {
+        if (isSuccess == NO) {
+            NSDictionary *respObj = request.responseObject;
+            if (respObj) {
+                if (respObj.statusCode == kHXBCode_Enum_CommonError) {
+                    NSString *message = [respObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : respObj.message;
+                    [weakSelf showToast:message];
+                }
+            }
+        }
+        if (resultBlock) {
+            resultBlock(isSuccess);
         }
     }];
 }

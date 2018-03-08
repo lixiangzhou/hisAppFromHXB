@@ -92,9 +92,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 ///注册 校验手机号事件
 - (void) registerCheckMobileEvent {
     [self.signView checkMobileRequestBlockFunc:^(NSString *mobile) {
-        [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
-        } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
-            kHXBRespons_ShowHUDWithError(self.signView)
+        [self.viewModel checkExistMobile:mobile resultBlock:^(BOOL isSuccess) {
         }];
     }];
 }

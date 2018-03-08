@@ -8,6 +8,8 @@
 
 #import "HXBSignUPViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+#import "HXBSignUPAndLoginAgent.h"
+
 @implementation HXBSignUPViewModel
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
@@ -85,8 +87,6 @@
 }
 
 - (void)checkMobileRequestHUDWithMobile:(NSString *)mobile resultBlock:(void(^)(BOOL isSuccess))resultBlock {
-    
-    
     NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
     checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
@@ -106,7 +106,7 @@
         NSDictionary *respObj = request.responseObject;
         if (respObj) {
             if (respObj.statusCode == kHXBCode_Enum_CommonError) {
-                NSString *message = [respObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : respObj;
+                NSString *message = [respObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : respObj.message;
                 [weakSelf showToast:message];
             }
         }
@@ -116,4 +116,24 @@
     }];
 }
 
+- (void)checkExistMobile:(NSString *)mobile resultBlock:(void (^)(BOOL))resultBlock
+{
+    kWeakSelf
+    [HXBSignUPAndLoginAgent checkExistMobileRequest:^(NYBaseRequest *request) {
+        request.hudDelegate = weakSelf;
+    } mobile:mobile resultBlock:^(BOOL isSuccess, NYBaseRequest *request) {
+        if (isSuccess == NO) {
+            NSDictionary *respObj = request.responseObject;
+            if (respObj) {
+                if (respObj.statusCode == kHXBCode_Enum_CommonError) {
+                    NSString *message = [respObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : respObj.message;
+                    [weakSelf showToast:message];
+                }
+            }
+        }
+        if (resultBlock) {
+            resultBlock(isSuccess);
+        }
+    }];
+}
 @end
