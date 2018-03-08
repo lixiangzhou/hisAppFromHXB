@@ -41,7 +41,7 @@
             if (responseObject.statusCode == 2 || responseObject.statusCode == 500) {
                 weakSelf.promptMessage = responseObject.message;
             } else if (responseObject.statusCode != kHXBCode_Enum_ProcessingField) {
-                [myAccountListInfoAPI showToast:responseObject.message];
+                [self showToast:responseObject.message];
             }
         }
         
