@@ -86,7 +86,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             }];
         }else
         {
-            [self.viewModel checkMobileRequestHUDWithMobile:mobile resultBlock:^(BOOL isSuccess) {
+            [weakSelf.viewModel checkMobileRequestWithHud:YES mobile:mobile resultBlock:^(BOOL isSuccess, NSString *message) {
                 if (isSuccess) {
                     [weakSelf presentViewController:checkCaptchVC animated:YES completion:nil];
                 }
@@ -114,7 +114,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void)registerCheckMobileWithMobile:(NSString *)mobile
 {
     kWeakSelf
-    [self.viewModel checkMobileRequestWithMobile:mobile resultBlock:^(BOOL isSuccess, NSString *message) {
+    [self.viewModel checkMobileRequestWithHud:NO mobile:mobile resultBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess == NO) {
             weakSelf.signUPView.checkMobileStr = message ? message : kAlreadyRegistered;
         }

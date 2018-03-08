@@ -25,10 +25,8 @@
 
 
 
-/// 注册校验手机号
-- (void)checkMobileRequestWithMobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock;
-///
-- (void)checkMobileRequestHUDWithMobile:(NSString *)mobile resultBlock:(void(^)(BOOL isSuccess))resultBlock;
+/// 校验手机号
+- (void)checkMobileRequestWithHud:(BOOL)hasHud mobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock;
 /// 检查手机号是否存在
 - (void)checkExistMobile:(NSString *)mobile resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 @end

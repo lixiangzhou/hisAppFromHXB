@@ -31,19 +31,6 @@
             resultBlock(NO, request);
         }
     }];
-    
-//    [checkMobileAPI loadData:^(NYBaseRequest *request, id responseObject) {
-//        NSString *status = [responseObject valueForKey:@"status"];
-//        if (status.integerValue == kHXBCode_Enum_CommonError) {
-//            NSString *message = [responseObject[@"message"] isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : responseObject[@"message"];
-//            [HxbHUDProgress showTextWithMessage:message];
-//        }
-//        if(successBlock) successBlock(!status.integerValue);
-//
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        if (failureBlock) failureBlock(error,nil);
-//        kNetWorkError(@"校验手机号 请求失败");
-//    }];
 }
 
 @end

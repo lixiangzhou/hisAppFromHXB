@@ -14,7 +14,7 @@
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBUser_CheckMobileURL]
-        || [request.requestUrl isEqualToString:kHXBUser_CheckMobileURL]) {
+        || [request.requestUrl isEqualToString:kHXBUser_CheckExistMobileURL]) {
         return NO;
     }
     return [super erroStateCodeDeal:request];
@@ -53,7 +53,7 @@
     }];    
 }
 
-- (void)checkMobileRequestWithMobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock
+- (void)checkMobileRequestWithHud:(BOOL)hasHud mobile: (NSString *)mobile resultBlock:(void(^)(BOOL isSuccess, NSString *message))resultBlock
 {
     NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
@@ -62,6 +62,10 @@
     checkMobileAPI.requestArgument = @{
                                        @"mobile":mobile
                                     };
+    if (hasHud) {
+        checkMobileAPI.showHud = YES;
+        checkMobileAPI.hudShowContent = kLoadIngText;
+    }
     kWeakSelf
     [checkMobileAPI loadData:^(NYBaseRequest *request, id responseObject) {
         if (resultBlock) {
@@ -84,36 +88,6 @@
         }
     }];
     
-}
-
-- (void)checkMobileRequestHUDWithMobile:(NSString *)mobile resultBlock:(void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
-    checkMobileAPI.requestMethod = NYRequestMethodPost;
-    checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
-    
-    checkMobileAPI.requestArgument = @{
-                                       @"mobile":mobile
-                                       };
-    checkMobileAPI.showHud = YES;
-    checkMobileAPI.hudShowContent = kLoadIngText;
-    
-    kWeakSelf
-    [checkMobileAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        if (resultBlock) {
-            resultBlock(YES);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSDictionary *respObj = request.responseObject;
-        if (respObj) {
-            if (respObj.statusCode == kHXBCode_Enum_CommonError) {
-                NSString *message = [respObj.message isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : respObj.message;
-                [weakSelf showToast:message];
-            }
-        }
-        if (resultBlock) {
-            resultBlock(NO);
-        }
-    }];
 }
 
 - (void)checkExistMobile:(NSString *)mobile resultBlock:(void (^)(BOOL))resultBlock

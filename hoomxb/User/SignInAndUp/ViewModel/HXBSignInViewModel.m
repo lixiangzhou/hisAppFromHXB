@@ -53,7 +53,6 @@
                 resultBlock(NO, YES);
             }
         } else {
-            [self showToast:@"登录请求失败"];
             resultBlock(NO, NO);
         }
     }];
