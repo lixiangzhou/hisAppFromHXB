@@ -14,7 +14,7 @@
 #import "HXBMYModel_PlanDetailModel.h"//红利计划详情的Model
 
 #import "HXBMY_PlanDetailView.h"//详情页的View
-#import "HXBFin_Plan_BuyViewController.h"//购买的planvc
+#import "HXBMy_Plan_Buy_ViewController.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"//viewMode 购买
 #import "HXBFinDetailModel_PlanDetail.h"//model 购买
 #import "HXBMYViewModel_MianPlanViewModel.h"
@@ -117,7 +117,7 @@
      planDetailModel.setIsFirst("0");//倒计时 由于
      */
     kWeakSelf
-    HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
+    HXBMy_Plan_Buy_ViewController *planBuyVC = [[HXBMy_Plan_Buy_ViewController alloc]init];
     //获取计划信息
     HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
     BuyPlanDetailViewModel.planDetailModel = [[HXBFinDetailModel_PlanDetail alloc]init];

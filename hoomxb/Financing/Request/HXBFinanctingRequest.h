@@ -61,43 +61,8 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 ///债转详情
 - (void)loanTruansferDetileRequestWithLoanID:(NSString *)loanID andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanTruansferDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error,NSDictionary *respons))failureBlock;
 
-#pragma mark - 购买
-/// 计划 购买
-//- (void)planBuyWithPlanID:(NSString *)planID
-//                andAmount:(NSString *)amount
-//          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model,HXBFinModel_BuyResoult_PlanModel *resultModel))successDateBlock
-//          andFailureBlock:(void (^)(NSError *))failureBlock;
-
-/// 计划 购买 结果返回
-- (void)plan_buyReslutWithPlanID: (NSString *)planID
-                       andAmount: (NSString *)amount
-                       cashType : (NSString *)cashType
-                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
-                 andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
 
 
-/// loan 购买请求 返回了购买结果
-- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
-                              andAmount: (NSString *)amount
-                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
-
-#pragma mark --- 请求参数改为字典
-// 红利 购买结果
-//- (void)plan_buyReslutWithPlanID: (NSString *)planID
-//                      parameter :(NSDictionary *)parameter
-//                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
-//                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock;
-// 散标 购买结果
-//- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
-//                              parameter :(NSDictionary *)parameter
-//                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-//                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
-/// 债权 购买结果
-//- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
-//                                      parameter :(NSDictionary *)parameter
-//                                 andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
-//                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
 
 @end
 

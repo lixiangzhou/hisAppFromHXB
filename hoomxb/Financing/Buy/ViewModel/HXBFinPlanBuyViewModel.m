@@ -64,14 +64,15 @@
     request.requestArgument = parameter;
     request.showHud = YES;
     request.hudShowContent = @"安全支付";
+    kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
-        [_resultModel yy_modelSetWithDictionary:data];
+        [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (request.responseObject) {
             NSInteger status = [request.responseObject[kResponseStatus] integerValue];
-            _errorMessage = request.responseObject[kResponseMessage];
+            weakSelf.errorMessage = request.responseObject[kResponseMessage];
             NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
             if (status) {
                 if ([errorType isEqualToString:@"TOAST"]) {
@@ -82,9 +83,8 @@
                 } else if ([errorType isEqualToString:@"PROCESSING"]) {
                     status = kBuy_Processing;
                 }
-                _errorCode = status;
+                weakSelf.errorCode = status;
             }
-            _errorMessage = request.responseObject[kResponseMessage];
         }
         if (resultBlock) resultBlock(NO);
     }];
