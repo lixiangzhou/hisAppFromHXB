@@ -17,6 +17,14 @@
     return self;
 }
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl containsString:@"result"]) {
+        return NO;
+    } else {
+        return [super erroStateCodeDeal:request];
+    }
+}
+
 /**
  账户内计划购买接口
  
