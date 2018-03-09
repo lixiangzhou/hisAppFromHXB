@@ -32,16 +32,15 @@
 - (void)inviteListWithIsUpData: (BOOL)isUpData
                    resultBlock: (void(^)(BOOL isSuccess))resultBlock; {
     
+    NSInteger page = 1;
     if (!isUpData) {
-        self.page += 1;
-    } else {
-        self.page = 1;
+        page = self.page + 1;
     }
     
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXB_Invite_List;
-    request.requestArgument = @{@"page": @(self.page).description};
+    request.requestArgument = @{@"page": @(page).description};
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -68,7 +67,6 @@
         isShowLoadMore = YES;
     }
     
-    //页码处理
     self.page = pageNumber;
     self.isLastPage = isLastPage;
     self.isShowLoadMore = isShowLoadMore;
