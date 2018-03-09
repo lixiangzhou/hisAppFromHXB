@@ -24,50 +24,46 @@
     return _withdrawRecordListModel;
 }
 
-/**
- 提现进度
- 
- @param isLoading 是否显示加载
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andPage:(NSInteger)page andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-{
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    versionUpdateAPI.requestArgument = @{
-                                         @"page" : @(page),
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    kWeakSelf
+    NYBaseRequest *withdrawRecordAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    withdrawRecordAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
+    withdrawRecordAPI.showHud = isLoading;
+    withdrawRecordAPI.requestMethod = NYRequestMethodPost;
+    withdrawRecordAPI.requestArgument = @{
+                                         @"page" : @(self.withdrawRecordPage).description,
                                          @"pageSize" : @kPageCount
                                          };
     NSString *loadStr = nil;
     if (isLoading) {
         loadStr = kLoadIngText;
     }
-    kWeakSelf
-    [versionUpdateAPI startWithHUDStr:loadStr Success:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        if (page == 1) {
+    
+    [withdrawRecordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        if (weakSelf.withdrawRecordPage <= 1) {
+            weakSelf.withdrawRecordPage = 1;
             [weakSelf.dataList removeAllObjects];
         }
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            kHXBBuyErrorResponsShowHUD
-        }
+        
         
         weakSelf.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];
         [weakSelf.dataList addObjectsFromArray:self.withdrawRecordListModel.dataList];
         weakSelf.withdrawRecordListModel.dataList = self.dataList;
-        if (successDateBlock) {
-            successDateBlock(weakSelf.withdrawRecordListModel);
+        if (resultBlock) {
+            resultBlock(YES);
         }
-        
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
+        if (resultBlock) {
+            resultBlock(NO);
         }
     }];
-    
+}
+
+- (NSInteger)withdrawRecordPage{
+    if (_withdrawRecordPage <= 1) {
+        _withdrawRecordPage = 1;
+    }
+    return _withdrawRecordPage;
 }
 
 - (NSMutableArray<HXBWithdrawRecordModel *> *)dataList{
