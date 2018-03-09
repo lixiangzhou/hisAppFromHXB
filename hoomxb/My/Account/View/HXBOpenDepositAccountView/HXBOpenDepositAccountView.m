@@ -371,19 +371,11 @@
     
     if ([userModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
         //已经绑卡
-        NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-        bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-        bankCardAPI.requestMethod = NYRequestMethodGet;
-        [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-            NSLog(@"%@",responseObject);
-            NSInteger status =  [responseObject[@"status"] integerValue];
-            kHXBBuyErrorResponsShowHUD
-            HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-            //设置绑卡信息
-            [self setupBankCardData:bankCardModel];
-        } failure:^(NYBaseRequest *request, NSError *error) {
-            NSLog(@"%@",error);
-            [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        kWeakSelf
+        [self.openDepositAccountVM getAccountBankcardUserInformationWithCallBack:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [self setupBankCardData:weakSelf.openDepositAccountVM.bankCardModel];
+            }
         }];
     }
 

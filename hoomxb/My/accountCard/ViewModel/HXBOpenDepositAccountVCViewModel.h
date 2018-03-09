@@ -9,11 +9,12 @@
 #import "HXBBaseViewModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
 
-@class HXBCardBinModel;
+@class HXBCardBinModel,HXBBankCardModel;
 @interface HXBOpenDepositAccountVCViewModel : HXBBaseViewModel
 
 @property (nonatomic, strong) HXBCardBinModel *cardBinModel;
 
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 /**
  开通存管账户
  
@@ -30,4 +31,10 @@
  */
 - (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
 
+/**
+ 获取用户绑卡信息
+
+ @param callBackBlock 回调
+ */
+- (void)getAccountBankcardUserInformationWithCallBack:(void(^)(BOOL isSuccess))callBackBlock;
 @end

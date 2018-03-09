@@ -6,34 +6,28 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinancialAdvisorRequest.h"
+#import "HXBFinancialAdvisorVCViewModel.h"
 #import "HXBBaseRequest.h"
 #import "HXBFinancialAdvisorModel.h"
 
-@implementation HXBFinancialAdvisorRequest
+@implementation HXBFinancialAdvisorVCViewModel
 
-+ (void)downLoadmyFinancialAdvisorInfoNoHUDWithSeccessBlock:(void(^)(HXBFinancialAdvisorModel *model))seccessBlock andFailure: (void(^)(NSError *error))failureBlock
+- (void)downLoadmyFinancialAdvisorInfoNoHUDWithCallBack:(void(^)(BOOL isSuccess))callBackBlock
 {
-    NYBaseRequest *userInfoAPI = [[NYBaseRequest alloc]init];
+    kWeakSelf
+    NYBaseRequest *userInfoAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     userInfoAPI.requestUrl = kHXBUser_financialAdvisorURL;//@"/account"
     userInfoAPI.requestMethod = NYRequestMethodGet;
-    [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [userInfoAPI loadData:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"获取理财顾问信息%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            kHXBResponsShowHUD
-        }
-        
-        HXBFinancialAdvisorModel *financialAdvisorInfoModel = [[HXBFinancialAdvisorModel alloc]init];
-        [financialAdvisorInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
-        
-        if (seccessBlock) {
-            seccessBlock(financialAdvisorInfoModel);
+        weakSelf.financialAdvisorModel = [HXBFinancialAdvisorModel yy_modelWithJSON:responseObject[@"data"]];
+        if (callBackBlock) {
+            callBackBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
-        if (failureBlock) {
-            failureBlock(error);
+        if (callBackBlock) {
+            callBackBlock(NO);
         }
     }];
 }
