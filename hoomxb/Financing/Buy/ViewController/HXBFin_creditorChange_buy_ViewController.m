@@ -483,9 +483,9 @@ static const NSInteger topView_high = 230;
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
                 [weakSelf setUpArray];
-                [weakSelf changeItemWithInvestMoney:self.inputMoneyStr];
+                [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
                 weakSelf.topView.hasBank = YES;
-                weakSelf.hxbBaseVCScrollView.tableHeaderView = self.topView;
+                weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
                 [weakSelf.hxbBaseVCScrollView reloadData];
                 weakSelf.hxbBaseVCScrollView.hidden = NO;
             }

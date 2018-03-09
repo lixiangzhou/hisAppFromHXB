@@ -548,10 +548,10 @@ static const NSInteger topView_high = 300;
                 } else {
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
-                [weakSelf changeItemWithInvestMoney:self.inputMoneyStr];
+                [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
                 weakSelf.tableView.hidden = NO;
                 weakSelf.topView.hasBank = YES;
-                weakSelf.tableView.tableHeaderView = self.topView;
+                weakSelf.tableView.tableHeaderView = weakSelf.topView;
                 [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
             }

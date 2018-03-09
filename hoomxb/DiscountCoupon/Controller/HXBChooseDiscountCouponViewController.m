@@ -224,7 +224,7 @@
         if (isSuccess) {
             [weakSelf displaySuccessData];
         } else {
-            self.noDataView.hidden = NO;
+            weakSelf.noDataView.hidden = NO;
         }
     }];
 }
