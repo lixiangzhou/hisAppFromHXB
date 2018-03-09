@@ -13,7 +13,9 @@
 
 @interface HXBBaseViewModel (HXBBankCardInfo)
 
-//用户信息
+/**
+ 银行卡信息
+ */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 /**

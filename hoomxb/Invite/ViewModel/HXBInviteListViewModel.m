@@ -11,6 +11,7 @@
 @interface HXBInviteListViewModel()
 
 @property (nonatomic) NSInteger page;
+
 @end
 
 @implementation HXBInviteListViewModel
@@ -35,7 +36,6 @@
     if (!isUpData) {
         page += 1;
     }
-    NSLog(@"page = %ld", page);
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXB_Invite_List;

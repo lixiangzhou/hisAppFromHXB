@@ -28,6 +28,7 @@
  */
 - (void)chooseCouponListWithParams: (NSDictionary *)params
                        resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    kWeakSelf
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXB_Coupon_Query;
@@ -35,7 +36,7 @@
     request.showHud = YES;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
-        [_chooseCouponModel yy_modelSetWithDictionary:data];
+        [weakSelf.chooseCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) resultBlock(NO);

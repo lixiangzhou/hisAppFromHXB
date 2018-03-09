@@ -583,7 +583,7 @@ static const NSInteger topView_high = 300;
     [_viewModel bestCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             cell.isStartAnimation = NO;
-            if (_curruntInvestMoney == money.doubleValue) {
+            if (weakSelf.curruntInvestMoney == money.doubleValue) {
                 [weakSelf requestSuccessWithModel:weakSelf.viewModel.bestCouponModel cell:cell money:money ];
             }
         } else {

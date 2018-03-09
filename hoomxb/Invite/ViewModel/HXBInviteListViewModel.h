@@ -16,7 +16,6 @@
 @property (nonatomic, assign) NSInteger investListTotalCount;                       //总个数
 @property (nonatomic, assign) BOOL isLastPage;                                      //是否最后一页
 @property (nonatomic, assign) BOOL isShowLoadMore;                                  //是否显示加载更多
-
 @property (nonatomic, strong) HXBInviteOverViewModel *overViewModel;                //邀请好友奖励数据
 
 /**
