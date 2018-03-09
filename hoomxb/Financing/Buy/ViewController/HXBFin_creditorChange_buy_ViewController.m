@@ -287,9 +287,9 @@ static NSString *const bankString = @"绑定银行卡";
     if (self.cardModel.securyMobile.length) {
         [self alertSmsCodeWithMoney:topupMoney];
     } else {
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
+        [self.viewModel requestForBankCardResultBlock:^(BOOL isSuccess) {
             weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
-            weakSelf.cardModel = model;
+            weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
                 weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
                 if (!weakSelf.cardModel) {
@@ -473,8 +473,8 @@ static const NSInteger topView_high = 230;
     if ([self.hasBindCard isEqualToString:@"1"]) {
         self.topView.height = kScrAdaptationH750(topView_bank_high);
         kWeakSelf
-        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.cardModel = model;
+        [self.viewModel requestForBankCardResultBlock:^(BOOL isSuccess) {
+            weakSelf.cardModel = weakSelf.viewModel.bankCardModel;
             if (!weakSelf.cardModel) {
                 weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
             } else {

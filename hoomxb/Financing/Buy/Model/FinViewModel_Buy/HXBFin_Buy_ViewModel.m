@@ -8,26 +8,25 @@
 
 #import "HXBFin_Buy_ViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+
 @implementation HXBFin_Buy_ViewModel
 
-+ (void)requestForBankCardSuccessBlock:(successModelBlock)successDateBlock {
+- (void)requestForBankCardResultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            kHXBBuyErrorResponsShowHUD
+    kWeakSelf
+    [bankCardAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
         }
-        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-        successDateBlock(bankCardModel);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-        successDateBlock(nil);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        if (resultBlock) {
+            resultBlock(NO);
+        }
     }];
-
 }
 
 /**
