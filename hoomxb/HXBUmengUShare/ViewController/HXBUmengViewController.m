@@ -77,10 +77,10 @@
 #pragma mark - Network
 - (void)loadShareData {
     kWeakSelf
-    [self.shareVM UMShareRequestSuccessBlock:^(HXBUMShareViewModel *shareViewModel) {
-        weakSelf.shareVM = shareViewModel;
-    } andFailureBlock:^(NSError *error) {
-        [self cancelShareView];
+    [self.shareVM UMShareresultBlock:^(BOOL isSuccess) {
+        if (!isSuccess) {
+            [weakSelf cancelShareView];
+        }
     }];
 }
 

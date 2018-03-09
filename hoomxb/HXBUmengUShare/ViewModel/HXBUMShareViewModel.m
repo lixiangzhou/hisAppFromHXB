@@ -40,29 +40,21 @@
 
 /**
  获取分享数据
- 
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
  */
-- (void)UMShareRequestSuccessBlock: (void(^)(HXBUMShareViewModel * shareViewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
+- (void)UMShareresultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] init];
     umShareAPI.requestUrl = kHXBUMShareURL;
     umShareAPI.requestMethod = NYRequestMethodPost;
     umShareAPI.requestArgument = @{@"action":@"buy"};
-                             
-    [umShareAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
-        NSInteger status =  [responseObject[kResponseStatus] integerValue];
-        if (status != 0) {
-            kHXBResponsShowHUD
-        }
+    
+    [umShareAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         self.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
-        if (successDateBlock) {
-            successDateBlock(self);
+        if (resultBlock) {
+            resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
+        if (resultBlock) {
+            resultBlock(NO);
         }
     }];
 }
