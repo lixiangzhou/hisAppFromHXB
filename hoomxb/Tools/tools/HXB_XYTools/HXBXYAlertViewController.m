@@ -181,7 +181,7 @@
             self.rightButton.layer.masksToBounds = YES;
             [self.rightButton mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.view).offset(kScrAdaptationW(0));
-                make.right.equalTo(self.view).offset(kScrAdaptationW(0));
+                make.right.equalTo(self.view).offset(kScrAdaptationW(5));
                 make.height.offset(kScrAdaptationH(40));
                 make.bottom.equalTo(self.view).offset(kScrAdaptationW(0));
             }];

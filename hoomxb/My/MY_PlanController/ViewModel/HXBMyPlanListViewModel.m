@@ -43,6 +43,13 @@
     return self;
 }
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if([request.requestUrl isEqualToString:kHXBMY_PlanAccountRequestURL]) {
+        return NO;
+    }
+    return [super erroStateCodeDeal:request];
+}
+
 #pragma mark plan 账户内计划资产
 
 - (void)myPlanAssetStatistics_requestWithSuccessBlock:(BOOL)isShowHug andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
@@ -64,6 +71,13 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if(request.responseObject) {
+            if(resultBlock) {
+                weakSelf.planAcccountModel = [[HXBMYModel_Plan_planRequestModel alloc]init];
+                resultBlock(YES);
+                return;
+            }
+        }
         if (resultBlock) {
             resultBlock(NO);
         }
