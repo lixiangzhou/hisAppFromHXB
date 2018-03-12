@@ -5050,7 +5050,7 @@
 				TargetAttributes = {
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = QG8F8B8JH8;
+						DevelopmentTeam = Z9M2NMJFP5;
 						ProvisioningStyle = Automatic;
 					};
 					4E16D8421E9CD0FE002A1881 = {
@@ -5877,7 +5877,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: wang hui (78G575Z7S8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QG8F8B8JH8;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5939,7 +5939,7 @@
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hongchong.hoomsun.hoombaby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5957,7 +5957,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hong Chong Network Technology (Shanghai) Co., Ltd. (QG8F8B8JH8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QG8F8B8JH8;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6019,7 +6019,7 @@
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hongchong.hoomsun.hoombaby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6128,7 +6128,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hong Chong Network Technology (Shanghai) Co., Ltd. (QG8F8B8JH8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QG8F8B8JH8;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6190,7 +6190,7 @@
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hongchong.hoomsun.hoombaby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
