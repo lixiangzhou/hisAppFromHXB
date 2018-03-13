@@ -505,6 +505,7 @@
 		E166CDB820562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDB720562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m */; };
 		E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */; };
 		E166CDBE20562F5400666749 /* HXBMyPlanDetailsExitMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */; };
+		E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
@@ -1549,6 +1550,8 @@
 		E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitModel.m; sourceTree = "<group>"; };
 		E166CDBC20562F5400666749 /* HXBMyPlanDetailsExitMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitMainView.h; sourceTree = "<group>"; };
 		E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitMainView.m; sourceTree = "<group>"; };
+		E166CDBF2056955800666749 /* HXBMyPlanDetailsExitResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitResultModel.h; sourceTree = "<group>"; };
+		E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitResultModel.m; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E18330AA1EF23D75009807A9 /* HXBKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBKeyBoardManager.h; sourceTree = "<group>"; };
@@ -4786,6 +4789,8 @@
 			children = (
 				E166CDB920562D3900666749 /* HXBMyPlanDetailsExitModel.h */,
 				E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */,
+				E166CDBF2056955800666749 /* HXBMyPlanDetailsExitResultModel.h */,
+				E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5363,6 +5368,7 @@
 				9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */,
 				E166CDBE20562F5400666749 /* HXBMyPlanDetailsExitMainView.m in Sources */,
 				9AE0322E2022C317006D6140 /* HXBTopTabView.m in Sources */,
+				E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */,
 				E1B21E6C2042B30D00DD3784 /* HXBMY_PlanListViewController.m in Sources */,
 				9AE0321C2022C317006D6140 /* HXBVersionUpdateViewModel.m in Sources */,
 				E18B16C4202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m in Sources */,

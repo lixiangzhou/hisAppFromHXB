@@ -82,10 +82,9 @@
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     // push 到退出结果页
-                    
+                    // 传过去 结果描述
                 } else {
                     // 短信弹窗不消失 toast提示
-                    
                 }
             }];
         };

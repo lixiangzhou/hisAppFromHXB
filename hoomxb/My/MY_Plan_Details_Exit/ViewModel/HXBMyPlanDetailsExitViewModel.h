@@ -8,10 +8,11 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBMyPlanDetailsExitModel.h"
+#import "HXBMyPlanDetailsExitResultModel.h"
 @interface HXBMyPlanDetailsExitViewModel : HXBBaseViewModel
 
 @property (nonatomic,strong) HXBMyPlanDetailsExitModel *myPlanDetailsExitModel;
-
+@property (nonatomic,strong) HXBMyPlanDetailsExitResultModel *myPlanDetailsExitResultModel;
 /**
  获取账户内红利计划退出信息
 

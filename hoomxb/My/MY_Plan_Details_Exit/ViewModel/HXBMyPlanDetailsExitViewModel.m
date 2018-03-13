@@ -14,8 +14,8 @@
 - (void)loadPlanListDetailsExitInfoWithPlanID: (NSString *)planID
                                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestUrl = kHXBMY_PlanDetaileURL(planID);
-//    request.showHud = NO;
+    request.requestUrl = kHXBMY_PlanQuitURL;
+    request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *dataDic = responseObject[kResponseData];
@@ -35,12 +35,16 @@
                                          @"smscode" : smscode,
                                          };
     versionUpdateAPI.showHud = YES;
+    kWeakSelf
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        NSDictionary *dataDic = responseObject[kResponseData];
+        [weakSelf.myPlanDetailsExitResultModel yy_modelSetWithDictionary:dataDic];
         if (callBackBlock) {
             callBackBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (callBackBlock) {
+            [weakSelf showToast:request.responseObject[kResponseMessage]];
             callBackBlock(NO);
         }
     }];
