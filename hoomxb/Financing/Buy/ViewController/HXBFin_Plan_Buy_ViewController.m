@@ -18,7 +18,6 @@
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"

@@ -126,6 +126,7 @@
 		8D2CF5261FC2DA5D008F7A89 /* HXBHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51C1FC2DA5D008F7A89 /* HXBHeadView.m */; };
 		8D2CF5271FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */; };
 		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
+		8D3610A420577331009E8505 /* HXBMyPlanExitSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */; };
 		8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84F01FD6A24400E6CA97 /* HXBWKWebviewViewModel.m */; };
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
 		8D56C7912043B356008C3F1C /* HXBSignUPRealnameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C7902043B356008C3F1C /* HXBSignUPRealnameViewModel.m */; };
@@ -767,6 +768,8 @@
 		8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteListTableViewCell.m; sourceTree = "<group>"; };
 		8D2CF5201FC2DA5D008F7A89 /* HXBInviteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBInviteViewModel.h; sourceTree = "<group>"; };
 		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
+		8D3610A220577331009E8505 /* HXBMyPlanExitSuccessController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanExitSuccessController.h; sourceTree = "<group>"; };
+		8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanExitSuccessController.m; sourceTree = "<group>"; };
 		8D3F84EF1FD6A24400E6CA97 /* HXBWKWebviewViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWKWebviewViewModel.h; sourceTree = "<group>"; };
 		8D3F84F01FD6A24400E6CA97 /* HXBWKWebviewViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWKWebviewViewModel.m; sourceTree = "<group>"; };
 		8D4064F11FC67E2A00121E1C /* NSDate+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+HXB.h"; sourceTree = "<group>"; };
@@ -1850,6 +1853,7 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				8D36109F205772C9009E8505 /* MYPlanExit2 */,
 				9AE030BD2022C315006D6140 /* AbountMe */,
 				9AE031662022C316006D6140 /* Account */,
 				9AE0304A2022C314006D6140 /* accountCard */,
@@ -2254,6 +2258,15 @@
 				8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8D36109F205772C9009E8505 /* MYPlanExit2 */ = {
+			isa = PBXGroup;
+			children = (
+				8D3610A220577331009E8505 /* HXBMyPlanExitSuccessController.h */,
+				8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */,
+			);
+			path = MYPlanExit2;
 			sourceTree = "<group>";
 		};
 		8D4064F01FC67E0600121E1C /* NSDate */ = {
@@ -5600,6 +5613,7 @@
 				282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */,
 				9AE032632022C317006D6140 /* HXBLeftLabelTextView.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
+				8D3610A420577331009E8505 /* HXBMyPlanExitSuccessController.m in Sources */,
 				9AE0326B2022C317006D6140 /* HXBMYModel_AssetStatistics_Loan.m in Sources */,
 				E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */,
 				9AE033912022C422006D6140 /* HXBFin_LoanTransferTableView.m in Sources */,
