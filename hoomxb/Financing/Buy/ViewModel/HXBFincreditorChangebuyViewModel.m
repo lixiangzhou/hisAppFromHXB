@@ -1,20 +1,19 @@
 //
-//  HXBFinPlanBuyViewModel.m
+//  HXBFincreditorChangebuyViewModel.m
 //  hoomxb
 //
-//  Created by lxz on 2018/2/26.
+//  Created by HXB-xiaoYang on 2018/3/8.
 //Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinPlanBuyViewModel.h"
+#import "HXBFincreditorChangebuyViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
 
-@implementation HXBFinPlanBuyViewModel
+@implementation HXBFincreditorChangebuyViewModel
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
-        _resultModel = [[HXBFinModel_BuyResoult_PlanModel alloc] init];
+        _resultModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc] init];
     }
     return self;
 }
@@ -28,44 +27,22 @@
 }
 
 /**
- 最优优惠券
+ 债权购买结果
  
- @param params 请求参数
- @param resultBlock 返回数据
+ @param loanID 债权id
+ @param parameter 购买参数
+ @param resultBlock 返回结果
  */
-- (void)bestCouponListWithParams: (NSDictionary *)params
-                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+- (void)loanTransformBuyReslutWithLoanID: (NSString *)loanID
+                              parameter : (NSDictionary *)parameter
+                             resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXB_Coupon_Best;
-    request.requestArgument = params;
-    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSDictionary *data = responseObject[kResponseData];
-        [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
-        if (resultBlock) resultBlock(YES);
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (resultBlock) resultBlock(NO);
-    }];
-}
-
-/**
- 计划购买
- 
- @param planID 计划id
- @param parameter 请求参数
- @param resultBlock 返回数据
- */
-- (void)planBuyReslutWithPlanID: (NSString *)planID
-                     parameter : (NSDictionary *)parameter
-                    resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+    request.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanID);
     request.requestArgument = parameter;
     request.showHud = YES;
     request.hudShowContent = @"安全支付";
-    kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
@@ -92,7 +69,7 @@
 }
 
 /**
- 获取充值短验
+ 获取充值短验(聪聪改)
  @param amount 充值金额
  @param action 判断是否为提现或者充值
  @param type 短信验证码或是语言验证码

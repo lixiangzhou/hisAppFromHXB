@@ -1,52 +1,40 @@
 //
-//  HXBPlan_JoinImmediatelyViewController.m
+//  HXBMy_Plan_Buy_ViewController.m
 //  hoomxb
 //
-//  Created by HXB on 2017/6/14.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Created by HXB-xiaoYang on 2018/3/9.
+//Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFin_Plan_BuyViewController.h"
+#import "HXBMy_Plan_Buy_ViewController.h"
 #import "HXBJoinImmediateView.h"
 #import "HXBFinModel_Buy_Plan.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"
-#import "HXBFin_Plan_BuyViewModel.h"
-//#import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
-//#import "HXBFin_Plan_BugFailViewController.h" //购买失败
-#import"HxbMyTopUpViewController.h"///充值
 #import "HXBMiddlekey.h"
+#import "HxbMyTopUpViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBFinPlanBuyViewModel.h"
+#import "HXBMyPlanBuyViewModel.h"
 
-@interface HXBFin_Plan_BuyViewController ()
+@interface HXBMy_Plan_Buy_ViewController ()
+
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
 @property (nonatomic,copy) void (^clickLookMYInfoButtonBlock)();
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
-///个人总资产
-@property (nonatomic,copy) NSString *assetsTotal;
+@property (nonatomic,copy) NSString *assetsTotal; ///个人总资产
+@property (nonatomic, strong) HXBMyPlanBuyViewModel *viewModel;
 
-@property (nonatomic, strong) HXBFinPlanBuyViewModel *viewModel;
 @end
 
-@implementation HXBFin_Plan_BuyViewController
+@implementation HXBMy_Plan_Buy_ViewController
 
-- (void)clickLookMYInfoButtonWithBlock: (void(^)())clickLoockMYInfoButton {
-    self.clickLookMYInfoButtonBlock = clickLoockMYInfoButton;
-}
-
-- (void)setIsPlan:(BOOL)isPlan {
-    _isPlan = isPlan;
-    self.joinimmediateView.isPlan = isPlan;
-}
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     kWeakSelf
-    self.viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
+    self.viewModel = [[HXBMyPlanBuyViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
     
@@ -55,7 +43,7 @@
     }];
     self.tableView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = YES;
-
+    
     ///UI的搭建
     [self setUPViews];
     
@@ -72,7 +60,7 @@
     
     //请求 个人数据
     kWeakSelf
-    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.availablePoint = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint;
             weakSelf.assetsTotal = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.assetsTotal;
@@ -80,14 +68,27 @@
     }];
 }
 
-- (void) registerEvent {
-    [self regisgerTopUP];//充值
-    [self registerBuy];//一键购买
-    [self registerAdd];//加入
-    [self registerNegotiate];//点击了 服务协议
+- (void)dealloc {
+    [self.tableView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
 }
 
-///UI搭建
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.tableView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
+
+
+#pragma mark - UI
+
 - (void)setUPViews {
     kWeakSelf
     self.joinimmediateView = [[HXBJoinImmediateView alloc] init];
@@ -99,10 +100,21 @@
     
     self.joinimmediateView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
 }
+
+#pragma mark - Network
+
+
+#pragma mark - Action
+- (void) registerEvent {
+    [self regisgerTopUP];//充值
+    [self registerBuy];//一键购买
+    [self registerAdd];//加入
+    [self registerNegotiate];//点击了 服务协议
+}
+
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
     kWeakSelf
-    
-    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
             {
@@ -130,22 +142,12 @@
     kWeakSelf
     ///点击了充值
     [self.joinimmediateView clickRechargeFunc:^{
-//        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-        
         [self pushTopUPViewControllerWithAmount: [NSString stringWithFormat:@"%@.00",weakSelf.joinimmediateView.rechargeViewTextField.text]];
     }];
 }
 - (void) registerBuy {
     kWeakSelf
     [self.joinimmediateView clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
-        ///用户余额，
-//        CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
-//        if (!userInfo_availablePoint) {
-//            [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-//            return;
-//        }
-        
-        ///加入上线 (min (用户可投， 本期剩余))
         NSString *str = nil;
         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
@@ -210,59 +212,54 @@
         }
         //是否大于计划剩余金额
         if (capital.integerValue > weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
-//            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+            //            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
             [HxbHUDProgress showMessageCenter:@"输入金额大于了剩余可投金额" inView:self.view];
             textField.text = [NSString stringWithFormat:@"%ld",weakSelf.planViewModel.planDetailModel.remainAmount.integerValue];
             return;
         }
         //判断是否安全认证
         kWeakSelf
-
-        [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
-            ///加入成功
-            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.imageName = @"successful";
-            planBuySuccessVC.buy_title = @"加入成功";
-            planBuySuccessVC.isShowInviteBtn = NO;
-            planBuySuccessVC.buy_description = model.lockStart;
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-            planBuySuccessVC.title = @"出借成功";
-            [planBuySuccessVC clickButtonWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-            }];
-            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-            // [self.navigationController popToRootViewControllerAnimated:YES];
-        } andFailureBlock:^(NSError *error, NSInteger status) {
-            
-            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"出借结果";
-            switch (status) {
-                case kHXBNot_Sufficient_Funds:
-                    failViewController.imageName = @"yuebuzu";
-                    failViewController.buy_title = @"可用余额不足，请重新购买";
-                    failViewController.buy_ButtonTitle = @"重新出借";
-                    break;
-                case 3100:
-                    failViewController.imageName = @"shouqin";
-                    failViewController.buy_title = @"手慢了，已售罄";
-                    failViewController.buy_ButtonTitle = @"重新出借";
-                    break;
-                case kHXBCode_Enum_NoConnectionNetwork:
-                case kHXBCode_Enum_ConnectionTimeOut:
-                    return ;
-                default:
-                    failViewController.imageName = @"failure";
-                    failViewController.buy_title = @"加入失败";
-                    failViewController.buy_ButtonTitle = @"重新出借";
+        NSDictionary *dic_post = @{@"amount" : capital, @"cashType" : self.planViewModel.profitType};
+        [_viewModel myPlanBuyReslutWithPlanID:weakSelf.planViewModel.ID parameter:dic_post resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc] init];
+                planBuySuccessVC.imageName = @"successful";
+                planBuySuccessVC.buy_title = @"加入成功";
+                planBuySuccessVC.isShowInviteBtn = NO;
+                planBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.lockStart;
+                planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
+                planBuySuccessVC.title = @"加入成功";
+                [planBuySuccessVC clickButtonWithBlock:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                }];
+                [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
+            } else {
+                HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+                failViewController.title = @"出借结果";
+                switch (weakSelf.viewModel.errorCode) {
+                    case kBuy_Result:
+                        failViewController.imageName = @"failure";
+                        failViewController.buy_title = weakSelf.viewModel.errorMessage;
+                        failViewController.buy_ButtonTitle = @"重新出借";
+                        break;
+                        
+                    case kBuy_Processing:
+                        failViewController.imageName = @"outOffTime";
+                        failViewController.buy_title = weakSelf.viewModel.errorMessage;
+                        failViewController.buy_ButtonTitle = @"重新出借";
+                        break;
+                        
+                    default:
+                        return ;
+                }
+                [failViewController clickButtonWithBlock:^{
+                    [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+                }];
+                [weakSelf.navigationController pushViewController:failViewController animated:YES];
             }
-            [failViewController clickButtonWithBlock:^{
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-            }];
-            [weakSelf.navigationController pushViewController:failViewController animated:YES];
         }];
-//            }
-//        }];
+        
     }];
 }
 //点击了 服务协议
@@ -273,6 +270,16 @@
     }];
 }
 
+- (void)clickLookMYInfoButtonWithBlock: (void(^)())clickLoockMYInfoButton {
+    self.clickLookMYInfoButtonBlock = clickLoockMYInfoButton;
+}
+
+#pragma mark - Setter / Getter / Lazy
+
+- (void)setIsPlan:(BOOL)isPlan {
+    _isPlan = isPlan;
+    self.joinimmediateView.isPlan = isPlan;
+}
 
 - (void)setValue {
     [self setUPModel];
@@ -317,31 +324,13 @@
         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
             model.upperLimitLabelStr = weakSelf.planViewModel.planDetailModel.userRemainAmount;
         }else {
-             model.upperLimitLabelStr = weakSelf.planViewModel.planDetailModel.remainAmount;
+            model.upperLimitLabelStr = weakSelf.planViewModel.planDetailModel.remainAmount;
         }
         
         ///确认加入的Buttonstr
         model.addButtonStr = @"确认加入";
         return model;
-        }];
-}
-
-- (void)dealloc {
-    [self.tableView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-    NSLog(@"✅被销毁 %@",self);
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.tableView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+    }];
 }
 
 - (UITableView *)tableView {
@@ -357,4 +346,6 @@
     }
     return _tableView;
 }
+
+
 @end

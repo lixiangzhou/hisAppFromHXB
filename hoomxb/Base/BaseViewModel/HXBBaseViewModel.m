@@ -56,9 +56,9 @@
         _mbpView.removeFromSuperViewOnHide = YES;
         _mbpView.contentColor = [UIColor whiteColor];
         _mbpView.bezelView.backgroundColor = [UIColor blackColor];
-        _mbpView.label.text = hudContent;
         _mbpView.label.textColor = [UIColor whiteColor];
     }
+    _mbpView.label.text = hudContent;
     [parentV addSubview:self.mbpView];
     if(isShow){
         [parentV bringSubviewToFront:self.mbpView];
@@ -75,6 +75,10 @@
 }
 
 - (void)showToast:(NSString *)toast {
+    if([toast containsString:@"failure"]) {
+        return;
+    }
+    
     UIView* parentView = [self getHugView];
     if(parentView) {
         [HxbHUDProgress showMessageCenter:toast inView:parentView];

@@ -206,7 +206,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
         manager.rightViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
         manager.leftViewManager.rightLabelStr = @"锁定期限";
-        manager.midViewManager.rightLabelStr = @"起投";
+        manager.midViewManager.rightLabelStr = @"起投金额";
         manager.rightViewManager.rightLabelStr = weakSelf.viewModel.planDetailModel.remainAmount_constStr;
         
         return manager;

@@ -60,7 +60,7 @@
     if (requestBlock) {
         requestBlock(versionUpdateAPI);
     }
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         if (resultBlock) {
             resultBlock(responseObject,nil);
         }

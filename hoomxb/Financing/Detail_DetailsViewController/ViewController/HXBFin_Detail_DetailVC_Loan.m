@@ -28,9 +28,7 @@
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *workInfoView;
 ///状态信息
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *statusInfoView;
-@property (nonatomic,assign) NSInteger loanInfoViewBottomViewCount;
-@property (nonatomic,strong) NSMutableArray *tempLeftStrArray;
-@property (nonatomic,strong) NSMutableArray *tempRightStrArray;
+
 @end
 
 @implementation HXBFin_Detail_DetailVC_Loan
@@ -57,54 +55,9 @@
 //    }];
 //    self.loanInfo.loan_finDatailModel = self.loanDetailViewModel;
     
-    [self setData];
     [self setUPFrame];
     [self setUPValue];
     [self setUPManager];
-}
-- (void)setData {
-    
-    self.tempLeftStrArray = [NSMutableArray arrayWithObjects:@"基础信息",
-                                        @"姓名：",
-                                        @"年龄：",
-                                        @"婚姻：",
-                                        @"身份证号：",
-                                        @"学历：",
-                                        @"籍贯：",
-                                        @"近6个月内征信报告中逾期情况：",
-                                        @"近1个月在其他网贷平台借款：",
-                                        @"借款人经营及财务状况：",
-                                        @"借款人还款能力变化：",
-                                        @"借款人涉诉、受行政处罚情况：",
-                                        @"担保方式：",
-                                        nil];
-    self.tempRightStrArray = [NSMutableArray arrayWithObjects:@" ",
-                                         self.fin_Detail_DetailVC_LoanManager.name,
-                                         self.fin_Detail_DetailVC_LoanManager.age,
-                                         self.fin_Detail_DetailVC_LoanManager.marriageStatus,
-                                         self.fin_Detail_DetailVC_LoanManager.idNo,
-                                         self.fin_Detail_DetailVC_LoanManager.graduation,
-                                         self.fin_Detail_DetailVC_LoanManager.homeTown,
-                              
-                              self.fin_Detail_DetailVC_LoanManager.overDueStatus&&![self.fin_Detail_DetailVC_LoanManager.overDueStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.overDueStatus:@"",
-                              self.fin_Detail_DetailVC_LoanManager.otherPlatStatus&&![self.fin_Detail_DetailVC_LoanManager.otherPlatStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.otherPlatStatus:@"",
-                                         self.fin_Detail_DetailVC_LoanManager.userFinanceStatus&&![self.fin_Detail_DetailVC_LoanManager.userFinanceStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.userFinanceStatus:@"",
-                                         self.fin_Detail_DetailVC_LoanManager.repaymentCapacity&&![self.fin_Detail_DetailVC_LoanManager.repaymentCapacity isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.repaymentCapacity:@"",
-                                         self.fin_Detail_DetailVC_LoanManager.punishedStatus&&![self.fin_Detail_DetailVC_LoanManager.punishedStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.punishedStatus:@"",
-                                         self.fin_Detail_DetailVC_LoanManager.protectSolution&&![self.fin_Detail_DetailVC_LoanManager.protectSolution isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.protectSolution:@"",
-                                         nil];
-    NSMutableArray *leftDiscardedItems = [NSMutableArray arrayWithCapacity:0];
-    for (int i=0; i<self.tempRightStrArray.count; i++) {
-        if ([self.tempRightStrArray[i] isEqualToString:@""]) {
-            [leftDiscardedItems addObject:self.tempLeftStrArray[i]];
-        }
-    }
-    
-    NSArray *arr = @[@""];
-    [self.tempLeftStrArray removeObjectsInArray:leftDiscardedItems];
-    [self.tempRightStrArray removeObjectsInArray:arr];
-    
-    self.loanInfoViewBottomViewCount = self.tempLeftStrArray.count;
 }
 
 - (void)setUPManager {
@@ -120,8 +73,35 @@
     kWeakSelf
     [self.loanInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         NSLog(@"viewmanager = %@", viewManager);
-        viewManager.leftStrArray = weakSelf.tempLeftStrArray;
-        viewManager.rightStrArray = weakSelf.tempRightStrArray;
+        viewManager.leftStrArray = [NSMutableArray arrayWithObjects:@"基础信息",
+                                    @"姓名：",
+                                    @"年龄：",
+                                    @"婚姻：",
+                                    @"身份证号：",
+                                    @"学历：",
+                                    @"籍贯：",
+                                    @"近6个月内征信报告中逾期情况：",
+                                    @"近1个月在其他网贷平台借款：",
+                                    @"借款人经营及财务状况：",
+                                    @"借款人还款能力变化：",
+                                    @"借款人涉诉、受行政处罚情况：",
+                                    @"担保方式：",
+                                    nil];
+        viewManager.rightStrArray = [NSMutableArray arrayWithObjects:@" ",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.name,
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.age,
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.marriageStatus,
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.idNo,
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.graduation,
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.homeTown,
+                                     
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus:@"--",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus:@"--",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus:@"--",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity&&![weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity:@"--",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus:@"--",
+                                     weakSelf.fin_Detail_DetailVC_LoanManager.protectSolution&&![weakSelf.fin_Detail_DetailVC_LoanManager.protectSolution isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.protectSolution:@"--",
+                                     nil];
         
         viewManager.leftFont        = kHXBFont_PINGFANGSC_REGULAR(14);
         viewManager.rightFont       = kHXBFont_PINGFANGSC_REGULAR(14);
@@ -265,22 +245,6 @@
         viewManager.rightLabelAlignment = NSTextAlignmentLeft;
         return viewManager;
     }];
-//    [self.statusInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-//        viewManager.leftStrArray = @[
-//                                     @"资金运用状况",
-//                                     @"状态：",
-//                                     ];
-//        viewManager.rightStrArray = @[
-//                                      @" ",
-//                                      weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus ? weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus :@"--",
-//                                      ];
-//        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
-//        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
-//        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
-//        viewManager.rightTextColor = kHXBColor_Font0_6;
-//        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
-//        return viewManager;
-//    }];
 }
 
 /// 返回借款人审核状态行数
@@ -322,7 +286,7 @@
     [self.loanInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanPerson_infoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(30.5*weakSelf.loanInfoViewBottomViewCount)));
+        make.height.equalTo(@(kScrAdaptationH(30.5*13)));
     }];
     UIView* redFlagInfoView = [[UIView alloc]init];
     redFlagInfoView.backgroundColor = RGB(245, 81, 81);
@@ -352,7 +316,7 @@
     [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(170)));
+        make.height.equalTo(@(kScrAdaptationH(152)));
     }];
     UIView* redFlagworkView = [[UIView alloc]init];
     redFlagworkView.backgroundColor = RGB(245, 81, 81);
@@ -423,7 +387,7 @@
 - (HXBBaseView_MoreTopBottomView *)loanInfoView {
     if (!_loanInfoView) {
         UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
-        _loanInfoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.loanInfoViewBottomViewCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _loanInfoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:13 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanInfoView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanInfoView];
     }

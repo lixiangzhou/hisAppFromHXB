@@ -183,7 +183,7 @@
     kWeakSelf
     [[[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
         return weakSelf;
-    }] checkMobileRequestWithMobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
+    }] checkMobileRequestWithHud:NO mobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             if (weakSelf.getValidationCodeButtonClickBlock) {
                 weakSelf.getValidationCodeButtonClickBlock(weakSelf.phoneTextField.text);
