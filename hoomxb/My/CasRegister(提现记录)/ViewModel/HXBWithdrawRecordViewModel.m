@@ -34,10 +34,6 @@
                                          @"page" : @(self.withdrawRecordPage).description,
                                          @"pageSize" : @kPageCount
                                          };
-    NSString *loadStr = nil;
-    if (isLoading) {
-        loadStr = kLoadIngText;
-    }
     
     [withdrawRecordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         if (weakSelf.withdrawRecordPage <= 1) {
