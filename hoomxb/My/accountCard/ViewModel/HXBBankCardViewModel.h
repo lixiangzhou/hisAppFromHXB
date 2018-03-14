@@ -32,6 +32,13 @@
 
 
 /**
+ 用户获取绑定银行卡信息
+
+ @param resultBlock 结果回调
+ */
+- (void)requestBankDataResultBlock:(void(^)(BOOL isSuccess))resultBlock;
+
+/**
  解绑银行卡
 
  @param param 参数

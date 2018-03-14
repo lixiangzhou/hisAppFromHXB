@@ -7,20 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HXBBaseViewModel.h"
 @class HXBWithdrawRecordListModel;
-@interface HXBWithdrawRecordViewModel : NSObject
+@interface HXBWithdrawRecordViewModel : HXBBaseViewModel
 /**
  提现进度模型
  */
 @property (nonatomic, strong) HXBWithdrawRecordListModel *withdrawRecordListModel;
 
+@property (nonatomic,assign) NSInteger withdrawRecordPage;
 /**
- 提现进度
-
+  提现进度
  @param isLoading 是否显示加载
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
+ @param resultBlock resultBlock description
  */
-- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andPage:(NSInteger)page andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 @end

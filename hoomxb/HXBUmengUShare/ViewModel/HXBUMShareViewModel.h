@@ -16,11 +16,8 @@
 
 /**
  获取分享数据
-
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
  */
-- (void)UMShareRequestSuccessBlock: (void(^)(HXBUMShareViewModel * shareViewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)UMShareresultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 
 /**

@@ -7,7 +7,8 @@
 //
 
 #import "HXBBankView.h"
-#import "HXBBankCardModel.h"
+#import "HXBBankCardViewModel.h"
+
 @interface HXBBankView ()
 
 @property (nonatomic, strong) UIImageView *backImageView;
@@ -22,7 +23,8 @@
 
 @property (nonatomic, strong) UILabel *bankTip;
 
-@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+@property (nonatomic, strong) HXBBankCardViewModel *viewModel;
 
 @end
 
@@ -81,39 +83,31 @@
 - (void)loadBankData
 {
     kWeakSelf
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-    bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSLog(@"%@",responseObject);
-        kHXBBuyErrorResponsShowHUD
-        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-        self.bankCardModel = bankCardModel;
-        //设置绑卡信息
-        weakSelf.iconView.svgImageString = bankCardModel.bankCode;
-        weakSelf.bankName.text = bankCardModel.bankType;
-        weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：%@",[bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1]];
-        if (bankCardModel.name.length > 4) {
-            weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[bankCardModel.name substringFromIndex:bankCardModel.name.length - 1]];
-        }
-        weakSelf.bankNum.textAlignment = NSTextAlignmentCenter;
-        NSString *str = [bankCardModel.cardId stringByReplacingOccurrencesOfString:[bankCardModel.cardId substringWithRange:NSMakeRange(0,bankCardModel.cardId.length - 4)]withString:@"****  ****  ****  "];
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-        [style setLineBreakMode:NSLineBreakByCharWrapping];
-        NSDictionary *attribute = @{NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(24),NSParagraphStyleAttributeName:style};
-        CGSize size = [str boundingRectWithSize:CGSizeMake(weakSelf.bankNum.bounds.size.width, kScrAdaptationH(31)) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-        float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
-        float space = width / (str.length-1);
-        weakSelf.bankNum.text = str;
-        [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
-        weakSelf.bankTip.text = bankCardModel.quota;
-        
-        if (weakSelf.unbundBankBlock) {
-            weakSelf.unbundBankBlock(self.bankCardModel);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+    [self.viewModel requestBankDataResultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            //设置绑卡信息
+            weakSelf.iconView.svgImageString = weakSelf.viewModel.bankCardModel.bankCode;
+            weakSelf.bankName.text = weakSelf.viewModel.bankCardModel.bankType;
+            weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：%@",[weakSelf.viewModel.bankCardModel.name replaceStringWithStartLocation:0 lenght:weakSelf.viewModel.bankCardModel.name.length - 1]];
+            if (weakSelf.viewModel.bankCardModel.name.length > 4) {
+                weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[weakSelf.viewModel.bankCardModel.name substringFromIndex:weakSelf.viewModel.bankCardModel.name.length - 1]];
+            }
+            weakSelf.bankNum.textAlignment = NSTextAlignmentCenter;
+            NSString *str = [weakSelf.viewModel.bankCardModel.cardId stringByReplacingOccurrencesOfString:[weakSelf.viewModel.bankCardModel.cardId substringWithRange:NSMakeRange(0,weakSelf.viewModel.bankCardModel.cardId.length - 4)]withString:@"****  ****  ****  "];
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+            [style setLineBreakMode:NSLineBreakByCharWrapping];
+            NSDictionary *attribute = @{NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(24),NSParagraphStyleAttributeName:style};
+            CGSize size = [str boundingRectWithSize:CGSizeMake(weakSelf.bankNum.bounds.size.width, kScrAdaptationH(31)) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+            float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
+            float space = width / (str.length-1);
+            weakSelf.bankNum.text = str;
+            [weakSelf changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
+            weakSelf.bankTip.text = weakSelf.viewModel.bankCardModel.quota;
+            
+            if (weakSelf.unbundBankBlock) {
+                weakSelf.unbundBankBlock(weakSelf.viewModel.bankCardModel);
+            }
+        } 
     }];
 }
 
@@ -130,6 +124,16 @@
 }
 
 #pragma mark - 懒加载
+- (HXBBankCardViewModel *)viewModel {
+    if (!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
+    }
+    return _viewModel;
+}
+
 - (UIImageView *)iconView
 {
     if (!_iconView) {

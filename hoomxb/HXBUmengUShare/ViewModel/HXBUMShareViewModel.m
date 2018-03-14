@@ -8,6 +8,9 @@
 
 #import "HXBUMShareViewModel.h"
 #import "HXBUMShareModel.h"
+
+@interface HXBUMShareViewModel()<HXBRequestHudDelegate>
+@end
 @implementation HXBUMShareViewModel
 
 
@@ -40,29 +43,22 @@
 
 /**
  获取分享数据
- 
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
  */
-- (void)UMShareRequestSuccessBlock: (void(^)(HXBUMShareViewModel * shareViewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] init];
+- (void)UMShareresultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    kWeakSelf
+    NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     umShareAPI.requestUrl = kHXBUMShareURL;
     umShareAPI.requestMethod = NYRequestMethodPost;
     umShareAPI.requestArgument = @{@"action":@"buy"};
-                             
-    [umShareAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
-        NSInteger status =  [responseObject[kResponseStatus] integerValue];
-        if (status != 0) {
-            kHXBResponsShowHUD
-        }
-        self.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
-        if (successDateBlock) {
-            successDateBlock(self);
+    
+    [umShareAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
+        if (resultBlock) {
+            resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
+        if (resultBlock) {
+            resultBlock(NO);
         }
     }];
 }
