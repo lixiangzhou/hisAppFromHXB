@@ -1,20 +1,19 @@
 //
-//  HXBFinPlanBuyViewModel.m
+//  HXBFinLoanBuyViewModel.m
 //  hoomxb
 //
-//  Created by lxz on 2018/2/26.
+//  Created by HXB-xiaoYang on 2018/3/8.
 //Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinPlanBuyViewModel.h"
+#import "HXBFinLoanBuyViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
 
-@implementation HXBFinPlanBuyViewModel
+@implementation HXBFinLoanBuyViewModel
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
-        _resultModel = [[HXBFinModel_BuyResoult_PlanModel alloc] init];
+        _resultModel = [[HXBFinModel_BuyResoult_LoanModel alloc] init];
     }
     return self;
 }
@@ -28,44 +27,22 @@
 }
 
 /**
- 最优优惠券
+ 散标购买
  
- @param params 请求参数
- @param resultBlock 返回数据
- */
-- (void)bestCouponListWithParams: (NSDictionary *)params
-                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    kWeakSelf
-    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXB_Coupon_Best;
-    request.requestArgument = params;
-    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSDictionary *data = responseObject[kResponseData];
-        [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
-        if (resultBlock) resultBlock(YES);
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (resultBlock) resultBlock(NO);
-    }];
-}
-
-/**
- 计划购买
- 
- @param planID 计划id
+ @param loanID 散标id
  @param parameter 请求参数
  @param resultBlock 返回数据
  */
-- (void)planBuyReslutWithPlanID: (NSString *)planID
-                     parameter : (NSDictionary *)parameter
+- (void)loanBuyReslutWithLoanID: (NSString *)loanID
+                      parameter: (NSDictionary *)parameter
                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    kWeakSelf
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+    request.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
     request.requestArgument = parameter;
     request.showHud = YES;
     request.hudShowContent = @"安全支付";
-    kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
@@ -117,6 +94,5 @@
         }
     }];
 }
-
 
 @end
