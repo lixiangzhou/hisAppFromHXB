@@ -237,7 +237,7 @@
 		9AE032272022C317006D6140 /* HxbWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE030FA2022C316006D6140 /* HxbWithdrawViewController.m */; };
 		9AE032282022C317006D6140 /* HXBFinancialAdvisorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE030FE2022C316006D6140 /* HXBFinancialAdvisorModel.m */; };
 		9AE032292022C317006D6140 /* HxbFinancialAdvisorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031012022C316006D6140 /* HxbFinancialAdvisorViewController.m */; };
-		9AE0322A2022C317006D6140 /* HXBFinancialAdvisorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031042022C316006D6140 /* HXBFinancialAdvisorRequest.m */; };
+		9AE0322A2022C317006D6140 /* HXBFinancialAdvisorVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031042022C316006D6140 /* HXBFinancialAdvisorVCViewModel.m */; };
 		9AE0322B2022C317006D6140 /* HXBMyCouponListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031082022C316006D6140 /* HXBMyCouponListModel.m */; };
 		9AE0322C2022C317006D6140 /* HXBMyCouponListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0310B2022C316006D6140 /* HXBMyCouponListTableViewCell.m */; };
 		9AE0322D2022C317006D6140 /* HXBMyCouponListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0310D2022C316006D6140 /* HXBMyCouponListView.m */; };
@@ -999,8 +999,8 @@
 		9AE030FE2022C316006D6140 /* HXBFinancialAdvisorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancialAdvisorModel.m; sourceTree = "<group>"; };
 		9AE031002022C316006D6140 /* HxbFinancialAdvisorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinancialAdvisorViewController.h; sourceTree = "<group>"; };
 		9AE031012022C316006D6140 /* HxbFinancialAdvisorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinancialAdvisorViewController.m; sourceTree = "<group>"; };
-		9AE031032022C316006D6140 /* HXBFinancialAdvisorRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancialAdvisorRequest.h; sourceTree = "<group>"; };
-		9AE031042022C316006D6140 /* HXBFinancialAdvisorRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancialAdvisorRequest.m; sourceTree = "<group>"; };
+		9AE031032022C316006D6140 /* HXBFinancialAdvisorVCViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancialAdvisorVCViewModel.h; sourceTree = "<group>"; };
+		9AE031042022C316006D6140 /* HXBFinancialAdvisorVCViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancialAdvisorVCViewModel.m; sourceTree = "<group>"; };
 		9AE031072022C316006D6140 /* HXBMyCouponListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListModel.h; sourceTree = "<group>"; };
 		9AE031082022C316006D6140 /* HXBMyCouponListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListModel.m; sourceTree = "<group>"; };
 		9AE0310A2022C316006D6140 /* HXBMyCouponListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListTableViewCell.h; sourceTree = "<group>"; };
@@ -3079,8 +3079,8 @@
 		9AE031022022C316006D6140 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9AE031032022C316006D6140 /* HXBFinancialAdvisorRequest.h */,
-				9AE031042022C316006D6140 /* HXBFinancialAdvisorRequest.m */,
+				9AE031032022C316006D6140 /* HXBFinancialAdvisorVCViewModel.h */,
+				9AE031042022C316006D6140 /* HXBFinancialAdvisorVCViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5464,7 +5464,7 @@
 				9AE0336F2022C422006D6140 /* HXBFinPlanContract_ContractWebView.m in Sources */,
 				8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */,
 				9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */,
-				9AE0322A2022C317006D6140 /* HXBFinancialAdvisorRequest.m in Sources */,
+				9AE0322A2022C317006D6140 /* HXBFinancialAdvisorVCViewModel.m in Sources */,
 				9AE031F82022C317006D6140 /* HxbMyBankCardViewController.m in Sources */,
 				9AE032332022C317006D6140 /* HXBMYModel_MainPlanModel.m in Sources */,
 				9AE032092022C317006D6140 /* HXBTransactionPasswordConfirmationView.m in Sources */,

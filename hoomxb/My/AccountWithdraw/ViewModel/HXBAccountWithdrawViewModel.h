@@ -8,8 +8,10 @@
 
 #import "HXBBaseViewModel.h"
 
+@class HXBWithdrawModel;
 @interface HXBAccountWithdrawViewModel : HXBBaseViewModel
 
+@property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
 /**
  账户提现
 
@@ -17,6 +19,7 @@
  @param resultBlock 返回结果
  */
 - (void)accountWithdrawaWithParameter: (NSMutableDictionary *)parameter
+                     andRequestMethod: (NYRequestMethod)requestMethod
                           resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 /**

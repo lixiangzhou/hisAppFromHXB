@@ -9,7 +9,7 @@
 #import "HXBOpenDepositAccountVCViewModel.h"
 #import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-
+#import "HXBBankCardModel.h"
 @interface HXBOpenDepositAccountVCViewModel()
 
 @property (nonatomic, strong) NYBaseRequest *cardBinrequest;
@@ -35,6 +35,8 @@
 
 - (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
+        return NO;
+    } else if ([request.requestUrl isEqualToString:kHXBUserInfo_BankCard]) {
         return NO;
     }
     return [super erroStateCodeDeal:request];
@@ -111,6 +113,27 @@
         else {
             weakSelf.cardBinModel = cardBinModel;
             callBackBlock(YES);
+        }
+    }];
+}
+
+- (void)getAccountBankcardUserInformationWithCallBack:(void(^)(BOOL isSuccess))callBackBlock{
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    kWeakSelf
+    [bankCardAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        if (callBackBlock) {
+            callBackBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (callBackBlock) {
+            callBackBlock(NO);
+            if (!request.responseObject && error.code != kHXBCode_AlreadyPopWindow) {
+                [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+            }
         }
     }];
 }
