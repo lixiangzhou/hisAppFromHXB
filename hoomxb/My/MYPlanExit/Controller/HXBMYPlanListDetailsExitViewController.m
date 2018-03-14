@@ -1,29 +1,30 @@
 //
-//  HXBMY_PlanList_Details_Exit_ViewController.m
+//  HXBMYPlanListDetailsExitViewController.m
 //  hoomxb
 //
 //  Created by hxb on 2018/3/12.
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBMY_PlanList_Details_Exit_ViewController.h"
+#import "HXBMYPlanListDetailsExitViewController.h"
 #import "HXBMyPlanDetailsExitMainView.h"
 #import "HXBMyPlanDetailsExitViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
 
-@interface HXBMY_PlanList_Details_Exit_ViewController ()
+@interface HXBMYPlanListDetailsExitViewController ()
 @property (nonatomic,strong) HXBMyPlanDetailsExitMainView *mainView;
 @property (nonatomic,strong) HXBMyPlanDetailsExitViewModel *viewModel;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
+//@property (nonatomic, assign) BOOL isAlertVCShow;
 @end
 
-@implementation HXBMY_PlanList_Details_Exit_ViewController
+@implementation HXBMYPlanListDetailsExitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupView];
-    [self setFrame];
+//    [self setFrame];
     [self downLoadData];
 }
 
@@ -45,8 +46,9 @@
 }
 
 - (void)setFrame {
+    kWeakSelf
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+//        make.top.bottom.width.height.equalTo(weakSelf.view);
     }];
 }
 
@@ -59,10 +61,13 @@
 - (void)getVerifyCode
 {
     kWeakSelf
-    [self.viewModel getVerifyCodeRequesWithExitPlanWithAction:@"" andWithType:@"sms" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+    [self.viewModel getVerifyCodeRequesWithExitPlanWithAction:@"planquit" andWithType:@"sms" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+        
+        [weakSelf displayVerifyingCodeAlert];
         if (isSuccess) {
 //            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4]];
-            [weakSelf displayVerifyingCodeAlert];
+            
+//            [weakSelf displayVerifyingCodeAlert];
             [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         } else {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
@@ -78,7 +83,7 @@
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
-            [weakSelf.viewModel exitPlanResultRequestWithSmscode:pwd andCallBackBlock:^(BOOL isSuccess) {
+            [weakSelf.viewModel exitPlanResultRequestWithPlanID:weakSelf.planID andSmscode:pwd andCallBackBlock:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     // push 到退出结果页
@@ -110,8 +115,9 @@
 - (HXBMyPlanDetailsExitMainView *)mainView{
     if (!_mainView) {
         kWeakSelf
-        _mainView = [[HXBMyPlanDetailsExitMainView alloc]init];
+        _mainView = [[HXBMyPlanDetailsExitMainView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _mainView.exitBtnClickBlock = ^{
+//            _isAlertVCShow = NO;
             [weakSelf getVerifyCode];
         };
         _mainView.cancelBtnClickBlock = ^{

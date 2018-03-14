@@ -1,5 +1,5 @@
 //
-//  HXBMY_PlanList_Details_Exit_ViewController.h
+//  HXBMYPlanListDetailsExitViewController
 //  hoomxb
 //
 //  Created by hxb on 2018/3/12.
@@ -9,7 +9,7 @@
 #import "HXBBaseViewController.h"
 #import "HXBMyPlanDetailsExitViewModel.h"
 
-@interface HXBMY_PlanList_Details_Exit_ViewController : HXBBaseViewController
+@interface HXBMYPlanListDetailsExitViewController : HXBBaseViewController
 
 @property (nonatomic,copy) NSString *planID; /// 需要接受planID
 

@@ -23,12 +23,13 @@
                                   resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 /**
- 点击账户内红利计划确认退出
+ 获取点击账户内红利计划确认退出结果
  
+ @param planID 计划ID
  @param smscode 短信验证码
  @param callBackBlock 成功回调
  */
-- (void)exitPlanResultRequestWithSmscode:(NSString *)smscode andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
+- (void)exitPlanResultRequestWithPlanID: (NSString *)planID andSmscode:(NSString *)smscode andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
 
 /**
  获取退出短验

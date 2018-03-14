@@ -33,7 +33,7 @@
 
 - (void)setUPViews {
     [self setUPViewsCreate];
-    [self setUPViewsFrame];
+//    [self setUPViewsFrame];
 }
 
 - (void)setUPViewsCreate {
@@ -101,52 +101,52 @@
 
 - (UILabel *)descLab {
     if (!_descLab) {
-        _descLab = [[UILabel alloc]init];
+        _descLab = [[UILabel alloc]initWithFrame:CGRectZero];
     }
     return _descLab;
 }
 - (UILabel *)principalTitleLab {
     if (!_principalTitleLab) {
-        _principalTitleLab = [[UILabel alloc]init];
+        _principalTitleLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _principalTitleLab.text = @"加入本金";
     }
     return _principalTitleLab;
 }
 - (UILabel *)principalLab {
     if (!_principalLab) {
-        _principalLab = [[UILabel alloc]init];
+        _principalLab = [[UILabel alloc]initWithFrame:CGRectZero];
     }
     return _principalLab;
 }
 - (UILabel *)profitTitleLab {
     if (!_profitTitleLab) {
-        _profitTitleLab = [[UILabel alloc]init];
+        _profitTitleLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _profitTitleLab.text = @"当前已赚";
     }
     return _profitTitleLab;
 }
 - (UILabel *)profitLab {
     if (!_profitLab) {
-        _profitLab = [[UILabel alloc]init];
+        _profitLab = [[UILabel alloc]initWithFrame:CGRectZero];
     }
     return _profitLab;
 }
 - (UILabel *)earningsTitleLab {
     if (!_earningsTitleLab) {
-        _earningsTitleLab = [[UILabel alloc]init];
+        _earningsTitleLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _earningsTitleLab.text = @"或预期收益";
     }
     return _earningsTitleLab;
 }
 - (UILabel *)earningsLab {
     if (!_earningsLab) {
-        _earningsLab = [[UILabel alloc]init];
+        _earningsLab = [[UILabel alloc]initWithFrame:CGRectZero];
     }
     return _earningsLab;
 }
 - (UIButton *)exitBtn {
     if (!_exitBtn) {
-        _exitBtn = [[UIButton alloc]init];
+        _exitBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 200, 100, 100)];
         [_exitBtn setTitle:@"确认退出" forState:UIControlStateNormal];
         [_exitBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
         [_exitBtn setBackgroundColor:RGB(232, 232, 238)];
@@ -158,8 +158,7 @@
 }
 - (UIButton *)cancelBtn {
     if (!_cancelBtn) {
-        _cancelBtn = [[UIButton alloc]init];
-        _cancelBtn = [[UIButton alloc]init];
+        _cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 350, 100, 100)];
         [_cancelBtn setTitle:@"暂不退出" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
         [_cancelBtn setBackgroundColor:RGB(232, 232, 238)];
