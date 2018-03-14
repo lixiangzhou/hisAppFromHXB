@@ -15,5 +15,5 @@
 @property (nonatomic,copy) NSString *earnInterestNow;/// 当前已赚
 @property (nonatomic,copy) NSString *totalEarnInterest;/// 预期收益
 @property (nonatomic,assign) BOOL isInLockPeriodQuit;/// 是否是锁定期内退出
-
+@property (nonatomic,copy) NSString *quitDesc; /// "预计退出日之前均可撤销，期间会继续享有收益。"
 @end

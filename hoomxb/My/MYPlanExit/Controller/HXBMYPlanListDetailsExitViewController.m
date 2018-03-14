@@ -24,7 +24,6 @@
     [super viewDidLoad];
     
     [self setupView];
-//    [self setFrame];
     [self downLoadData];
 }
 
@@ -33,8 +32,32 @@
     [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
+            [weakSelf setMyPlanDetailsExitMainViewValue];
         }
     }];
+}
+
+- (void)setMyPlanDetailsExitMainViewValue {
+    kWeakSelf
+    [self.mainView setValueManager_PlanDetail_Detail:^HXBMyPlanDetailsExitMainViewManager *(HXBMyPlanDetailsExitMainViewManager *manager) {
+        
+        if (!weakSelf.viewModel.myPlanDetailsExitModel) {
+            return manager;
+        }
+        
+        manager.topViewManager.leftStrArray = @[
+                                                @"加入本金",
+                                                @"当前已赚",
+                                                @"退出时间"
+                                                ];
+        manager.topViewManager.rightStrArray = @[
+                                                 weakSelf.viewModel.myPlanDetailsExitModel.amount,
+                                                 weakSelf.viewModel.myPlanDetailsExitModel.earnInterestNow,
+                                                 weakSelf.viewModel.myPlanDetailsExitModel.endLockingTime
+                                                 ];
+        return manager;
+    }];
+    [self.mainView setMyPlanDetailsExitModel:self.viewModel.myPlanDetailsExitModel];
 }
 
 - (void)setupView {
@@ -43,13 +66,6 @@
     self.title = @"红利计划退出";
     
     [self.view addSubview:self.mainView];
-}
-
-- (void)setFrame {
-    kWeakSelf
-    [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.bottom.width.height.equalTo(weakSelf.view);
-    }];
 }
 
 - (void)getNetworkAgain

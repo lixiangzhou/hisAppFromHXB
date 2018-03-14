@@ -8,7 +8,7 @@
 
 #import "HXBMyPlanDetailsExitViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-
+#import "NSString+HxbPerMilMoney.h"
 @implementation HXBMyPlanDetailsExitViewModel
 
 - (void)loadPlanListDetailsExitInfoWithPlanID: (NSString *)planID
@@ -18,11 +18,22 @@
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSDictionary *dataDic = responseObject[kResponseData];
-        [weakSelf.myPlanDetailsExitModel yy_modelSetWithDictionary:dataDic];
-        if (resultBlock) resultBlock(YES);
+        weakSelf.myPlanDetailsExitModel = [HXBMyPlanDetailsExitModel yy_modelWithJSON:responseObject[kResponseData]];
+        NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
+        NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
+        if (!earnInterestNow && totalEarnInterest) {
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
+        } else if (!earnInterestNow && !totalEarnInterest) {
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
+        }
+        weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (resultBlock) resultBlock(NO);
+        if (resultBlock) {
+            resultBlock(NO);
+        }
     }];
 }
 
@@ -37,8 +48,7 @@
     versionUpdateAPI.showHud = YES;
     kWeakSelf
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSDictionary *dataDic = responseObject[kResponseData];
-        [weakSelf.myPlanDetailsExitResultModel yy_modelSetWithDictionary:dataDic];
+        weakSelf.myPlanDetailsExitResultModel = [HXBMyPlanDetailsExitResultModel yy_modelWithJSON:responseObject[kResponseData]];
         if (callBackBlock) {
             callBackBlock(YES);
         }
