@@ -374,7 +374,7 @@
         kWeakSelf
         [self.openDepositAccountVM getAccountBankcardUserInformationWithCallBack:^(BOOL isSuccess) {
             if (isSuccess) {
-                [self setupBankCardData:weakSelf.openDepositAccountVM.bankCardModel];
+                [weakSelf setupBankCardData:weakSelf.openDepositAccountVM.bankCardModel];
             }
         }];
     }
