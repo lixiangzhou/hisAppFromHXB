@@ -7,7 +7,7 @@
 //
 
 #import "HXBFinPlanDetail_DetailView.h"
-
+#import "HXBFinPlanDetailExitView.h"
 
 @interface HXBFinPlanDetail_DetailView ()
 /**
@@ -40,6 +40,11 @@
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *serverView;
 
+/**
+ 退出方式视图
+ */
+@property (nonatomic, strong) HXBFinPlanDetailExitView *exitView;
+
 ///点击了红利计划服务协议
 @property (nonatomic,copy) void(^clickServerButtonBlock)(UILabel *button);
 @end
@@ -49,7 +54,7 @@
 - (instancetype) initWithFrame:(CGRect)frame withCashType:(NSString *) cashType{
     if (self = [super initWithFrame:frame]) {
         self.cashType = cashType;
-        self.typeViewCount = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? 3 : 2;//是否按月付息
+        self.typeViewCount = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? 2 : 1;//是否按月付息
         [self setUP];
         _manager = [[HXBFinPlanDetail_DetailViewManager alloc]init];
     }
@@ -94,6 +99,20 @@
     /// 设置服务协议富文本
     UILabel *label = (UILabel *)self.serverView.rightViewArray.firstObject;
     label.attributedText = manager.serverViewAttributedStr;
+    if (manager.quitWaysDesc.length) {
+        self.exitView.hidden = NO;
+        self.exitView.title = @"到期退出方式";
+        self.exitView.content = manager.quitWaysDesc;
+    }
+    else {
+        kWeakSelf
+        self.exitView.hidden = YES;
+        [self.serverView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.typeView.mas_bottom).offset(kScrAdaptationH(10));
+            make.left.right.equalTo(weakSelf);
+            make.height.equalTo(@(kScrAdaptationH(45)));
+        }];
+    }
 }
 
 
@@ -106,29 +125,32 @@
     self.dateView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:nil];
     
     self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.typeViewCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:self.cashType];//2
-    UILabel * rightView = (UILabel *)self.typeView.rightViewArray[1];
-    if ([self.typeView.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && rightView.subviews.count > 1) {
-        UIButton *infoBtn = nil;
-        UILabel *lab = nil;
-        for (UIView *view in rightView.subviews) {
-            if ([view isKindOfClass:[UIButton class]]) {
-                infoBtn = (UIButton *)view;
-                infoBtn.userInteractionEnabled = NO;
+    
+    if ([self.typeView.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
+        UILabel * rightView = (UILabel *)self.typeView.rightViewArray[1];
+        if ([self.typeView.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && rightView.subviews.count > 1) {
+            UIButton *infoBtn = nil;
+            UILabel *lab = nil;
+            for (UIView *view in rightView.subviews) {
+                if ([view isKindOfClass:[UIButton class]]) {
+                    infoBtn = (UIButton *)view;
+                    infoBtn.userInteractionEnabled = NO;
+                }
+                if ([view isKindOfClass:[UILabel class]]) {
+                    lab = (UILabel *)view;
+                    lab.userInteractionEnabled = NO;
+                }
             }
-            if ([view isKindOfClass:[UILabel class]]) {
-                lab = (UILabel *)view;
-                lab.userInteractionEnabled = NO;
-            }
+            [infoBtn setImage:[UIImage imageNamed:@"lightblue_tip"] forState:UIControlStateNormal];
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
+            rightView.userInteractionEnabled = YES;
+            [rightView addGestureRecognizer:tap1];
+            
+            UILabel * leftView = (UILabel *)self.typeView.leftViewArray[1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
+            leftView.userInteractionEnabled = YES;
+            [leftView addGestureRecognizer:tap2];
         }
-        [infoBtn setImage:[UIImage imageNamed:@"lightblue_tip"] forState:UIControlStateNormal];
-        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
-        rightView.userInteractionEnabled = YES;
-        [rightView addGestureRecognizer:tap1];
-        
-        UILabel * leftView = (UILabel *)self.typeView.leftViewArray[1];
-        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
-        leftView.userInteractionEnabled = YES;
-        [leftView addGestureRecognizer:tap2];
     }
     
     self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:nil];
@@ -141,6 +163,8 @@
     self.dateView.backgroundColor = [UIColor whiteColor];
     self.typeView.backgroundColor = [UIColor whiteColor];
     self.serverView.backgroundColor = [UIColor whiteColor];
+    self.exitView = [[HXBFinPlanDetailExitView alloc] init];
+    
 }
 
 - (void)clickInfoBtn{
@@ -172,7 +196,7 @@
     [self addSubview:self.dateView];
     [self addSubview:self.typeView];
     [self addSubview:self.serverView];
-    
+    [self addSubview:self.exitView];
     kWeakSelf
 //    [self.pursuitsView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
@@ -192,14 +216,18 @@
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.dateView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        if (weakSelf.typeViewCount == 3) {
-            make.height.equalTo(@(kScrAdaptationH(115)));
-        } else {
+        if (weakSelf.typeViewCount == 2) {
             make.height.equalTo(@(kScrAdaptationH(75)));
+        } else {
+            make.height.equalTo(@(kScrAdaptationH(45)));
         }
     }];
+    [self.exitView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(weakSelf);
+    }];
     [self.serverView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.typeView.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(weakSelf.exitView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH(45)));
     }];

@@ -24,6 +24,12 @@
 @property (nonatomic,assign) HXBRequestType_MY_PlanResponseStatus responseStatus;
 /// 红利计划 的状态
 @property (nonatomic,copy) NSString *status;
+
+/**
+ 2.6.0计划退出状态
+ */
+@property (nonatomic, copy) NSString *quitStatus;
+
 /**
  加入金额 (没有拼接（元）)
  */
