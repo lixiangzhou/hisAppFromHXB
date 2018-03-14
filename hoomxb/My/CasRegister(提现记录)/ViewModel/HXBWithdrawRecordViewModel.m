@@ -47,8 +47,8 @@
         
         
         weakSelf.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];
-        [weakSelf.dataList addObjectsFromArray:self.withdrawRecordListModel.dataList];
-        weakSelf.withdrawRecordListModel.dataList = self.dataList;
+        [weakSelf.dataList addObjectsFromArray:weakSelf.withdrawRecordListModel.dataList];
+        weakSelf.withdrawRecordListModel.dataList = weakSelf.dataList;
         if (resultBlock) {
             resultBlock(YES);
         }

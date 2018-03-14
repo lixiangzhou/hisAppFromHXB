@@ -101,15 +101,13 @@
             float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
             float space = width / (str.length-1);
             weakSelf.bankNum.text = str;
-            [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
+            [weakSelf changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
             weakSelf.bankTip.text = weakSelf.viewModel.bankCardModel.quota;
             
             if (weakSelf.unbundBankBlock) {
                 weakSelf.unbundBankBlock(weakSelf.viewModel.bankCardModel);
             }
-        } else {
-            [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-        }
+        } 
     }];
 }
 

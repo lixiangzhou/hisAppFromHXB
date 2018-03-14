@@ -22,7 +22,7 @@
 
 - (void)requestBankDataResultBlock:(void(^)(BOOL isSuccess))resultBlock {
     
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
     bankCardAPI.showHud = YES;
@@ -34,6 +34,12 @@
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
+        
+        NSDictionary *responseObject = request.responseObject;
+        
+        if (responseObject) {
+            [weakSelf showToast:@"银行卡请求失败"];
+        }
         if (resultBlock) {
             resultBlock(NO);
         }

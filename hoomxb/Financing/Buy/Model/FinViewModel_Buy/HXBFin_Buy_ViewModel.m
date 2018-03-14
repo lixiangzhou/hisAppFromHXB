@@ -12,7 +12,7 @@
 @implementation HXBFin_Buy_ViewModel
 
 - (void)requestForBankCardResultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
     kWeakSelf
@@ -22,7 +22,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        [weakSelf showToast:@"银行卡请求失败"];
         if (resultBlock) {
             resultBlock(NO);
         }

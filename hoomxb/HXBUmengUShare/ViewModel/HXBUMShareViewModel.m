@@ -8,6 +8,9 @@
 
 #import "HXBUMShareViewModel.h"
 #import "HXBUMShareModel.h"
+
+@interface HXBUMShareViewModel()<HXBRequestHudDelegate>
+@end
 @implementation HXBUMShareViewModel
 
 
@@ -42,13 +45,14 @@
  获取分享数据
  */
 - (void)UMShareresultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] init];
+    kWeakSelf
+    NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     umShareAPI.requestUrl = kHXBUMShareURL;
     umShareAPI.requestMethod = NYRequestMethodPost;
     umShareAPI.requestArgument = @{@"action":@"buy"};
     
     [umShareAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        self.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
+        weakSelf.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
         if (resultBlock) {
             resultBlock(YES);
         }
