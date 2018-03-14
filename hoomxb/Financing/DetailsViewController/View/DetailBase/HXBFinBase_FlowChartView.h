@@ -21,7 +21,7 @@ typedef enum : NSUInteger {
 
 static NSString *kHXB_FinPlan_Add = @"加入";
 static NSString *kHXB_FinPlan_Begin = @"进入锁定期";
-static NSString *kHXB_FinPlan_Leave = @"到期退出";
+static NSString *kHXB_FinPlan_Leave = @"到期可申请退出";
 @class HXBFinBase_FlowChartView_Manager;
 @interface HXBFinBase_FlowChartView : UIView
 /**
