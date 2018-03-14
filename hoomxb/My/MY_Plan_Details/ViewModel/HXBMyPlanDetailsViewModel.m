@@ -43,5 +43,22 @@
     }];
 }
 
+/**
+ * 撤销计划退出
+ * @param planID 计划id
+ */
+- (void)accountPlanQuitRequestWithPlanID: (NSString *)planID
+                             resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBMY_PlanQuitURL(planID);
+    request.requestMethod = NYRequestMethodPost;
+    request.showHud = YES;
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        if (resultBlock) resultBlock(YES);
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) resultBlock(NO);
+    }];
+}
+
 
 @end

@@ -23,8 +23,9 @@
 
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) UITableView *tabelView;
+@property (nonatomic, strong) UIButton *addButton;
+@property (nonatomic, strong) UILabel *buttonDescLabel;
 @property (nonatomic, strong) HXBMyPlanDetailsViewModel *viewModel;
 @end
 
@@ -32,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = BACKGROUNDCOLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.isColourGradientNavigationBar = YES;
     [self setUP];
@@ -40,22 +42,32 @@
         return weakSelf.view;
     }];
     self.title = self.planViewModel.planModelDataList.name;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self downData];
 }
 
 - (void) setUP {
     kWeakSelf
-    int cake = 4;
-    if (self.isLeave) {
-        cake = 5;
-    }
-
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) andInfoHaveCake:cake];
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, (kScrAdaptationH(447) + self.cake * kScrAdaptationH(37.5))) andInfoHaveCake:self.cake];
+    UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    UILabel *buttonDescLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.buttonDescLabel = buttonDescLabel;
+    self.addButton = addButton;
     self.planDetailView = planDetailView;
-    //tableView 的点击
+    self.buttonDescLabel.textColor = kHXBColor_666666_100;
+    self.buttonDescLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.buttonDescLabel.backgroundColor = BACKGROUNDCOLOR;
+    [self.addButton addTarget:self action:@selector(clickAddButton) forControlEvents:(UIControlEventTouchUpInside)];
+    self.addButton.titleLabel.numberOfLines = 0;
+    self.addButton.titleLabel.textColor = [UIColor whiteColor];
+    [self.addButton setBackgroundColor:COR29];
+    self.addButton.hidden = YES;
     [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
         switch (index) {
-            case 0: ///点击了投资记录button
+            case 0: ///点击了出借记录
                 [weakSelf clickLoanRecord];
                 break;
             case 1://服务协议
@@ -76,21 +88,31 @@
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
-    ///点击了立即加入button
-    [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
-        [weakSelf clickAddButton];
+    weakSelf.tabelView.tableHeaderView = planDetailView;
+    [self.view addSubview:self.addButton];
+    [self.view addSubview:self.buttonDescLabel];
+    
+    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(50)));
+        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight);
     }];
-    [weakSelf.hxbBaseVCScrollView addSubview:planDetailView];
+    [self.buttonDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(15));
+        make.height.equalTo(@(kScrAdaptationH(27)));
+        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight - kScrAdaptationH(50));
+    }];
+    
 }
 //服务协议
 - (void)clickNegotiate {
-    NSLog(@"点击了服务协议%@",self);
     NSString *url = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailsViewModel.planDetailModel.ID);
     if (self.viewModel.planDetailsViewModel.isMonthyPayment) {
         url = kHXB_Negotiate_ServeMonthPlan_AccountURL(self.viewModel.planDetailsViewModel.planDetailModel.ID);
     }
     [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:url] fromController:self];
 }
+
 //投资记录
 - (void)clickLoanRecord {
     HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
@@ -99,64 +121,42 @@
     capitalVC.investmentType = self.type;
     [self.navigationController pushViewController:capitalVC animated:YES];
 }
-//加入按钮
+
+// 点击按钮
 - (void)clickAddButton {
     if (!KeyChain.isLogin) {
          [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }
+    if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
+        
+//        HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc] init];
+        //    planBuyVC.planId = self.viewModel.planDetailsViewModel.planDetailModel.ID
+        //    planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile
+//        [self.navigationController pushViewController:planBuyVC animated:YES];
+        
+    } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
+        [self annulQuit];
+    }
     
-    /*
-     PlanDetailModel planDetailModel = new PlanDetailModel();
-     planDetailModel.setId(privatePlanDetailModel.getId());//计划id
-     planDetailModel.setRegisterMultipleAmount(privatePlanDetailModel.getRegisterMultipleAmount());//注册递增
-     planDetailModel.setUserRemainAmount(privatePlanDetailModel.getUserRemainAmount());//用户剩余
-     planDetailModel.setRemainAmount(privatePlanDetailModel.getRemainAmount());//计划剩余
-     planDetailModel.setTotalInterest(privatePlanDetailModel.getTotalInterest());//收益率
-     planDetailModel.setDiffTime((long) 0);//倒计时 由于
-     planDetailModel.setIsFirst("0");//倒计时 由于
-     */
-    kWeakSelf
-    HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
-    //获取计划信息
-    HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
-    BuyPlanDetailViewModel.planDetailModel = [[HXBFinDetailModel_PlanDetail alloc]init];
-    ///加入条件加入金额%@元起，%@元的整数倍递增
-    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",[NSString hxb_getPerMilWithDoubleNum:weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount.doubleValue]];
-    ///余额 title
-    ///收益方法
-    BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;
-    ///待转金额
-    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.remainAmount;
-    ///服务协议 button str
-    BuyPlanDetailViewModel.contractName = weakSelf.viewModel.planDetailsViewModel.contractName;
-    BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
-    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount;
-    ///用户可用余额
-    BuyPlanDetailViewModel.planDetailModel.userRemainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.userRemainAmount;
-    ///计划余额
-    BuyPlanDetailViewModel.planDetailModel.remainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.remainAmount;
-    //递增金额
-    BuyPlanDetailViewModel.planDetailModel.registerMultipleAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount;
-    planBuyVC.planViewModel = BuyPlanDetailViewModel;
-    planBuyVC.ID = weakSelf.viewModel.planDetailsViewModel.planDetailModel.ID.integerValue;
-    planBuyVC.planViewModel.ID = weakSelf.viewModel.planDetailsViewModel.planDetailModel.ID;
-    
+}
 
+// 撤销退出
+- (void)annulQuit {
+    kWeakSelf
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"您是否撤销退出" Massage:@"您撤销退出，撤销后依然继续享有收益。" force:2 andLeftButtonMassage:@"继续退出" andRightButtonMassage:@"继续持有"];
+    [alertVC setClickXYLeftButtonBlock:^{
+    }];
     
-    [planBuyVC clickLookMYInfoButtonWithBlock:^{
-        __block UIViewController *vc = nil;
-        [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"HXBMY_PlanListViewController")]) {
-                vc = obj;
-                *stop = YES;
+    [alertVC setClickXYRightButtonBlock:^{
+        [weakSelf.viewModel accountPlanQuitRequestWithPlanID:weakSelf.planViewModel.planModelDataList.ID resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [weakSelf downData];
             }
         }];
-        [weakSelf.navigationController popToViewController:vc animated:YES];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
     }];
-    [weakSelf.navigationController pushViewController:planBuyVC animated:YES];
-
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 #pragma mark - 网络数据的请求
@@ -165,19 +165,36 @@
     NSString *planID = self.planViewModel.planModelDataList.ID;
     [self.viewModel accountPlanListDetailsRequestWithPlanID:planID resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
+            
             [weakSelf dispatchValueWithDetailViewModel:weakSelf.viewModel.planDetailsViewModel];
+        } else {
+            weakSelf.tabelView.hidden = NO;
+            self.addButton.hidden = self.buttonDescLabel.hidden = YES;
         }
     }];
 }
 
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     kWeakSelf
+    self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"]) ;
+    self.buttonDescLabel.hidden = self.addButton.hidden;
+    if (self.addButton.hidden) {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
+    } else {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
+    }
+    [self.addButton setTitle:viewModel.quitStatus forState:(UIControlStateNormal)];
+    self.buttonDescLabel.text = viewModel.quitSubTitle;
+    
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
-        manager.topViewStatusStr = viewModel.status;
+        manager.topViewStatusStr = viewModel.leaveStatus;
+        
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;
+        
         manager.type = weakSelf.type;
         manager.planDetailModel = viewModel.planDetailModel;
+        
         ///判断到底是哪种
         [weakSelf judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
 
@@ -191,27 +208,24 @@
         }
    
         manager.strArray = @[@"出借记录", @"红利计划服务协议"];
-        
-        manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;
     }];
+    weakSelf.tabelView.hidden = NO;
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
-        
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+- (UITableView *)tabelView {
+    if (!_tabelView) {
+        _tabelView = [[UITableView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
+        [self.view insertSubview:_tabelView atIndex:0];
+        _tabelView.hidden = YES;
+        _tabelView.tableFooterView = [[UIView alloc]init];
+        _tabelView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_tabelView];
     }
-    return _hxbBaseVCScrollView;
+    return _tabelView;
 }
 
-- (void)judgementStatusWithStauts: (NSInteger)status andManager: (HXBMY_PlanDetailView_Manager *)manager andHXBMYViewModel_PlanDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel{
+- (void)judgementStatusWithStauts: (NSInteger)status andManager: (HXBMY_PlanDetailView_Manager *)manager andHXBMYViewModel_PlanDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     /**
      statusInt
      1: 表示等待计息
@@ -225,8 +239,8 @@
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
-                                                     @"期限",
-                                                     @"加入日期",
+                                                     @"锁定期",
+                                                     @"加入日期"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,
@@ -237,27 +251,31 @@
             manager.typeImageName = @"zhaiquanpipei";
             break;
             //2: 表示受益中
-        case 2:
+        case 10:
+        case 11:
+        case 12:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
-                                                     @"期限",
+                                                     @"锁定期",
                                                      @"加入日期",
+                                                     @"锁定期结束时间"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,
                                                       viewModel.expectedRate,
                                                       viewModel.lockTime,
-                                                      viewModel.addTime
+                                                      viewModel.addTime,
+                                                      viewModel.endLockingTime
                                                       ];
-            manager.typeImageName = @"jutuichu";
+            manager.typeImageName = viewModel.statusImageName;
             break;
             //3: 表示退出中
         case 3:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
-                                                     @"期限",
+                                                     @"锁定期",
                                                      @"加入日期",
                                                      @"待转出金额"
                                                      ];
@@ -275,7 +293,7 @@
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
-                                                     @"期限",
+                                                     @"锁定期",
                                                      @"实际退出日期"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
@@ -290,21 +308,10 @@
             break;
     }
 }
+
+
 - (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     NSLog(@"✅被销毁 %@",self);
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
 @end

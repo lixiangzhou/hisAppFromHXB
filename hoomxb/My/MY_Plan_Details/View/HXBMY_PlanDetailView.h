@@ -27,10 +27,6 @@
  */
 - (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell;
 
-/**
- 点击了 追加按钮
- */
-- (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock;
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock;
 
 @property (nonatomic, copy) void (^tipClickBlock)();

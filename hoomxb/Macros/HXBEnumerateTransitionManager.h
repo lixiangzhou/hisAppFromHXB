@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #pragma  mark ========== plan ======================
 ///计划类型（PURCHASE_END：收益中，PURCHASEING：等待计息)
-///收益中
-static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"PURCHASE_END";//收益中
-///等待计息
-static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";//等待计息
 
+//锁定期
+static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"PURCHASE_END";
+//债转匹配中
+static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";
+//开放期
+static NSString *const MY_PlanResponsType_REDEMPTION_PERIOD_Plan = @"REDEMPTION_PERIOD";
 static NSString *const MY_PlanRequestType_HOLD_PLAN         = @"HOLD_PLAN";
 static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"债权匹配中";
 static NSString *const MY_PlanRequestType_EXITING_PLAN      = @"EXITING_PLAN";
@@ -31,7 +33,7 @@ static NSString *const FIN_PLAN_INCOMEAPPROACH_MONTHLY      = @"HXB";    //按�
  * EXIT_PLAN（已退出）
  */
 typedef enum : NSUInteger {
-    ///持有中
+    ///HOLD_PLAN（持有中）
     HXBRequestType_MY_PlanRequestType_HOLD_PLAN = 1,
     ///EXITING_PLAN（退出中）
     HXBRequestType_MY_PlanRequestType_EXITING_PLAN = 2,

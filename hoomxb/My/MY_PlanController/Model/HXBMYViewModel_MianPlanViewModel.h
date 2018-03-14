@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 @class HXBMYModel_MainPlanModel_DataList;
 
-
-
-
 ///我的 plan 主界面的ViewModel
 @interface HXBMYViewModel_MianPlanViewModel : NSObject
+
 ///viewModel里的数据Model
 @property (nonatomic,strong) HXBMYModel_MainPlanModel_DataList *planModelDataList;
+
 ///请求的类型 （持有中， 正在推出， 已经推出）
 @property (nonatomic,assign) HXBRequestType_MY_PlanRequestType requestType;
 ///UI展示的请求的类型 （持有中， 正在推出， 已经推出）
@@ -63,4 +62,10 @@
  已获收益
  */
 @property (nonatomic,copy) NSString * earnAmount_NOTYUAN;
+
+
+
+
+
+
 @end
