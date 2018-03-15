@@ -115,7 +115,7 @@
         make.top.equalTo(_topView.mas_bottom).offset(kScrAdaptationH(65));
         make.left.equalTo(self);
         make.width.offset(kScreenWidth);
-        make.height.offset(kScrAdaptationH(57));
+        make.bottom.equalTo(@-10);
     }];
     
     [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -288,7 +288,12 @@
 
 - (void)setQuitWay:(NSString *)quitWay {
     _quitWay = quitWay;
-    self.quitWayLabel.text = [NSString stringWithFormat:@"退出方式：%@", quitWay];
+    if (quitWay) {
+        self.quitWayLabel.text = [NSString stringWithFormat:@"退出方式：%@", quitWay];
+        self.quitWayLabel.hidden = NO;
+    } else {
+        self.quitWayLabel.hidden = YES;
+    }
 }
 
 - (void)setDisableBtn:(BOOL)disableBtn {
