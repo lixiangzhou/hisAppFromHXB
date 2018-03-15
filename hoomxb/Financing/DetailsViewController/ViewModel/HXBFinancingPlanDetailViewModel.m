@@ -79,6 +79,7 @@
     planJoinVC.hasBindCard              = hasBindCard;
     planJoinVC.userInfoViewModel        = viewModel;
     planJoinVC.riskType                 = self.planDetailModel.planDetailModel.riskType;
+    planJoinVC.quitWay                  = self.planDetailModel.planDetailModel.quitWayDefault;
     
     return planJoinVC;
 }

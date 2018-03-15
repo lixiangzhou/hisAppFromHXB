@@ -523,8 +523,8 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 // 获取银行限额
-static const NSInteger topView_bank_high = 370;
-static const NSInteger topView_high = 300;
+static const NSInteger topView_bank_high = 370 + 32;
+static const NSInteger topView_high = 300 + 32;
 - (void)getBankCardLimit {
     if ([self.hasBindCard isEqualToString:@"1"]) {
         self.topView.height = kScrAdaptationH750(topView_bank_high);
@@ -703,6 +703,7 @@ static const NSInteger topView_high = 300;
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         _topView.profitType = _featuredSlogan;
+        _topView.quitWay = self.quitWay;
         // 输入框值变化
         _topView.changeBlock = ^(NSString *text) {
             [weakSelf investMoneyTextFieldText:text];

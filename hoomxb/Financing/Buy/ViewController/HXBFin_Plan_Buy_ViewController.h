@@ -29,6 +29,9 @@
 /// 新手每百元收益
 @property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;
 
+/// --------------2.6 版本-------------
+@property (nonatomic, copy) NSString *quitWay;
+
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;    // 用户信息
 @property (nonatomic, copy) NSString *riskType;     // 风险类型
 

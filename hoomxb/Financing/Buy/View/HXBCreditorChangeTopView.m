@@ -24,6 +24,8 @@
 @property (nonatomic, strong)  UILabel *profitLabel;
 /** 收益方式 */
 @property (nonatomic, strong)  UILabel *profitTypeLabel;
+/// 退出方式
+@property (nonatomic, strong) UILabel *quitWayLabel;
 /** 预期收益 */
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *topView;
@@ -54,6 +56,7 @@
     [self.backView addSubview:lineView];
     [self.backView addSubview:self.profitLabel];
     [self.backView addSubview:self.profitTypeLabel];
+    [self.backView addSubview:self.quitWayLabel];
     [self setupFrame];
 }
 
@@ -112,14 +115,13 @@
         make.top.equalTo(_topView.mas_bottom).offset(kScrAdaptationH(65));
         make.left.equalTo(self);
         make.width.offset(kScreenWidth);
-        make.height.offset(kScrAdaptationH(35));
+        make.height.offset(kScrAdaptationH(57));
     }];
     
     [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(weakSelf.backView);
+        make.top.equalTo(weakSelf.backView).offset(11);
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(15));
         make.right.equalTo(weakSelf).offset(-kScrAdaptationW(75));
-        make.height.offset(kScrAdaptationH(35));
     }];
     
     [_profitTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,6 +129,12 @@
         make.width.offset(kScrAdaptationW(60));
         make.height.offset(kScrAdaptationH(24));
         make.right.equalTo(weakSelf.backView).offset(kScrAdaptationH(-15));
+    }];
+    
+    [self.quitWayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(15));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-15));
+        make.bottom.equalTo(weakSelf.backView).offset(-11);
     }];
 }
 
@@ -183,6 +191,16 @@
         _profitTypeLabel.layer.cornerRadius = kScrAdaptationW(4);
     }
     return _profitTypeLabel;
+}
+
+- (UILabel *)quitWayLabel {
+    if (!_quitWayLabel) {
+        _quitWayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _quitWayLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _quitWayLabel.textColor = COR10;
+        _quitWayLabel.text = @"退出方式：";
+    }
+    return _quitWayLabel;
 }
 
 - (void)setCreditorMoney:(NSString *)creditorMoney {
@@ -266,6 +284,11 @@
             make.width.equalTo(@(width + 12));
         }];
     }
+}
+
+- (void)setQuitWay:(NSString *)quitWay {
+    _quitWay = quitWay;
+    self.quitWayLabel.text = [NSString stringWithFormat:@"退出方式：%@", quitWay];
 }
 
 - (void)setDisableBtn:(BOOL)disableBtn {
