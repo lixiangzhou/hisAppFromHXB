@@ -59,9 +59,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
-    
+    kWeakSelf
     self.viewModel = [[HXBFinanceListViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     
     [self.countDownButton setValue:@1 forKey:@"selected"];

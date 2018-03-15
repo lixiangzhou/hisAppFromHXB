@@ -144,19 +144,18 @@
 // 撤销退出
 - (void)annulQuit {
     kWeakSelf
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"您是否撤销退出" Massage:@"您撤销退出，撤销后依然继续享有收益。" force:2 andLeftButtonMassage:@"继续退出" andRightButtonMassage:@"继续持有"];
-    [alertVC setClickXYLeftButtonBlock:^{
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"您是否撤销退出" andSubTitle:@"您撤销退出，撤销后依然继续享有收益。" andLeftBtnName:@"继续退出" andRightBtnName:@"继续持有" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.isCenterShow = NO;
+    [alertVC setLeftBtnBlock:^{
     }];
-    
-    [alertVC setClickXYRightButtonBlock:^{
+    [alertVC setRightBtnBlock:^{
         [weakSelf.viewModel accountPlanQuitRequestWithPlanID:weakSelf.planViewModel.planModelDataList.ID resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf downData];
             }
         }];
     }];
-    
-    [self presentViewController:alertVC animated:YES completion:nil];
+    [self presentViewController:alertVC animated:NO completion:nil];
 }
 
 #pragma mark - 网络数据的请求
