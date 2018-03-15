@@ -86,13 +86,13 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 
 //================================== function ==================================
-- (void)start;
-
-- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
-
-- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
-
-- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+//- (void)start;
+//
+//- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+//
+//- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+//
+//- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 
 
 - (NYBaseRequest *)copyRequest;

@@ -10,7 +10,7 @@
 #import "HxbMyBankCardViewController.h"
 #import "HxbMyAccountSecurityViewController.h"
 #import "HxbMyAboutMeViewController.h"
-#import "HXBRequestUserInfo.h"
+#import "HXBRequestUserInfoAgent.h"
 #import "HXBRiskAssessmentViewController.h"
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBBaseTabBarController.h"

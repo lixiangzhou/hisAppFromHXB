@@ -16,7 +16,6 @@
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"//债转的详情页
 
-#import "HXBFinanctingRequest.h"//网络请求工具类
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划列表viewmodel
 #import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
 #import "HXBFinHomePageModel_PlanList.h"//红利计划列表model

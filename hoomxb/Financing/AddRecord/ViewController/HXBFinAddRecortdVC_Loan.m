@@ -7,7 +7,6 @@
 //
 
 #import "HXBFinAddRecortdVC_Loan.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBFinAddRecortdTableView_Plan.h"
 #import "HXBFinAddRecordViewModel.h"
 

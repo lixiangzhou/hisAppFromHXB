@@ -26,7 +26,7 @@
         configRequestBlock(request);
     }
     
-    [request startWithSuccess:success failure:failure];
+    [request loadData:success failure:failure];
     
     return request;
 }

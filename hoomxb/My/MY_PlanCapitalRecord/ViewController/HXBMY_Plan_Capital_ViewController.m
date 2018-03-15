@@ -7,7 +7,6 @@
 //
 
 #import "HXBMY_Plan_Capital_ViewController.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBMY_PlanViewModel_LoanRecordViewModel.h"
 #import "HXBNoDataView.h"
 #import "HXBMyPlanCapitalRecordViewModel.h"

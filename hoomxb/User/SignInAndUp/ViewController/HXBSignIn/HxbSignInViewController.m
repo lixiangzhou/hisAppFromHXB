@@ -10,7 +10,7 @@
 #import "HxbSignUpViewController.h"
 #import "HxbPhoneVerifyViewController.h"
 #import "HxbSignInView.h"
-#import "HXBRequestUserInfo.h"///用户数据的请求
+#import "HXBRequestUserInfoAgent.h"///用户数据的请求
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBSignInViewModel.h"

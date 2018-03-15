@@ -11,7 +11,7 @@
 #import "HxbMyView.h"
 #import "HxbAccountInfoViewController.h"
 #import "HxbWithdrawViewController.h"
-#import "HXBRequestUserInfo.h"
+#import "HXBRequestUserInfoAgent.h"
 #import "HXBMY_AllFinanceViewController.h"
 #import "HXBBindBankCardViewController.h"
 #import "HXBOpenDepositAccountViewController.h"
