@@ -73,7 +73,7 @@
 }
 
 - (void)forgotPasswordWithMobile: (NSString *)mobile smscode: (NSString *)smscode captcha: (NSString *)captcha password: (NSString *)password resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *forgotPasswordAPI = [[NYBaseRequest alloc]init];
+    NYBaseRequest *forgotPasswordAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     forgotPasswordAPI.requestUrl = HXBAccount_ForgotPasswordURL;
     forgotPasswordAPI.requestArgument = @{
                                           @"mobile" : mobile,

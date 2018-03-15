@@ -80,7 +80,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) {
-            resultBlock(NO, error != nil);
+            resultBlock(NO, YES);
         }
     }];
 }

@@ -49,7 +49,7 @@
 
 - (void)realNameWithUserName: (NSString *)userName identityCard: (NSString *)identityCard password: (NSString *)password resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     
-    NYBaseRequest *realnameApi = [[NYBaseRequest alloc]init];
+    NYBaseRequest *realnameApi = [[NYBaseRequest alloc]initWithDelegate:self];
     realnameApi.requestUrl = kHXBUser_realnameURL;
     realnameApi.requestMethod = NYRequestMethodPost;
     realnameApi.requestArgument = @{
