@@ -7,7 +7,8 @@
 //
 
 #import "HXBBaseViewController.h"
-#import "HXBSignUPAndLoginRequest.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
+
 ///短信验证 VC
 @interface HXBSendSmscodeViewController : HXBBaseViewController
 ///电弧号码

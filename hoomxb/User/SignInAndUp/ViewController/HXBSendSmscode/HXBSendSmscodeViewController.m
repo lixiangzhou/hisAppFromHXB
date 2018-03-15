@@ -15,7 +15,6 @@
 #import "HXBSignInWaterView.h"
 #import "HXBGeneralAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
-#import "HXBSignUPAndLoginRequest.h"///数据请求
 #import "HXBSendSmscodeVCViewModel.h"
 #import "HXBRootVCManager.h"
 ///短信验证 VC
@@ -223,27 +222,26 @@
         }
         if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
-            [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:weakSelf.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            } andFailureBlock:^(NSError *error) {
-                
+            [weakSelf.viewModel forgotPasswordWithMobile:weakSelf.phonNumber smscode:smscode captcha:weakSelf.captcha password:password resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                }
             }];
         }else {
-            [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
-                 NSLog(@"注册设置成功");
-                [KeyChain removeGesture];
-                KeyChain.skipGesture = nil;
-                KeyChain.skipGestureAlertAppeared = NO;
-                
-                KeyChain.mobile = weakSelf.phonNumber;
-                KeyChain.isLogin = YES;
-                KeyChain.ciphertext = @"0";
-
-                HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-                bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
-                [weakSelf.navigationController pushViewController:bindBankCardVC animated:YES];
-            } andFailureBlock:^(NSError *error) {
-                
+            [self.viewModel signUPRequetWithMobile:weakSelf.phonNumber smscode:smscode password:password inviteCode:inviteCode resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [KeyChain removeGesture];
+                    KeyChain.skipGesture = nil;
+                    KeyChain.skipGestureAlertAppeared = NO;
+                    
+                    KeyChain.mobile = weakSelf.phonNumber;
+                    KeyChain.isLogin = YES;
+                    KeyChain.ciphertext = @"0";
+                    
+                    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+                    bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
+                    [weakSelf.navigationController pushViewController:bindBankCardVC animated:YES];
+                }
             }];
         }
         

@@ -8,15 +8,14 @@
 
 #import "HXBModifyPhoneViewController.h"
 #import "HXBModifyPhoneView.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBModifyPhoneViewModel.h"
 #import "HXBRootVCManager.h"
+
 @interface HXBModifyPhoneViewController ()
 @property (nonatomic, strong) HXBModifyPhoneView *homeView;
-@property (nonatomic,strong)HXBModifyPhoneViewModel *modifyPhoneViewModel;
+@property (nonatomic,strong)HXBModifyPhoneViewModel *viewModel;
 /**
  图验证码
  */
@@ -37,14 +36,13 @@
             [weakSelf enterGraphicsCodeViewWithPhoneNumber:phoneNumber];
         };
         
-        
         //点击确认修改
         _homeView.sureChangeBtnClickBlock = ^(NSString *phoneNumber,NSString *verificationCode){
             if (weakSelf.checkPaptcha.length == 0) {
                 [HxbHUDProgress showTextWithMessage:@"请输入正确的短信验证码"];
             } else {
                 
-                weakSelf.modifyPhoneViewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
+                weakSelf.viewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
                     if (weakSelf.presentedViewController) {
                         return weakSelf.presentedViewController.view;
                     }
@@ -52,9 +50,9 @@
                         return weakSelf.view;
                     }
                 }];
-                [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
+                [weakSelf.viewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
-                        KeyChain.mobile = weakSelf.modifyPhoneViewModel.modifyPhoneModel.mobile;//phoneNumber;
+                        KeyChain.mobile = weakSelf.viewModel.modifyPhoneModel.mobile;//phoneNumber;
                         [KeyChain removeGesture];
                         KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                         [KeyChain signOut];
@@ -110,7 +108,7 @@
  */
 - (void)graphicSuccessWithPhoneNumber:(NSString *)phoneNumber andWithCheckPaptcha:(NSString *)checkPaptcha
 {
-    [self.modifyPhoneViewModel getVerifyCodeRequesWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+    [self.viewModel getVerifyCodeRequesWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             NSLog(@"%d",isSuccess);
         }
