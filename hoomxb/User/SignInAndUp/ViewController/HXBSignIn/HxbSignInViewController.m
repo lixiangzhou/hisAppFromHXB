@@ -90,8 +90,9 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
 ///注册 校验手机号事件
 - (void) registerCheckMobileEvent {
+    kWeakSelf
     [self.signView checkMobileRequestBlockFunc:^(NSString *mobile) {
-        [self.viewModel checkExistMobile:mobile resultBlock:^(BOOL isSuccess) {
+        [weakSelf.viewModel checkExistMobile:mobile resultBlock:^(BOOL isSuccess) {
         }];
     }];
 }
