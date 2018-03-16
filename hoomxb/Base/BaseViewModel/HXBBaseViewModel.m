@@ -13,12 +13,22 @@
 
 @interface HXBBaseViewModel()
 @property (nonatomic, strong) MBProgressHUD* mbpView;
+@property (nonatomic, strong) NSMutableArray* requestList;
 @end
 
 @implementation HXBBaseViewModel
 
-- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
+- (instancetype)init
+{
     self = [super init];
+    if (self) {
+        _requestList = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
+    self = [self init];
     
     if(self) {
         self.hugViewBlock = hugViewBlock;
@@ -87,6 +97,34 @@
 
 - (void)hideProgress {
     [self showMBP:NO withHudContent:nil];
+}
+
+#pragma mark在委托者中操作请求对象
+/**
+ 添加请求到委托者
+ 
+ @param request 请求对象
+ */
+- (void)addRequestObject:(NYBaseRequest *)request {
+    [self.requestList addObject:request];
+}
+
+/**
+ 移除请求从委托者
+ 
+ @param request 请求对象
+ */
+- (void)removeRequestObject:(NYBaseRequest *)request {
+    [self.requestList removeObject:request];
+}
+
+/**
+ 从委托者获取其中的请求列表
+ 
+ @return 请求列表
+ */
+- (NSArray*)getRequestObjectList {
+    return self.requestList;
 }
 
 #pragma mark 错误码处理

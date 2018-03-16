@@ -56,6 +56,10 @@
     else if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
         return NO;
     }
+    else if([request.requestUrl isEqualToString:kHXBUserInfo_UnbindBankCard]){
+        return NO;
+    }
+    
     return [super erroStateCodeDeal:request];
 }
 
@@ -63,6 +67,10 @@
     if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
         return NO;
     }
+    else if([request.requestUrl isEqualToString:kHXBUserInfo_UnbindBankCard]){
+        return NO;
+    }
+    
     return [super erroStateCodeDeal:request];
 }
 
@@ -84,24 +92,30 @@
 
 - (void)requestUnBindWithParam:(NSDictionary *)param finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
 {
-    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:param method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        
-        if (finishBlock == nil) {
-            return;
-        }
-        
-        if (responseObject.isSuccess) {
+    NYBaseRequest *bindAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    bindAPI.requestUrl = kHXBUserInfo_UnbindBankCard;
+    bindAPI.requestMethod = NYRequestMethodPost;
+    bindAPI.requestArgument = param;
+    [bindAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        if (finishBlock) {
             finishBlock(YES, responseObject.message, YES);
-        } else {
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSDictionary *responseObject = request.responseObject;
+        if(responseObject){
             if (responseObject.statusCode == kHXBCode_UnBindCardFail) {
-                finishBlock(NO, responseObject.message, YES);
+                if(finishBlock) {
+                    finishBlock(NO, responseObject.message, YES);
+                }
             } else {
-                finishBlock(NO, responseObject.message, NO);
+                [self showToast:responseObject.message];
             }
         }
-        
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        finishBlock(NO, nil, NO);
+        else{
+            if (finishBlock) {
+                finishBlock(NO, nil, NO);
+            }
+        }
     }];
 }
 

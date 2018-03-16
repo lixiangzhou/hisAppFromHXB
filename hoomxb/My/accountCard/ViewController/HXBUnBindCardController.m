@@ -244,20 +244,17 @@
     // 防止按钮重复点击
     self.unBindBtn.enabled = NO;
     
+    kWeakSelf
     [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNo, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
         // 防止按钮重复点击
-        self.unBindBtn.enabled = YES;
+        weakSelf.unBindBtn.enabled = YES;
         
         if (canPush) {
             HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
             VC.isSuccess = succeed;
-            VC.mobileText = self.bankCardViewModel.bankNoLast4;
+            VC.mobileText = weakSelf.bankCardViewModel.bankNoLast4;
             VC.describeText = errorMessage;
-            [self.navigationController pushViewController:VC animated:YES];
-        } else {
-            if (errorMessage) {
-                [HxbHUDProgress showMessageCenter:errorMessage hideAnimatedAfterDelay:2];
-            }
+            [weakSelf.navigationController pushViewController:VC animated:YES];
         }
     }];
 }
