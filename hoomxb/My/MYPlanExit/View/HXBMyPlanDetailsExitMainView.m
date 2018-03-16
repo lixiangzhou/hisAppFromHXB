@@ -87,6 +87,8 @@
         make.top.equalTo(weakSelf.cancelBtn.mas_bottom).offset(kScrAdaptationH750(40));
         make.left.right.height.equalTo(weakSelf.cancelBtn);
     }];
+    self.cancelBtn.hidden = YES;
+    self.exitBtn.hidden = YES;
 }
 
 - (void)setUPViewsCreate {
@@ -97,6 +99,8 @@
 
 - (void)setMyPlanDetailsExitModel:(HXBMyPlanDetailsExitModel *)myPlanDetailsExitModel {
     self.descLab.text = myPlanDetailsExitModel.quitDesc ? myPlanDetailsExitModel.quitDesc:@"";
+    self.cancelBtn.hidden = !myPlanDetailsExitModel;
+    self.exitBtn.hidden = !myPlanDetailsExitModel;
 }
 
 - (void)exitBtnClick {
