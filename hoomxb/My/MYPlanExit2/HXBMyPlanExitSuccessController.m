@@ -36,7 +36,7 @@
     UILabel *resultLabel = [[UILabel alloc] init];
     resultLabel.textColor = kHXBFountColor_333333_100;
     resultLabel.font = kHXBFont_36;
-    resultLabel.text = @"退出已申请";
+    resultLabel.text = self.titleString;
     [self.view addSubview:resultLabel];
     
     UILabel *descLabel = [UILabel new];

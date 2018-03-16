@@ -10,4 +10,5 @@
 
 @interface HXBMyPlanExitSuccessController : HXBBaseViewController
 @property (nonatomic, copy) NSString *descString;
+@property (nonatomic, copy) NSString *titleString;
 @end
