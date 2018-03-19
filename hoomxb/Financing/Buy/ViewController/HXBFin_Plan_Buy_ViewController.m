@@ -317,7 +317,7 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.tableView.tableHeaderView = nil;
             weakSelf.cardModel = model;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
-                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high) + self.topQuitWayAdditionalHeight;
+                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high) + weakSelf.topQuitWayAdditionalHeight;
                 if (!weakSelf.cardModel) {
                     weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
                 } else {
@@ -326,7 +326,7 @@ static NSString *const bankString = @"绑定银行卡";
                 }
                 weakSelf.topView.hasBank = YES;
             } else {
-                weakSelf.topView.height = kScrAdaptationH750(topView_high) + self.topQuitWayAdditionalHeight;
+                weakSelf.topView.height = kScrAdaptationH750(topView_high) + weakSelf.topQuitWayAdditionalHeight;
                 weakSelf.topView.hasBank = NO;
             }
             weakSelf.tableView.tableHeaderView = weakSelf.topView;
