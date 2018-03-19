@@ -11,6 +11,7 @@
 #import "HXBMyPlanDetailsExitViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBMyPlanExitSuccessController.h"
+#import "HXBMyPlanDetailsCancelExitMainView.h"
 
 @interface HXBMYPlanListDetailsExitViewController ()
 @property (nonatomic,strong) HXBMyPlanDetailsExitMainView *mainView;

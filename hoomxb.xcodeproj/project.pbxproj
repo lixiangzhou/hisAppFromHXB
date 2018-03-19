@@ -499,6 +499,7 @@
 		E1398F521F345EC20094441F /* HXBDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1398F511F345EC20094441F /* HXBDataManager.m */; };
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
+		E144506B205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E144506A205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
@@ -1539,6 +1540,8 @@
 		E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshHeader.m; sourceTree = "<group>"; };
 		E13A534B1F0A65E9002C3416 /* UIScrollView+STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+STRefresh.h"; sourceTree = "<group>"; };
 		E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+STRefresh.m"; sourceTree = "<group>"; };
+		E1445069205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsCancelExitMainView.h; sourceTree = "<group>"; };
+		E144506A205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsCancelExitMainView.m; sourceTree = "<group>"; };
 		E14B9BDD1F14731400450692 /* HXBColourGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBColourGradientView.h; sourceTree = "<group>"; };
 		E14B9BDE1F14731400450692 /* HXBColourGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBColourGradientView.m; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
@@ -4813,6 +4816,8 @@
 			children = (
 				E166CDBC20562F5400666749 /* HXBMyPlanDetailsExitMainView.h */,
 				E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */,
+				E1445069205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.h */,
+				E144506A205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5700,6 +5705,7 @@
 				8D2CF5231FC2DA5D008F7A89 /* HXBInviteListModel.m in Sources */,
 				9AE031F72022C317006D6140 /* HXBDepositoryAlertViewController.m in Sources */,
 				9AE033842022C422006D6140 /* HXBFin_Plan_BuyViewController.m in Sources */,
+				E144506B205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m in Sources */,
 				9AE0338C2022C422006D6140 /* HXBFin_LoanInfoView.m in Sources */,
 				9A647E12204E968900EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m in Sources */,
 				4E0446E21FBEA9A50030E276 /* HXBUMShareViewModel.m in Sources */,
