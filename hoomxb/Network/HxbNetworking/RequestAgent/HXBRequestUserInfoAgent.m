@@ -7,13 +7,12 @@
 //
 
 #import "HXBRequestUserInfoAgent.h"
-#import "HXBBaseRequest.h"
 
 #define kHXBUser_signOutURL @"/logout"
 @implementation HXBRequestUserInfoAgent
 
 + (void)signOut {
-    NYBaseRequest *request = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *request = [[NYBaseRequest alloc]init];
     request.requestUrl = kHXBUser_signOutURL;
     request.requestMethod = NYRequestMethodPost;
     [request loadData:^(NYBaseRequest *request, id responseObject) {

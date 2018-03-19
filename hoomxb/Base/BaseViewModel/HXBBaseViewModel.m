@@ -8,7 +8,6 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBRootVCManager.h"
-#import "HXBBaseRequest.h"
 #import "HXBBaseRequestManager.h"
 
 @interface HXBBaseViewModel()
@@ -174,13 +173,6 @@
                 return YES;
             }
         }
-    } else {
-        if([request isKindOfClass:[HXBBaseRequest class]]) {
-            HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
-            if (request.responseObject[kResponseData][@"dataList"]) {
-                [self addRequestPage:requestHxb];
-            }
-        }
     }
     return NO;
 }
@@ -210,14 +202,6 @@
 }
 
 #pragma mark - 部分页面用到Page++ 的处理
-
-// status == 0
-//page++
-- (void)addRequestPage: (HXBBaseRequest *)request {
-    NSArray *dataArray = request.responseObject[kResponseData][kResponseDataList];
-    if(dataArray.count) request.dataPage ++;
-    NSLog(@"%@ 🐯page ++ %ld",request,(long)request.dataPage);
-}
 
 /**
  错误的响应码处理

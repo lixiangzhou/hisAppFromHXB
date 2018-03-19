@@ -7,7 +7,6 @@
 //
 
 #import "HXBBankCardViewModel.h"
-#import "NYBaseRequest+HXB.h"
 #import "HXBOpenDepositAccountAgent.h"
 #import "HXBCardBinModel.h"
 @interface HXBBankCardViewModel()

@@ -7,7 +7,6 @@
 //
 
 #import "NYNetworkManager+DefaultMethod.h"
-#import "HXBBaseRequest.h"
 #import "HXBRootVCManager.h"
 @implementation NYNetworkManager (DefaultMethod)
 
@@ -59,14 +58,7 @@
             [self showToast:request.responseObject[kResponseMessage] withRequest:request];
         }
 
-    } else {
-        if([request isKindOfClass:[HXBBaseRequest class]]) {
-            HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
-            if (request.responseObject[kResponseData][@"dataList"]) {
-                [self addRequestPage:requestHxb];
-            }
-        }
-    }
+    } 
 }
 
 /**
@@ -171,13 +163,4 @@
     }
 }
 
-#pragma mark - 部分页面用到Page++ 的处理
-
-// status == 0
-//page++
-- (void)addRequestPage: (HXBBaseRequest *)request {
-    NSArray *dataArray = request.responseObject[kResponseData][kResponseDataList];
-    if(dataArray.count) request.dataPage ++;
-    NSLog(@"%@ 🐯page ++ %ld",request,(long)request.dataPage);
-}
 @end

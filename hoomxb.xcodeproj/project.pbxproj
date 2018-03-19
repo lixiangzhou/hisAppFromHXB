@@ -128,7 +128,6 @@
 		8D361097204FCA0F009E8505 /* HXBSignUPAndLoginAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D361096204FCA0F009E8505 /* HXBSignUPAndLoginAgent.m */; };
 		8D36109A204FD50F009E8505 /* HXBSignInViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D361099204FD50F009E8505 /* HXBSignInViewModel.m */; };
 		8D36109D204FDAD7009E8505 /* HXBCheckCaptchaViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D36109C204FDAD7009E8505 /* HXBCheckCaptchaViewModel.m */; };
-		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
 		8D3610A420577331009E8505 /* HXBMyPlanExitSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */; };
 		8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84F01FD6A24400E6CA97 /* HXBWKWebviewViewModel.m */; };
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
@@ -159,7 +158,6 @@
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
 		9A054D2320440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A054D2220440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m */; };
-		9A15E477205A7914001F9D66 /* NYBaseRequest+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A15E476205A7914001F9D66 /* NYBaseRequest+HXB.m */; };
 		9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */; };
 		9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */; };
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
@@ -485,7 +483,6 @@
 		E133DCFA1EEE35D7009466DE /* HxbSecurityCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCF81EEE35D7009466DE /* HxbSecurityCertificationViewController.m */; };
 		E133DD381EEEC14C009466DE /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD1D1EEEC14C009466DE /* BaseModel.m */; };
 		E133DD391EEEC14C009466DE /* HXBTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD1F1EEEC14C009466DE /* HXBTokenModel.m */; };
-		E133DD3A1EEEC14C009466DE /* HXBBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD231EEEC14C009466DE /* HXBBaseRequest.m */; };
 		E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD251EEEC14C009466DE /* NYBaseRequest.m */; };
 		E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */; };
 		E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */; };
@@ -782,8 +779,6 @@
 		8D361099204FD50F009E8505 /* HXBSignInViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBSignInViewModel.m; sourceTree = "<group>"; };
 		8D36109B204FDAD7009E8505 /* HXBCheckCaptchaViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCheckCaptchaViewModel.h; sourceTree = "<group>"; };
 		8D36109C204FDAD7009E8505 /* HXBCheckCaptchaViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCheckCaptchaViewModel.m; sourceTree = "<group>"; };
-		8D2CF5201FC2DA5D008F7A89 /* HXBInviteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBInviteViewModel.h; sourceTree = "<group>"; };
-		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
 		8D3610A220577331009E8505 /* HXBMyPlanExitSuccessController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanExitSuccessController.h; sourceTree = "<group>"; };
 		8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanExitSuccessController.m; sourceTree = "<group>"; };
 		8D3F84EF1FD6A24400E6CA97 /* HXBWKWebviewViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWKWebviewViewModel.h; sourceTree = "<group>"; };
@@ -845,8 +840,6 @@
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
 		9A054D2120440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HXBBaseViewModel+KEYCHAIN.h"; sourceTree = "<group>"; };
 		9A054D2220440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HXBBaseViewModel+KEYCHAIN.m"; sourceTree = "<group>"; };
-		9A15E475205A7914001F9D66 /* NYBaseRequest+HXB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NYBaseRequest+HXB.h"; sourceTree = "<group>"; };
-		9A15E476205A7914001F9D66 /* NYBaseRequest+HXB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NYBaseRequest+HXB.m"; sourceTree = "<group>"; };
 		9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IDPExtension.h"; sourceTree = "<group>"; };
 		9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IDPExtension.m"; sourceTree = "<group>"; };
 		9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPExtension.h"; sourceTree = "<group>"; };
@@ -1513,8 +1506,6 @@
 		E133DD1D1EEEC14C009466DE /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		E133DD1E1EEEC14C009466DE /* HXBTokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTokenModel.h; sourceTree = "<group>"; };
 		E133DD1F1EEEC14C009466DE /* HXBTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTokenModel.m; sourceTree = "<group>"; };
-		E133DD221EEEC14C009466DE /* HXBBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseRequest.h; sourceTree = "<group>"; };
-		E133DD231EEEC14C009466DE /* HXBBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseRequest.m; sourceTree = "<group>"; };
 		E133DD241EEEC14C009466DE /* NYBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYBaseRequest.h; sourceTree = "<group>"; };
 		E133DD251EEEC14C009466DE /* NYBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYBaseRequest.m; sourceTree = "<group>"; };
 		E133DD291EEEC14C009466DE /* NYHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYHTTPConnection.h; sourceTree = "<group>"; };
@@ -4708,15 +4699,11 @@
 		E133DD211EEEC14C009466DE /* BaseRequest */ = {
 			isa = PBXGroup;
 			children = (
-				9A15E475205A7914001F9D66 /* NYBaseRequest+HXB.h */,
-				9A15E476205A7914001F9D66 /* NYBaseRequest+HXB.m */,
 				9AE0343E2023253B006D6140 /* HXBBaseRequestManager.h */,
 				9AE0343C2023253B006D6140 /* HXBBaseRequestManager.m */,
 				9AE0343D2023253B006D6140 /* HXBRequestHudDelegate.h */,
 				9AE0343F2023253B006D6140 /* NSDictionary+HXBResponse.h */,
 				9AE034402023253C006D6140 /* NSDictionary+HXBResponse.m */,
-				E133DD221EEEC14C009466DE /* HXBBaseRequest.h */,
-				E133DD231EEEC14C009466DE /* HXBBaseRequest.m */,
 				E133DD241EEEC14C009466DE /* NYBaseRequest.h */,
 				E133DD251EEEC14C009466DE /* NYBaseRequest.m */,
 			);
@@ -5562,7 +5549,6 @@
 				4E99BF4E1F5505D700D197A3 /* HXBXYAlertViewController.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
-				E133DD3A1EEEC14C009466DE /* HXBBaseRequest.m in Sources */,
 				9AE0321A2022C317006D6140 /* HXBModifyPhoneViewController.m in Sources */,
 				9AE032812022C317006D6140 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
 				E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */,
@@ -5683,7 +5669,6 @@
 				9AE032352022C317006D6140 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				9AE033902022C422006D6140 /* HXBLoanInstructionView.m in Sources */,
 				9AE031F02022C317006D6140 /* HXBMyTopUpBankView.m in Sources */,
-				9A15E477205A7914001F9D66 /* NYBaseRequest+HXB.m in Sources */,
 				9AE0337C2022C422006D6140 /* HXBFin_creditorChange_TableViewCell.m in Sources */,
 				288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */,
 				9AE033A72022C422006D6140 /* HXBFin_PlanDetailsView.m in Sources */,
