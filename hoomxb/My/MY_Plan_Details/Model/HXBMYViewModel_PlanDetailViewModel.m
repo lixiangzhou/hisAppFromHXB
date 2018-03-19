@@ -8,11 +8,6 @@
 
 #import "HXBMYViewModel_PlanDetailViewModel.h"
 
-static NSString *kHXBUI = @"当日提取至红小宝账户";
-static NSString *kINVESTUI = @"收益复投";
-static NSString *kHXB = @"HXB";
-static NSString *kINVEST = @"INVEST";
-
 @implementation HXBMYViewModel_PlanDetailViewModel
 - (void)setPlanDetailModel:(HXBMYModel_PlanDetailModel *)planDetailModel {
     _planDetailModel = planDetailModel;
@@ -129,45 +124,41 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *)status {
     if (!_status) {
-        _isAddButtonHidden = YES;
         switch ([HXBEnumerateTransitionManager myPlan_requestTypeStr:self.planDetailModel.type]) {
-            case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: {
-                //已经退出
-                self.statusInt = 4;
-                _isAddButtonHidden = YES;
-               [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
-                   _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
-                }];
-            }
-                break;
-            case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:{
+                
+            case HXBRequestType_MY_PlanRequestType_HOLD_PLAN: { //持有中
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASE_END_Plan]) {
-                        ///受益中
-                        _statusInt = 2;
-                        _status = [NSString stringWithFormat:@"距离退出%@天",self.planDetailModel.lastDays];
+                        //锁定期
+                        _statusInt = 10;
                     }
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) {
-                        ///等待计息
-                        _statusInt = 1;
-//                        self.isAddButtonHidden = NO;
-                        _status = typeUI;
+                        //债转匹配中
+                        _statusInt = 11;
+                    }
+                    if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_REDEMPTION_PERIOD_Plan]) {
+                        //开放期
+                        _statusInt = 12;
                     }
                 }];
             }
                 break;
-            case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:{
-                _isAddButtonHidden = YES;
+                
+            case HXBRequestType_MY_PlanRequestType_EXITING_PLAN: { //退出中
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
                     _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
                 }];
             }
-                
                 break;
-        }
-        if (self.planDetailModel.unifyStatus == kHXBEnum_Fin_Plan_UnifyStatus_6) {
-            _isAddButtonHidden = NO;
+                
+            case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: { //已经退出
+                self.statusInt = 4;
+                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
+                    _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
+                }];
+            }
+                break;
         }
     }
     return _status;
@@ -216,4 +207,71 @@ static NSString *kINVEST = @"INVEST";
     return NO;
 }
 
+- (NSString *)quitStatus {
+    if (!_quitStatus) {
+        if ([self.planDetailModel.quitStatus isEqualToString:@"QUIT"]) {
+            _quitStatus = QUIT;
+        } else if ([self.planDetailModel.quitStatus isEqualToString:@"ANNUL_QUIT"]) {
+            _quitStatus = ANNUL_QUIT;
+        } else if ([self.planDetailModel.quitStatus isEqualToString:@"STAY_QUIT"]) {
+            _quitStatus = STAY_QUIT;
+        }
+    }
+    return _quitStatus;
+}
+
+- (NSString *)quitDate {
+    if (!_quitDate) {
+        _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.quitDate andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _quitDate;
+}
+
+- (NSString *)repealDate {
+    if (!_repealDate) {
+        _repealDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.repealDate andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _repealDate;
+}
+
+- (NSString *)quitSubTitle {
+    if (!_quitSubTitle) {
+        _quitSubTitle = self.planDetailModel.quitSubTitle ?: @"";
+    }
+    return _quitSubTitle;
+}
+
+
+/**
+ 计划退出状态：
+
+ PURCHASE_END：          锁定期
+ PURCHASEING：           债转匹配中
+ REDEMPTION_PERIOD:      开放期
+ */
+- (NSString *)leaveStatus {
+    if (!_leaveStatus) {
+        if ([self.planDetailModel.status isEqualToString:@"PURCHASE_END"]) {
+            _leaveStatus = PURCHASE_END;
+        } else if ([self.planDetailModel.status isEqualToString:@"PURCHASEING"]) {
+            _leaveStatus = PURCHASEING;
+        } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
+            _leaveStatus = REDEMPTION_PERIOD;
+        }
+    }
+    return _leaveStatus;
+}
+
+- (NSString *)statusImageName {
+    if (!_statusImageName) {
+        if ([self.planDetailModel.status isEqualToString:@"PURCHASE_END"]) {
+            _statusImageName = @"my_lockDate";
+        } else if ([self.planDetailModel.status isEqualToString:@"PURCHASEING"]) {
+            _statusImageName = @"jutuichu";
+        } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
+            _statusImageName = @"my_open";
+        }
+    }
+    return _statusImageName;
+}
 @end

@@ -306,7 +306,7 @@
 //MARK: 取消定时器
 - (void)cancelTimer {
     @try {
-        if(self.timer) {
+        if (self.timer) {
             dispatch_cancel(self.timer);
             self.countdownDataFredbackWithBlock = nil;
             self.changeModelBlock = nil;
@@ -316,9 +316,8 @@
         self.column = -1;
         self.timer = nil;
     }
-    
-    
 }
+
 //MARK: 开启定时器
 - (void)resumeTimer {
     if (!self.timer){

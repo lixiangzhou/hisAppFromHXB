@@ -7,6 +7,8 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
+
 @class HXBMYViewModel_PlanDetailViewModel;
 @class HXBMYModel_PlanDetailModel;
 
@@ -20,4 +22,13 @@
  */
 - (void)accountPlanListDetailsRequestWithPlanID: (NSString *)planID
                                     resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+
+/**
+ * 撤销计划退出
+ * @param planID 计划id
+ */
+- (void)accountPlanQuitRequestWithPlanID: (NSString *)planID
+                             resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+
+
 @end

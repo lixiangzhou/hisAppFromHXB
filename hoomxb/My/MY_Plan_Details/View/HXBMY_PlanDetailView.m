@@ -68,27 +68,11 @@ UITableViewDataSource
  付息日
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *monthlyPaymentView;
-///**
-// 合同view
-// */
-//@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *contractView;
-///**
-// 投资记录
-// */
-//@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *loanRecordView;
 /**
  管理者
  */
 @property (nonatomic,strong) HXBMY_PlanDetailView_Manager *manager;
-/**
- 追加按钮 只有等待计息 显示
- */
-@property (nonatomic,strong) UIButton *addButton;
 
-/**
- 点击了追加按钮
- */
-@property (nonatomic,copy) void(^clickAddButton)(UIButton *button);
 /**
  投资记录
  红利计划服务协议
@@ -101,6 +85,7 @@ UITableViewDataSource
 
 @end
 @implementation HXBMY_PlanDetailView
+
 - (instancetype)initWithFrame:(CGRect)frame andInfoHaveCake:(NSInteger)cake {
     self = [super initWithFrame:frame];
     if (self) {
@@ -112,8 +97,9 @@ UITableViewDataSource
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock{
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
-    [self.addButton setHidden: _manager.isHiddenAddButton];
-    self.topStatusImageView.svgImageString = _manager.typeImageName;
+    
+    self.topStatusImageView.image = [UIImage imageNamed:_manager.typeImageName];
+    
     kWeakSelf
     [self.topViewMassge setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return weakSelf.manager.topViewMassgeManager;
@@ -189,21 +175,18 @@ UITableViewDataSource
     [self setUPViews_Frame];
 }
 - (void)setUPViews_Create {
-    self.topView        = [[HXBColourGradientView alloc]init];
+    self.topView = [[HXBColourGradientView alloc]init];
     self.topStatusLabel = [[UILabel alloc]init];
-    self.topStatusView  = [[UIView alloc]init];
+    self.topStatusView = [[UIView alloc]init];
     self.topStatusImageView = [[UIImageView alloc]init];
     self.topStatusLabel.textColor = [UIColor whiteColor];
-    self.addButton      = [[UIButton alloc]init];
-    self.addButton.hidden = YES;
-    self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
-    self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.topViewMassge = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero];
+    self.tableView = [[HXBFinDetail_TableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.topStatusImageView.contentMode = UIViewContentModeScaleAspectFit;
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
-    NSLog(@"______%ld", self.cake);
-    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
-     self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
-    
-     self.monthlyPaymentView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
+    self.infoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
+     self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
+     self.monthlyPaymentView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
     
     [self addSubview:self.topView];
     [self.topView addSubview:self.topViewMassge];
@@ -213,26 +196,13 @@ UITableViewDataSource
     [self addSubview:self.infoView];
     [self addSubview:self.typeView];
     [self addSubview:self.monthlyPaymentView];
-    [self addSubview:self.addButton];
     [self addSubview:self.tableView];
-    
-    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
-    [self.addButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 }
 
 - (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell {
     self.clickBottomTableViewCell = clickBottomTableViewCell;
 }
 
-- (void)clickAddButton: (UIButton *)button {
-    if (self.clickAddButton) {
-        self.clickAddButton(button);
-    }
-}
-- (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock {
-    self.clickAddButton = clickAddButtonBlock;
-}
 - (void)setUPViews_Frame {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -289,12 +259,6 @@ UITableViewDataSource
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(180)));
-    }];
-    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(50)));
-        make.width.equalTo(@(kScrAdaptationW(100)));
-        make.centerX.equalTo(self);
     }];
 }
 
