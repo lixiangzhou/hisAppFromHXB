@@ -14,7 +14,7 @@
 #import "HXBMYModel_PlanDetailModel.h"//红利计划详情的Model
 
 #import "HXBMY_PlanDetailView.h"//详情页的View
-#import "HXBFin_Plan_BuyViewController.h"//购买的planvc
+//#import "HXBMYPlanListDetailsExitViewController.h" //结果确认页
 #import "HXBFinDetailViewModel_PlanDetail.h"//viewMode 购买
 #import "HXBFinDetailModel_PlanDetail.h"//model 购买
 #import "HXBMYViewModel_MianPlanViewModel.h"
@@ -130,9 +130,9 @@
     }
     if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
         
-//        HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc] init];
-        //    planBuyVC.planId = self.viewModel.planDetailsViewModel.planDetailModel.ID
-        //    planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile
+//        HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
+//        planBuyVC.planId = self.viewModel.planDetailsViewModel.planDetailModel.ID
+//        planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile
 //        [self.navigationController pushViewController:planBuyVC animated:YES];
         
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
