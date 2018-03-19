@@ -17,17 +17,24 @@
 ///中间的分割线 rgb：87，87，87，1
 @property (nonatomic,strong) UIView *lineview;
 
+@property (nonatomic, strong) UIImageView *planStatusIamgeView;
+
 /// 底部三层
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *bottomTopBottomView;
 
 @property (nonatomic,strong) HXBBaseViewCell_MYListCellTableViewCellManager *myListCellManager;
+
+/**
+ 设置上下左右边距
+ */
+@property (nonatomic, assign) UIEdgeInsets insets;
 @end
 @implementation HXBBaseViewCell_MYListCellTableViewCell
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.myListCellManager = [[HXBBaseViewCell_MYListCellTableViewCellManager alloc] init];
         [self setUP];
+        self.myListCellManager = [[HXBBaseViewCell_MYListCellTableViewCellManager alloc] init];
     }
     return self;
 }
@@ -38,6 +45,16 @@
 
 - (void)setMyListCellManager:(HXBBaseViewCell_MYListCellTableViewCellManager *)myListCellManager {
     _myListCellManager = myListCellManager;
+    if (myListCellManager.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
+        self.insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(120));
+        self.planStatusIamgeView.image = [UIImage imageNamed:myListCellManager.planStatus];
+        [self.planStatusIamgeView sizeToFit];
+    }
+    else {
+        self.insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(15));
+    }
+    /// 底部的上下分层的View
+    [self setUPBottomView];
     if (myListCellManager.title_ImageName.length) {
        UIImage *image = [UIImage imageNamed:myListCellManager.title_ImageName];
         if (!image) {
@@ -82,6 +99,12 @@
         }];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
+    kWeakSelf
+    [self.planStatusIamgeView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakSelf.bottomTopBottomView.mas_right).offset(kScrAdaptationW(21));
+        make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW(15));
+        make.bottom.equalTo(weakSelf.contentView);
+    }];
 }
 
 // 点击图片的方法
@@ -114,8 +137,6 @@
 - (void)setUPViews {
     ///title view的搭建
     [self setUPTitleView];
-    /// 底部的上下分层的View
-    [self setUPBottomView];
 }
 
 ///MARK: title view的搭建
@@ -196,8 +217,7 @@
 
 /// 底部的上下分层的View
 - (void) setUPBottomView {
-    UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(15));
-    self.bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(13) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:insets andCashType:nil];
+    self.bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(13) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:self.insets andCashType:nil];
     UILabel *label = (UILabel *) self.bottomTopBottomView.rightViewArray[1];
    
     [self.contentView addSubview:self.bottomTopBottomView];
@@ -208,6 +228,15 @@
     }];
      label.textColor = kHXBColor_Red_090303;
 }
+
+- (UIImageView *)planStatusIamgeView {
+    if (!_planStatusIamgeView) {
+        _planStatusIamgeView = [[UIImageView alloc] init];
+        [self.contentView addSubview:_planStatusIamgeView];
+    }
+    return _planStatusIamgeView;
+}
+
 @end
 
 

@@ -53,13 +53,28 @@
     return _status;
 }
 
+- (NSString *)quitStatus {
+    if ([self.planModelDataList.quitStatus isEqualToString:@"QUIT"]) {
+        return @"可退出";
+    }
+    else if ([self.planModelDataList.quitStatus isEqualToString:@"ANNUL_QUIT"]){
+        return @"撤销退出";
+    }
+    else if ([self.planModelDataList.quitStatus isEqualToString:@"STAY_QUIT"]){
+        return @"待退出";
+    }
+    else {
+        return @"";
+    }
+}
 
 
 - (NSString *)setStatus_HOLD_PLAN {
     NSString *statusStr = @"";
     switch (self.responseStatus) {
         case HXBRequestType_MY_PlanResponseStatus_PURCHASE_END:
-            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"]];//计划状态
+//            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"]];//计划状态
+            statusStr = @"收益中";
             break;
             
         case HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD:

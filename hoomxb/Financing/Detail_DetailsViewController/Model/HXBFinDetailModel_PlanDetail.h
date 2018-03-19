@@ -123,9 +123,17 @@
 
 /// 适合人群（计划的风险类型）。CONSERVATIVE：保守；PRUDENT：稳健；PROACTIVE：积极应对
 @property (nonatomic, copy) NSString *riskType;
+
+/**
+ 2.6.0新增字段：退出方式说明
+ */
+@property (nonatomic, copy) NSString *quitWaysDesc;
+
 /// -------------------------over----------------------------
 
-
+/// --------------------2.6 增加-----------------
+/// 默认退出方式
+@property (nonatomic, copy) NSString *quitWayDefault;
 
 
 ///String	剩余可追加金额

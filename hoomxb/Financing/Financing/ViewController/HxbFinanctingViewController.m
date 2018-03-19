@@ -59,9 +59,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
-    
+    kWeakSelf
     self.viewModel = [[HXBFinanceListViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     
     [self.countDownButton setValue:@1 forKey:@"selected"];
@@ -89,7 +89,12 @@
 
 - (void)creatCountDownManager {
     kWeakSelf
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.viewModel.planListViewModelArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600
+                                                                         andCountDownUnit:1
+                                                                            andModelArray:self.viewModel.planListViewModelArray
+                                                                          andModelDateKey:@"countDownLastStr"
+                                                                     andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    
     [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
         if (weakSelf.viewModel.planListViewModelArray.count > index.section) {
             UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];

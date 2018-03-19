@@ -25,6 +25,8 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, copy) NSString * profitStr;
 /** 收益方式 */
 @property (nonatomic, copy) NSString * profitType;
+/// 退出方式
+@property (nonatomic, copy) NSString *quitWay;
 
 /** 键盘类型 */
 @property (nonatomic, assign) UIKeyboardType keyboardType;

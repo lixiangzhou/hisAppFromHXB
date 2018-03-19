@@ -97,16 +97,7 @@
         if (!detailData) {
             return manager;
         }
-//        manager.pursuitsViewManager.leftStrArray = @[@"适合人群"];
-//        NSString *riskType = @"";
-//        if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"CONSERVATIVE"]) {
-//            riskType = @"保守型";
-//        } else if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"PRUDENT"]){
-//            riskType = @"稳健型";
-//        } else if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"PROACTIVE"]){
-//            riskType = @"积极应对型";
-//        }
-//        manager.pursuitsViewManager.rightStrArray = @[riskType];
+
         manager.addViewManager.leftStrArray = @[
                                                 @"计划金额",
                                                 @"加入条件",
@@ -119,8 +110,8 @@
                                                 ];
         manager.dateViewManager.leftStrArray = @[
                                                 @"开始加入日期",
-                                                @"退出日期",
-                                                @"期限",
+                                                @"锁定期结束日期",
+                                                @"锁定期",
                                                 ];
         manager.dateViewManager.rightStrArray = @[
                                                  weakSelf.planDetailModel.beginSellingTime,//开始时间
@@ -131,23 +122,21 @@
             manager.typeViewManager.leftStrArray = @[
                                                      @"收益方式",
                                                      @"收益提取日",
-                                                     @"退出方式",
                                                      ];
             manager.typeViewManager.rightStrArray = @[
                                                       detailData.incomeApproach?detailData.incomeApproach:@"",
                                                       detailData.interestDate?detailData.interestDate:@"",
-                                                      @"系统通过债权转让的方式自动完成退出"
                                                       ];
         } else {
             manager.typeViewManager.leftStrArray = @[
                                                      @"收益方式",
-                                                     @"退出方式"
                                                      ];
             manager.typeViewManager.rightStrArray  = @[
                                                       detailData.incomeApproach?detailData.incomeApproach:@"",
-                                                      @"系统通过债权转让的方式自动完成退出"
                                                       ];
         }
+        
+        manager.quitWaysDesc = weakSelf.planDetailModel.planDetailModel.quitWaysDesc;
         
         manager.serverViewManager.leftStrArray = @[
                                                 @"服务费"
@@ -160,7 +149,7 @@
 //            str = [NSString stringWithFormat:@"参见%@",@"《按月付息服务协议》"];
 //        }
         NSRange range = NSMakeRange(2, str.length - 2);
-        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
+        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(15)];
         return manager;
     }];
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
