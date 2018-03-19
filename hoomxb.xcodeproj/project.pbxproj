@@ -503,6 +503,11 @@
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
+		E166CDB52056292500666749 /* HXBMYPlanListDetailsExitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDB42056292500666749 /* HXBMYPlanListDetailsExitViewController.m */; };
+		E166CDB820562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDB720562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m */; };
+		E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */; };
+		E166CDBE20562F5400666749 /* HXBMyPlanDetailsExitMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */; };
+		E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
@@ -1543,6 +1548,16 @@
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E16017771EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCountDownManager_lightweight.h; sourceTree = "<group>"; };
 		E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCountDownManager_lightweight.m; sourceTree = "<group>"; };
+		E166CDB32056292500666749 /* HXBMYPlanListDetailsExitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMYPlanListDetailsExitViewController.h; sourceTree = "<group>"; };
+		E166CDB42056292500666749 /* HXBMYPlanListDetailsExitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMYPlanListDetailsExitViewController.m; sourceTree = "<group>"; };
+		E166CDB620562CFA00666749 /* HXBMyPlanDetailsExitViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitViewModel.h; sourceTree = "<group>"; };
+		E166CDB720562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitViewModel.m; sourceTree = "<group>"; };
+		E166CDB920562D3900666749 /* HXBMyPlanDetailsExitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitModel.h; sourceTree = "<group>"; };
+		E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitModel.m; sourceTree = "<group>"; };
+		E166CDBC20562F5400666749 /* HXBMyPlanDetailsExitMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitMainView.h; sourceTree = "<group>"; };
+		E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitMainView.m; sourceTree = "<group>"; };
+		E166CDBF2056955800666749 /* HXBMyPlanDetailsExitResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitResultModel.h; sourceTree = "<group>"; };
+		E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitResultModel.m; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E18330AA1EF23D75009807A9 /* HXBKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBKeyBoardManager.h; sourceTree = "<group>"; };
@@ -1873,6 +1888,7 @@
 				9AE030AD2022C315006D6140 /* MY_LoanController */,
 				9AE030C92022C315006D6140 /* MY_ModifyPhoneController */,
 				9AE030332022C314006D6140 /* MY_Plan_Details */,
+				E166CDAE205628BA00666749 /* MYPlanExit */,
 				9AE031C52022C317006D6140 /* MY_PlanCapitalRecord */,
 				9AE031172022C316006D6140 /* MY_PlanController */,
 				9AE030D92022C315006D6140 /* MY_RiskAssessmentController */,
@@ -4766,6 +4782,55 @@
 			path = CountDownButton;
 			sourceTree = "<group>";
 		};
+		E166CDAE205628BA00666749 /* MYPlanExit */ = {
+			isa = PBXGroup;
+			children = (
+				E166CDAF205628BA00666749 /* Controller */,
+				E166CDB0205628BA00666749 /* Model */,
+				E166CDB1205628BA00666749 /* View */,
+				E166CDB2205628BA00666749 /* ViewModel */,
+			);
+			path = MYPlanExit;
+			sourceTree = "<group>";
+		};
+		E166CDAF205628BA00666749 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E166CDB32056292500666749 /* HXBMYPlanListDetailsExitViewController.h */,
+				E166CDB42056292500666749 /* HXBMYPlanListDetailsExitViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E166CDB0205628BA00666749 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E166CDB920562D3900666749 /* HXBMyPlanDetailsExitModel.h */,
+				E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */,
+				E166CDBF2056955800666749 /* HXBMyPlanDetailsExitResultModel.h */,
+				E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E166CDB1205628BA00666749 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E166CDBC20562F5400666749 /* HXBMyPlanDetailsExitMainView.h */,
+				E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E166CDB2205628BA00666749 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E166CDB620562CFA00666749 /* HXBMyPlanDetailsExitViewModel.h */,
+				E166CDB720562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E18330A91EF23D62009807A9 /* KeyBoardManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -5319,7 +5384,9 @@
 				E133DCEF1EEE3597009466DE /* HXBRequestUserInfoViewModel.m in Sources */,
 				9AE034A720232B0F006D6140 /* HxbHomePageViewModel_dataList.m in Sources */,
 				9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */,
+				E166CDBE20562F5400666749 /* HXBMyPlanDetailsExitMainView.m in Sources */,
 				9AE0322E2022C317006D6140 /* HXBTopTabView.m in Sources */,
+				E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */,
 				E1B21E6C2042B30D00DD3784 /* HXBMY_PlanListViewController.m in Sources */,
 				9AE0321C2022C317006D6140 /* HXBVersionUpdateViewModel.m in Sources */,
 				E18B16C4202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m in Sources */,
@@ -5602,6 +5669,7 @@
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				8DAD30841FBA8F8C00E2AEE8 /* HXBBaseTableViewCell.m in Sources */,
 				9AF7605F204672A600539BFB /* HXBSetGesturePasswordAgent.m in Sources */,
+				E166CDB820562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m in Sources */,
 				8DAD307E1FBA8F8C00E2AEE8 /* HXBBaseModel.m in Sources */,
 				E133DCE51EEE3597009466DE /* HXBSignUPRealnameView.m in Sources */,
 				4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */,
@@ -5666,6 +5734,7 @@
 				9AE0344620232989006D6140 /* HXBFinanctingRequest.m in Sources */,
 				9AE032072022C317006D6140 /* HXBGesturePasswordViewController.m in Sources */,
 				9AE033622022C422006D6140 /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */,
+				E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */,
 				4EB73CC8204563E200BC2E48 /* HXBSendSmscodeVCViewModel.m in Sources */,
 				9AE034B720232B0F006D6140 /* HXBBannerWebViewController.m in Sources */,
 				4E4DC30F2024366300E96A08 /* HXBHomeNewbieProductModel.m in Sources */,
@@ -5723,6 +5792,7 @@
 				9AE034B520232B0F006D6140 /* TYCyclePagerView.m in Sources */,
 				9AE032222022C317006D6140 /* HXBWithdrawRecordModel.m in Sources */,
 				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,
+				E166CDB52056292500666749 /* HXBMYPlanListDetailsExitViewController.m in Sources */,
 				9AE032252022C317006D6140 /* HXBWithdrawRecordViewModel.m in Sources */,
 				9AE033B02022C423006D6140 /* HXBFinancing_LoanDetailsViewController.m in Sources */,
 				9AE032032022C317006D6140 /* HXBCircleView.m in Sources */,
