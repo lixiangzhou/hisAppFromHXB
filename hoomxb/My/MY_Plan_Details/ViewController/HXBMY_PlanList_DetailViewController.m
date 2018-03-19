@@ -20,7 +20,6 @@
 #import "HXBMYViewModel_MianPlanViewModel.h"
 #import "HXBMY_Plan_Capital_ViewController.h"//投资记录
 #import "HXBMyPlanDetailsViewModel.h"
-#import "HXBMYPlanListDetailsExitViewController.h" /// 退出计划
 
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
@@ -42,16 +41,6 @@
     }];
     self.title = self.planViewModel.planModelDataList.name;
     [self downData];
-    
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 200, 100, 100)];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clickBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.planDetailView addSubview:btn];
-}
-- (void)clickBtn{
-    HXBMYPlanListDetailsExitViewController *vc = [[HXBMYPlanListDetailsExitViewController alloc]init];
-    vc.planID = @"350";
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) setUP {

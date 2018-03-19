@@ -11,4 +11,5 @@
 @interface HXBMyPlanDetailsExitResultModel : NSObject
 @property (nonatomic,copy) NSString *endLockingTime; /// 计划退出时间
 @property (nonatomic,copy) NSString *quitDesc;/// 退出成功文案描述
+//@property (nonatomic,copy) NSString *exitType;/// 退出 还是 取消退出
 @end

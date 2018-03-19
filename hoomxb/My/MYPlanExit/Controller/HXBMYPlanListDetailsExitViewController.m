@@ -10,6 +10,7 @@
 #import "HXBMyPlanDetailsExitMainView.h"
 #import "HXBMyPlanDetailsExitViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
+//#import "HXBMyPlanExitSuccessController.h"
 
 @interface HXBMYPlanListDetailsExitViewController ()
 @property (nonatomic,strong) HXBMyPlanDetailsExitMainView *mainView;
@@ -103,7 +104,13 @@
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     // push 到退出结果页
-                    // 传过去 结果描述
+//                    HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
+//                    exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
+//                    if ([exitResultVC.exitType iseq]) {
+//                        exitResultVC.titleString = @"";
+//                    } else if ([exitResultVC.exitType iseq]) {
+//                        exitResultVC.titleString = @"";
+//                    }
                 } else {
                     // 短信弹窗不消失 toast提示
                 }
