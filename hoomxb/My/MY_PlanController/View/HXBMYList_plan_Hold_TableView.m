@@ -111,7 +111,14 @@ static NSString *const exitTitle = @"已退出";
     }
     [cell setUPValueWithListCellManager:^HXBBaseViewCell_MYListCellTableViewCellManager *(HXBBaseViewCell_MYListCellTableViewCellManager *manager) {
         manager.title_LeftLabelStr = viewModel.planModelDataList.name;
-        manager.title_RightLabelStr = viewModel.status;
+        if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
+            manager.title_RightLabelStr = viewModel.quitStatus;
+            manager.planStatus = viewModel.planModelDataList.status;
+        }
+        else {
+            manager.title_RightLabelStr = viewModel.status;            
+        }
+        manager.requestType = viewModel.requestType;
         manager.bottomViewManager.leftStrArray = titleArray;
         if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_EXITING_PLAN) {
             manager.bottomViewManager.rightStrArray = @[

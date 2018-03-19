@@ -27,6 +27,15 @@
 ///最后一个的罗便的按钮
 @property (nonatomic,copy) NSString *wenHaoImageName;
 
+///请求的类型 （持有中， 正在推出， 已经推出）
+@property (nonatomic,assign) HXBRequestType_MY_PlanRequestType requestType;
+/**
+ 持有中计划的状态
+ */
+@property (nonatomic, copy) NSString *planStatus;
+
+
+
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager *bottomViewManager;
 /// ---------------- loan ----------------------
 /** - 收益中 -

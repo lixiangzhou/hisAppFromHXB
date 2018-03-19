@@ -68,5 +68,9 @@ redProgressLeft:待转让金额
 @property (nonatomic,copy) NSString *novice;/// 新手标志(1:是 0:否)
 @property (nonatomic,copy) NSString *lockDays;/// 新手计划锁定期/天
 
+/**
+ 2.6.0计划退出参数说明
+ */
+@property (nonatomic, copy) NSString *quitStatus;
 @end
 

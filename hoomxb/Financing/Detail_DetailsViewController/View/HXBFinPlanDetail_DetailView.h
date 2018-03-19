@@ -54,4 +54,9 @@
  服务费 富文本
  */
 @property (nonatomic,copy) NSAttributedString *serverViewAttributedStr;
+
+/**
+ 退出方式说明
+ */
+@property (nonatomic, copy) NSString *quitWaysDesc;
 @end
