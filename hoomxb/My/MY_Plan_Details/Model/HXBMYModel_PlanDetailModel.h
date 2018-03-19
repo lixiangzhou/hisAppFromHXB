@@ -76,34 +76,52 @@
 @property (nonatomic,copy) NSString *subPointId;//": "1291978",
 @property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议"
 
+#pragma mark --- 2.6.0计划退出新增字段
+@property (nonatomic,copy) NSString *quitStatus;    // 退出状态
+@property (nonatomic,copy) NSString *quitDate;      // 退出日期
+@property (nonatomic,copy) NSString *repealDate;    // 可撤销退出截止日期
+@property (nonatomic,copy) NSString *quitSubTitle;  // button副标题。
 
 
 @end
 
 /*
-{
-    "data": {
-        "dataList": {
-            "lockPeriod": "1",
-            "earnAmount": "100.0",
-            "status": "PURCHASE_END",
-            "cashType": "HXB",
-            "totalInterest": "295.83",
-            "type": "HOLD_PLAN",
-            "registerTime": "1493728324000",
-            "endLockingTime": "1495283676000",
-            "isUseCoupon": "0",
-            "contractUrl": "http://172.16.3.27:28131/account/wapContract.action?type=uplan",
-            "id": "156688",
-            "amount": "50000.0",
-            "category": "A",
-            "expectedRate": "4.50",
-            "name": "安琪发布计划11",
-            "subPointId": "1291978",
-            "contractName": "理财计划服务协议"
-        }
-    },
-    "message": "success",
-    "status": 0
-}
+ "data": {
+ "remainAmount": "900.0",
+ "redProgressLeft": "0",
+ "type": "HOLD_PLAN",
+ "endLockingTime": "1543481700000",
+ "registerTime": "1516354134000",
+ "isUseCoupon": "0",
+ "amount": "100.0",
+ "id": "355",
+ "expectedRate": "10.30",
+ "name": "新手 180119期gtfrgtrf",
+ "userRemainAmount": "9900.00",
+ "subPointId": "9957",
+ "subsidyInterestRate": "0.0",
+ "exitWay": "正常退出",
+ "lockPeriod": "10",
+ "singleMaxRegisterAmount": "10000.0",
+ "earnAmount": "0.0",
+ "novice": "1",
+ "expectedSubsidyInterestAmount": "0.00",
+ "status": "PURCHASEING",
+ "cashType": "INVEST",
+ "totalInterest": "8.6528800707235004",
+ "contractUrl": "/account/wapContract.action?type=uplan",
+ "category": "B",
+ "registerMultipleAmount": "100",
+ "diffTime": -1516358313183,
+ "featuredSlogan": "收益复投",
+ "hasDiscountCoupon": false,
+ "hasMoneyOffCoupon": false,
+ "lastDays": 313,
+ "incomeApproach": "收益复投",
+ "quitStatus": "QUIT"，
+ "quitDate":"1495852295000",
+ "repealDate":"1495852295000",
+ "quitSubTitle": "（继续持有依然可以享受当前年化收益）"
+ }
+
 */
