@@ -69,8 +69,9 @@
     if (!_contentLabel) {
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 0;
-        _contentLabel.font =  kHXBFont_PINGFANGSC_REGULAR(13);
+        _contentLabel.font =  kHXBFont_PINGFANGSC_REGULAR(15);
         _contentLabel.textColor = kHXBFountColor_999999_100;
+        _contentLabel.textAlignment = NSTextAlignmentJustified;
     }
     return _contentLabel;
 }

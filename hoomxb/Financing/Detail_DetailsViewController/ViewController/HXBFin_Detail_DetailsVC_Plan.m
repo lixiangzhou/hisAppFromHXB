@@ -149,7 +149,7 @@
 //            str = [NSString stringWithFormat:@"参见%@",@"《按月付息服务协议》"];
 //        }
         NSRange range = NSMakeRange(2, str.length - 2);
-        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
+        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(15)];
         return manager;
     }];
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {

@@ -268,7 +268,7 @@
     self.addViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
     self.addViewManager.rightTextColor = kHXBColor_Font0_6;
     self.addViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
-    self.addViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.addViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
     /**
      开始加入日期
      退出日期
@@ -281,7 +281,7 @@
     self.dateViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
     self.dateViewManager.rightTextColor = kHXBColor_Font0_6;
     self.dateViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
-    self.dateViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.dateViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
     /**
      到期退出方式
      安全屏障
@@ -294,7 +294,7 @@
     self.typeViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
     self.typeViewManager.rightTextColor = kHXBColor_Font0_6;
     self.typeViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
-    self.typeViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.typeViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
     
     /**
      服务费
@@ -305,6 +305,6 @@
     self.serverViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
     self.serverViewManager.rightTextColor = kHXBColor_Font0_6;
     self.serverViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
-    self.serverViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.serverViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
 }
 @end
