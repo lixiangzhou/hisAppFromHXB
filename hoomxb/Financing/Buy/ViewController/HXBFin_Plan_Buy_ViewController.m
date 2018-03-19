@@ -18,7 +18,6 @@
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
@@ -85,8 +84,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, assign) BOOL isExceedLimitInvest;
 // 是否选中同意选项
 @property (nonatomic, assign) BOOL isSelectLimit;
-// 是否符合标的等级购买规则
-//@property (nonatomic, assign) BOOL isMatchBuy;
+// 是否显示 退出方式
+@property (nonatomic, assign) BOOL showQuitWay;
 @property (nonatomic, strong) HXBFin_Buy_ViewModel *viewModel;
 @end
 
@@ -102,7 +101,7 @@ static NSString *const bankString = @"绑定银行卡";
     _balanceTitle = @"可用余额";
     _hud = [[HxbHUDProgress alloc] init];
     
-    
+    self.showQuitWay = !(self.quitWay == nil || self.quitWay.length == 0 || [self.quitWay isEqualToString:@"null"]);
 //    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType]; // 2.5.0版本暂时取消风险等级判断
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
@@ -318,7 +317,7 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.tableView.tableHeaderView = nil;
             weakSelf.cardModel = model;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
-                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
+                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high) + weakSelf.topQuitWayAdditionalHeight;
                 if (!weakSelf.cardModel) {
                     weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
                 } else {
@@ -327,7 +326,7 @@ static NSString *const bankString = @"绑定银行卡";
                 }
                 weakSelf.topView.hasBank = YES;
             } else {
-                weakSelf.topView.height = kScrAdaptationH750(topView_high);
+                weakSelf.topView.height = kScrAdaptationH750(topView_high) + weakSelf.topQuitWayAdditionalHeight;
                 weakSelf.topView.hasBank = NO;
             }
             weakSelf.tableView.tableHeaderView = weakSelf.topView;
@@ -528,7 +527,7 @@ static const NSInteger topView_bank_high = 370;
 static const NSInteger topView_high = 300;
 - (void)getBankCardLimit {
     if ([self.hasBindCard isEqualToString:@"1"]) {
-        self.topView.height = kScrAdaptationH750(topView_bank_high);
+        self.topView.height = kScrAdaptationH750(topView_bank_high) + self.topQuitWayAdditionalHeight;
         kWeakSelf
         [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
             weakSelf.cardModel = model;
@@ -545,7 +544,7 @@ static const NSInteger topView_high = 300;
             [weakSelf.tableView reloadData];
         }];
     } else {
-        self.topView.height = kScrAdaptationH750(topView_high);
+        self.topView.height = kScrAdaptationH750(topView_high) + self.topQuitWayAdditionalHeight;
         self.topView.hasBank = NO;
         self.tableView.tableHeaderView = self.topView;
         [self changeItemWithInvestMoney:_inputMoneyStr];
@@ -704,6 +703,11 @@ static const NSInteger topView_high = 300;
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         _topView.profitType = _featuredSlogan;
+        if (self.showQuitWay) {
+            _topView.quitWay = self.quitWay;
+        } else {
+            _topView.quitWay = nil;
+        }
         // 输入框值变化
         _topView.changeBlock = ^(NSString *text) {
             [weakSelf investMoneyTextFieldText:text];
@@ -788,6 +792,10 @@ static const NSInteger topView_high = 300;
         [weakSelf requestForPlan];
     };
     return _bottomView;
+}
+
+- (CGFloat)topQuitWayAdditionalHeight {
+    return self.showQuitWay ? 32 : 0;
 }
 
 - (HXBFin_Buy_ViewModel *)viewModel {
