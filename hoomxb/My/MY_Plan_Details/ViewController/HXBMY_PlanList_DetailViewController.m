@@ -168,7 +168,7 @@
             [weakSelf dispatchValueWithDetailViewModel:weakSelf.viewModel.planDetailsViewModel];
         } else {
             weakSelf.tabelView.hidden = NO;
-            self.addButton.hidden = self.buttonDescLabel.hidden = YES;
+            weakSelf.addButton.hidden = weakSelf.buttonDescLabel.hidden = YES;
         }
     }];
 }
