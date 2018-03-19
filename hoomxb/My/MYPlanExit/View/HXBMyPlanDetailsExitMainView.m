@@ -89,6 +89,8 @@
     }];
     self.cancelBtn.hidden = YES;
     self.exitBtn.hidden = YES;
+    self.iconImgV.hidden = YES;
+    self.descLab.hidden = YES;
 }
 
 - (void)setUPViewsCreate {
@@ -101,6 +103,8 @@
     self.descLab.text = myPlanDetailsExitModel.quitDesc ? myPlanDetailsExitModel.quitDesc:@"";
     self.cancelBtn.hidden = !myPlanDetailsExitModel;
     self.exitBtn.hidden = !myPlanDetailsExitModel;
+    self.iconImgV.hidden = !myPlanDetailsExitModel;
+    self.descLab.hidden = !myPlanDetailsExitModel;
 }
 
 - (void)exitBtnClick {

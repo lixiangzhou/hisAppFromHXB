@@ -54,7 +54,6 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (callBackBlock) {
-            [weakSelf showToast:request.responseObject[kResponseMessage]];
             callBackBlock(NO);
         }
     }];

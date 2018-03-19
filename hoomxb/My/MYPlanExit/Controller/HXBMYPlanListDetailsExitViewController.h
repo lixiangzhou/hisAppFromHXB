@@ -12,5 +12,6 @@
 @interface HXBMYPlanListDetailsExitViewController : HXBBaseViewController
 
 @property (nonatomic,copy) NSString *planID; /// 需要接受planID
+@property (nonatomic,copy) NSString *mobile;
 
 @end

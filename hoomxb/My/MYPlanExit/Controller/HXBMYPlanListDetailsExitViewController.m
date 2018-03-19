@@ -10,7 +10,7 @@
 #import "HXBMyPlanDetailsExitMainView.h"
 #import "HXBMyPlanDetailsExitViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
-//#import "HXBMyPlanExitSuccessController.h"
+#import "HXBMyPlanExitSuccessController.h"
 
 @interface HXBMYPlanListDetailsExitViewController ()
 @property (nonatomic,strong) HXBMyPlanDetailsExitMainView *mainView;
@@ -97,15 +97,17 @@
     if (!self.presentedViewController) {
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.messageTitle = @"请输入短信验证码";
-        self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4]];
+        self.mobile = !self.mobile?KeyChain.mobile:self.mobile;
+        self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
             [weakSelf.viewModel exitPlanResultRequestWithPlanID:weakSelf.planID andSmscode:pwd andCallBackBlock:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     // push 到退出结果页
-//                    HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
-//                    exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
+                    HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
+                    exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
+                    exitResultVC.titleString = @"红利计划退出";
 //                    if ([exitResultVC.exitType iseq]) {
 //                        exitResultVC.titleString = @"";
 //                    } else if ([exitResultVC.exitType iseq]) {

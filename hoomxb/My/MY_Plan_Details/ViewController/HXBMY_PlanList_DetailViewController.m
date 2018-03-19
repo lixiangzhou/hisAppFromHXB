@@ -20,6 +20,7 @@
 #import "HXBMYViewModel_MianPlanViewModel.h"
 #import "HXBMY_Plan_Capital_ViewController.h"//投资记录
 #import "HXBMyPlanDetailsViewModel.h"
+#import "HXBMYPlanListDetailsExitViewController.h"
 
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
@@ -130,10 +131,10 @@
     }
     if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
         
-//        HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
-//        planBuyVC.planId = self.viewModel.planDetailsViewModel.planDetailModel.ID
-//        planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile
-//        [self.navigationController pushViewController:planBuyVC animated:YES];
+        HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
+        planBuyVC.planID = self.viewModel.planDetailsViewModel.planDetailModel.ID;
+        planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile;
+        [self.navigationController pushViewController:planBuyVC animated:YES];
         
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
         [self annulQuit];
