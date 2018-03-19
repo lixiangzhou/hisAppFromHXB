@@ -116,7 +116,7 @@
             viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font0_4;
         }
         viewModelVM.rightLabelStr = manager.leaveTime;
-        viewModelVM.leftLabelStr = @"到期退出";
+        viewModelVM.leftLabelStr = kHXB_FinPlan_Leave;
         return viewModelVM;
     }];
 
