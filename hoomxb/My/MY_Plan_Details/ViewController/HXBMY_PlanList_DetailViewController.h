@@ -8,11 +8,21 @@
 
 #import "HXBBaseViewController.h"
 @class HXBMYViewModel_MianPlanViewModel;///红利计划的ViewModel
+
 @interface HXBMY_PlanList_DetailViewController : HXBBaseViewController
-@property (nonatomic,strong) HXBMYViewModel_MianPlanViewModel *planViewModel;
-@property (nonatomic,assign) BOOL isLeave;
 /**
  判断是持有中、退出中、已退出
  */
 @property (nonatomic, assign) HXBRequestType_MY_PlanRequestType type;
+
+/**
+ 详情model
+ */
+@property (nonatomic,strong) HXBMYViewModel_MianPlanViewModel *planViewModel;
+
+/**
+ 分栏项目数
+ */
+@property (nonatomic, assign) NSInteger cake;
+
 @end
