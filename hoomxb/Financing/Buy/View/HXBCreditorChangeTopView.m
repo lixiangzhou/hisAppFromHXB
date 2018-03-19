@@ -198,7 +198,7 @@
         _quitWayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _quitWayLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _quitWayLabel.textColor = COR10;
-        _quitWayLabel.text = @"退出方式：";
+        _quitWayLabel.text = @"退出方式:";
     }
     return _quitWayLabel;
 }
@@ -289,7 +289,7 @@
 - (void)setQuitWay:(NSString *)quitWay {
     _quitWay = quitWay;
     if (quitWay) {
-        self.quitWayLabel.text = [NSString stringWithFormat:@"退出方式：%@", quitWay];
+        self.quitWayLabel.text = [NSString stringWithFormat:@"退出方式:%@", quitWay];
         self.quitWayLabel.hidden = NO;
     } else {
         self.quitWayLabel.hidden = YES;
