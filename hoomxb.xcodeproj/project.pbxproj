@@ -4667,7 +4667,6 @@
 				4EB29C461F4A7AD800E33CDF /* YYCache */,
 				E133DD1B1EEEC14C009466DE /* HxbModel */,
 				E133DD201EEEC14C009466DE /* HxbNetworking */,
-				E133DD351EEEC14C009466DE /* TokenManager */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -4689,6 +4688,7 @@
 				9A6B577E20299A8300798DE0 /* RequestAgent */,
 				E133DD211EEEC14C009466DE /* BaseRequest */,
 				E133DD261EEEC14C009466DE /* Manager */,
+				E133DD351EEEC14C009466DE /* TokenManager */,
 			);
 			path = HxbNetworking;
 			sourceTree = "<group>";
@@ -4696,8 +4696,6 @@
 		E133DD211EEEC14C009466DE /* BaseRequest */ = {
 			isa = PBXGroup;
 			children = (
-				9AE0343E2023253B006D6140 /* HXBBaseRequestManager.h */,
-				9AE0343C2023253B006D6140 /* HXBBaseRequestManager.m */,
 				9AE0343D2023253B006D6140 /* HXBRequestHudDelegate.h */,
 				9AE0343F2023253B006D6140 /* NSDictionary+HXBResponse.h */,
 				9AE034402023253C006D6140 /* NSDictionary+HXBResponse.m */,
@@ -4716,6 +4714,8 @@
 				E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */,
 				E133DD2F1EEEC14C009466DE /* NYNetworkManager.h */,
 				E133DD301EEEC14C009466DE /* NYNetworkManager.m */,
+				9AE0343E2023253B006D6140 /* HXBBaseRequestManager.h */,
+				9AE0343C2023253B006D6140 /* HXBBaseRequestManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";

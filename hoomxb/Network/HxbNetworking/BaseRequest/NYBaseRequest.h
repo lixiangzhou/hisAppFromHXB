@@ -73,8 +73,6 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, strong) id responseObject;
 /// 回调失败错误
 @property (nonatomic, strong) NSError *error;
-/// 响应出错信息
-@property (nonatomic, copy) NSString *responseErrorMessage;
 
 //================================== callback ==================================
 /// 返回成功回调
@@ -96,9 +94,8 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 /**
  显示加载框
  
- @param hudContent 显示的文本内容
  */
-- (void)showLoading:(NSString*)hudContent;
+- (void)showLoading;
 
 /**
  隐藏加载框

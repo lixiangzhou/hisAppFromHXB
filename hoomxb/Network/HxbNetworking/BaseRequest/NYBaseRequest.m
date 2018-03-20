@@ -71,12 +71,11 @@
 /**
  显示加载框
  
- @param hudContent 显示的文本内容
  */
-- (void)showLoading:(NSString*)hudContent
+- (void)showLoading
 {
     if([self.hudDelegate respondsToSelector:@selector(showProgress:)]){
-        [self.hudDelegate showProgress:hudContent];
+        [self.hudDelegate showProgress:self.hudShowContent];
     }
 }
 
