@@ -62,8 +62,6 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 //================================== 发送者代理 ==================================
 /// 委托
 @property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
-//临时用的重构的新请求标识， 如果全部替换完成， 则删除此属性
-@property (nonatomic, assign) BOOL isNewRequestWay;
 
 //================================== response ==================================
 
@@ -83,20 +81,6 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, copy) HXBRequestSuccessBlock success;
 /// 返回失败回调
 @property (nonatomic, copy) HXBRequestFailureBlock failure;
-
-
-//================================== function ==================================
-//- (void)start;
-//
-//- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
-//
-//- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
-//
-//- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
-
-
-- (NYBaseRequest *)copyRequest;
-
 
 #pragma mark  以下为重构后需要使用的各种方法
 

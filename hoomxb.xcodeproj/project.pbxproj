@@ -486,7 +486,6 @@
 		E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD251EEEC14C009466DE /* NYBaseRequest.m */; };
 		E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */; };
 		E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */; };
-		E133DD3F1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2E1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m */; };
 		E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD301EEEC14C009466DE /* NYNetworkManager.m */; };
 		E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD331EEEC14C009466DE /* HXBRequestEnumAndStatic.m */; };
 		E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD371EEEC14C009466DE /* HXBTokenManager.m */; };
@@ -1512,8 +1511,6 @@
 		E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYHTTPConnection.m; sourceTree = "<group>"; };
 		E133DD2B1EEEC14C009466DE /* NYNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkConfig.h; sourceTree = "<group>"; };
 		E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkConfig.m; sourceTree = "<group>"; };
-		E133DD2D1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NYNetworkManager+DefaultMethod.h"; sourceTree = "<group>"; };
-		E133DD2E1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NYNetworkManager+DefaultMethod.m"; sourceTree = "<group>"; };
 		E133DD2F1EEEC14C009466DE /* NYNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkManager.h; sourceTree = "<group>"; };
 		E133DD301EEEC14C009466DE /* NYNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkManager.m; sourceTree = "<group>"; };
 		E133DD321EEEC14C009466DE /* HXBRequestEnumAndStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestEnumAndStatic.h; sourceTree = "<group>"; };
@@ -4717,8 +4714,6 @@
 				E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */,
 				E133DD2B1EEEC14C009466DE /* NYNetworkConfig.h */,
 				E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */,
-				E133DD2D1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.h */,
-				E133DD2E1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m */,
 				E133DD2F1EEEC14C009466DE /* NYNetworkManager.h */,
 				E133DD301EEEC14C009466DE /* NYNetworkManager.m */,
 			);
@@ -5704,7 +5699,6 @@
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
 				4E1053FA1FE7BE9900BCE2F4 /* HXBCustomNavView.m in Sources */,
-				E133DD3F1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m in Sources */,
 				9AE032302022C317006D6140 /* HXBMyCouponListViewController.m in Sources */,
 				9AE034AB20232B0F006D6140 /* HXBHomePageLoginIndicationView.m in Sources */,
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,

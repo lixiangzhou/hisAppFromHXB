@@ -157,30 +157,13 @@
                     return;
                 }
             }
-            else{
-                NSDictionary* responseDic = request.responseObject;
-                NSString* codeValue = [responseDic stringAtPath:@"status"];
-                if(![codeValue isEqualToString:@"0"]) {
-                    if(request.failure) {
-                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
-                        return;
-                    }
-                }
-            }
         }
-        else {
-            if(request.isNewRequestWay) {
-                NSDictionary* responseDic = request.responseObject;
-                NSString* codeValue = [responseDic stringAtPath:@"status"];
-                if(![codeValue isEqualToString:@"0"]) {
-                    if(request.failure) {
-                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
-                        return;
-                    }
-                }
-            }
-            else {
-                [self defaultMethodRequestSuccessWithRequest:request];
+        NSDictionary* responseDic = request.responseObject;
+        NSString* codeValue = [responseDic stringAtPath:@"status"];
+        if(![codeValue isEqualToString:@"0"]) {
+            if(request.failure) {
+                request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
+                return;
             }
         }
         request.success(request,request.responseObject);
@@ -200,9 +183,6 @@
                 return;
             }
         }
-        else{
-           [self defaultMethodRequestFaulureWithRequest:request];
-        }
         request.failure(request,request.error);
     }
 }
@@ -211,13 +191,4 @@
 {
     request.connection = nil;
 }
-
-//---------------------------------在回调中默认执行方法，在扩展中重写--------------------------
-- (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request {
-    
-}
-
-- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request {
-}
-
 @end
