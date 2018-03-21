@@ -77,12 +77,13 @@
 @property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议"
 
 #pragma mark --- 2.6.0计划退出新增字段
-@property (nonatomic,copy) NSString *quitStatus;    // 退出状态
-@property (nonatomic,copy) NSString *quitDate;      // 退出日期
-@property (nonatomic,copy) NSString *repealDate;    // 可撤销退出截止日期
-@property (nonatomic,copy) NSString *quitSubTitle;  // button副标题。
-
-
+@property (nonatomic, copy) NSString *quitStatus;       // 退出状态
+@property (nonatomic, copy) NSString *quitDate;         // 退出日期
+@property (nonatomic, copy) NSString *repealDate;       // 可撤销退出截止日期
+@property (nonatomic, copy) NSString *quitSubTitle;     // button副标题。
+@property (nonatomic, assign) BOOL inCoolingOffPeriod;  // 是否处于冷静期
+@property (nonatomic, copy) NSString *cancelBuyDesc;    // 冷静期取消购买描述
+@property (nonatomic, assign) int coolingOffPeriod;     // 冷静期(分钟)
 @end
 
 /*
