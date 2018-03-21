@@ -17,18 +17,18 @@
 已获收益
  */
 - (NSString *) inComeLable_ConstStr {
-    if (!_inComeLable_ConstStr) {
-        _inComeLable_ConstStr = @"已获收益";
-    }
+    _inComeLable_ConstStr = @"已获收益";
     return _inComeLable_ConstStr;
 }
 /**
  加入时间
  */
 - (NSString *) addTime {
-    if (!_addTime) {
+    if (self.planDetailModel.registerTime) {
         NSString *date = @(self.planDetailModel.registerTime.doubleValue).description;
         _addTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+    } else {
+        _addTime = @"--";
     }
     return _addTime;
 }
@@ -36,7 +36,7 @@
  期限
  */
 - (NSString *) lockTime {
-    if (!_lockTime) {
+    if (self.planDetailModel.lockDays) {
         NSString *str = @"--";
         if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
             if (self.planDetailModel.lockDays) {
@@ -48,6 +48,8 @@
             }
         }
         _lockTime = str;
+    } else {
+        _lockTime = @"--";
     }
     return _lockTime;
 }
@@ -68,17 +70,21 @@
 //}
 ///以收益
 - (NSString *) earnAmount {
-    if(!_earnAmount) {
+    if(self.planDetailModel.earnAmount) {
         _earnAmount = [NSString GetPerMilWithDouble:self.planDetailModel.earnAmount.floatValue];
+    } else {
+        _earnAmount = @"--";
     }
     return _earnAmount;
 }
 ///年利率
 - (NSString *)expectedRate {
-    if (!_expectedRate) {
+    if (self.planDetailModel.expectedRate) {
         //收益中&新手计划&存在贴息
         NSString *expectedRateStr = [self.planDetailModel.type isEqualToString:@"HOLD_PLAN"]&&[self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.subsidyInterestRate ? [NSString stringWithFormat:@"%.1f%%+%.1f%%",self.planDetailModel.expectedRate.floatValue,self.planDetailModel.subsidyInterestRate.floatValue]: [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
         _expectedRate = expectedRateStr;
+    } else {
+        _expectedRate = @"--";
     }
     return _expectedRate;
 }
@@ -86,11 +92,13 @@
  种类
  */
 - (NSString *) type {
-    if (!_type) {
+    if (self.planDetailModel.type) {
        HXBRequestType_MY_PlanRequestType typeInt = [HXBEnumerateTransitionManager myPlan_requestTypeStr:self.planDetailModel.type];
          [HXBEnumerateTransitionManager myPlan_requestType:typeInt andTypeBlock:^(NSString *typeUI, NSString *type) {
              _type = typeUI;
         }];
+    } else {
+        _type = @"--";
     }
     return _type;
 }
@@ -103,9 +111,7 @@
  4: 表示已退出
  */
 - (int) statusInt {
-    if (!_statusInt) {
-        [self status];
-    }
+    [self status];
     return _statusInt;
 }
 /**
@@ -123,7 +129,7 @@
  计划状态
  */
 - (NSString *)status {
-    if (!_status) {
+    if (self.planDetailModel.type) {
         switch ([HXBEnumerateTransitionManager myPlan_requestTypeStr:self.planDetailModel.type]) {
                 
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN: { //持有中
@@ -160,6 +166,8 @@
             }
                 break;
         }
+    } else {
+        _status = @"--";
     }
     return _status;
 }
@@ -175,9 +183,8 @@
  加入金额
  */
 - (NSString *) addAuomt {
-    if (!_addAuomt) {
-        _addAuomt = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
-    }
+    
+    _addAuomt = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
     return _addAuomt;
 }
 /**
@@ -185,8 +192,10 @@
 
  */
 - (NSString *) redProgressLeft {
-    if (!_redProgressLeft) {
+    if (self.planDetailModel.redProgressLeft.floatValue) {
         _redProgressLeft = [NSString hxb_getPerMilWithDouble:self.planDetailModel.redProgressLeft.floatValue];
+    } else {
+        _redProgressLeft = @"";
     }
     return _redProgressLeft;
 }
@@ -194,8 +203,10 @@
  退出时间
  */
 - (NSString *) endLockingTime {
-    if (!_endLockingTime) {
+    if (self.planDetailModel.endLockingTime) {
         _endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
+    } else {
+        _endLockingTime = @"--";
     }
     return _endLockingTime;
 }
@@ -208,7 +219,7 @@
 }
 
 - (NSString *)quitStatus {
-    if (!_quitStatus) {
+    if (self.planDetailModel.quitStatus) {
         if ([self.planDetailModel.quitStatus isEqualToString:@"QUIT"]) {
             _quitStatus = QUIT;
         } else if ([self.planDetailModel.quitStatus isEqualToString:@"ANNUL_QUIT"]) {
@@ -216,28 +227,32 @@
         } else if ([self.planDetailModel.quitStatus isEqualToString:@"STAY_QUIT"]) {
             _quitStatus = STAY_QUIT;
         }
+    } else {
+        _quitStatus = @"--";
     }
     return _quitStatus;
 }
 
 - (NSString *)quitDate {
-    if (!_quitDate) {
+    if (self.planDetailModel.quitDate) {
         _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.quitDate andDateFormat:@"yyyy-MM-dd"];
+    } else {
+        _quitDate = @"--";
     }
     return _quitDate;
 }
 
 - (NSString *)repealDate {
-    if (!_repealDate) {
+    if (self.planDetailModel.repealDate) {
         _repealDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.repealDate andDateFormat:@"yyyy-MM-dd"];
+    } else {
+        _repealDate = @"--";
     }
     return _repealDate;
 }
 
 - (NSString *)quitSubTitle {
-    if (!_quitSubTitle) {
-        _quitSubTitle = self.planDetailModel.quitSubTitle ?: @"";
-    }
+    _quitSubTitle = self.planDetailModel.quitSubTitle ?: @"--";
     return _quitSubTitle;
 }
 
@@ -250,7 +265,7 @@
  REDEMPTION_PERIOD:      开放期
  */
 - (NSString *)leaveStatus {
-    if (!_leaveStatus) {
+    if (self.planDetailModel.status) {
         if ([self.planDetailModel.status isEqualToString:@"PURCHASE_END"]) {
             _leaveStatus = PURCHASE_END;
         } else if ([self.planDetailModel.status isEqualToString:@"PURCHASEING"]) {
@@ -258,12 +273,14 @@
         } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
             _leaveStatus = REDEMPTION_PERIOD;
         }
+    } else {
+        _leaveStatus = @"--";
     }
     return _leaveStatus;
 }
 
 - (NSString *)statusImageName {
-    if (!_statusImageName) {
+    if (self.planDetailModel.status) {
         if ([self.planDetailModel.status isEqualToString:@"PURCHASE_END"]) {
             _statusImageName = @"my_lockDate";
         } else if ([self.planDetailModel.status isEqualToString:@"PURCHASEING"]) {
@@ -271,6 +288,8 @@
         } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
             _statusImageName = @"my_open";
         }
+    } else {
+        _statusImageName = @"my_open";
     }
     return _statusImageName;
 }
