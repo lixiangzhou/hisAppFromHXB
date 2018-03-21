@@ -156,63 +156,62 @@
 }
 //设置frame
 - (void)setUPViewFrame {
+    kWeakSelf
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self);
+        make.top.left.right.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH750(603)-64));
     }];
     
     [self.topStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView).offset(kScrAdaptationH750(30));
-        make.right.equalTo(self.topView).offset(40);
+        make.top.equalTo(weakSelf.topView).offset(kScrAdaptationH750(30));
+        make.right.equalTo(weakSelf.topView).offset(40);
         make.height.equalTo(@(kScrAdaptationH750(54)));
-        make.right.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(100));
-        make.left.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(-73));
+        make.right.equalTo(weakSelf.topStatusLabel).offset(kScrAdaptationW750(100));
+        make.left.equalTo(weakSelf.topStatusLabel).offset(kScrAdaptationW750(-73));
     }];
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.topStatusView);
-        make.right.equalTo(self.topStatusView).offset(kScrAdaptationH750(-100));
-        make.left.equalTo(self.topStatusView).offset(kScrAdaptationW750(73));
+        make.top.bottom.equalTo(weakSelf.topStatusView);
+        make.right.equalTo(weakSelf.topStatusView).offset(kScrAdaptationH750(-100));
+        make.left.equalTo(weakSelf.topStatusView).offset(kScrAdaptationW750(73));
     }];
     [self.topStatusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.topStatusLabel);
-        make.right.equalTo(self.topStatusLabel.mas_left).offset(kScrAdaptationW750(-13));
+        make.centerY.equalTo(weakSelf.topStatusLabel);
+        make.right.equalTo(weakSelf.topStatusLabel.mas_left).offset(kScrAdaptationW750(-13));
         make.height.width.equalTo(@(kScrAdaptationW750(22)));
     }];
     [self.topStatusLabel sizeToFit];
 
     
     [self.toRepayLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView).offset(kScrAdaptationH750(266)-64);
-        make.centerX.equalTo(self);
+        make.top.equalTo(weakSelf.topView).offset(kScrAdaptationH750(266)-64);
+        make.centerX.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH750(143)));
-        make.left.right.equalTo(self);
+        make.left.right.equalTo(weakSelf);
     }];
     [self.nextRepayDateLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.topView).offset(kScrAdaptationH750(-70));
-        make.left.equalTo(self.topView);
-        make.right.equalTo(self.topView.mas_centerX);
+        make.bottom.equalTo(weakSelf.topView).offset(kScrAdaptationH750(-70));
+        make.left.equalTo(weakSelf.topView);
+        make.right.equalTo(weakSelf.topView.mas_centerX);
         make.height.equalTo(@(kScrAdaptationH750(64)));
     }];
     [self.monthlyPrincipal mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.topView).offset(kScrAdaptationH750(-70));
-        make.right.equalTo(self.topView);
-        make.left.equalTo(self.topView.mas_centerX);
+        make.bottom.equalTo(weakSelf.topView).offset(kScrAdaptationH750(-70));
+        make.right.equalTo(weakSelf.topView);
+        make.left.equalTo(weakSelf.topView.mas_centerX);
         make.height.equalTo(@(kScrAdaptationH750(64)));
     }];
     
     //中间的info
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(20));
-        make.right.left.equalTo(self);
+        make.top.equalTo(weakSelf.topView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.right.left.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH750(370)));
     }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.infoView.mas_bottom).offset(kScrAdaptationH750(20));
-        make.left.right.equalTo(self);
-//        make.height.equalTo(@(kScrAdaptationH750(90)));
+        make.top.equalTo(weakSelf.infoView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.right.equalTo(weakSelf);
         make.bottom.equalTo(self);
     }];
-    kWeakSelf
     [self.tableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         if (weakSelf.clickBottomTableViewCell) {
             weakSelf.clickBottomTableViewCell(index.row);
