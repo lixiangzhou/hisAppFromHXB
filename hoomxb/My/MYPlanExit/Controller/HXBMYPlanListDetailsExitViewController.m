@@ -26,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _inCoolingOffPeriod = NO;///暂时写死为 计划退出
+    
     [self setupView];
     [self downLoadData];
 }
