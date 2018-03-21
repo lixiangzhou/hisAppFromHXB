@@ -129,8 +129,10 @@
 /// --------------------2.6 增加-----------------
 /// 默认退出方式
 @property (nonatomic, copy) NSString *quitWayDefault;
-
-
+/**
+ 退出方式说明
+ */
+@property (nonatomic, copy) NSString *quitWaysDesc;
 
 
 ///String	剩余可追加金额
