@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXBMyPlanDetailsExitModel.h"
 
 @interface HXBMyPlanDetailsCancelExitMainView : UIView
+
+@property (nonatomic,strong) HXBMyPlanDetailsExitModel *myPlanDetailsExitModel;
 
 /**
  确认取消

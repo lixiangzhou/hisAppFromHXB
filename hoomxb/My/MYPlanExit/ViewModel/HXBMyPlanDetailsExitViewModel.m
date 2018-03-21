@@ -11,22 +11,30 @@
 #import "NSString+HxbPerMilMoney.h"
 @implementation HXBMyPlanDetailsExitViewModel
 
+//获取账户内红利计划退出信息
 - (void)loadPlanListDetailsExitInfoWithPlanID: (NSString *)planID
-                                    resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+                           inCoolingOffPeriod: (BOOL)inCoolingOffPeriod
+                                  resultBlock: (void(^)(BOOL isSuccess))resultBlock
+{
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestUrl = kHXBMY_PlanQuitURL(planID);
+    request.requestMethod = NYRequestMethodPost;
+    request.requestUrl = inCoolingOffPeriod?kHXBMY_PlanCancelBuyURL(planID):kHXBMY_PlanQuitURL(planID);
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.myPlanDetailsExitModel = [HXBMyPlanDetailsExitModel yy_modelWithJSON:responseObject[kResponseData]];
-        NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
-        NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
-        if (!earnInterestNow && totalEarnInterest) {
-            weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
-        } else if (!earnInterestNow && !totalEarnInterest) {
-            weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
+        if (inCoolingOffPeriod) {
+            weakSelf.myPlanDetailsExitModel.cancelAmount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.cancelAmount doubleValue]];
+        } else {
+            NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
+            NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
+            if (!earnInterestNow && totalEarnInterest) {
+                weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
+            } else if (!earnInterestNow && !totalEarnInterest) {
+                weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
+            }
+            weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
         }
-        weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
         if (resultBlock) {
             resultBlock(YES);
         }
@@ -37,10 +45,14 @@
     }];
 }
 
-- (void)exitPlanResultRequestWithPlanID: (NSString *)planID andSmscode:(NSString *)smscode andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
+//获取点击账户内红利计划确认退出结果
+- (void)exitPlanResultRequestWithPlanID: (NSString *)planID
+                     inCoolingOffPeriod: (BOOL)inCoolingOffPeriod
+                             andSmscode:(NSString *)smscode
+                       andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
-    versionUpdateAPI.requestUrl = kHXBMY_PlanQuitResultURL(planID);
+    versionUpdateAPI.requestUrl = inCoolingOffPeriod?kHXBMY_PlanCancelBuyResultURL(planID):kHXBMY_PlanQuitResultURL(planID);
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
                                          @"smscode" : smscode,
@@ -60,7 +72,11 @@
     
 }
 
-- (void)getVerifyCodeRequesWithExitPlanWithAction:(NSString *)action andWithType:(NSString *)type andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock {
+//获取退出短验
+- (void)getVerifyCodeRequesWithExitPlanWithAction:(NSString *)action
+                                      andWithType:(NSString *)type
+                                 andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock
+{
     kWeakSelf
     [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
         request.requestArgument = @{
