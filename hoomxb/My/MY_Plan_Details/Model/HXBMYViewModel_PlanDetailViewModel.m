@@ -36,20 +36,14 @@
  期限
  */
 - (NSString *) lockTime {
-    if (self.planDetailModel.lockDays) {
-        NSString *str = @"--";
-        if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
-            if (self.planDetailModel.lockDays) {
-                str = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
-            }
-        } else {
-            if (self.planDetailModel.lockPeriod) {
-                str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
-            }
+    if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
+        if (self.planDetailModel.lockDays) {
+            _lockTime = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
         }
-        _lockTime = str;
     } else {
-        _lockTime = @"--";
+        if (self.planDetailModel.lockPeriod) {
+            _lockTime = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
+        }
     }
     return _lockTime;
 }
