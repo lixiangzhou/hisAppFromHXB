@@ -118,6 +118,7 @@
                         exitResultVC.titleString = @"红利计划已退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }
+                    [weakSelf.navigationController pushViewController:exitResultVC animated:YES];
                 } else {
                     // 短信弹窗不消失 toast提示
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
