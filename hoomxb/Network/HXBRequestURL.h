@@ -52,8 +52,10 @@
 #define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
 #define kHXBMY_PlanQuitURL(planID) [NSString stringWithFormat:@"/account/plan/quit/%@/cancel",(planID)]
 #define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
-#define kHXBMY_PlanQuitURL(planID) [NSString stringWithFormat:@"account/plan/quit/%@/confirm",(planID)]// plan 计划预退出
+#define kHXBMY_PlanBeforeQuitURL(planBID) [NSString stringWithFormat:@"account/plan/quit/%@/confirm",(planID)]// plan 计划预退出
 #define kHXBMY_PlanQuitResultURL(planID) [NSString stringWithFormat:@"/account/plan/quit/%@/result",(planID)] /// plan 获取计划退出结果
+#define kHXBMY_PlanCancelBuyURL(planID) [NSString stringWithFormat:@"/account/plan/cancelbuy/%@/confirm",(planID)]// plan 冷静期计划取消加入前确认
+#define kHXBMY_PlanCancelBuyResultURL(planID) [NSString stringWithFormat:@"/account/plan/cancelbuy/%@/result",(planID)] /// plan 冷静期计划取消加入结果
 
 #define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
 #define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
