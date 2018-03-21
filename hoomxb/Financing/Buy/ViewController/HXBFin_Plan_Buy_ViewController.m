@@ -795,7 +795,7 @@ static const NSInteger topView_high = 300;
 }
 
 - (CGFloat)topQuitWayAdditionalHeight {
-    return self.showQuitWay ? 32 : 0;
+    return self.showQuitWay ? 27 : 0;
 }
 
 - (HXBFin_Buy_ViewModel *)viewModel {

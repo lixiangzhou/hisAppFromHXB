@@ -119,7 +119,7 @@
     }];
     
     [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.backView).offset(11);
+        make.top.equalTo(weakSelf.backView).offset(12);
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(15));
         make.right.equalTo(weakSelf).offset(-kScrAdaptationW(75));
     }];
@@ -134,7 +134,7 @@
     [self.quitWayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(15));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-15));
-        make.bottom.equalTo(weakSelf.backView).offset(-11);
+        make.bottom.equalTo(weakSelf.backView).offset(-12);
     }];
 }
 
@@ -186,7 +186,7 @@
         _profitTypeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _profitTypeLabel.textColor = COR29;
         _profitTypeLabel.textAlignment = NSTextAlignmentCenter;
-        _profitTypeLabel.layer.borderWidth = kXYBorderWidth;
+        _profitTypeLabel.layer.borderWidth = 0.5;
         _profitTypeLabel.layer.borderColor = COR29.CGColor;
         _profitTypeLabel.layer.cornerRadius = kScrAdaptationW(4);
     }
