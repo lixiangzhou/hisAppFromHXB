@@ -267,7 +267,7 @@
         if ([self.planDetailModel.status isEqualToString:@"PURCHASE_END"]) {
             _statusImageName = @"my_lockDate";
         } else if ([self.planDetailModel.status isEqualToString:@"PURCHASEING"]) {
-            _statusImageName = @"jutuichu";
+            _statusImageName = @"zhaiquanpipei";
         } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
             _statusImageName = @"my_open";
         }
