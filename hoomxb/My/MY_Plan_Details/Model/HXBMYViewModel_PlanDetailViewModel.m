@@ -220,6 +220,8 @@
             _quitStatus = ANNUL_QUIT;
         } else if ([self.planDetailModel.quitStatus isEqualToString:@"STAY_QUIT"]) {
             _quitStatus = STAY_QUIT;
+        } else {
+            _quitStatus = @"--";
         }
     } else {
         _quitStatus = @"--";
@@ -266,6 +268,8 @@
             _leaveStatus = PURCHASEING;
         } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
             _leaveStatus = REDEMPTION_PERIOD;
+        } else {
+            _leaveStatus = @"--";
         }
     } else {
         _leaveStatus = @"--";
@@ -281,9 +285,11 @@
             _statusImageName = @"zhaiquanpipei";
         } else if ([self.planDetailModel.status isEqualToString:@"REDEMPTION_PERIOD"]) {
             _statusImageName = @"my_open";
+        } else {
+            _statusImageName = @"zhaiquanpipei";
         }
     } else {
-        _statusImageName = @"my_open";
+        _statusImageName = @"zhaiquanpipei";
     }
     return _statusImageName;
 }
