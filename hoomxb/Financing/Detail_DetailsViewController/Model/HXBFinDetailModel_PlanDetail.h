@@ -124,7 +124,6 @@
 /// 适合人群（计划的风险类型）。CONSERVATIVE：保守；PRUDENT：稳健；PROACTIVE：积极应对
 @property (nonatomic, copy) NSString *riskType;
 
-
 /// -------------------------over----------------------------
 
 /// --------------------2.6 增加-----------------
