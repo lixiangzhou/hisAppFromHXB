@@ -25,6 +25,7 @@
         weakSelf.myPlanDetailsExitModel = [HXBMyPlanDetailsExitModel yy_modelWithJSON:responseObject[kResponseData]];
         if (inCoolingOffPeriod) {
             weakSelf.myPlanDetailsExitModel.cancelAmount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.cancelAmount doubleValue]];
+            weakSelf.myPlanDetailsExitModel.cancelTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:weakSelf.myPlanDetailsExitModel.cancelTime andDateFormat:@"yyyy-MM-dd"];
         } else {
             NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
             NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
@@ -34,6 +35,7 @@
                 weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
             }
             weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
+            weakSelf.myPlanDetailsExitModel.endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:weakSelf.myPlanDetailsExitModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
         }
         if (resultBlock) {
             resultBlock(YES);
