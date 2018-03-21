@@ -41,8 +41,8 @@
     
     UILabel *descLabel = [UILabel new];
     descLabel.numberOfLines = 0;
-    descLabel.font = kHXBFont_26;
-    descLabel.textColor = kHXBFountColor_666666_100;
+    descLabel.font = kHXBFont_30;
+    descLabel.textColor = kHXBFountColor_999999_100;
     descLabel.text = self.descString;
     [self.view addSubview:descLabel];
     
@@ -56,8 +56,9 @@
     [self.view addSubview:btn];
     
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@(72));
-        make.top.equalTo(@(45 + HXBStatusBarAndNavigationBarHeight));
+        make.height.offset(kScrAdaptationH750(182));
+        make.width.offset(kScrAdaptationW750(295));
+        make.top.equalTo(@(65 + HXBStatusBarAndNavigationBarHeight));
         make.centerX.equalTo(self.view);
     }];
     
