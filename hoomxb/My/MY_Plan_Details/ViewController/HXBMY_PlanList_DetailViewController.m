@@ -178,20 +178,11 @@
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     kWeakSelf
     
-    self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
-    self.buttonDescLabel.hidden = self.addButton.hidden;
-    if (self.addButton.hidden) {
-        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
-    } else {
-        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
-    }
     NSString *buttonTitle = viewModel.planDetailModel.inCoolingOffPeriod ? @"取消加入" : viewModel.quitStatus;
     NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
     [self.addButton setTitle:buttonTitle forState:(UIControlStateNormal)];
     self.buttonDescLabel.text = buttonLabelText;
-    
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
-        manager.topViewStatusStr = viewModel.leaveStatus;
         
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;
@@ -253,6 +244,8 @@
                                                       viewModel.addTime
                                                       ];
             manager.typeImageName = @"zhaiquanpipei";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
             break;
             //2: 表示受益中
         case 10:
@@ -263,7 +256,7 @@
                                                      @"平均历史年化收益",
                                                      @"锁定期",
                                                      @"加入日期",
-                                                     @"锁定期结束日期"
+                                                     @"锁定期结束日"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,
@@ -273,6 +266,9 @@
                                                       viewModel.endLockingTime
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
+            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            self.buttonDescLabel.hidden = self.addButton.hidden;
+            manager.topViewStatusStr = viewModel.leaveStatus;
             break;
             //3: 表示退出中
         case 3:
@@ -291,6 +287,9 @@
                                                       viewModel.redProgressLeft
                                                       ];
             manager.typeImageName = @"tuichu";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
+            manager.topViewStatusStr = viewModel.planDetailModel.exitWay;
             break;
             //4: 表示已退出
         case 4:
@@ -307,9 +306,18 @@
                                                       viewModel.endLockingTime
                                                       ];
             manager.typeImageName = @"tuichu";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
+            manager.topViewStatusStr = viewModel.planDetailModel.exitWay;
             break;
         default:
             break;
+            
+    }
+    if (self.addButton.hidden) {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
+    } else {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
     }
 }
 
