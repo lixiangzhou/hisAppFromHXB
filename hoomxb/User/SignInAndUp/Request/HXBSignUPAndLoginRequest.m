@@ -66,9 +66,9 @@
     [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
 //        kHXBResponsShowHUD;
         if ([responseObject[kResponseStatus] integerValue]) {
-            if ([responseObject[kResponseStatus] integerValue] != kHXBCode_Enum_Captcha) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            }
+//            if ([responseObject[kResponseStatus] integerValue] != kHXBCode_Enum_Captcha) {
+//                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+//            }
             if (failureBlock) {
                 failureBlock(nil,responseObject);
             }

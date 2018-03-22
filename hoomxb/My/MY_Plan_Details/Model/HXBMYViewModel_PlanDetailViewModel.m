@@ -186,7 +186,7 @@
 
  */
 - (NSString *) redProgressLeft {
-    if (self.planDetailModel.redProgressLeft.floatValue) {
+    if (self.planDetailModel.redProgressLeft) {
         _redProgressLeft = [NSString hxb_getPerMilWithDouble:self.planDetailModel.redProgressLeft.floatValue];
     } else {
         _redProgressLeft = @"";
