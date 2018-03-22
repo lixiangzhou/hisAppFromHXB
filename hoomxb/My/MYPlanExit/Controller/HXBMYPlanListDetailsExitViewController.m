@@ -36,9 +36,11 @@
     kWeakSelf
     [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID inCoolingOffPeriod: self.inCoolingOffPeriod resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
             if(!weakSelf.inCoolingOffPeriod) { //确认退出
+                weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
                 [weakSelf setMyPlanDetailsExitMainViewValue];
+            } else {
+                weakSelf.cancelExitMainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
             }
         }
     }];
