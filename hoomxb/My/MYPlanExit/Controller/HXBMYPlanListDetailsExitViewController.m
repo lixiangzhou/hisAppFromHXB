@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _inCoolingOffPeriod = NO;///暂时写死为 计划退出
+//    _inCoolingOffPeriod = NO;///暂时写死为 计划退出
     
     [self setupView];
     [self downLoadData];
@@ -36,9 +36,11 @@
     kWeakSelf
     [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID inCoolingOffPeriod: self.inCoolingOffPeriod resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
             if(!weakSelf.inCoolingOffPeriod) { //确认退出
+                weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
                 [weakSelf setMyPlanDetailsExitMainViewValue];
+            } else {
+                weakSelf.cancelExitMainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
             }
         }
     }];
@@ -52,9 +54,10 @@
             return manager;
         }
         
+        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.earnInterestNow.length>0 ? @"当前已赚" : @"预期收益";
         manager.topViewManager.leftStrArray = @[
                                                 @"加入本金",
-                                                @"当前已赚",
+                                                nowOrExpect,
                                                 @"退出时间"
                                                 ];
         manager.topViewManager.rightStrArray = @[
