@@ -94,6 +94,14 @@ UITableViewDataSource
     }
     return self;
 }
+
+- (void)setCake:(NSInteger)cake {
+    _cake = cake;
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
+    [self setUPViews];
+}
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock{
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
@@ -169,6 +177,7 @@ UITableViewDataSource
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [self setUPViews];
 }
+
 - (void)setUPViews {
     [self setUPViews_Create];
     [self setUPValue];

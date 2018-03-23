@@ -231,6 +231,8 @@
     switch (status) {
             //表示等待计息
         case 1:
+            self.planDetailView.cake = 4;
+            self.cake = 4;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -251,6 +253,8 @@
         case 10:
         case 11:
         case 12:
+            self.planDetailView.cake = 5;
+            self.cake = 5;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -272,6 +276,8 @@
             break;
             //3: 表示退出中
         case 3:
+            self.planDetailView.cake = 5;
+            self.cake = 5;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -293,6 +299,8 @@
             break;
             //4: 表示已退出
         case 4:
+            self.planDetailView.cake = 4;
+            self.cake = 4;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
