@@ -1874,7 +1874,6 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
-				8D36109F205772C9009E8505 /* MYPlanExit2 */,
 				9AE030BD2022C315006D6140 /* AbountMe */,
 				9AE031662022C316006D6140 /* Account */,
 				9AE0304A2022C314006D6140 /* accountCard */,
@@ -2280,15 +2279,6 @@
 				8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		8D36109F205772C9009E8505 /* MYPlanExit2 */ = {
-			isa = PBXGroup;
-			children = (
-				8D3610A220577331009E8505 /* HXBMyPlanExitSuccessController.h */,
-				8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */,
-			);
-			path = MYPlanExit2;
 			sourceTree = "<group>";
 		};
 		8D4064F01FC67E0600121E1C /* NSDate */ = {
@@ -4799,6 +4789,8 @@
 		E166CDAF205628BA00666749 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8D3610A220577331009E8505 /* HXBMyPlanExitSuccessController.h */,
+				8D3610A320577331009E8505 /* HXBMyPlanExitSuccessController.m */,
 				E166CDB32056292500666749 /* HXBMYPlanListDetailsExitViewController.h */,
 				E166CDB42056292500666749 /* HXBMYPlanListDetailsExitViewController.m */,
 			);
