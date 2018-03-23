@@ -18,16 +18,14 @@
 @property (nonatomic,strong) HXBMyPlanDetailsCancelExitMainView *cancelExitMainView;///冷静期取消退出view 和mainView选其一
 @property (nonatomic,strong) HXBMyPlanDetailsExitViewModel *viewModel;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
-//@property (nonatomic, assign) BOOL isAlertVCShow;
+
 @end
 
 @implementation HXBMYPlanListDetailsExitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    _inCoolingOffPeriod = NO;///暂时写死为 计划退出
-    
+
     [self setupView];
     [self downLoadData];
 }
@@ -90,9 +88,7 @@
     NSString *action = self.inCoolingOffPeriod?@"planCancelBuy":@"planquit";
     [self.viewModel getVerifyCodeRequesWithExitPlanWithAction:action andWithType:@"sms" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
         
-//        [weakSelf displayVerifyingCodeAlert];
         if (isSuccess) {
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4]];
             
             [weakSelf displayVerifyingCodeAlert];
             [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
@@ -154,7 +150,6 @@
         kWeakSelf
         _cancelExitMainView = [[HXBMyPlanDetailsCancelExitMainView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _cancelExitMainView.cancelExitBtnClickBlock = ^{
-            //            _isAlertVCShow = NO;
             [weakSelf getVerifyCode];
         };
         _cancelExitMainView.notCancelBtnClickBlock = ^{
@@ -169,7 +164,6 @@
         kWeakSelf
         _mainView = [[HXBMyPlanDetailsExitMainView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _mainView.exitBtnClickBlock = ^{
-//            _isAlertVCShow = NO;
             [weakSelf getVerifyCode];
         };
         _mainView.cancelBtnClickBlock = ^{
