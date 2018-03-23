@@ -134,7 +134,7 @@
         HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
         planBuyVC.planID = self.viewModel.planDetailsViewModel.planDetailModel.ID;
         planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile;
-//        planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
+        planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
         [self.navigationController pushViewController:planBuyVC animated:YES];
         
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
