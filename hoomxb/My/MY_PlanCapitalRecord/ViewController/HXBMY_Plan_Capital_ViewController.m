@@ -152,15 +152,18 @@ static NSString *const cellID = @"cellID";
 - (void)downLoadData{
     kWeakSelf
     NSString *requestURL = @"";
+    self.noDataView.noDataMassage = @"暂无数据";
+    
     if (self.type == HXBInvestmentRecord) {
         self.title = @"出借记录";
-        self.noDataView.noDataMassage = @"正在为您努力匹配债权";
+        if(self.investmentType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {//持有中
+            self.noDataView.noDataMassage = @"正在为您努力匹配债权 ";
+        }
         requestURL = kHXBFin_loanRecordURL(self.planID);
     }else if(self.type == HXBTransferRecord)
     {
         self.title = @"转让记录";
         requestURL = kHXBFin_CreditorRecordURL(self.planID);
-        self.noDataView.noDataMassage = @"暂无数据";
     }
     
     [self.planCapitalRecordViewModel loanRecord_my_Plan_WithRequestUrl:requestURL resultBlock:^(BOOL isSuccess) {
