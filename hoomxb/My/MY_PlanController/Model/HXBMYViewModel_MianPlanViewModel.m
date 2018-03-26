@@ -54,6 +54,11 @@
 }
 
 - (NSString *)quitStatus {
+    //在冷静期什么都不显示
+    if (self.planModelDataList.inCoolingOffPeriod) {
+        return @"";
+    }
+    
     if ([self.planModelDataList.quitStatus isEqualToString:@"QUIT"]) {
         return @"可退出";
     }
@@ -61,7 +66,8 @@
         return @"撤销退出";
     }
     else if ([self.planModelDataList.quitStatus isEqualToString:@"STAY_QUIT"]){
-        return @"待退出";
+//        return @"待退出";
+        return @"";
     }
     else {
         return @"";

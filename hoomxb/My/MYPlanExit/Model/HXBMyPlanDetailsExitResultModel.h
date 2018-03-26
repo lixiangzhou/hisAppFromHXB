@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface HXBMyPlanDetailsExitResultModel : NSObject
+/// 确认退出
 @property (nonatomic,copy) NSString *endLockingTime; /// 计划退出时间
 @property (nonatomic,copy) NSString *quitDesc;/// 退出成功文案描述
-//@property (nonatomic,copy) NSString *exitType;/// 退出 还是 取消退出
+
+/// 冷静期
+@property (nonatomic,copy) NSString *financePlanName;/// "红利计划-3个月 180201期"
+@property (nonatomic,copy) NSString *desc;/// "您加入的红利计划-3个月 180201期已退出"
+
 @end

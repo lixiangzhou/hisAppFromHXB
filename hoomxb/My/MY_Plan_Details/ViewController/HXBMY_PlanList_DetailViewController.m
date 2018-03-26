@@ -263,7 +263,7 @@
                                                      @"平均历史年化收益",
                                                      @"锁定期",
                                                      @"加入日期",
-                                                     @"锁定期结束日期"
+                                                     @"锁定期结束日"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,

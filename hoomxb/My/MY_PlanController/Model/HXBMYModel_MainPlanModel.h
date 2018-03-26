@@ -72,5 +72,10 @@ redProgressLeft:待转让金额
  2.6.0计划退出参数说明
  */
 @property (nonatomic, copy) NSString *quitStatus;
+
+/**
+ 2.6.0是否处于冷静期
+ */
+@property (nonatomic, assign) BOOL inCoolingOffPeriod;
 @end
 

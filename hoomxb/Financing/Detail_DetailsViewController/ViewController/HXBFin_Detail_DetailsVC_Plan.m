@@ -110,7 +110,7 @@
                                                 ];
         manager.dateViewManager.leftStrArray = @[
                                                 @"开始加入日期",
-                                                @"锁定期结束日期",
+                                                @"锁定期结束日",
                                                 @"锁定期",
                                                 ];
         manager.dateViewManager.rightStrArray = @[

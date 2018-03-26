@@ -75,7 +75,7 @@
         make.top.equalTo(weakSelf.topView.mas_bottom).offset(kScrAdaptationH750(30));
         make.left.equalTo(weakSelf.iconImgV.mas_right).offset(kScrAdaptationW750(10));
         make.right.equalTo(weakSelf.mas_right).offset(kScrAdaptationW750(-28));
-        make.height.equalTo(@(kScrAdaptationH750(108)));
+//        make.height.equalTo(@(kScrAdaptationH750(108)));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.descLab.mas_bottom).offset(kScrAdaptationH750(150));
@@ -94,8 +94,8 @@
 }
 
 - (void)setUPViewsCreate {
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
-    self.topView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
+    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationW(15), kScrAdaptationH750(40), kScrAdaptationW(15));
+    self.topView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(36) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
     self.topView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -163,6 +163,8 @@
         _descLab.numberOfLines = 0;
         _descLab.textColor = kHXBColor_999999_100;
         _descLab.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
+        _descLab.textAlignment = NSTextAlignmentLeft;
+        [_descLab sizeToFit];
         _descLab.text = @"";
     }
     return _descLab;
