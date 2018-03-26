@@ -38,8 +38,8 @@
     _myPlanDetailsExitModel = myPlanDetailsExitModel;
     self.exitAmountLeftLab.hidden = !myPlanDetailsExitModel;
     self.exitAmountRightLab.hidden = !myPlanDetailsExitModel;
-    self.ticketImgV.hidden = !myPlanDetailsExitModel;
-    self.ticketLab.hidden = !myPlanDetailsExitModel;
+    self.ticketImgV.hidden = !(myPlanDetailsExitModel.couponUseDesc.length > 0);
+    self.ticketLab.hidden = !(myPlanDetailsExitModel.couponUseDesc.length > 0);
     self.exitDateLeftLab.hidden = !myPlanDetailsExitModel;
     self.exitDateRightLab.hidden = !myPlanDetailsExitModel;
     self.iconImgV.hidden = !myPlanDetailsExitModel;
@@ -48,9 +48,21 @@
     self.notCancelBtn.hidden = !myPlanDetailsExitModel;
     
     self.exitAmountRightLab.text = myPlanDetailsExitModel.cancelAmount ? myPlanDetailsExitModel.cancelAmount:@"";
-    self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
     self.exitDateRightLab.text = myPlanDetailsExitModel.cancelTime;
     self.descLab.text = myPlanDetailsExitModel.cancelBuyDesc;
+    if (!(myPlanDetailsExitModel.couponUseDesc.length > 0)) {
+        self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
+        kWeakSelf
+        [self.cancelExitInfoV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(kScrAdaptationH750(192)));
+        }];
+        [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(96));
+        }];
+        [self.exitDateLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(126));
+        }];
+    }
 }
 
 - (void)setUPViews {

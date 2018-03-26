@@ -13,30 +13,24 @@
 
 //获取账户内红利计划退出信息
 - (void)loadPlanListDetailsExitInfoWithPlanID: (NSString *)planID
-                           inCoolingOffPeriod: (BOOL)inCoolingOffPeriod
                                   resultBlock: (void(^)(BOOL isSuccess))resultBlock
 {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = inCoolingOffPeriod?kHXBMY_PlanCancelBuyURL(planID):kHXBMY_PlanBeforeQuitURL(planID);
+    request.requestUrl = kHXBMY_PlanBeforeQuitURL(planID);
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.myPlanDetailsExitModel = [HXBMyPlanDetailsExitModel yy_modelWithJSON:responseObject[kResponseData]];
-        if (inCoolingOffPeriod) {
-            weakSelf.myPlanDetailsExitModel.cancelAmount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.cancelAmount doubleValue]];
-            weakSelf.myPlanDetailsExitModel.cancelTime = [[HXBBaseHandDate sharedHandleDate]stringFromDate:weakSelf.myPlanDetailsExitModel.cancelTime andDateFormat:@"yyyy-MM-dd"];
-        } else {
-            NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
-            NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
-            if (!earnInterestNow && totalEarnInterest) {
-                weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
-            } else if (!earnInterestNow && !totalEarnInterest) {
-                weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
-            }
-            weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
-            weakSelf.myPlanDetailsExitModel.endLockingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:weakSelf.myPlanDetailsExitModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
+        NSString *earnInterestNow = weakSelf.myPlanDetailsExitModel.earnInterestNow;
+        NSString *totalEarnInterest= weakSelf.myPlanDetailsExitModel.totalEarnInterest;
+        if (!earnInterestNow && totalEarnInterest) {
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
+        } else if (!earnInterestNow && !totalEarnInterest) {
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
         }
+        weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
+        weakSelf.myPlanDetailsExitModel.endLockingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:weakSelf.myPlanDetailsExitModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
         if (resultBlock) {
             resultBlock(YES);
         }
