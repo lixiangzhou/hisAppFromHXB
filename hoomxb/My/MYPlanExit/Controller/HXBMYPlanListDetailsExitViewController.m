@@ -129,7 +129,7 @@
                     [weakSelf.navigationController pushViewController:exitResultVC animated:YES];
                 } else {
                     // 短信弹窗不消失 toast提示
-                    [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+                    //[weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 }
             }];
         };
@@ -146,7 +146,12 @@
     if (!_viewModel) {
         kWeakSelf
         _viewModel = [[HXBMyPlanDetailsExitViewModel alloc]initWithBlock:^UIView *{
-            return weakSelf.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;
