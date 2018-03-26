@@ -50,9 +50,18 @@
     self.exitAmountRightLab.text = myPlanDetailsExitModel.cancelAmount ? myPlanDetailsExitModel.cancelAmount:@"";
     self.exitDateRightLab.text = myPlanDetailsExitModel.cancelTime;
     self.descLab.text = myPlanDetailsExitModel.cancelBuyDesc;
-    if (myPlanDetailsExitModel.couponUseDesc.length > 0) {
+    if (!(myPlanDetailsExitModel.couponUseDesc.length > 0)) {
         self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
-        
+        kWeakSelf
+        [self.cancelExitInfoV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(kScrAdaptationH750(192)));
+        }];
+        [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(96));
+        }];
+        [self.exitDateLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(126));
+        }];
     }
 }
 

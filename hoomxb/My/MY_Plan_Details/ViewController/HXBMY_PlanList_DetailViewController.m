@@ -135,8 +135,19 @@
         planBuyVC.planID = self.viewModel.planDetailsViewModel.planDetailModel.ID;
         planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile;
         planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
-        [self.navigationController pushViewController:planBuyVC animated:YES];
-        
+        // 冷静期 点击取消加入 先获取数据传下一页
+        if (self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod) {
+            kWeakSelf
+            [self.viewModel loadPlanListDetailsCancelExitInfoWithPlanID:self.viewModel.planDetailsViewModel.planDetailModel.ID  resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    planBuyVC.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
+                    [weakSelf.navigationController pushViewController:planBuyVC animated:YES];
+                }
+            }];
+        } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
+            planBuyVC.myPlanDetailsExitModel = nil;
+            [self.navigationController pushViewController:planBuyVC animated:YES];
+        }
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
         [self annulQuit];
     }

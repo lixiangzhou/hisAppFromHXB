@@ -17,11 +17,9 @@
  获取账户内红利计划退出信息
 
  @param planID 计划ID
- @param inCoolingOffPeriod 是否是冷静期
  @param resultBlock resultBlock description
  */
 - (void)loadPlanListDetailsExitInfoWithPlanID: (NSString *)planID
-                           inCoolingOffPeriod: (BOOL)inCoolingOffPeriod
                                   resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 /**

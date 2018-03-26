@@ -27,19 +27,22 @@
     [super viewDidLoad];
 
     [self setupView];
-    [self downLoadData];
+    if (!self.inCoolingOffPeriod) {
+        [self downLoadData];
+    } else {
+        if (self.myPlanDetailsExitModel) {
+            self.cancelExitMainView.myPlanDetailsExitModel = self.myPlanDetailsExitModel;
+        }
+    }
 }
 
 - (void)downLoadData {
     kWeakSelf
-    [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID inCoolingOffPeriod: self.inCoolingOffPeriod resultBlock:^(BOOL isSuccess) {
+    //确认退出
+    [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            if(!weakSelf.inCoolingOffPeriod) { //确认退出
-                weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
-                [weakSelf setMyPlanDetailsExitMainViewValue];
-            } else {
-                weakSelf.cancelExitMainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
-            }
+            weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
+            [weakSelf setMyPlanDetailsExitMainViewValue];
         }
     }];
 }
@@ -78,7 +81,9 @@
 
 - (void)getNetworkAgain
 {
-    [self downLoadData];
+    if (!self.inCoolingOffPeriod) {
+        [self downLoadData];
+    }
 }
 
 // 获取短验
@@ -113,10 +118,11 @@
                     // push 到退出结果页
                     HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
                     if (weakSelf.inCoolingOffPeriod) {
-                        
+                        exitResultVC.exitType = HXBMyPlanExitTypeCoolingOff;
                         exitResultVC.titleString = @"退出已申请";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
+                        exitResultVC.exitType = HXBMyPlanExitTypeNormal;
                         exitResultVC.titleString = @"红利计划已退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }

@@ -9,6 +9,7 @@
 #import "HXBMyPlanDetailsViewModel.h"
 #import "HXBMYViewModel_PlanDetailViewModel.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
+#import "NSString+HxbPerMilMoney.h"
 
 @interface HXBMyPlanDetailsViewModel ()
 
@@ -60,5 +61,26 @@
     }];
 }
 
-
+//获取账户内取消加入红利计划退出信息
+- (void)loadPlanListDetailsCancelExitInfoWithPlanID: (NSString *)planID
+                                        resultBlock: (void(^)(BOOL isSuccess))resultBlock
+{
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestMethod = NYRequestMethodPost;
+    request.requestUrl = kHXBMY_PlanCancelBuyURL(planID);
+    request.showHud = YES;
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.myPlanDetailsExitModel = [HXBMyPlanDetailsExitModel yy_modelWithJSON:responseObject[kResponseData]];
+        weakSelf.myPlanDetailsExitModel.cancelAmount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.cancelAmount doubleValue]];
+        weakSelf.myPlanDetailsExitModel.cancelTime = [[HXBBaseHandDate sharedHandleDate]stringFromDate:weakSelf.myPlanDetailsExitModel.cancelTime andDateFormat:@"yyyy-MM-dd"];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+}
 @end
