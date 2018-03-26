@@ -86,7 +86,7 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
     [self downLoadData];
     
-    self.noDataView.noDataMassage = @"暂无数据";
+    
     [self.view addSubview:self.noDataView];
     [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
@@ -153,11 +153,13 @@ static NSString *const cellID = @"cellID";
     NSString *requestURL = @"";
     if (self.type == HXBInvestmentRecord) {
         self.title = @"出借记录";
+        self.noDataView.noDataMassage = @"正在为您努力匹配债权";
         requestURL = kHXBFin_loanRecordURL(self.planID);
     }else if(self.type == HXBTransferRecord)
     {
         self.title = @"转让记录";
         requestURL = kHXBFin_CreditorRecordURL(self.planID);
+        self.noDataView.noDataMassage = @"暂无数据";
     }
     
     [self.planCapitalRecordViewModel loanRecord_my_Plan_WithRequestUrl:requestURL resultBlock:^(BOOL isSuccess) {

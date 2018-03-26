@@ -226,7 +226,7 @@ UITableViewDataSource
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.topStatusView);
         make.right.equalTo(self.topStatusView).offset(kScrAdaptationH750(-100));
-        make.left.equalTo(self.topStatusView).offset(kScrAdaptationW750(73));
+        make.left.equalTo(self.topStatusView).offset(kScrAdaptationW750(68));
     }];
     [self.topStatusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.topStatusLabel);

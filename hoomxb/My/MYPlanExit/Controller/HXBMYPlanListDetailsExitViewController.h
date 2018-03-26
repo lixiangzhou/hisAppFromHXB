@@ -13,5 +13,6 @@
 
 @property (nonatomic,copy) NSString *planID; /// 需要接受planID
 @property (nonatomic,copy) NSString *mobile;
+@property (nonatomic,assign) BOOL inCoolingOffPeriod; /// 是否处于冷静期
 
 @end

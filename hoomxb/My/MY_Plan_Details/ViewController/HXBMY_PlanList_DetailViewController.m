@@ -130,11 +130,12 @@
          [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }
-    if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
+    if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT] || self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod) {
         
         HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
         planBuyVC.planID = self.viewModel.planDetailsViewModel.planDetailModel.ID;
         planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile;
+//        planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
         [self.navigationController pushViewController:planBuyVC animated:YES];
         
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
@@ -176,15 +177,18 @@
 
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     kWeakSelf
-    self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"]) ;
+    
+    self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
     self.buttonDescLabel.hidden = self.addButton.hidden;
     if (self.addButton.hidden) {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
     } else {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
     }
-    [self.addButton setTitle:viewModel.quitStatus forState:(UIControlStateNormal)];
-    self.buttonDescLabel.text = viewModel.quitSubTitle;
+    NSString *buttonTitle = viewModel.planDetailModel.inCoolingOffPeriod ? @"取消加入" : viewModel.quitStatus;
+    NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
+    [self.addButton setTitle:buttonTitle forState:(UIControlStateNormal)];
+    self.buttonDescLabel.text = buttonLabelText;
     
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         manager.topViewStatusStr = viewModel.leaveStatus;
@@ -259,7 +263,7 @@
                                                      @"平均历史年化收益",
                                                      @"锁定期",
                                                      @"加入日期",
-                                                     @"锁定期结束日期"
+                                                     @"锁定期结束日"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,
