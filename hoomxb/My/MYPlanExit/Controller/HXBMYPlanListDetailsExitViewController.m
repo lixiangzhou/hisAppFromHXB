@@ -113,6 +113,7 @@
                     // push 到退出结果页
                     HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
                     if (weakSelf.inCoolingOffPeriod) {
+                        
                         exitResultVC.titleString = @"退出已申请";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
