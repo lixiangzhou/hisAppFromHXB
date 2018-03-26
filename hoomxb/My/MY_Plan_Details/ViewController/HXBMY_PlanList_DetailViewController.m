@@ -23,8 +23,8 @@
 #import "HXBMYPlanListDetailsExitViewController.h"
 
 @interface HXBMY_PlanList_DetailViewController ()
-@property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
-@property (nonatomic,strong) UITableView *tabelView;
+@property (nonatomic, strong) HXBMY_PlanDetailView *planDetailView;
+@property (nonatomic, strong) UITableView *tabelView;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UILabel *buttonDescLabel;
 @property (nonatomic, strong) HXBMyPlanDetailsViewModel *viewModel;
@@ -53,6 +53,7 @@
 - (void) setUP {
     kWeakSelf
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, (kScrAdaptationH(447) + self.cake * kScrAdaptationH(37.5))) andInfoHaveCake:self.cake];
+    
     UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     UILabel *buttonDescLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.buttonDescLabel = buttonDescLabel;
@@ -61,6 +62,7 @@
     self.buttonDescLabel.textColor = kHXBColor_666666_100;
     self.buttonDescLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.buttonDescLabel.backgroundColor = BACKGROUNDCOLOR;
+    self.buttonDescLabel.numberOfLines = 0;
     [self.addButton addTarget:self action:@selector(clickAddButton) forControlEvents:(UIControlEventTouchUpInside)];
     self.addButton.titleLabel.numberOfLines = 0;
     self.addButton.titleLabel.textColor = [UIColor whiteColor];
@@ -89,7 +91,7 @@
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
-    weakSelf.tabelView.tableHeaderView = planDetailView;
+    
     [self.view addSubview:self.addButton];
     [self.view addSubview:self.buttonDescLabel];
     
@@ -100,8 +102,8 @@
     }];
     [self.buttonDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(15));
-        make.height.equalTo(@(kScrAdaptationH(27)));
-        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight - kScrAdaptationH(50));
+        make.right.equalTo(weakSelf.view).offset(kScrAdaptationW(-15));
+        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight - kScrAdaptationH(50) - kScrAdaptationH(8));
     }];
     
 }
@@ -125,10 +127,6 @@
 
 // 点击按钮
 - (void)clickAddButton {
-    if (!KeyChain.isLogin) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-        return;
-    }
     if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT] || self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod) {
         
         HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
@@ -148,8 +146,6 @@
     kWeakSelf
     HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"您是否撤销退出" andSubTitle:@"您撤销退出，撤销后依然继续享有收益。" andLeftBtnName:@"继续退出" andRightBtnName:@"继续持有" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
     alertVC.isCenterShow = NO;
-    [alertVC setLeftBtnBlock:^{
-    }];
     [alertVC setRightBtnBlock:^{
         [weakSelf.viewModel accountPlanQuitRequestWithPlanID:weakSelf.planViewModel.planModelDataList.ID resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -182,6 +178,7 @@
     NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
     [self.addButton setTitle:buttonTitle forState:(UIControlStateNormal)];
     self.buttonDescLabel.text = buttonLabelText;
+    
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
@@ -210,10 +207,10 @@
 
 - (UITableView *)tabelView {
     if (!_tabelView) {
-        _tabelView = [[UITableView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
+        _tabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
         [self.view insertSubview:_tabelView atIndex:0];
         _tabelView.hidden = YES;
-        _tabelView.tableFooterView = [[UIView alloc]init];
+        _tabelView.tableHeaderView = [[UIView alloc] init];
         _tabelView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_tabelView];
     }
@@ -249,7 +246,7 @@
             self.addButton.hidden = YES;
             self.buttonDescLabel.hidden = YES;
             break;
-            //2: 表示受益中
+            //2: 表示持有中
         case 10:
         case 11:
         case 12:
@@ -322,10 +319,17 @@
             break;
             
     }
+    self.tabelView.tableHeaderView = nil;
+    self.planDetailView.height = kScrAdaptationH(447) + self.cake * kScrAdaptationH(37.5);
+    self.tabelView.tableHeaderView = self.planDetailView;
+    
+    NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
+    CGFloat height = [buttonLabelText boundingRectWithSize:CGSizeMake(kScreenWidth - kScrAdaptationW(30), 10000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: self.buttonDescLabel.font} context:nil].size.height;
+    
     if (self.addButton.hidden) {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
     } else {
-        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(66) - height - HXBTabbarSafeBottomMargin);
     }
 }
 
