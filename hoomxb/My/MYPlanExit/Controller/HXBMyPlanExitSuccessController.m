@@ -45,6 +45,7 @@
     descLabel.font = kHXBFont_30;
     descLabel.textColor = kHXBFountColor_999999_100;
     descLabel.text = self.descString;
+    descLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:descLabel];
     
     UIButton *btn = [UIButton new];
