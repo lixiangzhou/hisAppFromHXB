@@ -53,7 +53,6 @@
 - (void) setUP {
     kWeakSelf
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, (kScrAdaptationH(447) + self.cake * kScrAdaptationH(37.5))) andInfoHaveCake:self.cake];
-    
     UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     UILabel *buttonDescLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.buttonDescLabel = buttonDescLabel;
@@ -94,6 +93,8 @@
     
     [self.view addSubview:self.addButton];
     [self.view addSubview:self.buttonDescLabel];
+    
+    self.tabelView.tableHeaderView = self.planDetailView;
     
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(weakSelf.view);
@@ -330,9 +331,6 @@
             break;
             
     }
-    self.tabelView.tableHeaderView = nil;
-    self.planDetailView.height = kScrAdaptationH(447) + self.cake * kScrAdaptationH(37.5);
-    self.tabelView.tableHeaderView = self.planDetailView;
     
     NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
     CGFloat height = [buttonLabelText boundingRectWithSize:CGSizeMake(kScreenWidth - kScrAdaptationW(30), 10000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: self.buttonDescLabel.font} context:nil].size.height;
@@ -341,6 +339,7 @@
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
     } else {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(66) - height - HXBTabbarSafeBottomMargin);
+
     }
 }
 
