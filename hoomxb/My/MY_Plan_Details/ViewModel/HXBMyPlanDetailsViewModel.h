@@ -39,6 +39,6 @@
  @param resultBlock resultBlock description
  */
 - (void)loadPlanListDetailsCancelExitInfoWithPlanID: (NSString *)planID
-                                  resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+                                        resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 @end
