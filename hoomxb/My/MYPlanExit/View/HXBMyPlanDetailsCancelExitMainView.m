@@ -51,7 +51,6 @@
     self.exitDateRightLab.text = myPlanDetailsExitModel.cancelTime;
     self.descLab.text = myPlanDetailsExitModel.cancelBuyDesc;
     if (!(myPlanDetailsExitModel.couponUseDesc.length > 0)) {
-        self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
         kWeakSelf
         [self.cancelExitInfoV mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@(kScrAdaptationH750(192)));
@@ -62,6 +61,8 @@
         [self.exitDateLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(126));
         }];
+    } else {
+        self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
     }
 }
 
