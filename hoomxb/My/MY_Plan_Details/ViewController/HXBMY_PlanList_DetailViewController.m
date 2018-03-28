@@ -221,7 +221,7 @@
         _tabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
         [self.view insertSubview:_tabelView atIndex:0];
         _tabelView.hidden = YES;
-        _tabelView.tableHeaderView = [[UIView alloc] init];
+        _tabelView.tableFooterView = [[UIView alloc] init];
         _tabelView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_tabelView];
     }
@@ -319,7 +319,7 @@
                                                       viewModel.addAuomt,
                                                       viewModel.expectedRate,
                                                       viewModel.lockTime,
-                                                      viewModel.endLockingTime
+                                                      viewModel.quitDate
                                                       ];
             manager.typeImageName = @"tuichu";
             self.addButton.hidden = YES;
