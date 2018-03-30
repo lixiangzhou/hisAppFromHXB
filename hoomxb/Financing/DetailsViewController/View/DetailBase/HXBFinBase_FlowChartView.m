@@ -11,11 +11,11 @@
 
 //逻辑分析
 /**
-1. status 1-5 (开放加入前) （全灰色）
+1. status 0-5 (开放加入前) （全灰色）
 2. status 6 （开放加入）（加入为红色同心圆）
 3. status 7 （加入满额）（加入- 开始收益的之间的线为红色）
-4. status 8-9（收益中） (显示收益中这几个字，然后退出中的圆圈为灰色)
-5. status 10 （已退出） (圆圈全红，并且显示收益中这几个字)
+4. status 8（收益中） (显示收益中这几个字，然后退出中的圆圈为灰色)
+5. status 9-11 （已退出） (圆圈全红，并且显示收益中这几个字)
  */
 @interface HXBFinBase_FlowChartView ()
 /**
@@ -116,11 +116,11 @@
 
 //逻辑分析
 /**
- 1. status 1-5 (开放加入前) （全灰色）
+ 1. status 0-5 (开放加入前) （全灰色）
  2. status 6 （开放加入）（加入为红色同心圆）
  3. status 7 （加入满额）（加入-开始收益的之间的线为红色 开始收益圆圈不变红）
- 4. status 8-9（(开始收益)收益中） (显示收益中这几个字，开始收益和到期退出红线， 然后退出中的圆圈为灰色)
- 5. status 10 （已退出） (圆圈全红，并且显示收益中这几个字)
+ 4. status 8（收益中） (显示收益中这几个字，开始收益和到期退出红线， 然后退出中的圆圈为灰色)
+ 5. status 9-11 （已退出） (圆圈全红，并且显示收益中这几个字)
  */
 - (HXBFinBase_FlowChartView_Plan_Stage)getPlanState:(NSInteger)stage {
     HXBFinBase_FlowChartView_Plan_Stage planState = HXBFinBase_FlowChartView_Plan_Stage_Null;
@@ -130,10 +130,11 @@
             planState = HXBFinBase_FlowChartView_Plan_Stage_Add;
             break;
         case 8:
-        case 9:
             planState = HXBFinBase_FlowChartView_Plan_Stage_Begin;
             break;
+        case 9:
         case 10:
+        case 11:
             planState = HXBFinBase_FlowChartView_Plan_Stage_Leave;
             break;
         default:
