@@ -58,6 +58,7 @@
     viewModelVM.addButtonTitleColor        = self.loanDetailModel.addButtonTitleColor;
     viewModelVM.addButtonBackgroundColor   = self.loanDetailModel.addButtonBackgroundColor;
     viewModelVM.title                      = @"散标出借";
+    viewModelVM.interestDate = self.loanDetailModel.loanDetailModel.interestDate;
     
 }
 

@@ -77,4 +77,6 @@
 @property (nonatomic,strong) UIColor *addButtonTitleColor;
 ///addbutton 边缘的颜色
 @property (nonatomic,strong) UIColor *addButtonBorderColor;
+/// 起息日
+@property (nonatomic, copy) NSString *interestDate;
 @end

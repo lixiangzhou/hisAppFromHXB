@@ -41,12 +41,18 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_userLoanRecord *userLoanRecord;
 ///贷款协议
 @property (nonatomic,copy) NSString *agreementTitle;// "借款协议",
+
 ///银行卡的信息
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_idCardInfo *idCardInfo;
 ///信用信息
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_creditInfo *creditInfo;
 ///用户信息
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_userVo *userVo;
+
+// ------------------- 2.6.0 -----------------
+
+/// 起息日
+@property (nonatomic, assign) NSString *interestDate;
 @end
 
 // --------------------- loanVO ---------------------
@@ -261,7 +267,9 @@ typedef enum : NSUInteger {
 //": 0
 @property (nonatomic,copy) NSString *version;
 
-
+// ------------------- 2.6.0 -----------------
+/// 其他重大负债
+@property (nonatomic, copy) NSString *otherMajorLiabilities;
 @end
 
 
