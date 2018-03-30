@@ -55,7 +55,7 @@
             return manager;
         }
         
-        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.earnInterestNow.length>0 ? @"当前已赚" : @"预期收益";
+        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益" : @"当前已赚";
         manager.topViewManager.leftStrArray = @[
                                                 @"加入本金",
                                                 nowOrExpect,
