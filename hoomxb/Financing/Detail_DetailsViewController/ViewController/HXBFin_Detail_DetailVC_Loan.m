@@ -24,6 +24,8 @@
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *loanInfoView;
 ///财务信息
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *loanFinView;
+///负债信息
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *debtFinView;
 ///工作信息
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *workInfoView;
 ///状态信息
@@ -56,7 +58,7 @@
 //    self.loanInfo.loan_finDatailModel = self.loanDetailViewModel;
     
     [self setUPFrame];
-    [self setUPValue];
+//    [self setUPValue];
     [self setUPManager];
 }
 
@@ -81,7 +83,6 @@
                                     @"学历：",
                                     @"籍贯：",
                                     @"近6个月内征信报告中逾期情况：",
-                                    @"近1个月在其他网贷平台借款：",
                                     @"借款人经营及财务状况：",
                                     @"借款人还款能力变化：",
                                     @"借款人涉诉、受行政处罚情况：",
@@ -96,7 +97,6 @@
                                      weakSelf.fin_Detail_DetailVC_LoanManager.homeTown,
                                      
                                      weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.overDueStatus:@"--",
-                                     weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus:@"--",
                                      weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.userFinanceStatus:@"--",
                                      weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity&&![weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.repaymentCapacity:@"--",
                                      weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus&&![weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.punishedStatus:@"--",
@@ -114,19 +114,39 @@
     [self.loanFinView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         viewManager.leftStrArray = @[
                                      @"财务信息",
-                                     @"车产：",
-                                     @"车贷：",
+                                     @"月收入：",
                                      @"房产：",
-                                     @"房贷：",
-                                     @"月收入："
+                                     @"车产："
                                      ];
         viewManager.rightStrArray = @[
                                       @" ",
-                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCar,
-                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCarLoan,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.monthlyIncome,
                                       weakSelf.fin_Detail_DetailVC_LoanManager.hasHouse,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCar
+                                      ];
+        
+        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
+        viewManager.rightTextColor = kHXBColor_Font0_6;
+        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+        return viewManager;
+    }];
+    
+    [self.debtFinView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"负债信息",
+                                     @"房贷：",
+                                     @"车贷：",
+                                     @"在其他网贷平台借款：",
+                                     @"其他重大负债："
+                                     ];
+        viewManager.rightStrArray = @[
+                                      @" ",
                                       weakSelf.fin_Detail_DetailVC_LoanManager.hasHouseLoan,
-                                      weakSelf.fin_Detail_DetailVC_LoanManager.monthlyIncome
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCarLoan,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.otherPlatStatus,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.otherMajorLiabilities&&![weakSelf.fin_Detail_DetailVC_LoanManager.otherMajorLiabilities isEqualToString:@""]?weakSelf.fin_Detail_DetailVC_LoanManager.otherMajorLiabilities:@"--",
                                       ];
         
         viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
@@ -204,7 +224,7 @@
                                      @"车贷：",
                                      @"房产：",
                                      @"房贷：",
-                                     @"月收入（月）："
+                                     @"收入(月)："
                                      ];
         viewManager.rightStrArray = @[
                                       @" ",
@@ -286,7 +306,7 @@
     [self.loanInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanPerson_infoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(30.5*13)));
+        make.height.equalTo(@(kScrAdaptationH(30.5*12)));
     }];
     UIView* redFlagInfoView = [[UIView alloc]init];
     redFlagInfoView.backgroundColor = RGB(245, 81, 81);
@@ -301,7 +321,7 @@
     [self.loanFinView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanInfoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(183)));
+        make.height.equalTo(@(kScrAdaptationH(122)));
     }];
     UIView* redFlagloanView = [[UIView alloc]init];
     redFlagloanView.backgroundColor = RGB(245, 81, 81);
@@ -313,8 +333,23 @@
         make.left.equalTo(weakSelf.loanFinView).offset(7);
     }];
     
-    [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.debtFinView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
+        make.left.right.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(152.5)));
+    }];
+    UIView* redDebtFlagloanView = [[UIView alloc]init];
+    redDebtFlagloanView.backgroundColor = RGB(245, 81, 81);
+    [self.debtFinView addSubview:redDebtFlagloanView];
+    [redDebtFlagloanView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.debtFinView).offset(kScrAdaptationH(19));
+        make.height.mas_equalTo(kScrAdaptationW(12));
+        make.width.mas_equalTo(kScrAdaptationW(2));
+        make.left.equalTo(weakSelf.loanFinView).offset(7);
+    }];
+    
+    [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.debtFinView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
         make.height.equalTo(@(kScrAdaptationH(152)));
     }];
@@ -387,7 +422,7 @@
 - (HXBBaseView_MoreTopBottomView *)loanInfoView {
     if (!_loanInfoView) {
         UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
-        _loanInfoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:13 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _loanInfoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:12 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanInfoView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanInfoView];
     }
@@ -398,12 +433,24 @@
 - (HXBBaseView_MoreTopBottomView *)loanFinView {
     if (!_loanFinView) {
         UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
-        _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:6 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanFinView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanFinView];
     }
     return _loanFinView;
 }
+
+/// 债务信息
+- (HXBBaseView_MoreTopBottomView *)debtFinView {
+    if (!_debtFinView) {
+        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
+        _debtFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _debtFinView.backgroundColor = [UIColor whiteColor];
+        [self.scrollView addSubview:_debtFinView];
+    }
+    return _debtFinView;
+}
+
 - (HXBBaseView_MoreTopBottomView *)workInfoView {
     if (!_workInfoView) {
         UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
