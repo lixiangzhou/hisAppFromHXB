@@ -353,7 +353,6 @@
 		9AE033812022C422006D6140 /* HXBFin_creditorChange_buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032E12022C421006D6140 /* HXBFin_creditorChange_buy_ViewController.m */; };
 		9AE033822022C422006D6140 /* HXBFin_Loan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032E32022C421006D6140 /* HXBFin_Loan_Buy_ViewController.m */; };
 		9AE033832022C422006D6140 /* HXBFin_Plan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032E52022C421006D6140 /* HXBFin_Plan_Buy_ViewController.m */; };
-		9AE033842022C422006D6140 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032E72022C421006D6140 /* HXBFin_Plan_BuyViewController.m */; };
 		9AE033852022C422006D6140 /* HXBFinHomePageViewModel_LoanList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032EC2022C421006D6140 /* HXBFinHomePageViewModel_LoanList.m */; };
 		9AE033862022C422006D6140 /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032EE2022C421006D6140 /* HXBFinHomePageViewModel_LoanTruansferViewModel.m */; };
 		9AE033872022C422006D6140 /* HXBFinHomePageViewModel_PlanList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032F02022C421006D6140 /* HXBFinHomePageViewModel_PlanList.m */; };
@@ -1239,8 +1238,6 @@
 		9AE032E32022C421006D6140 /* HXBFin_Loan_Buy_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Loan_Buy_ViewController.m; sourceTree = "<group>"; };
 		9AE032E42022C421006D6140 /* HXBFin_Plan_Buy_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_Buy_ViewController.h; sourceTree = "<group>"; };
 		9AE032E52022C421006D6140 /* HXBFin_Plan_Buy_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_Buy_ViewController.m; sourceTree = "<group>"; };
-		9AE032E62022C421006D6140 /* HXBFin_Plan_BuyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_BuyViewController.h; sourceTree = "<group>"; };
-		9AE032E72022C421006D6140 /* HXBFin_Plan_BuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuyViewController.m; sourceTree = "<group>"; };
 		9AE032EB2022C421006D6140 /* HXBFinHomePageViewModel_LoanList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageViewModel_LoanList.h; sourceTree = "<group>"; };
 		9AE032EC2022C421006D6140 /* HXBFinHomePageViewModel_LoanList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinHomePageViewModel_LoanList.m; sourceTree = "<group>"; };
 		9AE032ED2022C421006D6140 /* HXBFinHomePageViewModel_LoanTruansferViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageViewModel_LoanTruansferViewModel.h; sourceTree = "<group>"; };
@@ -3755,8 +3752,6 @@
 				9AE032E32022C421006D6140 /* HXBFin_Loan_Buy_ViewController.m */,
 				9AE032E42022C421006D6140 /* HXBFin_Plan_Buy_ViewController.h */,
 				9AE032E52022C421006D6140 /* HXBFin_Plan_Buy_ViewController.m */,
-				9AE032E62022C421006D6140 /* HXBFin_Plan_BuyViewController.h */,
-				9AE032E72022C421006D6140 /* HXBFin_Plan_BuyViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -5701,7 +5696,6 @@
 				E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */,
 				8D2CF5231FC2DA5D008F7A89 /* HXBInviteListModel.m in Sources */,
 				9AE031F72022C317006D6140 /* HXBDepositoryAlertViewController.m in Sources */,
-				9AE033842022C422006D6140 /* HXBFin_Plan_BuyViewController.m in Sources */,
 				E144506B205FA5D500EFCE12 /* HXBMyPlanDetailsCancelExitMainView.m in Sources */,
 				9AE0338C2022C422006D6140 /* HXBFin_LoanInfoView.m in Sources */,
 				9A647E12204E968900EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m in Sources */,
