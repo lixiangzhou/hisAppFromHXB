@@ -42,7 +42,7 @@
             
             break;
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
-            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"]];//计划状态
+            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.quitDate andDateFormat:@"yyyy-MM-dd"]];//计划状态
             break;
             
         default:

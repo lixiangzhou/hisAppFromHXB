@@ -336,12 +336,12 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
         }
         kWeakSelf
         if (self.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue) {
-            cell.flowChartView.stage = self.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue;
             [cell.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
                 [weakSelf.viewModel setFlowChartViewManagerData:manager];
+                manager.profitStr = weakSelf.viewModel.profitString;
+                
                 return manager;
             }];
-            cell.flowChartView.profitStr = self.viewModel.profitString;
         }
         return cell;
     } else {
