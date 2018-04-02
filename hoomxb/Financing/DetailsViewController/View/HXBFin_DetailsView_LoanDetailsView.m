@@ -16,6 +16,8 @@
 #import "HXBFinHomePageModel_LoanList.h"
 #import "HXBFin_LoanDetailView_TopView.h"
 #import "HXBFinPlanContract_ContractWebView.h"///曾信任服务协议
+#import "HXBBaseHandDate.h"
+
 @interface HXBFin_DetailsView_LoanDetailsView ()
 @property (nonatomic,strong) HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM;
 ///预期年化的view
@@ -136,9 +138,9 @@
     [self.addButton setTitleColor:self.viewModelVM.addButtonTitleColor forState:UIControlStateNormal];
     
     [self.loanTypeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-       
-        viewManager.leftStrArray = @[@"还款方式"];
-        viewManager.rightStrArray = @[@"按月等额本息"];
+        NSString *interestDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:viewModelVM.interestDate andDateFormat:@"yyyy-MM-dd"];
+        viewManager.leftStrArray = @[@"起息日", @"还款方式"];
+        viewManager.rightStrArray = @[interestDate, @"按月等额本息"];
         viewManager.leftLabelAlignment = NSTextAlignmentLeft;
         viewManager.rightLabelAlignment = NSTextAlignmentRight;
         viewManager.leftTextColor = kHXBColor_RGB(0.2, 0.2, 0.2,1);
@@ -236,17 +238,6 @@
     }
 }
 
-
-//MARK: - 还款方式
-//- (void)setupFlowChartView {
-//    self.flowChartView = [[HXBFinBase_FlowChartView alloc]init];
-//    [self addSubview:self.flowChartView];
-//    [self.flowChartView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.trustView.mas_bottom).offset(kScrAdaptationH(10));
-//        make.left.right.equalTo(self);
-//        make.height.equalTo(@(kScrAdaptationH(108)));
-//    }];
-//}
 - (void)setLoantypView {
     self.loanTypeViewContentView = [[UIView alloc]initWithFrame:CGRectZero];
     [self addSubview:self.loanTypeViewContentView];
@@ -254,19 +245,19 @@
     [self.loanTypeViewContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.trustView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(45)));
+        make.height.equalTo(@(kScrAdaptationH(80)));
     }];
     [self.loanTypeViewContentView addSubview:self.loanTypeView];
     [self.loanTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(15));
         make.right.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(-15));
         make.centerY.equalTo(self.loanTypeViewContentView);
-        make.height.equalTo(@(kScrAdaptationH(15)));
+        make.height.equalTo(@(kScrAdaptationH(50)));
     }];
 }
 - (HXBBaseView_MoreTopBottomView *) loanTypeView {
     if (!_loanTypeView) {
-        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:20 andLeftRightLeftProportion:0.5];
         _loanTypeView.backgroundColor = [UIColor whiteColor];
     }
     return _loanTypeView;
