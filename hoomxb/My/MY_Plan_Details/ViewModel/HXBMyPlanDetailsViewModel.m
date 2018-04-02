@@ -63,8 +63,7 @@
 
 //获取账户内取消加入红利计划退出信息
 - (void)loadPlanListDetailsCancelExitInfoWithPlanID: (NSString *)planID
-                                        resultBlock: (void(^)(BOOL isSuccess))resultBlock
-{
+                                        resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBMY_PlanCancelBuyURL(planID);

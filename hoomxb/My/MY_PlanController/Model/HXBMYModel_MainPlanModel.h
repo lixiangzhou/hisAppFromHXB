@@ -74,8 +74,17 @@ redProgressLeft:待转让金额
 @property (nonatomic, copy) NSString *quitStatus;
 
 /**
+ 2.6.0计划退出时间
+ */
+@property (nonatomic,copy) NSString *quitDate;
+
+/**
  2.6.0是否处于冷静期
  */
 @property (nonatomic, assign) BOOL inCoolingOffPeriod;
+/**
+ 计划状态标示
+ */
+@property (nonatomic, copy) NSString *financePlanStatus;
 @end
 

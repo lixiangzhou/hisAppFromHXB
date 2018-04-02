@@ -27,7 +27,9 @@
         if (!earnInterestNow && totalEarnInterest) {
             weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.totalEarnInterest doubleValue]];
         } else if (!earnInterestNow && !totalEarnInterest) {
-            weakSelf.myPlanDetailsExitModel.earnInterestNow = @"";
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = @"--";
+        } else {
+            weakSelf.myPlanDetailsExitModel.earnInterestNow = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.earnInterestNow doubleValue]];
         }
         weakSelf.myPlanDetailsExitModel.amount = [NSString hxb_getPerMilWithDouble:[weakSelf.myPlanDetailsExitModel.amount doubleValue]];
         weakSelf.myPlanDetailsExitModel.endLockingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:weakSelf.myPlanDetailsExitModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];

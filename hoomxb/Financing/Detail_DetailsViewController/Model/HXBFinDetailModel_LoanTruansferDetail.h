@@ -259,6 +259,7 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 @property (nonatomic,copy) NSString *userFinanceStatus;// 借款人经营及财务状况
 @property (nonatomic,copy) NSString *repaymentCapacity;// 借款人还款能力变化
 @property (nonatomic,copy) NSString *punishedStatus;// 受罚情况
+@property (nonatomic,copy) NSString *otherMajorLiabilities;// 其他重大负债
 ///": "上海市市辖区",
 @property (nonatomic,copy) NSString *accountLocation;
 ///": "上海市市辖区闵行区吴中路478号",

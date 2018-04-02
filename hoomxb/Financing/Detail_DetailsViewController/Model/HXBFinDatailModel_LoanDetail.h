@@ -198,6 +198,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *userFinanceStatus;// 借款人经营及财务状况
 @property (nonatomic,copy) NSString *repaymentCapacity;// 借款人还款能力变化
 @property (nonatomic,copy) NSString *punishedStatus;// 受罚情况
+@property (nonatomic,copy) NSString *otherMajorLiabilities;// 其他重大负债
 @property (nonatomic,copy) NSString *accountLocation;
 ///string	籍贯所在地
 @property (nonatomic,copy) NSString *companyAddress;
@@ -266,9 +267,6 @@ typedef enum : NSUInteger {
 //": 0
 @property (nonatomic,copy) NSString *version;
 
-// ------------------- 2.6.0 -----------------
-/// 其他重大负债
-@property (nonatomic, copy) NSString *otherMajorLiabilities;
 @end
 
 
