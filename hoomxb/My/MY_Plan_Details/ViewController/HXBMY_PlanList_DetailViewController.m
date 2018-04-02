@@ -260,6 +260,7 @@
             break;
             //2: 表示持有中
         case 10:
+        case 11:
         case 12:
             self.planDetailView.cake = 5;
             self.cake = 5;
@@ -279,34 +280,18 @@
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
             self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            /// 如果是债权匹配，判断是不是冷静期，是冷静期展示按钮，不是冷静期不展示
+            if ([viewModel.leaveStatus isEqualToString:PURCHASEING]) {
+                if (viewModel.planDetailModel.inCoolingOffPeriod) {
+                    self.addButton.hidden = NO;
+                } else {
+                    self.addButton.hidden = YES;
+                }
+            }
             self.buttonDescLabel.hidden = self.addButton.hidden;
             manager.topViewStatusStr = viewModel.leaveStatus;
             break;
-            
-            // 状态为债权匹配中，取消按钮及按钮文案的展示
-        case 11:
-            self.planDetailView.cake = 5;
-            self.cake = 5;
-            manager.infoViewManager.leftStrArray = @[
-                                                     @"加入金额",
-                                                     @"平均历史年化收益",
-                                                     @"锁定期",
-                                                     @"加入日期",
-                                                     @"锁定期结束日"
-                                                     ];
-            manager.infoViewManager.rightStrArray = @[
-                                                      viewModel.addAuomt,
-                                                      viewModel.expectedRate,
-                                                      viewModel.lockTime,
-                                                      viewModel.addTime,
-                                                      viewModel.endLockingTime
-                                                      ];
-            manager.typeImageName = @"zhaiquanpipei";
-            self.addButton.hidden = YES;
-            self.buttonDescLabel.hidden = YES;
-            manager.topViewStatusStr = viewModel.leaveStatus;
-            break;
-            
+
             //3: 表示退出中
         case 3:
             self.planDetailView.cake = 5;
