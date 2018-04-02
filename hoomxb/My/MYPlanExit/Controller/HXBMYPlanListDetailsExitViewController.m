@@ -55,7 +55,7 @@
             return manager;
         }
         
-        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益" : @"当前已赚";
+        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益金额" : @"当前已赚金额";
         manager.topViewManager.leftStrArray = @[
                                                 @"加入本金",
                                                 nowOrExpect,
@@ -123,7 +123,7 @@
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
                         exitResultVC.exitType = HXBMyPlanExitTypeNormal;
-                        exitResultVC.titleString = @"红利计划已退出";
+                        exitResultVC.titleString = @"红利计划已申请退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }
                     [weakSelf.navigationController pushViewController:exitResultVC animated:YES];
