@@ -156,7 +156,7 @@
 // 撤销退出
 - (void)annulQuit {
     kWeakSelf
-    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"您是否撤销退出" andSubTitle:@"您撤销退出，撤销后依然继续享有收益。" andLeftBtnName:@"继续退出" andRightBtnName:@"继续持有" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"您是否撤销退出" andSubTitle:@"您如果撤销退出，期间的收益依然继续享有。" andLeftBtnName:@"继续退出" andRightBtnName:@"继续持有" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
     alertVC.isCenterShow = NO;
     [alertVC setRightBtnBlock:^{
         [weakSelf.viewModel accountPlanQuitRequestWithPlanID:weakSelf.planViewModel.planModelDataList.ID resultBlock:^(BOOL isSuccess) {
@@ -260,6 +260,7 @@
             break;
             //2: 表示持有中
         case 10:
+        case 11:
         case 12:
             self.planDetailView.cake = 5;
             self.cake = 5;
@@ -279,34 +280,19 @@
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
             self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            
+            /// 如果是债权匹配，判断是不是冷静期，是冷静期展示按钮，不是冷静期不展示
+            if ([viewModel.leaveStatus isEqualToString:PURCHASEING]) {
+                if (viewModel.planDetailModel.inCoolingOffPeriod) {
+                    self.addButton.hidden = NO;
+                } else {
+                    self.addButton.hidden = YES;
+                }
+            }
             self.buttonDescLabel.hidden = self.addButton.hidden;
             manager.topViewStatusStr = viewModel.leaveStatus;
             break;
-            
-            // 状态为债权匹配中，取消按钮及按钮文案的展示
-        case 11:
-            self.planDetailView.cake = 5;
-            self.cake = 5;
-            manager.infoViewManager.leftStrArray = @[
-                                                     @"加入金额",
-                                                     @"平均历史年化收益",
-                                                     @"锁定期",
-                                                     @"加入日期",
-                                                     @"锁定期结束日"
-                                                     ];
-            manager.infoViewManager.rightStrArray = @[
-                                                      viewModel.addAuomt,
-                                                      viewModel.expectedRate,
-                                                      viewModel.lockTime,
-                                                      viewModel.addTime,
-                                                      viewModel.endLockingTime
-                                                      ];
-            manager.typeImageName = @"zhaiquanpipei";
-            self.addButton.hidden = YES;
-            self.buttonDescLabel.hidden = YES;
-            manager.topViewStatusStr = viewModel.leaveStatus;
-            break;
-            
+
             //3: 表示退出中
         case 3:
             self.planDetailView.cake = 5;
@@ -358,12 +344,15 @@
     
     NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
     CGFloat height = [buttonLabelText boundingRectWithSize:CGSizeMake(kScreenWidth - kScrAdaptationW(30), 10000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: self.buttonDescLabel.font} context:nil].size.height;
-    
+    ///如果是老计划，按钮不展示，如果是新计划，常规逻辑
+    if ([viewModel.planDetailModel.financePlanStatus isEqualToString:@"OLD"]) {
+        self.addButton.hidden = YES;
+        self.buttonDescLabel.hidden = YES;
+    }
     if (self.addButton.hidden) {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
     } else {
         self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(66) - height - HXBTabbarSafeBottomMargin);
-
     }
 }
 
