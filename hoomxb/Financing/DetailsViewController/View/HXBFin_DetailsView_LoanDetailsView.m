@@ -29,6 +29,8 @@
 @property (nonatomic,strong) UIView *surplusValueView;
 ///流程引导视图
 @property (nonatomic,strong) HXBFinBase_FlowChartView *flowChartView;
+/// 起息日
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *interestDateView;
 ///还款方式
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *loanTypeView;
 ///换款方式的底部试图
@@ -137,10 +139,37 @@
     self.addButton.backgroundColor = self.viewModelVM.addButtonBackgroundColor;
     [self.addButton setTitleColor:self.viewModelVM.addButtonTitleColor forState:UIControlStateNormal];
     
+    if (viewModelVM.isInProgress) {
+        [self.interestDateView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@40);
+        }];
+        self.interestDateView.hidden = NO;
+        
+        [self.interestDateView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+            
+            NSString *interestDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:viewModelVM.interestDate andDateFormat:@"yyyy-MM-dd"];
+            viewManager.leftStrArray = @[@"起息日"];
+            viewManager.rightStrArray = @[interestDate];
+
+            viewManager.leftLabelAlignment = NSTextAlignmentLeft;
+            viewManager.rightLabelAlignment = NSTextAlignmentRight;
+            viewManager.leftTextColor = kHXBColor_RGB(0.2, 0.2, 0.2,1);
+            viewManager.rightTextColor = kHXBColor_RGB(0.4, 0.4, 0.4,1);
+            viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
+            viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
+            return viewManager;
+        }];
+    } else {
+        [self.interestDateView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        self.interestDateView.hidden = YES;
+    }
+    
     [self.loanTypeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-        NSString *interestDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:viewModelVM.interestDate andDateFormat:@"yyyy-MM-dd"];
-        viewManager.leftStrArray = @[@"起息日", @"还款方式"];
-        viewManager.rightStrArray = @[interestDate, @"按月等额本息"];
+
+        viewManager.leftStrArray = @[@"还款方式"];
+        viewManager.rightStrArray = @[@"按月等额本息"];
         viewManager.leftLabelAlignment = NSTextAlignmentLeft;
         viewManager.rightLabelAlignment = NSTextAlignmentRight;
         viewManager.leftTextColor = kHXBColor_RGB(0.2, 0.2, 0.2,1);
@@ -149,6 +178,7 @@
         viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
         return viewManager;
     }];
+    
     [self.addButton setTitle:viewModelVM.addButtonStr forState:UIControlStateNormal];
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_LoanDetailView_TopViewManager *(HXBFin_LoanDetailView_TopViewManager *manager) {
@@ -194,6 +224,8 @@
     
     [self setUPTopView];
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
+    [self setLoanTypeContentView];
+    [self setInterestDateView];
     [self setLoantypView];///流程引导视图
     [self setupTableView];///展示计划详情等的 tableView
     [self setupAddView];///立即加入视图
@@ -238,29 +270,50 @@
     }
 }
 
-- (void)setLoantypView {
+- (void)setLoanTypeContentView {
     self.loanTypeViewContentView = [[UIView alloc]initWithFrame:CGRectZero];
     [self addSubview:self.loanTypeViewContentView];
     self.loanTypeViewContentView.backgroundColor = [UIColor whiteColor];
     [self.loanTypeViewContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.trustView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(80)));
     }];
+}
+
+- (void)setInterestDateView {
+    [self.loanTypeViewContentView addSubview:self.interestDateView];
+    [self.interestDateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(15));
+        make.right.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(-15));
+        make.top.equalTo(self.loanTypeViewContentView);
+        make.height.equalTo(@(kScrAdaptationH(0)));
+    }];
+}
+
+- (void)setLoantypView {
     [self.loanTypeViewContentView addSubview:self.loanTypeView];
     [self.loanTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(15));
         make.right.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(-15));
-        make.centerY.equalTo(self.loanTypeViewContentView);
-        make.height.equalTo(@(kScrAdaptationH(50)));
+        make.bottom.equalTo(self.loanTypeViewContentView);
+        make.top.equalTo(self.interestDateView.mas_bottom);
+        make.height.equalTo(@(kScrAdaptationH(40)));
     }];
 }
 - (HXBBaseView_MoreTopBottomView *) loanTypeView {
     if (!_loanTypeView) {
-        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:20 andLeftRightLeftProportion:0.5];
+        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(40) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
         _loanTypeView.backgroundColor = [UIColor whiteColor];
     }
     return _loanTypeView;
+}
+
+- (HXBBaseView_MoreTopBottomView *)interestDateView {
+    if (!_interestDateView) {
+        _interestDateView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(40) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+        _interestDateView.backgroundColor = [UIColor whiteColor];
+    }
+    return _interestDateView;
 }
 
 - (void)setUPPromptLablel {
