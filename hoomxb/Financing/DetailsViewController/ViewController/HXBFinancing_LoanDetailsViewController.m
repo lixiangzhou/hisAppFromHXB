@@ -179,6 +179,7 @@
 - (void) setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel {
     kWeakSelf
     [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsView_LoanDetailsView_ViewModelVM *(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM) {
+        viewModelVM.isInProgress = [loanDetailViewModel.loanDetailModel.loanVo.status isEqualToString:@"IN_PROGRESS"];
         [weakSelf.viewModel setLoanDetailViewModel:viewModelVM];
         return viewModelVM;
     }];
