@@ -267,9 +267,6 @@ typedef enum : NSUInteger {
 //": 0
 @property (nonatomic,copy) NSString *version;
 
-// ------------------- 2.6.0 -----------------
-/// 其他重大负债
-@property (nonatomic, copy) NSString *otherMajorLiabilities;
 @end
 
 
