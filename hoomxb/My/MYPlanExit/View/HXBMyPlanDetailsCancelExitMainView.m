@@ -104,17 +104,18 @@
         make.right.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationW750(-30));
         make.width.equalTo(@(kScrAdaptationH750(530)));
     }];
-    [self.ticketImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.exitAmountRightLab.mas_bottom).offset(kScrAdaptationH750(16));
-        make.left.equalTo(@kScrAdaptationW750(314));
-        make.width.height.equalTo(@(kScrAdaptationH750(24)));
-    }];
     [self.ticketLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.exitAmountRightLab.mas_bottom).offset(kScrAdaptationH750(12));
-        make.left.equalTo(weakSelf.ticketImgV.mas_right).offset(kScrAdaptationW750(9));
         make.right.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationW750(-30));
         make.height.equalTo(@(kScrAdaptationH750(32)));
     }];
+    [self.ticketImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.ticketLab);
+        make.right.equalTo(weakSelf.ticketLab.mas_left).offset(kScrAdaptationW750(-9));
+        make.width.height.equalTo(@(kScrAdaptationH750(24)));
+        
+    }];
+    
     [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(139));
         make.left.right.equalTo(weakSelf.cancelExitInfoV);
