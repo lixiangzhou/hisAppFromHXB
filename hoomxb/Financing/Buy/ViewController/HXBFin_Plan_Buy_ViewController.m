@@ -529,7 +529,7 @@ static NSString *const bankString = @"绑定银行卡";
         _handleDetailTitle = [NSString stringWithFormat:@"%.2f", _inputMoneyStr.doubleValue];
         _couponTitle = @"优惠券";
         _discountTitle = @"不使用优惠券";
-        _couponid = @"不使用优惠券";
+        _couponid = @"";
     }
     self.bottomView.addBtnIsUseable = YES;
     [self changeItemWithInvestMoney:_inputMoneyStr];
@@ -644,7 +644,7 @@ static const NSInteger topView_high = 300;
         _handleDetailTitle = money;
         _discountTitle = @"请选择优惠券";
         _couponTitle = @"优惠券";
-        _couponid = @" ";
+        _couponid = @"";
         if (!model.hasCoupon) {
             _discountTitle = @"暂无可用优惠券";
         }
@@ -773,7 +773,7 @@ static const NSInteger topView_high = 300;
         [self getBESTCouponWithMoney:text];
     } else {
         self.discountTitle = @"未使用";
-        self.couponid = @" ";
+        self.couponid = @"";
         self.hasBestCoupon = NO;
         self.couponTitle = @"优惠券";
         self.discountMoney = 0;

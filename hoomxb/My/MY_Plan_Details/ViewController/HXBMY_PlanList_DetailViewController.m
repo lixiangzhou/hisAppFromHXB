@@ -24,8 +24,8 @@
 #import "HXBMYPlanListDetailsExitViewController.h"
 
 @interface HXBMY_PlanList_DetailViewController ()
-@property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
-@property (nonatomic,strong) UITableView *tabelView;
+@property (nonatomic, strong) HXBMY_PlanDetailView *planDetailView;
+@property (nonatomic, strong) UITableView *tabelView;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UILabel *buttonDescLabel;
 @property (nonatomic, strong) HXBMyPlanDetailsViewModel *viewModel;
@@ -62,6 +62,7 @@
     self.buttonDescLabel.textColor = kHXBColor_666666_100;
     self.buttonDescLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.buttonDescLabel.backgroundColor = BACKGROUNDCOLOR;
+    self.buttonDescLabel.numberOfLines = 0;
     [self.addButton addTarget:self action:@selector(clickAddButton) forControlEvents:(UIControlEventTouchUpInside)];
     self.addButton.titleLabel.numberOfLines = 0;
     self.addButton.titleLabel.textColor = [UIColor whiteColor];
@@ -90,9 +91,11 @@
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
-    weakSelf.tabelView.tableHeaderView = planDetailView;
+    
     [self.view addSubview:self.addButton];
     [self.view addSubview:self.buttonDescLabel];
+    
+    self.tabelView.tableHeaderView = self.planDetailView;
     
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(weakSelf.view);
@@ -101,8 +104,8 @@
     }];
     [self.buttonDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(15));
-        make.height.equalTo(@(kScrAdaptationH(27)));
-        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight - kScrAdaptationH(50));
+        make.right.equalTo(weakSelf.view).offset(kScrAdaptationW(-15));
+        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight - kScrAdaptationH(50) - kScrAdaptationH(8));
     }];
     
 }
@@ -126,18 +129,25 @@
 
 // 点击按钮
 - (void)clickAddButton {
-    if (!KeyChain.isLogin) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-        return;
-    }
     if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT] || self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod) {
         
         HXBMYPlanListDetailsExitViewController *planBuyVC = [[HXBMYPlanListDetailsExitViewController alloc] init];
         planBuyVC.planID = self.viewModel.planDetailsViewModel.planDetailModel.ID;
         planBuyVC.mobile = self.viewModel.userInfoModel.userInfoModel.userInfo.mobile;
-//        planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
-        [self.navigationController pushViewController:planBuyVC animated:YES];
-        
+        planBuyVC.inCoolingOffPeriod = self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod;
+        // 冷静期 点击取消加入 先获取数据传下一页
+        if (self.viewModel.planDetailsViewModel.planDetailModel.inCoolingOffPeriod) {
+            kWeakSelf
+            [self.viewModel loadPlanListDetailsCancelExitInfoWithPlanID:self.viewModel.planDetailsViewModel.planDetailModel.ID  resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    planBuyVC.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
+                    [weakSelf.navigationController pushViewController:planBuyVC animated:YES];
+                }
+            }];
+        } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:QUIT]) {
+            planBuyVC.myPlanDetailsExitModel = nil;
+            [self.navigationController pushViewController:planBuyVC animated:YES];
+        }
     } else if ([self.viewModel.planDetailsViewModel.quitStatus isEqualToString:ANNUL_QUIT]) {
         [self annulQuit];
     }
@@ -148,8 +158,6 @@
     kWeakSelf
     HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"您是否撤销退出" andSubTitle:@"您撤销退出，撤销后依然继续享有收益。" andLeftBtnName:@"继续退出" andRightBtnName:@"继续持有" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
     alertVC.isCenterShow = NO;
-    [alertVC setLeftBtnBlock:^{
-    }];
     [alertVC setRightBtnBlock:^{
         [weakSelf.viewModel accountPlanQuitRequestWithPlanID:weakSelf.planViewModel.planModelDataList.ID resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -178,20 +186,12 @@
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     kWeakSelf
     
-    self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
-    self.buttonDescLabel.hidden = self.addButton.hidden;
-    if (self.addButton.hidden) {
-        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
-    } else {
-        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin);
-    }
     NSString *buttonTitle = viewModel.planDetailModel.inCoolingOffPeriod ? @"取消加入" : viewModel.quitStatus;
     NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
     [self.addButton setTitle:buttonTitle forState:(UIControlStateNormal)];
     self.buttonDescLabel.text = buttonLabelText;
     
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
-        manager.topViewStatusStr = viewModel.leaveStatus;
         
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;
@@ -219,10 +219,10 @@
 
 - (UITableView *)tabelView {
     if (!_tabelView) {
-        _tabelView = [[UITableView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(77) - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
+        _tabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin) style:UITableViewStylePlain];
         [self.view insertSubview:_tabelView atIndex:0];
         _tabelView.hidden = YES;
-        _tabelView.tableFooterView = [[UIView alloc]init];
+        _tabelView.tableFooterView = [[UIView alloc] init];
         _tabelView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_tabelView];
     }
@@ -240,6 +240,8 @@
     switch (status) {
             //表示等待计息
         case 1:
+            self.planDetailView.cake = 4;
+            self.cake = 4;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -253,11 +255,15 @@
                                                       viewModel.addTime
                                                       ];
             manager.typeImageName = @"zhaiquanpipei";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
             break;
-            //2: 表示受益中
+            //2: 表示持有中
         case 10:
         case 11:
         case 12:
+            self.planDetailView.cake = 5;
+            self.cake = 5;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -273,9 +279,14 @@
                                                       viewModel.endLockingTime
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
+            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            self.buttonDescLabel.hidden = self.addButton.hidden;
+            manager.topViewStatusStr = viewModel.leaveStatus;
             break;
             //3: 表示退出中
         case 3:
+            self.planDetailView.cake = 5;
+            self.cake = 5;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -291,9 +302,14 @@
                                                       viewModel.redProgressLeft
                                                       ];
             manager.typeImageName = @"tuichu";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
+            manager.topViewStatusStr = viewModel.planDetailModel.exitWay;
             break;
             //4: 表示已退出
         case 4:
+            self.planDetailView.cake = 4;
+            self.cake = 4;
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
@@ -304,12 +320,26 @@
                                                       viewModel.addAuomt,
                                                       viewModel.expectedRate,
                                                       viewModel.lockTime,
-                                                      viewModel.endLockingTime
+                                                      viewModel.quitDate
                                                       ];
             manager.typeImageName = @"tuichu";
+            self.addButton.hidden = YES;
+            self.buttonDescLabel.hidden = YES;
+            manager.topViewStatusStr = viewModel.planDetailModel.exitWay;
             break;
         default:
             break;
+            
+    }
+    
+    NSString *buttonLabelText = viewModel.planDetailModel.inCoolingOffPeriod ? viewModel.planDetailModel.cancelBuyDesc : viewModel.quitSubTitle;
+    CGFloat height = [buttonLabelText boundingRectWithSize:CGSizeMake(kScreenWidth - kScrAdaptationW(30), 10000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: self.buttonDescLabel.font} context:nil].size.height;
+    
+    if (self.addButton.hidden) {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - HXBTabbarSafeBottomMargin);
+    } else {
+        self.tabelView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(66) - height - HXBTabbarSafeBottomMargin);
+
     }
 }
 

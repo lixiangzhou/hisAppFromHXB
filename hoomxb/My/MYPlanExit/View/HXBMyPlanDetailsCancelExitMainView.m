@@ -35,20 +35,35 @@
 }
 
 - (void)setMyPlanDetailsExitModel:(HXBMyPlanDetailsExitModel *)myPlanDetailsExitModel {
-    self.exitAmountRightLab.text = myPlanDetailsExitModel.couponAmount ? myPlanDetailsExitModel.couponAmount:@"";
-    self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
-    self.exitDateRightLab.text = myPlanDetailsExitModel.cancelTime;
-    self.exitDateRightLab.text = myPlanDetailsExitModel.cancelBuyDesc; 
+    _myPlanDetailsExitModel = myPlanDetailsExitModel;
     self.exitAmountLeftLab.hidden = !myPlanDetailsExitModel;
     self.exitAmountRightLab.hidden = !myPlanDetailsExitModel;
-    self.ticketImgV.hidden = !myPlanDetailsExitModel;
-    self.ticketLab.hidden = !myPlanDetailsExitModel;
+    self.ticketImgV.hidden = !(myPlanDetailsExitModel.couponUseDesc.length > 0);
+    self.ticketLab.hidden = !(myPlanDetailsExitModel.couponUseDesc.length > 0);
     self.exitDateLeftLab.hidden = !myPlanDetailsExitModel;
     self.exitDateRightLab.hidden = !myPlanDetailsExitModel;
     self.iconImgV.hidden = !myPlanDetailsExitModel;
     self.descLab.hidden = !myPlanDetailsExitModel;
     self.cancelBtn.hidden = !myPlanDetailsExitModel;
     self.notCancelBtn.hidden = !myPlanDetailsExitModel;
+    
+    self.exitAmountRightLab.text = myPlanDetailsExitModel.cancelAmount ? myPlanDetailsExitModel.cancelAmount:@"";
+    self.exitDateRightLab.text = myPlanDetailsExitModel.cancelTime;
+    self.descLab.text = myPlanDetailsExitModel.cancelBuyDesc;
+    if (!(myPlanDetailsExitModel.couponUseDesc.length > 0)) {
+        kWeakSelf
+        [self.cancelExitInfoV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(kScrAdaptationH750(192)));
+        }];
+        [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(96));
+        }];
+        [self.exitDateLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(126));
+        }];
+    } else {
+        self.ticketLab.text = myPlanDetailsExitModel.couponUseDesc;
+    }
 }
 
 - (void)setUPViews {
@@ -81,13 +96,13 @@
     }];
     [self.exitAmountLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(30));
-        make.width.equalTo(@(kScrAdaptationH750(120)));
+        make.width.equalTo(@(kScrAdaptationH750(140)));
         make.height.equalTo(@(kScrAdaptationH750(36)));
     }];
     [self.exitAmountRightLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.height.equalTo(weakSelf.exitAmountLeftLab);
         make.right.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationW750(-30));
-        make.width.equalTo(@(kScrAdaptationH750(560)));
+        make.width.equalTo(@(kScrAdaptationH750(530)));
     }];
     [self.ticketImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.exitAmountRightLab.mas_bottom).offset(kScrAdaptationH750(16));
@@ -108,13 +123,13 @@
     [self.exitDateLeftLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationH750(170));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW750(30));
-        make.width.equalTo(@(kScrAdaptationH750(120)));
+        make.width.equalTo(@(kScrAdaptationH750(140)));
         make.height.equalTo(@(kScrAdaptationH750(36)));
     }];
     [self.exitDateRightLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.height.equalTo(weakSelf.exitAmountLeftLab);
+        make.top.height.equalTo(weakSelf.exitDateLeftLab);
         make.right.equalTo(weakSelf.cancelExitInfoV).offset(kScrAdaptationW750(-30));
-        make.width.equalTo(@(kScrAdaptationH750(560)));
+        make.width.equalTo(@(kScrAdaptationH750(530)));
     }];
     [self.iconImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.cancelExitInfoV.mas_bottom).offset(kScrAdaptationH750(34));
@@ -134,8 +149,8 @@
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.cancelBtn.mas_bottom).offset(kScrAdaptationH750(40));
-        make.left.right.height.equalTo(weakSelf.cancelBtn);
+        make.top.equalTo(weakSelf.notCancelBtn.mas_bottom).offset(kScrAdaptationH750(40));
+        make.left.right.height.equalTo(weakSelf.notCancelBtn);
     }];
 
     self.exitAmountLeftLab.hidden = YES;
@@ -183,6 +198,7 @@
         _exitAmountRightLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _exitAmountRightLab.textColor = kHXBColor_999999_100;
         _exitAmountRightLab.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _exitAmountRightLab.textAlignment = NSTextAlignmentRight;
     }
     return _exitAmountRightLab;
 }
@@ -222,6 +238,7 @@
         _exitDateRightLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _exitDateRightLab.textColor = kHXBColor_999999_100;
         _exitDateRightLab.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _exitDateRightLab.textAlignment = NSTextAlignmentRight;
     }
     return _exitDateRightLab;
 }

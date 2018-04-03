@@ -113,6 +113,7 @@
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.userFinanceStatus;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.repaymentCapacity;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.punishedStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherMajorLiabilities = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.otherMajorLiabilities;
             
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.cashDrawStatus;
             

@@ -8,7 +8,13 @@
 
 #import "HXBBaseViewController.h"
 
+typedef enum : NSUInteger {
+    HXBMyPlanExitTypeCoolingOff = 1,  // 冷静期退出结果页
+    HXBMyPlanExitTypeNormal,    // 正常退出结果页
+} HXBMyPlanExitType;
+
 @interface HXBMyPlanExitSuccessController : HXBBaseViewController
+@property (nonatomic, assign) HXBMyPlanExitType exitType;
 @property (nonatomic, copy) NSString *descString;
 @property (nonatomic, copy) NSString *titleString;
 @end
