@@ -124,7 +124,7 @@
                     HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
                     if (weakSelf.inCoolingOffPeriod) {
                         exitResultVC.exitType = HXBMyPlanExitTypeCoolingOff;
-                        exitResultVC.titleString = @"退出已申请";
+                        exitResultVC.titleString = @"红利计划取消加入";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
                         exitResultVC.exitType = HXBMyPlanExitTypeNormal;
