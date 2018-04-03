@@ -59,7 +59,7 @@
         manager.infoViewManager.leftStrArray = @[
                                                  @"出借金额",
                                                  @"年利率",
-                                                 @"期限",
+                                                 @"锁定期",
                                                  @"还款方式",
                                                  @"已收本息"
                                                  ];
