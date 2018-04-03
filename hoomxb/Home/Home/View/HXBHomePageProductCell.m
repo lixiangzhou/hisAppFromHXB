@@ -199,7 +199,7 @@
 - (void)setHomePageModel_DataList:(HxbHomePageModel_DataList *)homePageModel_DataList
 {
     _homePageModel_DataList = homePageModel_DataList;
-    NSString *str = [NSString stringWithFormat:@"%@个月",homePageModel_DataList.lockPeriod];
+    NSString *str = [NSString stringWithFormat:@"%@个月",homePageModel_DataList.extendLockPeriod];
     self.investmentPeriodTitleLabel.text = str;
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
