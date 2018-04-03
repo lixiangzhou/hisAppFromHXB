@@ -28,8 +28,10 @@
 
     [self setupView];
     if (!self.inCoolingOffPeriod) {
+        self.title = @"红利计划退出";
         [self downLoadData];
     } else {
+        self.title = @"红利计划取消";
         if (self.myPlanDetailsExitModel) {
             self.cancelExitMainView.myPlanDetailsExitModel = self.myPlanDetailsExitModel;
         }
@@ -55,7 +57,7 @@
             return manager;
         }
         
-        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益金额" : @"当前已赚金额";
+        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益" : @"当前已赚";
         manager.topViewManager.leftStrArray = @[
                                                 @"加入本金",
                                                 nowOrExpect,
@@ -74,7 +76,6 @@
 - (void)setupView {
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"红利计划退出";
     
     [self.view addSubview:self.inCoolingOffPeriod?self.cancelExitMainView:self.mainView];
 }
@@ -108,6 +109,10 @@
     if (!self.presentedViewController) {
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.messageTitle = @"请输入短信验证码";
+        if (!self.inCoolingOffPeriod) {
+            self.alertVC.leftBtnStr = @"暂不退出";
+            self.alertVC.rightBtnStr = @"确认退出";
+        }
         self.mobile = !self.mobile?KeyChain.mobile:self.mobile;
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -119,7 +124,7 @@
                     HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
                     if (weakSelf.inCoolingOffPeriod) {
                         exitResultVC.exitType = HXBMyPlanExitTypeCoolingOff;
-                        exitResultVC.titleString = @"退出已申请";
+                        exitResultVC.titleString = @"红利计划取消加入";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
                         exitResultVC.exitType = HXBMyPlanExitTypeNormal;

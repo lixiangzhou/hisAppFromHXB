@@ -12,6 +12,10 @@
 
 // 锁定期限(月),计划期限
 @property (nonatomic, copy) NSString *lockPeriod;
+/**
+ 2.6.0版本新增字段锁定期限(月),计划期限(仅用于显示不能用于判断)
+ */
+@property (nonatomic, copy) NSString *extendLockPeriod;
 // 新手标志
 @property (nonatomic, assign) int novice;
 // 开始销售时间
