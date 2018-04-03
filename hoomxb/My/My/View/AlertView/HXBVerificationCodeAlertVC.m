@@ -49,6 +49,14 @@
     self.verificationCodeAlertView.isSpeechVerificationCode = isSpeechVerificationCode;
 }
 
+- (void)setLeftBtnStr:(NSString *)leftBtnStr {
+    [self.cancelBtn setTitle:leftBtnStr forState:UIControlStateNormal];
+}
+
+- (void)setRightBtnStr:(NSString *)rightBtnStr {
+    [self.sureBtn setTitle:rightBtnStr forState:UIControlStateNormal];
+}
+
 - (void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;

@@ -28,8 +28,10 @@
 
     [self setupView];
     if (!self.inCoolingOffPeriod) {
+        self.title = @"红利计划退出";
         [self downLoadData];
     } else {
+        self.title = @"红利计划取消";
         if (self.myPlanDetailsExitModel) {
             self.cancelExitMainView.myPlanDetailsExitModel = self.myPlanDetailsExitModel;
         }
@@ -74,7 +76,6 @@
 - (void)setupView {
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"红利计划退出";
     
     [self.view addSubview:self.inCoolingOffPeriod?self.cancelExitMainView:self.mainView];
 }
@@ -108,6 +109,10 @@
     if (!self.presentedViewController) {
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.messageTitle = @"请输入短信验证码";
+        if (!self.inCoolingOffPeriod) {
+            self.alertVC.leftBtnStr = @"暂不退出";
+            self.alertVC.rightBtnStr = @"确认退出";
+        }
         self.mobile = !self.mobile?KeyChain.mobile:self.mobile;
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -123,7 +128,7 @@
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
                         exitResultVC.exitType = HXBMyPlanExitTypeNormal;
-                        exitResultVC.titleString = @"红利计划已退出";
+                        exitResultVC.titleString = @"红利计划已申请退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }
                     [weakSelf.navigationController pushViewController:exitResultVC animated:YES];

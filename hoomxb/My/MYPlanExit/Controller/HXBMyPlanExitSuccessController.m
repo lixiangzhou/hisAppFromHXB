@@ -20,8 +20,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"红利计划退出";
+    switch (self.exitType) {
+        case HXBMyPlanExitTypeCoolingOff:
+            self.title = @"计划取消加入";
+            break;
+        case HXBMyPlanExitTypeNormal:
+            self.title = @"红利计划退出";
+            break;
+        default:
+            break;
+    }
+   
     [self setUI];  
 }
 
