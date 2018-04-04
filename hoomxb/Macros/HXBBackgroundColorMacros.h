@@ -25,6 +25,7 @@
 #define kHXBColor_333333_100                RGBA(51, 51, 51, 1)
 #define kHXBColor_666666_100                RGBA(102, 102, 102, 1)
 #define kHXBColor_999999_100                RGBA(153, 153, 153, 1)
+#define kHXBColor_D8D8D8_100                RGBA(216, 216, 216, 1)
 
 ///蓝色的背景色
 #define kHXBColor_73ADFF_100                RGBA(115, 173, 255, 1)

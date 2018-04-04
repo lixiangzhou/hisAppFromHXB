@@ -50,14 +50,14 @@ kDealloc
     [super viewWillAppear:animated];
     ///网络请求
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
+    ///请求资产统计的网络请求
+    [self assetStatisticsLoadData];
     self.isFirstEntry = NO;
 }
 
 //设置
 - (void)setUP {
     self.isRedColorWithNavigationBar = YES;
-    ///请求资产统计的网络请求
-    [self assetStatisticsLoadData];
     ///view的创建
     [self setupView];
     ///网络请求

@@ -18,28 +18,31 @@
 @property (nonatomic,strong) HXBMyPlanDetailsCancelExitMainView *cancelExitMainView;///冷静期取消退出view 和mainView选其一
 @property (nonatomic,strong) HXBMyPlanDetailsExitViewModel *viewModel;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
-//@property (nonatomic, assign) BOOL isAlertVCShow;
+
 @end
 
 @implementation HXBMYPlanListDetailsExitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _inCoolingOffPeriod = NO;///暂时写死为 计划退出
-    
+
     [self setupView];
-    [self downLoadData];
+    if (!self.inCoolingOffPeriod) {
+        [self downLoadData];
+    } else {
+        if (self.myPlanDetailsExitModel) {
+            self.cancelExitMainView.myPlanDetailsExitModel = self.myPlanDetailsExitModel;
+        }
+    }
 }
 
 - (void)downLoadData {
     kWeakSelf
-    [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID inCoolingOffPeriod: self.inCoolingOffPeriod resultBlock:^(BOOL isSuccess) {
+    //确认退出
+    [self.viewModel loadPlanListDetailsExitInfoWithPlanID:self.planID resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.mainView.myPlanDetailsExitModel = weakSelf.viewModel.myPlanDetailsExitModel;
-            if(!weakSelf.inCoolingOffPeriod) { //确认退出
-                [weakSelf setMyPlanDetailsExitMainViewValue];
-            }
+            [weakSelf setMyPlanDetailsExitMainViewValue];
         }
     }];
 }
@@ -52,9 +55,10 @@
             return manager;
         }
         
+        NSString *nowOrExpect = weakSelf.viewModel.myPlanDetailsExitModel.totalEarnInterest.length>0 ? @"预期收益" : @"当前已赚";
         manager.topViewManager.leftStrArray = @[
                                                 @"加入本金",
-                                                @"当前已赚",
+                                                nowOrExpect,
                                                 @"退出时间"
                                                 ];
         manager.topViewManager.rightStrArray = @[
@@ -77,7 +81,9 @@
 
 - (void)getNetworkAgain
 {
-    [self downLoadData];
+    if (!self.inCoolingOffPeriod) {
+        [self downLoadData];
+    }
 }
 
 // 获取短验
@@ -87,9 +93,7 @@
     NSString *action = self.inCoolingOffPeriod?@"planCancelBuy":@"planquit";
     [self.viewModel getVerifyCodeRequesWithExitPlanWithAction:action andWithType:@"sms" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
         
-//        [weakSelf displayVerifyingCodeAlert];
         if (isSuccess) {
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4]];
             
             [weakSelf displayVerifyingCodeAlert];
             [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
@@ -114,16 +118,18 @@
                     // push 到退出结果页
                     HXBMyPlanExitSuccessController *exitResultVC = [[HXBMyPlanExitSuccessController alloc]init];
                     if (weakSelf.inCoolingOffPeriod) {
+                        exitResultVC.exitType = HXBMyPlanExitTypeCoolingOff;
                         exitResultVC.titleString = @"退出已申请";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
+                        exitResultVC.exitType = HXBMyPlanExitTypeNormal;
                         exitResultVC.titleString = @"红利计划已退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }
                     [weakSelf.navigationController pushViewController:exitResultVC animated:YES];
                 } else {
                     // 短信弹窗不消失 toast提示
-                    [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+                    //[weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 }
             }];
         };
@@ -140,7 +146,12 @@
     if (!_viewModel) {
         kWeakSelf
         _viewModel = [[HXBMyPlanDetailsExitViewModel alloc]initWithBlock:^UIView *{
-            return weakSelf.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;
@@ -151,7 +162,6 @@
         kWeakSelf
         _cancelExitMainView = [[HXBMyPlanDetailsCancelExitMainView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _cancelExitMainView.cancelExitBtnClickBlock = ^{
-            //            _isAlertVCShow = NO;
             [weakSelf getVerifyCode];
         };
         _cancelExitMainView.notCancelBtnClickBlock = ^{
@@ -166,7 +176,6 @@
         kWeakSelf
         _mainView = [[HXBMyPlanDetailsExitMainView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _mainView.exitBtnClickBlock = ^{
-//            _isAlertVCShow = NO;
             [weakSelf getVerifyCode];
         };
         _mainView.cancelBtnClickBlock = ^{

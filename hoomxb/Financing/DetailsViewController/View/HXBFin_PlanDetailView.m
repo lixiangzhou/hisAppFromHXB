@@ -137,7 +137,6 @@
     self.diffTime = _viewModelVM.diffTime;
     //是否倒计时
     self.isContDown = _viewModelVM.isCountDown;
-    self.flowChartView.stage = self.viewModelVM.unifyStatus;
     [self.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
         manager.stage = weakSelf.viewModelVM.unifyStatus;
         manager.addTime = weakSelf.viewModelVM.addTime;

@@ -8,6 +8,7 @@
 
 #import "HXBMyPlanExitSuccessController.h"
 #import "HXBMY_PlanList_DetailViewController.h"
+#import "HXBMY_PlanListViewController.h"
 
 @interface HXBMyPlanExitSuccessController ()
 
@@ -44,6 +45,7 @@
     descLabel.font = kHXBFont_30;
     descLabel.textColor = kHXBFountColor_999999_100;
     descLabel.text = self.descString;
+    descLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:descLabel];
     
     UIButton *btn = [UIButton new];
@@ -83,12 +85,25 @@
 #pragma mark - Action
 - (void)confirm {
     __block UIViewController *vc = nil;
-    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[HXBMY_PlanList_DetailViewController class]]) {
-            vc = obj;
-            *stop = YES;
-        }
-    }];
+    
+    NSString *targetVC = nil;
+    switch (self.exitType) {
+        case HXBMyPlanExitTypeCoolingOff:
+            targetVC = @"HXBMY_PlanListViewController";
+            break;
+        case HXBMyPlanExitTypeNormal:
+            targetVC = @"HXBMY_PlanList_DetailViewController";
+            break;
+    }
+    if (targetVC) {
+        [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSClassFromString(targetVC)]) {
+                vc = obj;
+                *stop = YES;
+            }
+        }];
+    }
+    
     if (vc) {
         [self.navigationController popToViewController:vc animated:YES];
     }
