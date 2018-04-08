@@ -9,6 +9,7 @@
 #import "HXBBaseViewModel.h"
 #import "HXBRootVCManager.h"
 #import "HXBBaseRequestManager.h"
+#import "SGInfoAlert.h"
 
 @interface HXBBaseViewModel()
 @property (nonatomic, strong) MBProgressHUD* mbpView;
@@ -90,7 +91,8 @@
     
     UIView* parentView = [self getHugView];
     if(parentView) {
-        [HxbHUDProgress showMessageCenter:toast inView:parentView];
+//        [HxbHUDProgress showMessageCenter:toast inView:parentView];
+        [SGInfoAlert showInfo:toast bgColor:[UIColor blackColor].CGColor inView:parentView vertical:0.3];
     }
 }
 
