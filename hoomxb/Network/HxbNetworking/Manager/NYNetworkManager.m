@@ -45,13 +45,15 @@
     
     [[HXBBaseRequestManager sharedInstance] addRequest:request];
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
+    
+    __weak typeof (request) weakRequest = request;
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
+        [self processConnection:connection withRequest:weakRequest responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request error:error];
+        [self processConnection:connection withRequest:weakRequest error:error];
     }];
 }
 
@@ -66,8 +68,6 @@
         request.responseObject = responseJsonObject;
         [self callBackRequestSuccess:request];
     }
-    
-    [self clearRequestBlock:request];
 }
 
 - (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error
@@ -81,8 +81,6 @@
         request.error = error;
         [self callBackRequestFailure:request];
     }
-    
-    [self clearRequestBlock:request];
 }
 
 //--------------------------------------------回调--------------------------------------------
@@ -133,10 +131,5 @@
         }
         request.failure(request,request.error);
     }
-}
-
-- (void)clearRequestBlock:(NYBaseRequest *)request
-{
-    request.connection = nil;
 }
 @end
