@@ -36,9 +36,21 @@
 @property (nonatomic, weak) NSTimer *timer;
 
 @property (nonatomic, assign) int timeCount;
+
+@property (nonatomic, strong) HXBSignUPViewModel* viewModel;
 @end
 
 @implementation HXBModifyPhoneView
+
+- (HXBSignUPViewModel *)viewModel {
+    if(!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
+    }
+    return _viewModel;
+}
 
 #pragma mark - 懒加载
 - (HXBCustomTextField *)phoneTextField
@@ -181,9 +193,7 @@
 #pragma mark - 事件处理
 - (void)getCodeBtnClick {
     kWeakSelf
-    [[[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
-        return weakSelf;
-    }] checkMobileRequestWithHud:NO mobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
+    [self.viewModel checkMobileRequestWithHud:NO mobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             if (weakSelf.getValidationCodeButtonClickBlock) {
                 weakSelf.getValidationCodeButtonClickBlock(weakSelf.phoneTextField.text);

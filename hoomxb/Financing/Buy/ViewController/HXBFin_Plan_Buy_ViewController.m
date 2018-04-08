@@ -10,7 +10,6 @@
 #import "HXBCreditorChangeTopView.h"
 #import "HXBCreditorChangeBottomView.h"
 #import "HXBFin_creditorChange_TableViewCell.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBFBase_BuyResult_VC.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBVerificationCodeAlertVC.h"

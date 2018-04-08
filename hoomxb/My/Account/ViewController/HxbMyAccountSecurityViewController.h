@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-#import "HXBRequestUserInfo.h"
+#import "HXBRequestUserInfoAgent.h"
 @interface HxbMyAccountSecurityViewController : HXBBaseViewController
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 

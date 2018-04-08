@@ -87,12 +87,18 @@
             if(![base defferRequest:request]) {//同一个请求
                 [base cancelRequest];
                 [self.requestList removeObject:base];
+                if([base.hudDelegate respondsToSelector:@selector(removeRequestObject:)]){
+                    [base.hudDelegate removeRequestObject:base];
+                }
                 [self.waitTokenResultList removeObject:base];
                 break;
             }
         }
     }
     [self.requestList addObject:request];
+    if([request.hudDelegate respondsToSelector:@selector(addRequestObject:)]) {
+        [request.hudDelegate addRequestObject:request];
+    }
     
     [self.conditionLock unlock];
 }
@@ -134,6 +140,9 @@
     if([self.requestList containsObject:request]) {
         isFind = YES;
         [self.requestList removeObject:request];
+        if([request.hudDelegate respondsToSelector:@selector(removeRequestObject:)]){
+            [request.hudDelegate removeRequestObject:request];
+        }
     }
     
     [self.conditionLock unlock];
@@ -181,10 +190,15 @@
 - (void)cancelRequest:(id)sender
 {
     [self.conditionLock lock];
-    
-    for(NYBaseRequest* base in self.requestList) {
-        if(base.hudDelegate && base.hudDelegate == sender) {
-            [base cancelRequest];
+    NSArray* requestList = nil;
+    if([sender respondsToSelector:@selector(getRequestObjectList)]) {
+        requestList = [sender getRequestObjectList];
+    }
+    if(requestList.count > 0) {
+        for(NYBaseRequest* base in self.requestList) {
+            if([requestList containsObject:base]) {
+                [base cancelRequest];
+            }
         }
     }
     

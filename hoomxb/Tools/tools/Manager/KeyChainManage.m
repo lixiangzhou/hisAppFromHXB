@@ -10,7 +10,7 @@
 
 #import <UICKeyChainStore.h>
 #import <Security/Security.h>
-#import "HXBRequestUserInfo.h"
+#import "HXBRequestUserInfoAgent.h"
 
 #define kGesturePwd self.keychain[kMobile]
 #define kSiginPwd @"HXBSinInCount"
@@ -212,7 +212,7 @@ static NSString *const hostH5 = @"hostH5";
  @param resultBlock 结果回调
  */
 - (void)downLoadUserInfoWithRequestBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithRequestBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [HXBRequestUserInfoAgent downLoadUserInfoWithRequestBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if(viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (resultBlock) {
@@ -239,7 +239,7 @@ static NSString *const hostH5 = @"hostH5";
 {
     KeyChainManage *manager = KeyChain;
     self.isLogin = NO;
-    [HXBRequestUserInfo signOut];
+    [HXBRequestUserInfoAgent signOut];
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
     [manager.keychain removeItemForKey:kToken];

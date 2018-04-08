@@ -1,23 +1,22 @@
 //
-//  HXBRequestUserInfo.m
+//  HXBRequestUserInfoAgent.m
 //  hoomxb
 //
 //  Created by HXB on 2017/6/1.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRequestUserInfo.h"
-#import "HXBBaseRequest.h"
+#import "HXBRequestUserInfoAgent.h"
 
 #define kHXBUser_signOutURL @"/logout"
-@implementation HXBRequestUserInfo
+@implementation HXBRequestUserInfoAgent
 
 + (void)signOut {
-    HXBBaseRequest *request = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *request = [[NYBaseRequest alloc]init];
     request.requestUrl = kHXBUser_signOutURL;
     request.requestMethod = NYRequestMethodPost;
-    [request startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    [request loadData:^(NYBaseRequest *request, id responseObject) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
     }];
 }
 

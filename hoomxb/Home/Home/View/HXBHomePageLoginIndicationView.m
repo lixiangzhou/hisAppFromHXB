@@ -13,7 +13,7 @@
 #import "HXBHomePageLoginIndicationView.h"
 #import "HxbHomeViewController.h"
 #import "UILabel+Util.h"
-#import "HXBRequestUserInfo.h"
+#import "HXBRequestUserInfoAgent.h"
 #import "HXBBaseTabBarController.h"
 
 

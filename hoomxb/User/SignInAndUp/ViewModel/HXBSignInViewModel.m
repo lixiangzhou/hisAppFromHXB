@@ -21,7 +21,7 @@
 
 - (void)loginRequetWithMobile:(NSString *)mobile password:(NSString *)password captcha:(NSString *)captcha resultBlock:(void (^)(BOOL, BOOL))resultBlock
 {
-    HXBBaseRequest *loginAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *loginAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     loginAPI.requestMethod = NYRequestMethodPost;
     loginAPI.requestUrl = kHXBUser_LoginURL;
     if (!captcha) captcha = @"";
