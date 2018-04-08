@@ -7,9 +7,10 @@
 //
 
 #import "HXBModifyPhoneView.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKit/SVGKImage.h"
+#import "HXBSignUPViewModel.h"
+
 @interface HXBModifyPhoneView ()<UITextFieldDelegate>
 
 /**
@@ -35,9 +36,21 @@
 @property (nonatomic, weak) NSTimer *timer;
 
 @property (nonatomic, assign) int timeCount;
+
+@property (nonatomic, strong) HXBSignUPViewModel* viewModel;
 @end
 
 @implementation HXBModifyPhoneView
+
+- (HXBSignUPViewModel *)viewModel {
+    if(!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBSignUPViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
+    }
+    return _viewModel;
+}
 
 #pragma mark - 懒加载
 - (HXBCustomTextField *)phoneTextField
@@ -179,14 +192,13 @@
 
 #pragma mark - 事件处理
 - (void)getCodeBtnClick {
-    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist,NSString *message) {
-        if (isExist) {
-            if (self.getValidationCodeButtonClickBlock) {
-                self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
+    kWeakSelf
+    [self.viewModel checkMobileRequestWithHud:NO mobile:self.phoneTextField.text resultBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            if (weakSelf.getValidationCodeButtonClickBlock) {
+                weakSelf.getValidationCodeButtonClickBlock(weakSelf.phoneTextField.text);
             }
         }
-    } andFailureBlock:^(NSError *error) {
-        
     }];
 
 }

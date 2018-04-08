@@ -242,7 +242,7 @@
     requestArgument[@"bank"] = self.withdrawModel.bankCard.cardId;
     requestArgument[@"smscode"] = smscode;
     requestArgument[@"amount"] = self.amountTextField.text;
-    [_viewModel accountWithdrawaWithParameter:requestArgument resultBlock:^(BOOL isSuccess) {
+    [_viewModel accountWithdrawaWithParameter:requestArgument andRequestMethod:NYRequestMethodPost resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
             HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
@@ -308,16 +308,14 @@
 - (void)loadBankCard
 {
     kWeakSelf
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-    bankCardAPI.requestUrl = kHXBWithdraw;
-    bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        kHXBBuyErrorResponsShowHUD
-        weakSelf.withdrawModel = [HXBWithdrawModel yy_modelWithJSON:responseObject[@"data"]];
-        weakSelf.isLoadBankCardSuccess = YES;
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        weakSelf.isLoadBankCardSuccess = NO;
+    [_viewModel accountWithdrawaWithParameter:nil andRequestMethod:NYRequestMethodGet resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.withdrawModel = weakSelf.viewModel.withdrawModel;
+            weakSelf.isLoadBankCardSuccess = YES;
+        }
+        else {
+            weakSelf.isLoadBankCardSuccess = NO;
+        }
     }];
 }
 

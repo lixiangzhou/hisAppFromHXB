@@ -26,10 +26,6 @@
  */
 @property (nonatomic, strong) HXBNoDataView *nodataView;
 
-/**
- 页码
- */
-@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -37,7 +33,6 @@
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.page = 0;
     self.title = @"提现进度";
     self.isRedColorWithNavigationBar = YES;
     [self loadCashRegisterDataNeeedShowLoading:YES];
@@ -54,27 +49,30 @@
 //加载数据
 - (void)loadCashRegisterDataNeeedShowLoading:(BOOL)isShowLoading {
     kWeakSelf
-    self.page++;
-    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading andPage:self.page andSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
-        [weakSelf isHaveData];
-        [weakSelf.withdrawRecordTableView reloadData];
-        [weakSelf endRefreshing];
-        if (withdrawRecordListModel.isNoMoreData) {
-             [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
-            if (withdrawRecordListModel.dataList.count <= kPageCount) {
-                weakSelf.withdrawRecordTableView.mj_footer = nil;
+    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf isHaveData];
+            [weakSelf.withdrawRecordTableView reloadData];
+            
+            if (weakSelf.withdrawRecordViewModel.withdrawRecordListModel.isNoMoreData) {
+                [self.withdrawRecordTableView.mj_header endRefreshing];
+                [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+                if (weakSelf.withdrawRecordViewModel.withdrawRecordListModel.dataList.count <= kPageCount) {
+                    weakSelf.withdrawRecordTableView.mj_footer = nil;
+                }
+            } else {
+                [weakSelf endRefreshing];
+                if (!weakSelf.withdrawRecordTableView.mj_footer) {
+                    [weakSelf.withdrawRecordTableView hxb_footerWithRefreshBlock:^{
+                        weakSelf.withdrawRecordViewModel.withdrawRecordPage++;
+                        [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
+                    }];
+                }
             }
         } else {
-            if (!weakSelf.withdrawRecordTableView.mj_footer) {
-                [weakSelf.withdrawRecordTableView hxb_footerWithRefreshBlock:^{
-                    [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
-                }];
-            }
+            [weakSelf.withdrawRecordTableView reloadData];
+            [weakSelf endRefreshing];
         }
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.withdrawRecordTableView reloadData];
-        [weakSelf endRefreshing];
-        weakSelf.page--;
     }];
 }
 //结束刷新
@@ -134,7 +132,7 @@
         _withdrawRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         kWeakSelf
         [_withdrawRecordTableView hxb_headerWithRefreshBlock:^{
-            weakSelf.page = 0;
+            weakSelf.withdrawRecordViewModel.withdrawRecordPage = 1;
             [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
         }];
         
@@ -143,7 +141,10 @@
 }
 - (HXBWithdrawRecordViewModel *)withdrawRecordViewModel {
     if (!_withdrawRecordViewModel) {
-        _withdrawRecordViewModel = [[HXBWithdrawRecordViewModel alloc] init];
+        kWeakSelf
+        _withdrawRecordViewModel = [[HXBWithdrawRecordViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     return _withdrawRecordViewModel;
 }

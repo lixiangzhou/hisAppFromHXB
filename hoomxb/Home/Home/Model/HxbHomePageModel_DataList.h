@@ -103,12 +103,6 @@
  */
 @property (nonatomic, assign) int novice;
 
-/**
- 2.6.0版本新增字段锁定期限(月),计划期限(仅用于显示不能于判断)
- */
-@property (nonatomic, copy) NSString *extendLockPeriod;
-
-
 /*********************** 辅助字段 ****************************/
 ///倒计时的String
 @property (nonatomic,copy) NSString *countDownLastStr;

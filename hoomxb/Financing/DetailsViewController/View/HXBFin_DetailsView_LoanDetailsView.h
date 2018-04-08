@@ -79,7 +79,4 @@
 @property (nonatomic,strong) UIColor *addButtonBorderColor;
 /// 起息日
 @property (nonatomic, copy) NSString *interestDate;
-
-/// 是否收益中
-@property (nonatomic, assign) BOOL isInProgress;
 @end

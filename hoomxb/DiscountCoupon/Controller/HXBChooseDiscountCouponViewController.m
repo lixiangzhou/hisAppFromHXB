@@ -8,15 +8,12 @@
 
 #import "HXBChooseDiscountCouponViewController.h"
 #import "HXBChooseDiscountTableViewCell.h"
-#import "HXBChooseCouponViewModel.h"
 #import "HXBMy_Withdraw_notifitionView.h"
-
+#import "HXBChooseDiscountCouponViewModel.h"
 
 @interface HXBChooseDiscountCouponViewController ()<UITableViewDelegate, UITableViewDataSource>
 // 表视图
 @property (nonatomic, strong) HXBBaseTableView *tableView;
-// 接口返回的数据模型
-@property (nonatomic, strong) HXBChooseCouponModel *couponViewModel;
 // 提示Label
 @property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
 // 无数据
@@ -25,7 +22,7 @@
 @property (nonatomic, assign) BOOL hasSelect;
 //判断第几个是选择的优惠券
 @property (nonatomic, assign) NSInteger num;
-
+@property (nonatomic, strong) HXBChooseDiscountCouponViewModel *viewModel;
 @end
 
 @implementation HXBChooseDiscountCouponViewController
@@ -35,6 +32,10 @@
     self.title = @"选择优惠券";
     self.view.backgroundColor = BACKGROUNDCOLOR;
     self.isRedColorWithNavigationBar = YES;
+    kWeakSelf
+    _viewModel = [[HXBChooseDiscountCouponViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     _num = 0;
     [self buildUI];
     [self setUpDate];
@@ -98,7 +99,7 @@
 - (void)tapToPop:(UITapGestureRecognizer *)tap {
     // 点击回调参数
     if ([self.delegate respondsToSelector:@selector(chooseDiscountCouponViewController:didSendModel:)]) {
-        if (self.couponViewModel.dataList.count > 0 || self.couponViewModel.unusableList.count > 0) {
+        if (self.viewModel.chooseCouponModel.dataList.count > 0 || self.viewModel.chooseCouponModel.unusableList.count > 0) {
             [self.delegate chooseDiscountCouponViewController:self didSendModel:nil];
         }
     }
@@ -106,7 +107,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.couponViewModel.dataList.count && self.couponViewModel.unusableList.count) {
+    if (self.viewModel.chooseCouponModel.dataList.count && self.viewModel.chooseCouponModel.unusableList.count) {
         return 2;
     } else {
         return 1;
@@ -115,15 +116,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        if (self.couponViewModel.dataList.count) {
-            return self.couponViewModel.dataList.count;
-        } else if (self.couponViewModel.unusableList.count) {
-            return self.couponViewModel.unusableList.count;
+        if (self.viewModel.chooseCouponModel.dataList.count) {
+            return self.viewModel.chooseCouponModel.dataList.count;
+        } else if (self.viewModel.chooseCouponModel.unusableList.count) {
+            return self.viewModel.chooseCouponModel.unusableList.count;
         } else {
             return 0;
         }
     } else {
-        return self.couponViewModel.unusableList.count;
+        return self.viewModel.chooseCouponModel.unusableList.count;
     }
 }
 
@@ -138,7 +139,7 @@
     label.backgroundColor = BACKGROUNDCOLOR;
     // 第一个section，如果可用的有展示可用的，可用的没有，展示不可用的
     if (section == 0) {
-        if (self.couponViewModel.dataList.count) {
+        if (self.viewModel.chooseCouponModel.dataList.count) {
             label.text = @"可用优惠券";
         } else {
             label.text = @"不可用优惠券";
@@ -166,20 +167,20 @@
             cell.hasSelect = NO;
         }
     }
-    if (self.couponViewModel.dataList.count) {
+    if (self.viewModel.chooseCouponModel.dataList.count) {
         if (indexPath.section) {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.couponModel = self.couponViewModel.unusableList[indexPath.row];
+            cell.couponModel = self.viewModel.chooseCouponModel.unusableList[indexPath.row];
             cell.isAvalible = NO;
-            if (indexPath.row == self.couponViewModel.unusableList.count - 1) {
+            if (indexPath.row == self.viewModel.chooseCouponModel.unusableList.count - 1) {
                 cell.isHiddenLine = YES;
             } else {
                 cell.isHiddenLine = NO;
             }
         } else {
             cell.isAvalible = YES;
-            cell.couponModel = self.couponViewModel.dataList[indexPath.row];
-            if (indexPath.row == self.couponViewModel.dataList.count - 1) {
+            cell.couponModel = self.viewModel.chooseCouponModel.dataList[indexPath.row];
+            if (indexPath.row == self.viewModel.chooseCouponModel.dataList.count - 1) {
                 cell.isHiddenLine = YES;
             } else {
                 cell.isHiddenLine = NO;
@@ -188,8 +189,8 @@
     } else {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.isAvalible = NO;
-        cell.couponModel = self.couponViewModel.unusableList[indexPath.row];
-        if (indexPath.row == self.couponViewModel.unusableList.count - 1) {
+        cell.couponModel = self.viewModel.chooseCouponModel.unusableList[indexPath.row];
+        if (indexPath.row == self.viewModel.chooseCouponModel.unusableList.count - 1) {
             cell.isHiddenLine = YES;
         } else {
             cell.isHiddenLine = NO;
@@ -200,12 +201,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && self.couponViewModel.dataList.count > 0) {
+    if (indexPath.section == 0 && self.viewModel.chooseCouponModel.dataList.count > 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         // 点击回调参数
         if ([self.delegate respondsToSelector:@selector(chooseDiscountCouponViewController:didSendModel:)]) {
-            if (self.couponViewModel.dataList.count > 0 || self.couponViewModel.unusableList.count > 0) {
-                [self.delegate chooseDiscountCouponViewController:self didSendModel:self.couponViewModel.dataList[indexPath.row]];
+            if (self.viewModel.chooseCouponModel.dataList.count > 0 || self.viewModel.chooseCouponModel.unusableList.count > 0) {
+                [self.delegate chooseDiscountCouponViewController:self didSendModel:self.viewModel.chooseCouponModel.dataList[indexPath.row]];
             }
         }
         [self.navigationController popViewControllerAnimated:YES];
@@ -218,35 +219,33 @@
                           @"amount": _investMoney,
                           @"type": _type
                           };
-    [HXBChooseCouponViewModel requestChooseCouponWithParams:dic_post andSuccessBlock:^(HXBChooseCouponModel *model) {
-        NSInteger num = 0;
-        self.couponViewModel = model;
-        for (HXBCouponModel *couponModel in model.dataList) {
-            num++;
-            if ([couponModel.ID isEqualToString:_couponid]) {
-                _num = num;
-            }
-        }
-        if (model.dataList.count == 0 && model.unusableList.count == 0) {
-            self.nodataView.hidden = NO;
-            self.notifitionView.hidden = YES;
+    kWeakSelf
+    [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf displaySuccessData];
         } else {
-            self.tableView.hidden = NO;
-            self.nodataView.hidden = YES;
+            weakSelf.noDataView.hidden = NO;
         }
-        [self.tableView reloadData];
-    } andFailureBlock:^(NSError *error) {
-        self.nodataView.hidden = NO;
     }];
 }
 
-- (HXBChooseCouponModel *)couponViewModel {
-    if (!_couponViewModel) {
-        _couponViewModel = [[HXBChooseCouponModel alloc] init];
+- (void)displaySuccessData {
+    NSInteger num = 0;
+    for (HXBCouponModel *couponModel in self.viewModel.chooseCouponModel.dataList) {
+        num++;
+        if ([couponModel.ID isEqualToString:_couponid]) {
+            _num = num;
+        }
     }
-    return _couponViewModel;
+    if (self.viewModel.chooseCouponModel.dataList.count == 0 && self.viewModel.chooseCouponModel.unusableList.count == 0) {
+        self.nodataView.hidden = NO;
+        self.notifitionView.hidden = YES;
+    } else {
+        self.tableView.hidden = NO;
+        self.nodataView.hidden = YES;
+    }
+    [self.tableView reloadData];
 }
-
 
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {

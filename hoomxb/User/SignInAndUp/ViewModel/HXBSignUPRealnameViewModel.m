@@ -46,4 +46,28 @@
         resultBlock(isSuccess);
     }];
 }
+
+- (void)realNameWithUserName: (NSString *)userName identityCard: (NSString *)identityCard password: (NSString *)password resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    
+    NYBaseRequest *realnameApi = [[NYBaseRequest alloc]initWithDelegate:self];
+    realnameApi.requestUrl = kHXBUser_realnameURL;
+    realnameApi.requestMethod = NYRequestMethodPost;
+    realnameApi.requestArgument = @{
+                                    @"name" : userName,
+                                    @"idCardNo" : identityCard,
+                                    @"tradpwd" : password
+                                    };
+    
+    [realnameApi loadData:^(NYBaseRequest *request, id responseObject) {
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+    
+}
+
 @end

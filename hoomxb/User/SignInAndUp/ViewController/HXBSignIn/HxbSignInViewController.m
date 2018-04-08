@@ -10,10 +10,10 @@
 #import "HxbSignUpViewController.h"
 #import "HxbPhoneVerifyViewController.h"
 #import "HxbSignInView.h"
-#import "HXBSignUPAndLoginRequest.h"///用于请求注册登录的接口
-#import "HXBRequestUserInfo.h"///用户数据的请求
+#import "HXBRequestUserInfoAgent.h"///用户数据的请求
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBSignInViewModel.h"
 
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
@@ -23,12 +23,19 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 @property (nonatomic,strong) HxbSignInView *signView;
 
 @property (nonatomic,copy) NSString *checkCaptcha;
+
+@property (nonatomic, strong) HXBSignInViewModel *viewModel;
 @end
 
 @implementation HxbSignInViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    kWeakSelf
+    self.viewModel = [[HXBSignInViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     self.title = @"登录";
     
@@ -57,44 +64,35 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 - (void)registerSignViewEvent {
     kWeakSelf
     [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
-        //用户登录请求
-        [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
-            NSLog(@"登录成功");
-            KeyChain.siginCount = @"0";
-            //调到我的界面
-            KeyChain.isLogin = YES;
-            KeyChain.ciphertext = @"0";
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_checkLoginSuccess object:nil];
-            
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-            
-        } andFailureBlock:^(NSError *error, id responseObject) {
-            
-            
-            if ([responseObject[kResponseStatus] integerValue]) {
-                if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
+        [weakSelf.viewModel loginRequetWithMobile:mobile password:pasword captcha:self.checkCaptcha resultBlock:^(BOOL isSuccess, BOOL needPopCaptcha) {
+            if (isSuccess) {
+                KeyChain.siginCount = @"0";
+                //调到我的界面
+                KeyChain.isLogin = YES;
+                KeyChain.ciphertext = @"0";
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_checkLoginSuccess object:nil];
+                
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                if (needPopCaptcha) {
                     HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
                     [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
-                        //                    self.checkCaptcha = checkPaptcha;
-                        self.signView.isDeletePassword = YES;
-                        [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
+                        weakSelf.signView.isDeletePassword = YES;
+                        [weakSelf signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
                     }];
-                    [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
+                    [weakSelf presentViewController:checkCaptchaViewController animated:YES completion:nil];
                 }
-
+                weakSelf.checkCaptcha = nil;
             }
-            ///清空
-            self.checkCaptcha = nil;
         }];
     }];
 }
 
 ///注册 校验手机号事件
 - (void) registerCheckMobileEvent {
+    kWeakSelf
     [self.signView checkMobileRequestBlockFunc:^(NSString *mobile) {
-        [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
-        } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
-            kHXBRespons_ShowHUDWithError(self.signView)
+        [weakSelf.viewModel checkExistMobile:mobile resultBlock:^(BOOL isSuccess) {
         }];
     }];
 }
@@ -144,27 +142,22 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
 ///登录 数据的请求
 - (void)signIn_downLoadDataWithCaptcha: (NSString *)captcha andPassword: (NSString *)password andMobile: (NSString *)mobile{
-    
     kWeakSelf
-    [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:password andCaptcha:captcha andSuccessBlock:^(BOOL isSuccess) {
-        NSLog(@"登录成功");
-        KeyChain.siginCount = @"0";
-        //调到我的界面
-        KeyChain.isLogin = YES;
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-    } andFailureBlock:^(NSError *error, id responseObject) {
-        if ([responseObject[kResponseStatus] integerValue]) {
-            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
+    [self.viewModel loginRequetWithMobile:mobile password:password captcha:captcha resultBlock:^(BOOL isSuccess, BOOL needPopCaptcha) {
+        if (isSuccess) {
+            KeyChain.siginCount = @"0";
+            //调到我的界面
+            KeyChain.isLogin = YES;
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            if (needPopCaptcha) {
                 HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
                 [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
-                    //                    self.checkCaptcha = checkPaptcha;
-                    [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:password andMobile:mobile];
+                    [weakSelf signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:password andMobile:mobile];
                 }];
-                [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
+                [weakSelf presentViewController:checkCaptchaViewController animated:YES completion:nil];
             }
         }
-        
     }];
 }
 

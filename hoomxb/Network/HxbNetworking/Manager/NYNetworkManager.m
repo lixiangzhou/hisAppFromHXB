@@ -25,19 +25,12 @@
 
 - (void)addRequest:(NYBaseRequest *)request
 {
-    NSString* hudShowContent = nil;
-    if(request.showHud) {
-        hudShowContent = request.hudShowContent;
-    }
-    [self addRequest:request withHUD:hudShowContent];
-}
-
-- (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
-{
+    //防止同一个
     if([[HXBBaseRequestManager sharedInstance] sameRequestInstance:request]){
         dispatch_async(dispatch_get_main_queue(), ^{
             if (request.failure) {
-                request.failure(request, nil);
+                NSError* erro = [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil];
+                request.failure(request, erro);
             }
         });
         return;
@@ -45,100 +38,49 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    // 适配重构前的HUD
-    HxbHUDProgress *hud = nil;
-    if (request.hudDelegate == nil) {
-        hud = (content.length) ? [HxbHUDProgress new] : nil;
-        [hud showAnimationWithText:content];
+    // 显示HUD
+    if(request.showHud) {
+        [request showLoading];
     }
-    else {
-        if(request.showHud) {
-           [request showLoading:content];
-        }
-    }
-    NSLog(@"%@",request.httpHeaderFields);
     
     [[HXBBaseRequestManager sharedInstance] addRequest:request];
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
+    
+    __weak typeof (request) weakRequest = request;
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject HUDProgress:hud];
+        [self processConnection:connection withRequest:weakRequest responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request error:error HUDProgress:hud];
+        [self processConnection:connection withRequest:weakRequest error:error];
     }];
 }
 
-- (void)addRequestWithAnimation:(NYBaseRequest *)request
-{
-    if([[HXBBaseRequestManager sharedInstance] sameRequestInstance:request]){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (request.failure) {
-                request.failure(request, nil);
-            }
-        });
-        return;
-    }
-    // 适配重构前的HUD
-    HxbHUDProgress *hud = nil;
-    if (request.hudDelegate == nil) {
-        hud = [HxbHUDProgress new];
-        [hud showAnimation];
-    }
-    else {
-        if(request.showHud) {
-            [request showLoading:nil];
-        }
-    }
-    
-    [[HXBBaseRequestManager sharedInstance] addRequest:request];
-    NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
-    [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject HUDProgress:hud];
-    } failure:^(NYHTTPConnection *connection, NSError *error) {
-        [self processConnection:connection withRequest:request error:error HUDProgress:hud];
-    }];
-}
-
-- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request responseJsonObject:(id)responseJsonObject HUDProgress:(HxbHUDProgress*)hud
+- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request responseJsonObject:(id)responseJsonObject
 {
     if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
         // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else {
-            if(request.showHud) {
-                [request hideLoading];
-            }
+        if(request.showHud) {
+            [request hideLoading];
         }
         
         request.responseObject = responseJsonObject;
         [self callBackRequestSuccess:request];
     }
-    
-    [self clearRequestBlock:request];
 }
 
-- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error  HUDProgress:(HxbHUDProgress*)hud
+- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error
 {
     if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
         // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else {
-            if(request.showHud) {
-                [request hideLoading];
-            }
+        if(request.showHud) {
+            [request hideLoading];
         }
         
         request.error = error;
         [self callBackRequestFailure:request];
     }
-    
-    [self clearRequestBlock:request];
 }
 
 //--------------------------------------------回调--------------------------------------------
@@ -157,30 +99,13 @@
                     return;
                 }
             }
-            else{
-                NSDictionary* responseDic = request.responseObject;
-                NSString* codeValue = [responseDic stringAtPath:@"status"];
-                if(![codeValue isEqualToString:@"0"]) {
-                    if(request.failure) {
-                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
-                        return;
-                    }
-                }
-            }
         }
-        else {
-            if(request.isNewRequestWay) {
-                NSDictionary* responseDic = request.responseObject;
-                NSString* codeValue = [responseDic stringAtPath:@"status"];
-                if(![codeValue isEqualToString:@"0"]) {
-                    if(request.failure) {
-                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
-                        return;
-                    }
-                }
-            }
-            else {
-                [self defaultMethodRequestSuccessWithRequest:request];
+        NSDictionary* responseDic = request.responseObject;
+        NSString* codeValue = [responseDic stringAtPath:@"status"];
+        if(![codeValue isEqualToString:@"0"]) {
+            if(request.failure) {
+                request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
+                return;
             }
         }
         request.success(request,request.responseObject);
@@ -200,24 +125,11 @@
                 return;
             }
         }
-        else{
-           [self defaultMethodRequestFaulureWithRequest:request];
+        
+        if(!request.error) {
+            request.error = [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil];
         }
         request.failure(request,request.error);
     }
 }
-
-- (void)clearRequestBlock:(NYBaseRequest *)request
-{
-    request.connection = nil;
-}
-
-//---------------------------------在回调中默认执行方法，在扩展中重写--------------------------
-- (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request {
-    
-}
-
-- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request {
-}
-
 @end

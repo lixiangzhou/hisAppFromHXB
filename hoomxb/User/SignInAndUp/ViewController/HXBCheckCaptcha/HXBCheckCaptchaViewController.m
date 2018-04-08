@@ -8,16 +8,16 @@
 
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBCheckCaptcha.h"
-#import "HXBSignUPAndLoginRequest.h"
 #import   "UIImageView+WebCache.h"
 #import "SVGKit/SVGKImage.h"
+#import "HXBCheckCaptchaViewModel.h"
 
 @interface HXBCheckCaptchaViewController ()
 @property (nonatomic, strong) Animatr *animatrManager;
 @property (nonatomic, strong) HXBCheckCaptcha *checkCaptcha;
-@property (nonatomic, strong) HXBSignUPAndLoginRequest *request;
-//@property (nonatomic, strong) UIButton *cancelBtn;
 @property (nonatomic, copy) void (^isCheckCaptchaSucceedBlock)(NSString *captcha);
+@property (nonatomic, strong) HXBCheckCaptchaViewModel *viewModel;
+
 @end
 
 @implementation HXBCheckCaptchaViewController
@@ -40,7 +40,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ///setUP
+    
+    kWeakSelf
+    self.viewModel = [[HXBCheckCaptchaViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
+    
     [self setUP];
     ///
     [self setUPAnimater];
@@ -101,12 +106,12 @@
 ///请求数据 图验图片
 - (void)downCheckCaptcha {
     kWeakSelf
-    self.request = [[HXBSignUPAndLoginRequest alloc]init];
-    [self.request captchaRequestWithSuccessBlock:^(id responseObject) {
-        weakSelf.checkCaptcha.checkCaptchaImage = responseObject;
-    } andFailureBlock:^(NSError *error) {
-        
+    [self.viewModel captchaRequestWithResultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.checkCaptcha.checkCaptchaImage = weakSelf.viewModel.captchaImage;
+        }
     }];
+
 }
 ///点击了确定按钮
 - (void)clickTrueButtonEvent {
@@ -114,19 +119,16 @@
     
     [self.checkCaptcha clickTrueButtonFunc:^(NSString *checkCaptChaStr) {
         //判断验证码是否正确
-        [HXBSignUPAndLoginRequest checkCaptcharRequestWithCaptcha:checkCaptChaStr andSuccessBlock:^(BOOL isSuccessBlock) {
-            //正确就dismiss
-            if (isSuccessBlock) {
-                ///通知控制器 图验通过
+        [weakSelf.viewModel checkCaptchaRequestWithCaptcha:checkCaptChaStr resultBlock:^(BOOL isSuccess, BOOL needDownload) {
+            if (isSuccess) {
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                 if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
-              
-            }else{
-                weakSelf.checkCaptcha.isCorrect = NO;
+                if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
+            } else {
+                 weakSelf.checkCaptcha.isCorrect = NO;
+                if (needDownload) {
+                    [weakSelf downCheckCaptcha];
+                }
             }
-        } andFailureBlock:^(NSError *error) {
-            weakSelf.checkCaptcha.isCorrect = NO;
-            [weakSelf downCheckCaptcha];
         }];
     }];
     

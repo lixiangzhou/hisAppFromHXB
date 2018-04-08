@@ -7,7 +7,6 @@
 //
 
 #import "HXBFinAddRecordVC_Plan.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model

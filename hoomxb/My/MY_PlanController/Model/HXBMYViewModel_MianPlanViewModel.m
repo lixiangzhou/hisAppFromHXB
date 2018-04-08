@@ -55,7 +55,7 @@
 
 - (NSString *)quitStatus {
     //在冷静期什么都不显示
-    if (self.planModelDataList.inCoolingOffPeriod || [self.planModelDataList.financePlanStatus isEqualToString:@"OLD"]) {
+    if (self.planModelDataList.inCoolingOffPeriod) {
         return @"";
     }
     

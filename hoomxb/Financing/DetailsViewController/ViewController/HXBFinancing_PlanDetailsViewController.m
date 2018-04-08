@@ -157,9 +157,6 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
                 weakSelf.addButton.backgroundColor = COR29;
                 weakSelf.addButton.userInteractionEnabled = YES;
                 [weakSelf.countDownManager stopTimer];
-                //刷新进度状态
-                weakSelf.viewModel.planDetailModel.planDetailModel.unifyStatus = @"6";
-                [weakSelf.hxbBaseVCScrollView reloadData];
                 return;
             }
             [weakSelf.addButton setTitle:[weakSelf.viewModel countDownString:countDownValue] forState:UIControlStateNormal];

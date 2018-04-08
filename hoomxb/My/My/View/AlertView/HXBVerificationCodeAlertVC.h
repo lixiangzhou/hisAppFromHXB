@@ -20,9 +20,6 @@
  */
 @property (nonatomic, copy) NSString *subTitle;
 
-@property (nonatomic, copy) NSString *leftBtnStr;/// 左侧按钮名称 未设置默认“取消”
-@property (nonatomic, copy) NSString *rightBtnStr;/// 右侧按钮名称 未设置默认“确定”
-
 //是否有语音验证码
 @property (nonatomic, assign) BOOL isSpeechVerificationCode;
 

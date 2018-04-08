@@ -27,18 +27,6 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    //将链接的target指向_self
-    [webView evaluateJavaScript:@"{\
-     var a = document.getElementsByTagName('a'); \
-     for (var i=0; i<a.length; i++) \
-     if (a[i].getAttribute('target') == '_blank'){\
-     a[i].target=\"_self\";\
-     }\
-     }" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-         
-     }];
-    
     if (self.loadStateBlock) {
         self.loadStateBlock(HXBPageLoadStateEnd);
     }

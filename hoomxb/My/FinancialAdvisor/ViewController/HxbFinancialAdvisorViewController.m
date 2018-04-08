@@ -7,7 +7,7 @@
 //
 
 #import "HxbFinancialAdvisorViewController.h"
-#import "HXBFinancialAdvisorRequest.h"
+#import "HXBFinancialAdvisorVCViewModel.h"
 #import "HXBFinancialAdvisorModel.h"
 
 @interface HxbFinancialAdvisorViewController ()
@@ -25,8 +25,7 @@
 @property (nonatomic, strong) UILabel *financialAdvisor_phoneLabel;
 @property (nonatomic, strong) UIView  *lineView;
 
-@property (nonatomic, strong) HXBFinancialAdvisorModel *financialAdvisorModel;
-
+@property (nonatomic, strong) HXBFinancialAdvisorVCViewModel *viewModel;
 @end
 
 @implementation HxbFinancialAdvisorViewController
@@ -46,16 +45,13 @@
 }
 
 - (void)call{
-    [HXBAlertManager callupWithphoneNumber:self.financialAdvisorModel.mobile andWithTitle:[NSString stringWithFormat:@"理财顾问： %@",self.financialAdvisorModel.name] Message:self.financialAdvisorModel.mobile];
+    [HXBAlertManager callupWithphoneNumber:self.viewModel.financialAdvisorModel.mobile andWithTitle:[NSString stringWithFormat:@"理财顾问： %@",self.viewModel.financialAdvisorModel.name] Message:self.viewModel.financialAdvisorModel.mobile];
 }
-
-- (void)setFinancialAdvisorModel:(HXBFinancialAdvisorModel *)financialAdvisorModel{
-    _financialAdvisorModel = financialAdvisorModel;
+- (void)setupData {
+    self.financialAdvisor_nameLabel.text = self.viewModel.financialAdvisorModel.name&&![self.viewModel.financialAdvisorModel.name isEqualToString:@""] ? self.viewModel.financialAdvisorModel.name : @"--";
+    self.financialAdvisor_jobNumberLabel.text = self.viewModel.financialAdvisorModel.code&&![self.viewModel.financialAdvisorModel.code isEqualToString:@""] ? self.viewModel.financialAdvisorModel.code : @"--";
     
-    self.financialAdvisor_nameLabel.text = _financialAdvisorModel.name&&![_financialAdvisorModel.name isEqualToString:@""] ? _financialAdvisorModel.name : @"--";
-    self.financialAdvisor_jobNumberLabel.text = _financialAdvisorModel.code&&![_financialAdvisorModel.code isEqualToString:@""] ? _financialAdvisorModel.code : @"--";
-    
-    self.financialAdvisor_phoneLabel.text = _financialAdvisorModel.mobile&&![_financialAdvisorModel.mobile isEqualToString:@""] ? _financialAdvisorModel.mobile : @"--";
+    self.financialAdvisor_phoneLabel.text = self.viewModel.financialAdvisorModel.mobile&&![self.viewModel.financialAdvisorModel.mobile isEqualToString:@""] ? self.viewModel.financialAdvisorModel.mobile : @"--";
     self.businessCardImageView.userInteractionEnabled = YES;
     self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
@@ -66,11 +62,11 @@
 }
 
 - (void)loadData_financialAdvisorInfo{
-    [HXBFinancialAdvisorRequest downLoadmyFinancialAdvisorInfoNoHUDWithSeccessBlock:^(HXBFinancialAdvisorModel *model) {
-        kWeakSelf
-        weakSelf.financialAdvisorModel = model;
-    } andFailure:^(NSError *error) {
-        
+    kWeakSelf
+    [self.viewModel downLoadmyFinancialAdvisorInfoNoHUDWithCallBack:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf setupData];
+        }
     }];
 }
 
@@ -261,5 +257,14 @@
     return _logoImageView;
 }
 
+- (HXBFinancialAdvisorVCViewModel *)viewModel {
+    if (!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBFinancialAdvisorVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    return _viewModel;
+}
 
 @end

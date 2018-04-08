@@ -7,7 +7,8 @@
 //
 
 #import "HXBBaseViewController.h"
-#import "HXBSignUPAndLoginRequest.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"//枚举管理类
+
 ///修改登录密码
 @interface HXBAccount_AlterLoginPassword_ViewController : HXBBaseViewController
 @property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;

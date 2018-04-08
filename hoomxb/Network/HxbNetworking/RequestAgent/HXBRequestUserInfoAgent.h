@@ -1,5 +1,5 @@
 //
-//  HXBRequestUserInfo.h
+//  HXBRequestUserInfoAgent.h
 //  hoomxb
 //
 //  Created by HXB on 2017/6/1.
@@ -10,7 +10,7 @@
 #import "HXBRequestUserInfoViewModel.h"
 #import "NYBaseRequest.h"
 
-@interface HXBRequestUserInfo : NSObject
+@interface HXBRequestUserInfoAgent : NSObject
 
 /**
  新增请求用户信息

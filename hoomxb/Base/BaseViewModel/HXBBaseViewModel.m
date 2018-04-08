@@ -8,17 +8,27 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBRootVCManager.h"
-#import "HXBBaseRequest.h"
 #import "HXBBaseRequestManager.h"
+#import "SGInfoAlert.h"
 
 @interface HXBBaseViewModel()
 @property (nonatomic, strong) MBProgressHUD* mbpView;
+@property (nonatomic, strong) NSMutableArray* requestList;
 @end
 
 @implementation HXBBaseViewModel
 
-- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
+- (instancetype)init
+{
     self = [super init];
+    if (self) {
+        _requestList = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
+    self = [self init];
     
     if(self) {
         self.hugViewBlock = hugViewBlock;
@@ -56,9 +66,9 @@
         _mbpView.removeFromSuperViewOnHide = YES;
         _mbpView.contentColor = [UIColor whiteColor];
         _mbpView.bezelView.backgroundColor = [UIColor blackColor];
-        _mbpView.label.text = hudContent;
         _mbpView.label.textColor = [UIColor whiteColor];
     }
+    _mbpView.label.text = hudContent;
     [parentV addSubview:self.mbpView];
     if(isShow){
         [parentV bringSubviewToFront:self.mbpView];
@@ -81,12 +91,41 @@
     
     UIView* parentView = [self getHugView];
     if(parentView) {
-        [HxbHUDProgress showMessageCenter:toast inView:parentView];
+//        [HxbHUDProgress showMessageCenter:toast inView:parentView];
+        [SGInfoAlert showInfo:toast bgColor:[UIColor blackColor].CGColor inView:parentView vertical:0.3];
     }
 }
 
 - (void)hideProgress {
     [self showMBP:NO withHudContent:nil];
+}
+
+#pragma mark在委托者中操作请求对象
+/**
+ 添加请求到委托者
+ 
+ @param request 请求对象
+ */
+- (void)addRequestObject:(NYBaseRequest *)request {
+    [self.requestList addObject:request];
+}
+
+/**
+ 移除请求从委托者
+ 
+ @param request 请求对象
+ */
+- (void)removeRequestObject:(NYBaseRequest *)request {
+    [self.requestList removeObject:request];
+}
+
+/**
+ 从委托者获取其中的请求列表
+ 
+ @return 请求列表
+ */
+- (NSArray*)getRequestObjectList {
+    return self.requestList;
 }
 
 #pragma mark 错误码处理
@@ -136,13 +175,6 @@
                 return YES;
             }
         }
-    } else {
-        if([request isKindOfClass:[HXBBaseRequest class]]) {
-            HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
-            if (request.responseObject[kResponseData][@"dataList"]) {
-                [self addRequestPage:requestHxb];
-            }
-        }
     }
     return NO;
 }
@@ -172,14 +204,6 @@
 }
 
 #pragma mark - 部分页面用到Page++ 的处理
-
-// status == 0
-//page++
-- (void)addRequestPage: (HXBBaseRequest *)request {
-    NSArray *dataArray = request.responseObject[kResponseData][kResponseDataList];
-    if(dataArray.count) request.dataPage ++;
-    NSLog(@"%@ 🐯page ++ %ld",request,(long)request.dataPage);
-}
 
 /**
  错误的响应码处理

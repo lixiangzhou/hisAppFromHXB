@@ -7,16 +7,17 @@
 //
 
 #import "HXBBaseViewModel+KEYCHAIN.h"
-
 #import "HXBBankCardModel.h"
 
 typedef void(^successBlock)(NSDictionary *dateDic);
-typedef void(^successModelBlock)(HXBBankCardModel *model);
 typedef void(^failureBlock)();
 
 @interface HXBFin_Buy_ViewModel : HXBBaseViewModel
+
+@property(nonatomic,strong) HXBBankCardModel *bankCardModel;
+
 // 获取银行卡信息
-+ (void)requestForBankCardSuccessBlock:(successModelBlock)successDateBlock;
+- (void)requestForBankCardResultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 /**
  获取充值短验

@@ -45,56 +45,6 @@
     return _httpHeaderFields;
 }
 
-//-----------------------------------funtion--------------------------------------
-- (void)start{
-    [self startWithHUD:nil];
-}
-
-- (void)startWithHUD:(NSString *)str
-{
-    [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
- 
-}
-
-- (void)startWithAnimation
-{
-    [[NYNetworkManager sharedManager] addRequestWithAnimation:self];
-}
-
-- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self start];
-}
-
-- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self startWithHUD:string];
-}
-
-- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self startWithAnimation];
-}
-
-- (NYBaseRequest *)copyRequest {
-    NYBaseRequest *request = [NYBaseRequest new];
-    
-    request.requestMethod = self.requestMethod;
-    request.requestUrl = self.requestUrl;
-    request.baseUrl = self.baseUrl;
-    request.requestArgument = self.requestArgument;
-    request.httpHeaderFields = self.httpHeaderFields;
-    request.timeoutInterval = self.timeoutInterval;
-    request.showHud = self.showHud;
-    request.success = [self.success copy];
-    request.failure = [self.failure copy];
-    
-    return request;
-}
-
 #pragma mark  以下为重构后需要使用的各种方法
 
 - (NSString*)hudShowContent {
@@ -112,7 +62,7 @@
  */
 - (BOOL)defferRequest:(NYBaseRequest*)request
 {
-    if([self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqual:request.requestArgument]) {
+    if(self.hudDelegate && [self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqual:request.requestArgument]) {
         return NO;
     }
     return YES;
@@ -121,12 +71,11 @@
 /**
  显示加载框
  
- @param hudContent 显示的文本内容
  */
-- (void)showLoading:(NSString*)hudContent
+- (void)showLoading
 {
     if([self.hudDelegate respondsToSelector:@selector(showProgress:)]){
-        [self.hudDelegate showProgress:hudContent];
+        [self.hudDelegate showProgress:self.hudShowContent];
     }
 }
 
@@ -159,12 +108,11 @@
  @param failure 失败回调
  */
 - (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
-#ifdef DEBUG
-    if([UIApplication sharedApplication].keyWindow) {
-        [SGInfoAlert showInfo:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] bgColor:[UIColor blackColor].CGColor inView:[UIApplication sharedApplication].keyWindow vertical:0.3];
-    }
-#endif
-    self.isNewRequestWay = YES;
+//#ifdef DEBUG
+//    if([UIApplication sharedApplication].keyWindow) {
+//        [SGInfoAlert showInfo:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] bgColor:[UIColor blackColor].CGColor inView:[UIApplication sharedApplication].keyWindow vertical:0.3];
+//    }
+//#endif
     self.success = success;
     self.failure = failure;
     [[NYNetworkManager sharedManager] addRequest:self];

@@ -84,8 +84,6 @@
 @property (nonatomic, assign) BOOL inCoolingOffPeriod;  // 是否处于冷静期
 @property (nonatomic, copy) NSString *cancelBuyDesc;    // 冷静期取消购买描述
 @property (nonatomic, assign) int coolingOffPeriod;     // 冷静期(分钟)
-@property (nonatomic,copy) NSString *financePlanStatus; // 新旧计划标示 ‘NEW’新计划（计划ID大于670）,‘OLD’旧计划
-
 @end
 
 /*

@@ -82,9 +82,5 @@ redProgressLeft:待转让金额
  2.6.0是否处于冷静期
  */
 @property (nonatomic, assign) BOOL inCoolingOffPeriod;
-/**
- 计划状态标示
- */
-@property (nonatomic, copy) NSString *financePlanStatus;
 @end
 

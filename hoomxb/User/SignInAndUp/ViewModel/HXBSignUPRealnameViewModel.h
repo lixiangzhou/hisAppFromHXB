@@ -17,4 +17,7 @@
  @param resultBlock 结果回调
  */
 - (void)modifyTransactionPasswordWithIdCard:(NSString *)idCard resultBlock:(void(^)(BOOL isSuccess))resultBlock;
+
+/// 安全认证
+- (void)realNameWithUserName: (NSString *)userName identityCard: (NSString *)identityCard password: (NSString *)password resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 @end

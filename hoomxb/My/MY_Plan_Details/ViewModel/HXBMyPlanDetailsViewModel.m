@@ -51,10 +51,7 @@
 - (void)accountPlanQuitRequestWithPlanID: (NSString *)planID
                              resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestUrl = kHXBMY_PlanQuitInfoURL(planID);
-    request.requestArgument = @{
-                                @"action":@"cancel"
-                                };
+    request.requestUrl = kHXBMY_PlanQuitURL(planID);
     request.requestMethod = NYRequestMethodPost;
     request.showHud = YES;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -69,10 +66,7 @@
                                         resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBMY_PlanCancelBuyInfoURL(planID);
-    request.requestArgument = @{
-                                @"action":@"confirm"
-                                };
+    request.requestUrl = kHXBMY_PlanCancelBuyURL(planID);
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
