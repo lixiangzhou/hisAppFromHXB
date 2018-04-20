@@ -10,6 +10,10 @@
 #import "WKWebViewJavascriptBridge.h"
 
 @interface HXBBaseWKWebViewController : HXBBaseViewController
+/**
+ 用于加载一个新的URLRequest。
+ */
+@property (nonatomic, strong,readonly) WKWebView *webView;
 
 @property (nonatomic, copy) NSString* pageUrl;
 /**
@@ -37,11 +41,16 @@
  */
 - (void)callHandler:(NSString *)handlerName data:(id)data;
 
+
 /**
  重新加载页面
  */
 - (void)reloadPage;
 
+/**
+ 加载第三方H5页面需要重写此方法
+ */
+- (void)loadWebPage;
 /**
  push 一个显示网页的控制器
 

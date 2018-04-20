@@ -13,6 +13,7 @@
 		288BAA051FAC593B009DF8AB /* HXBChooseCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */; };
 		288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */; };
 		288BAA081FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */; };
+		4E026FD62088798F00738A77 /* HXBLazyCatAccountWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E026FD52088798F00738A77 /* HXBLazyCatAccountWebViewController.m */; };
 		4E0446DE1FBEA98A0030E276 /* HXBUmengViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446DA1FBEA8910030E276 /* HXBUmengViewController.m */; };
 		4E0446DF1FBEA9970030E276 /* HXBUMShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446D21FBEA8910030E276 /* HXBUMShareModel.m */; };
 		4E0446E01FBEA99D0030E276 /* HXBUmengView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446D51FBEA8910030E276 /* HXBUmengView.m */; };
@@ -593,6 +594,8 @@
 		288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCouponModel.m; sourceTree = "<group>"; };
 		288BA9FE1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountTableViewCell.h; sourceTree = "<group>"; };
 		288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountTableViewCell.m; sourceTree = "<group>"; };
+		4E026FD42088798F00738A77 /* HXBLazyCatAccountWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatAccountWebViewController.h; sourceTree = "<group>"; };
+		4E026FD52088798F00738A77 /* HXBLazyCatAccountWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBLazyCatAccountWebViewController.m; sourceTree = "<group>"; };
 		4E0446D11FBEA8910030E276 /* HXBUMShareModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUMShareModel.h; sourceTree = "<group>"; };
 		4E0446D21FBEA8910030E276 /* HXBUMShareModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUMShareModel.m; sourceTree = "<group>"; };
 		4E0446D41FBEA8910030E276 /* HXBUmengView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUmengView.h; sourceTree = "<group>"; };
@@ -2528,6 +2531,8 @@
 		9A34ECC72088621B00D1FC1C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4E026FD42088798F00738A77 /* HXBLazyCatAccountWebViewController.h */,
+				4E026FD52088798F00738A77 /* HXBLazyCatAccountWebViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -5584,6 +5589,7 @@
 				9AE031F82022C317006D6140 /* HxbMyBankCardViewController.m in Sources */,
 				9AE032332022C317006D6140 /* HXBMYModel_MainPlanModel.m in Sources */,
 				9AE032092022C317006D6140 /* HXBTransactionPasswordConfirmationView.m in Sources */,
+				4E026FD62088798F00738A77 /* HXBLazyCatAccountWebViewController.m in Sources */,
 				9AE034C520232B0F006D6140 /* HXBNoticeVCViewModel.m in Sources */,
 				9AE031F22022C317006D6140 /* HXBMyTopUpHeaderView.m in Sources */,
 				4E99BF4E1F5505D700D197A3 /* HXBXYAlertViewController.m in Sources */,
