@@ -8,6 +8,8 @@
 
 #import "HXBLazyCatAccountWebViewController.h"
 #import "HXBLazyCatRequestModel.h"
+#import "HXBLazyCatResponseModel.h"
+
 @interface HXBLazyCatAccountWebViewController ()
 
 @end
@@ -23,36 +25,18 @@
  重写父类加载H5的方法
  */
 - (void)loadWebPage {
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
-    if (self.requestModel.url) {
-        [urlRequest setURL:[NSURL URLWithString:self.requestModel.url]];
-    } else {
-        [urlRequest setURL:[NSURL URLWithString:self.pageUrl]];
+    //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
+    NSDictionary* paramDic = @{@"serviceName":self.requestModel.serviceName, @"platformNo":self.requestModel.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.keySerial, @"sign":self.requestModel.sign, @"reqData":self.requestModel.reqData};
+    NSString* pageUrl = self.requestModel.url;
+    if(!pageUrl) {
+        pageUrl = self.pageUrl;
     }
-    urlRequest = [self processingEmptyDataWithURLRequest:urlRequest];
-    
-    [self.webView loadRequest:urlRequest];
+    NSString* jsonString = [paramDic jsonString];
+    NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",HXB_POST_JS,pageUrl,jsonString];
+    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
+        
+    }];
 }
-
-- (NSMutableURLRequest *)processingEmptyDataWithURLRequest:(NSMutableURLRequest *)urlRequest{
-    if (self.requestModel.serviceName) {
-        [urlRequest setValue:self.requestModel.serviceName forHTTPHeaderField:@"serviceName"];
-    }
-    if (self.requestModel.platformNo) {
-        [urlRequest setValue:self.requestModel.platformNo forHTTPHeaderField:@"platformNo"];
-    }
-    if (self.requestModel.keySerial) {
-        [urlRequest setValue:self.requestModel.keySerial forHTTPHeaderField:@"keySerial"];
-    }
-    if (self.requestModel.reqData) {
-        [urlRequest setValue:self.requestModel.reqData forHTTPHeaderField:@"reqData"];
-    }
-    if (self.requestModel.sign) {
-        [urlRequest setValue:self.requestModel.sign forHTTPHeaderField:@"sign"];
-    }
-    return urlRequest;
-}
-
 
 /**
  桥接H5回调
@@ -66,9 +50,13 @@
         [weakSelf jumpToResultPageWithData:data];
     }];
 }
+
 //根据数据跳转到响应的结果页面
 - (void)jumpToResultPageWithData:(id)data {
-   
+    HXBLazyCatResponseModel* response = [[HXBLazyCatResponseModel alloc] init];
+    [response yy_modelSetWithDictionary:data];
+    
+    //根据具体的动作分发结果页, 将response做为结果页的参数
 }
 
 

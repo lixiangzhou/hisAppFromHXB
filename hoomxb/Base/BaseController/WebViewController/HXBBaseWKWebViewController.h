@@ -9,6 +9,25 @@
 #import "HXBBaseViewController.h"
 #import "WKWebViewJavascriptBridge.h"
 
+#define HXB_POST_JS @"function my_post(path, params) {\
+var method = \"POST\";\
+var form = document.createElement(\"form\");\
+form.setAttribute(\"method\", method);\
+form.setAttribute(\"action\", path);\
+form.setAttribute(\"accept-charset\", \"UTF-8\");\
+for(var key in params){\
+if (params.hasOwnProperty(key)) {\
+var hiddenFild = document.createElement(\"input\");\
+hiddenFild.setAttribute(\"type\", \"hidden\");\
+hiddenFild.setAttribute(\"name\", key);\
+hiddenFild.setAttribute(\"value\", params[key]);\
+}\
+form.appendChild(hiddenFild);\
+}\
+document.body.appendChild(form);\
+form.submit();\
+}"
+
 @interface HXBBaseWKWebViewController : HXBBaseViewController
 /**
  用于加载一个新的URLRequest。
