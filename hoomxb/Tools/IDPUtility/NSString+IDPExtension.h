@@ -17,4 +17,11 @@
 - (void)parseUrlParam:(void (^)(NSString* path, NSDictionary* paramDic))resultCall;
 
 - (CGSize)caleFontSize:(UIFont *)font forMaxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode;
+
+/**
+ 转成字典
+
+ @return 字典
+ */
+- (NSDictionary*)toDictionary;
 @end

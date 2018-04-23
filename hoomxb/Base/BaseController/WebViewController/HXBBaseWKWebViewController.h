@@ -9,7 +9,30 @@
 #import "HXBBaseViewController.h"
 #import "WKWebViewJavascriptBridge.h"
 
+#define HXB_POST_JS @"function my_post(path, params) {\
+var method = \"POST\";\
+var form = document.createElement(\"form\");\
+form.setAttribute(\"method\", method);\
+form.setAttribute(\"action\", path);\
+form.setAttribute(\"accept-charset\", \"UTF-8\");\
+for(var key in params){\
+if (params.hasOwnProperty(key)) {\
+var hiddenFild = document.createElement(\"input\");\
+hiddenFild.setAttribute(\"type\", \"hidden\");\
+hiddenFild.setAttribute(\"name\", key);\
+hiddenFild.setAttribute(\"value\", params[key]);\
+}\
+form.appendChild(hiddenFild);\
+}\
+document.body.appendChild(form);\
+form.submit();\
+}"
+
 @interface HXBBaseWKWebViewController : HXBBaseViewController
+/**
+ 用于加载一个新的URLRequest。
+ */
+@property (nonatomic, strong,readonly) WKWebView *webView;
 
 @property (nonatomic, copy) NSString* pageUrl;
 /**
@@ -37,11 +60,16 @@
  */
 - (void)callHandler:(NSString *)handlerName data:(id)data;
 
+
 /**
  重新加载页面
  */
 - (void)reloadPage;
 
+/**
+ 加载第三方H5页面需要重写此方法
+ */
+- (void)loadWebPage;
 /**
  push 一个显示网页的控制器
 
