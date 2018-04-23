@@ -189,4 +189,14 @@
     NSData* data = [NSKeyedArchiver archivedDataWithRootObject:self];
     return data;
 }
+
+//转成json串
+- (NSString*)jsonString {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString* dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    return dataStr;
+}
+
 @end
