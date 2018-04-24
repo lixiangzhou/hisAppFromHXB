@@ -7,7 +7,7 @@
 //
 
 #import "HXBLazyCatAccountWebViewController.h"
-#import "HXBLazyCatRequestModel.h"
+
 #import "HXBLazyCatResponseModel.h"
 
 @interface HXBLazyCatAccountWebViewController ()

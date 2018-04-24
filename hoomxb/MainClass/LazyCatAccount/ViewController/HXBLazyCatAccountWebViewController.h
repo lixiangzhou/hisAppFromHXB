@@ -7,7 +7,8 @@
 //
 
 #import "HXBBaseWKWebViewController.h"
-@class HXBLazyCatRequestModel;
+#import "HXBLazyCatRequestModel.h"
+
 @interface HXBLazyCatAccountWebViewController : HXBBaseWKWebViewController
 
 @property (nonatomic, strong) HXBLazyCatRequestModel *requestModel;
