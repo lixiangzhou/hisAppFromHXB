@@ -67,4 +67,21 @@
     return properSize;
 }
 
+/**
+ 转成字典
+ 
+ @return 字典
+ */
+- (NSDictionary*)toDictionary {
+    NSData *jsonTempData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonTempData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err)
+    {
+        NSLog(@"json解析失败：%@",err);
+    }
+    return dic;
+}
 @end

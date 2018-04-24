@@ -52,5 +52,7 @@
 
 //转换成data
 -(NSData*)data;
+//转成json串
+- (NSString*)jsonString;
 
 @end
