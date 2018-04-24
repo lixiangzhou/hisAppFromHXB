@@ -25,7 +25,7 @@
 #import "HXBFin_Plan_Buy_ViewController.h"
 #import "HXBTenderDetailViewController.h"
 
-static NSString* const kTitlePlanDetail = @"计划详情";
+static NSString* const kTitlePlanDetail = @"红利智投资详情";
 static NSString* const kTitleInvestmentProjects = @"待成交散标";
 static NSString* const kTitleJoinRecord = @"加入记录";
 static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
@@ -201,7 +201,19 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
                 manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.viewModel.planDetailModel.planDetailModel.expectedRate.doubleValue];
             }
         }
-        manager.leftViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.lockPeriod;//期限
+        
+        NSString *lockPeriod = weakSelf.viewModel.planDetailModel.lockPeriod;
+        if ([lockPeriod isEqualToString:@"3个月"]) {
+            lockPeriod = @"3-5个月";
+        } else if ([lockPeriod isEqualToString:@"6个月"]) {
+            lockPeriod = @"6-11个月";
+        } else if ([lockPeriod isEqualToString:@"12个月"]) {
+            lockPeriod = @"12-23个月";
+        } else if ([lockPeriod isEqualToString:@"24个月"]) {
+            lockPeriod = @"24-36个月";
+        }
+        
+        manager.leftViewManager.leftLabelStr = lockPeriod;//期限
         manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.viewModel.planDetailModel.minRegisterAmount doubleValue]];//起投
         manager.rightViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";

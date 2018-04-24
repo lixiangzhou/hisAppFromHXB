@@ -75,7 +75,7 @@
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"计划详情";
+    self.title = @"红利智投详情";
     [self setUP];
 }
 
@@ -99,7 +99,7 @@
         }
 
         manager.addViewManager.leftStrArray = @[
-                                                @"计划金额",
+                                                @"智投金额",
                                                 @"加入条件",
                                                 @"加入上限",
                                                 ];
