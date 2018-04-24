@@ -23,5 +23,4 @@
 - (NSString *) hxb_StringWithFormatAndDeleteLastChar: (NSString *)string;
 /// 对数字取整
 + (NSString *)getIntegerStringWithNumber:(double)number fractionDigits:(int)fractionDigits;
-
 @end

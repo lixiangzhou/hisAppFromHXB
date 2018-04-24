@@ -65,7 +65,7 @@
 
 - (void)setupSubView {
     self.toolBarViewOptionStrArray = @[
-                                       @"红利计划",
+                                       @"红利智投",
                                        @"散标",
                                        @"债权转让" //债权转让，以后打开
                                        ];
