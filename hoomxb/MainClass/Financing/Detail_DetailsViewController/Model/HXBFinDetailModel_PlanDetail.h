@@ -101,7 +101,7 @@
 ///String	剩余可投
 @property (nonatomic,copy) NSString *remainAmount;
 
-
+@property (nonatomic, copy) NSString *extendLockPeriod;
 /// -------------------------新手产品返回参数说明2.5.0新添加----------------------------
 /// 新手贴息收益率
 @property (nonatomic, copy) NSString *subsidyInterestRate;
