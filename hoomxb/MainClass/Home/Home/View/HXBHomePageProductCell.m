@@ -199,8 +199,8 @@
 - (void)setHomePageModel_DataList:(HxbHomePageModel_DataList *)homePageModel_DataList
 {
     _homePageModel_DataList = homePageModel_DataList;
-    NSString *str = [NSString stringWithFormat:@"%@月期",homePageModel_DataList.lockPeriod];
-    self.investmentPeriodTitleLabel.text = str;
+    _titleLabel.text = [NSString stringWithFormat:@"红利智投-%@个月", homePageModel_DataList.lockPeriod];
+    self.investmentPeriodTitleLabel.text = [NSString stringWithFormat:@"%@个月", [NSString lockStringWithlockPeriod:homePageModel_DataList.lockPeriod]];
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
         NSRange range = [messageStr rangeOfString:homePageModel_DataList.fixExtraInterestRate];
@@ -332,7 +332,6 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = COR6;
         _titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
-        _titleLabel.text = @"红利计划";
     }
     return _titleLabel;
 }

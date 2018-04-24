@@ -147,7 +147,7 @@
                                          @"HxbFinanctingViewController",//理财
                                          @"HxbMyViewController"];//我的
         //title 集合
-        NSArray *controllerTitleArray = @[@"首页", @"投资", @"我的"];
+        NSArray *controllerTitleArray = @[@"首页", @"出借", @"我的"];
         NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
         //选中下的图片前缀
         NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];

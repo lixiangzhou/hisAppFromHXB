@@ -23,5 +23,6 @@
 - (NSString *) hxb_StringWithFormatAndDeleteLastChar: (NSString *)string;
 /// 对数字取整
 + (NSString *)getIntegerStringWithNumber:(double)number fractionDigits:(int)fractionDigits;
-
+/// 对锁定期处理
++ (NSString *)lockStringWithlockPeriod:(NSString *)lockPeriod;
 @end
