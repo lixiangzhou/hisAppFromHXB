@@ -225,7 +225,7 @@ MyViewHeaderDelegate
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"红利计划资产";
+            cell.textLabel.text = @"红利智投资产";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
 //            cell.imageView.svgImageString = @"hongli.svg";
             cell.desc = [NSString hxb_getPerMilWithDouble:self.accountModel.financePlanAssets];

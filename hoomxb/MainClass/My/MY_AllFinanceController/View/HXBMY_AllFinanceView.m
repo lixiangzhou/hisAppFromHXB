@@ -28,7 +28,7 @@
     _viewModel = viewModel;
     self.totalAssetsNumberLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
     [self calculateProportionValue];
-    [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue]];
+    [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利智投" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue]];
     [self.loanView circularViewColor:RGB(255, 192, 162) andTextStr:@"散标债权" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue]];
     [self.availableView circularViewColor:RGB(161, 147, 249) andTextStr:@"可用金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
     [self.frozenView circularViewColor:RGB(128, 218, 255) andTextStr:@"冻结金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.frozenPoint.doubleValue]];

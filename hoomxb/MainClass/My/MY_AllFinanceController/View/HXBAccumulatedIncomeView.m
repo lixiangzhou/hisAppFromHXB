@@ -117,7 +117,7 @@
 {
     if (!_planAssetsView) {
         _planAssetsView = [[HXBAssetsCustomVIew alloc] init];
-        [_planAssetsView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划累计收益" andNumStr:@""];
+        [_planAssetsView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利智投累计收益" andNumStr:@""];
     }
     return _planAssetsView;
 }

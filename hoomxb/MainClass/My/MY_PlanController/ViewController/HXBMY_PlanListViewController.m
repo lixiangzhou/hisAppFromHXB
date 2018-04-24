@@ -36,7 +36,7 @@ kDealloc
     [super viewDidLoad];
     self.isTransparentNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title  = @"红利计划";
+    self.title  = @"红利智投";
     [self setUP];
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
