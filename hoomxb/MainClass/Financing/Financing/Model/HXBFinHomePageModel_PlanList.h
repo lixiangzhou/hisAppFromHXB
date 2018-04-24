@@ -124,6 +124,7 @@
  是否有优惠券
  */
 @property (nonatomic, assign) BOOL hasCoupon;
-
+// 锁定期限(月)扩展
+@property (nonatomic, copy) NSString *extendLockPeriod;
 @end
 

@@ -65,18 +65,4 @@
     formatter.maximumFractionDigits = fractionDigits;
     return [formatter stringFromNumber:[NSNumber numberWithDouble:number]];
 }
-
-+ (NSString *)lockStringWithlockPeriod:(NSString *)lockPeriod {
-    if (lockPeriod.integerValue == 3) {
-        return @"3-5";
-    } else if (lockPeriod.integerValue == 6) {
-        return @"6-11";
-    } else if (lockPeriod.integerValue == 12) {
-        return @"12-23";
-    } else if (lockPeriod.integerValue == 24) {
-        return @"24-36";
-    } else {
-        return @"--";
-    }
-}
 @end
