@@ -20,6 +20,7 @@
     [super viewDidLoad];
     
     [self setupJavascriptBridge];
+    [self registerPageClass];
 }
 
 /**
