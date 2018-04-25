@@ -11,14 +11,23 @@
 #import "HXBLazyCatResponseModel.h"
 
 @interface HXBLazyCatAccountWebViewController ()
-
+@property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self setupJavascriptBridge];
+}
+
+/**
+ 注册结果页的类到属性：pageClassDic
+ */
+- (void)registerPageClass {
+    self.pageClassDic = [NSMutableDictionary dictionary];
+    
 }
 
 /**
@@ -53,13 +62,19 @@
 
 //根据数据跳转到响应的结果页面
 - (void)jumpToResultPageWithData:(id)data {
-    HXBLazyCatResponseModel* response = [[HXBLazyCatResponseModel alloc] init];
-    [response yy_modelSetWithDictionary:data];
+    NSDictionary *dic = data;
+    NSString *action = [dic stringAtPath:@"action"];
+    HXBLazyCatResponseModel *responseModel = [[HXBLazyCatResponseModel alloc] initWithAction:action];
+    [responseModel yy_modelSetWithDictionary:data];
     
-    //根据具体的动作分发结果页, 将response做为结果页的参数
+    Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
+    if(pageClass) {
+        UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
+        if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
+            [vc setResultPageProperty:responseModel];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
-
-
-
 
 @end

@@ -173,7 +173,7 @@
 		9A917E7C202859BF00F90146 /* HXBBannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A917E7B202859BF00F90146 /* HXBBannerViewModel.m */; };
 		9ABC1045206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABC1044206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m */; };
 		9AC21DAC208DB2C300DF967F /* HXBLazyCatResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC21DAB208DB2C300DF967F /* HXBLazyCatResponseModel.m */; };
-		9AC21DAF208DB2E500DF967F /* HXBLazyCatResultPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC21DAE208DB2E500DF967F /* HXBLazyCatResultPageModel.m */; };
+		9AD4FE92209060DC00BD8551 /* HXBLazyCatResultPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4FE90209060DB00BD8551 /* HXBLazyCatResultPageModel.m */; };
 		9AE031DD2022C317006D6140 /* HXBMYModel_PlanDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE030362022C314006D6140 /* HXBMYModel_PlanDetailModel.m */; };
 		9AE031DE2022C317006D6140 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE030382022C314006D6140 /* HXBMYViewModel_PlanDetailViewModel.m */; };
 		9AE031DF2022C317006D6140 /* HXBMY_PlanDetail_InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0303C2022C314006D6140 /* HXBMY_PlanDetail_InfoCell.m */; };
@@ -876,8 +876,9 @@
 		9ABC1044206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinBaseFlowChartChildView.m; sourceTree = "<group>"; };
 		9AC21DAA208DB2C300DF967F /* HXBLazyCatResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatResponseModel.h; sourceTree = "<group>"; };
 		9AC21DAB208DB2C300DF967F /* HXBLazyCatResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBLazyCatResponseModel.m; sourceTree = "<group>"; };
-		9AC21DAD208DB2E500DF967F /* HXBLazyCatResultPageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatResultPageModel.h; sourceTree = "<group>"; };
-		9AC21DAE208DB2E500DF967F /* HXBLazyCatResultPageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBLazyCatResultPageModel.m; sourceTree = "<group>"; };
+		9AD4FE8F20905BDD00BD8551 /* HXBLazyCatResponseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatResponseDelegate.h; sourceTree = "<group>"; };
+		9AD4FE90209060DB00BD8551 /* HXBLazyCatResultPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLazyCatResultPageModel.m; sourceTree = "<group>"; };
+		9AD4FE91209060DB00BD8551 /* HXBLazyCatResultPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatResultPageModel.h; sourceTree = "<group>"; };
 		9AE030352022C314006D6140 /* HXBMYModel_PlanDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYModel_PlanDetailModel.h; sourceTree = "<group>"; };
 		9AE030362022C314006D6140 /* HXBMYModel_PlanDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYModel_PlanDetailModel.m; sourceTree = "<group>"; };
 		9AE030372022C314006D6140 /* HXBMYViewModel_PlanDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYViewModel_PlanDetailViewModel.h; sourceTree = "<group>"; };
@@ -2543,12 +2544,13 @@
 		9A34ECC82088623100D1FC1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9AD4FE91209060DB00BD8551 /* HXBLazyCatResultPageModel.h */,
+				9AD4FE90209060DB00BD8551 /* HXBLazyCatResultPageModel.m */,
 				9A34ECCC2088633A00D1FC1C /* HXBLazyCatRequestModel.h */,
 				9A34ECCD2088633A00D1FC1C /* HXBLazyCatRequestModel.m */,
 				9AC21DAA208DB2C300DF967F /* HXBLazyCatResponseModel.h */,
 				9AC21DAB208DB2C300DF967F /* HXBLazyCatResponseModel.m */,
-				9AC21DAD208DB2E500DF967F /* HXBLazyCatResultPageModel.h */,
-				9AC21DAE208DB2E500DF967F /* HXBLazyCatResultPageModel.m */,
+				9AD4FE8F20905BDD00BD8551 /* HXBLazyCatResponseDelegate.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5508,7 +5510,7 @@
 				9AE032152022C317006D6140 /* HXBFeedbackViewController.m in Sources */,
 				9AE032612022C317006D6140 /* HXBBaseView_TwoLable_View.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
-				9AC21DAF208DB2E500DF967F /* HXBLazyCatResultPageModel.m in Sources */,
+				9AD4FE92209060DC00BD8551 /* HXBLazyCatResultPageModel.m in Sources */,
 				E1E4A025202AA3CD004F7D10 /* HXBModifyPhoneModel.m in Sources */,
 				9AE032662022C317006D6140 /* HXBMyHomeViewCell.m in Sources */,
 				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
