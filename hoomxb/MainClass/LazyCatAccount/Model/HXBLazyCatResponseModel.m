@@ -10,4 +10,14 @@
 
 @implementation HXBLazyCatResponseModel
 
+- (instancetype)initWithAction:(NSString*)action
+{
+    self = [super init];
+    if (self) {
+        //使用默认类型
+        _data = [[HXBLazyCatResultPageModel alloc] init];
+    }
+    return self;
+}
+
 @end
