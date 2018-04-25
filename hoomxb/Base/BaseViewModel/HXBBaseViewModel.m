@@ -10,9 +10,11 @@
 #import "HXBRootVCManager.h"
 #import "HXBBaseRequestManager.h"
 #import "SGInfoAlert.h"
+#import "HXBHFBankHudView.h"
 
 @interface HXBBaseViewModel()
 @property (nonatomic, strong) MBProgressHUD* mbpView;
+@property (nonatomic, strong) HXBHFBankHudView *hfBankView;
 @property (nonatomic, strong) NSMutableArray* requestList;
 @end
 
@@ -76,6 +78,21 @@
     }
     else{
         [self.mbpView hideAnimated:YES];
+    }
+}
+
+#pragma mark 自定义恒丰银行跳转弹窗
+- (void)showHFBank:(BOOL)isShow content:(NSString*)content {
+    UIView *parentV = [self getHugView];
+    if (!_hfBankView) {
+        _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:CGRectZero];
+        _hfBankView.hudContent = content;
+    }
+    [parentV addSubview:_hfBankView];
+    if (isShow) {
+        [parentV bringSubviewToFront:_hfBankView];
+    } else {
+        [parentV sendSubviewToBack:_hfBankView];
     }
 }
 
