@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "HXBNoNetworkStatusView.h"
 #import "HXBNoDataView.h"
+#import "HXBRemoteUpdateInterface.h"
 
-@interface HXBBaseViewController : UIViewController
+@interface HXBBaseViewController : UIViewController <HXBRemoteUpdateInterface>
 ///是否隐藏导航栏
 @property (nonatomic,assign) BOOL isHiddenNavigationBar;
 ///使navBar 透明

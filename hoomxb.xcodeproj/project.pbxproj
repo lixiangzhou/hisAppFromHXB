@@ -874,6 +874,7 @@
 		9A6B578320299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordAgent.m; sourceTree = "<group>"; };
 		9A917E7A202859BF00F90146 /* HXBBannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBannerViewModel.h; sourceTree = "<group>"; };
 		9A917E7B202859BF00F90146 /* HXBBannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBannerViewModel.m; sourceTree = "<group>"; };
+		9A93E0BD2091C6A500ABF7D9 /* HXBRemoteUpdateInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRemoteUpdateInterface.h; sourceTree = "<group>"; };
 		9ABC1043206C8D3500930C9C /* HXBFinBaseFlowChartChildView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinBaseFlowChartChildView.h; sourceTree = "<group>"; };
 		9ABC1044206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinBaseFlowChartChildView.m; sourceTree = "<group>"; };
 		9AC21DAA208DB2C300DF967F /* HXBLazyCatResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatResponseModel.h; sourceTree = "<group>"; };
@@ -2335,6 +2336,7 @@
 		8DAD303F1FBA8F8B00E2AEE8 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
+				9A93E0BC2091C5E400ABF7D9 /* Protocol */,
 				9A36E3291FC6AB1700C318B3 /* WebViewController */,
 				8DAD30401FBA8F8B00E2AEE8 /* AlertController */,
 				8DAD30451FBA8F8B00E2AEE8 /* HXBBaseNavigationController.h */,
@@ -2600,6 +2602,14 @@
 				9A917E7B202859BF00F90146 /* HXBBannerViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9A93E0BC2091C5E400ABF7D9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				9A93E0BD2091C6A500ABF7D9 /* HXBRemoteUpdateInterface.h */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		9AE030332022C314006D6140 /* MY_Plan_Details */ = {
