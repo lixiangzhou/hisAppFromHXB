@@ -12,6 +12,7 @@
 
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
+@property (nonatomic, strong) UIViewController *popVC;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -69,7 +70,10 @@
     [responseModel yy_modelSetWithDictionary:data];
     
     Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
-    if(pageClass) {
+    
+    if ([self jumpToResultLogicalProcessingWithAction:action]) {
+        [self.navigationController popToViewController:self.popVC animated:YES];
+    }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
         if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
             [vc setResultPageProperty:responseModel];
@@ -77,5 +81,36 @@
         }
     }
 }
+
+- (BOOL)jumpToResultLogicalProcessingWithAction:(NSString *)action {
+    
+    if ([self findBuyVCWithViewControllerName:@"HXBFin_Plan_Buy_ViewController"]
+        || [self findBuyVCWithViewControllerName:@"HXBFin_Loan_Buy_ViewController"]
+        || [self findBuyVCWithViewControllerName:@"HXBFin_creditorChange_buy_ViewController"]) {
+        
+        if (!([action isEqualToString:@"plan"] || [action isEqualToString:@"loan"] ||[action isEqualToString:@"plan"])) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 查找self.navigationController.viewControllers中是否包含某个控制器
+
+ @param vcName 需要查找的控制器的名称
+ @return 是否存在
+ */
+- (BOOL)findBuyVCWithViewControllerName:(NSString *)vcName {
+    for (int i = 0; i< self.navigationController.viewControllers.count - 1; i++) {
+        if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(vcName)]) {
+            self.popVC = self.navigationController.viewControllers[i];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 
 @end

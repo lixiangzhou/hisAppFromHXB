@@ -10,6 +10,12 @@
 
 @implementation HXBLazyCatResponseModel
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+             @"data" : [HXBLazyCatResultPageModel class]
+             };
+}
+
 - (instancetype)initWithAction:(NSString*)action
 {
     self = [super init];
