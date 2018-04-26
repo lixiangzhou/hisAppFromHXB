@@ -12,7 +12,7 @@
 
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
-@property (nonatomic, strong) UIViewController *popVC;
+@property (nonatomic, strong) UIViewController<HXBRemoteUpdateInterface> *popVC;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -71,8 +71,9 @@
     
     Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
     
-    if ([self jumpToResultLogicalProcessingWithAction:action]) {
+    if ([self jumpToResultLogicalProcessingWithAction:action] && [responseModel.result isEqualToString:@"success"]) {
         [self.navigationController popToViewController:self.popVC animated:YES];
+        [self.popVC updateNetWorkData];
     }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
         if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
