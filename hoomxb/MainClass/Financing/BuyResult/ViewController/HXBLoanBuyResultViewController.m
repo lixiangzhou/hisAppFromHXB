@@ -7,8 +7,13 @@
 //
 
 #import "HXBLoanBuyResultViewController.h"
+#import "HXBCommonResultController.h"
+#import "HXBLazyCatResponseDelegate.h"
+#import "HXBLazyCatResponseModel.h"
 
-@interface HXBLoanBuyResultViewController ()
+@interface HXBLoanBuyResultViewController() <HXBLazyCatResponseDelegate>
+
+@property (nonatomic, strong) HXBCommonResultController *commenResultVC;
 
 @end
 
@@ -25,34 +30,39 @@
 #pragma mark - UI
 
 - (void)setUI {
+    self.title = @"购买成功";
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.isRedColorWithNavigationBar = YES;
     
+    self.commenResultVC = [[HXBCommonResultController alloc] init];
+    self.commenResultVC.contentModel.descHasMark = YES;
+    self.commenResultVC.contentModel.descAlignment = NSTextAlignmentLeft;
+    
+    [self addChildViewController:self.commenResultVC];
+    [self.view addSubview:self.commenResultVC.view];
 }
 
-#pragma mark - Network
-
-
-#pragma mark - Delegate Internal
-
-#pragma mark -
-
-
-#pragma mark - Delegate External
-
-#pragma mark -
-
-
 #pragma mark - Action
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:@""
+                                                                                  titleString:model.data.title
+                                                                                   descString:model.data.content
+                                                                                firstBtnTitle:@"查看我的出借"];
+    self.commenResultVC.contentModel.secondBtnTitle = @"";
+    kWeakSelf
+    self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    };
+    if (self.commenResultVC.contentModel.secondBtnTitle) {
+        self.commenResultVC.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
+            
+        };
+    }
+}
 
-
-#pragma mark - Setter / Getter / Lazy
-
-
-#pragma mark - Helper
-
-
-#pragma mark - Other
-
-
-#pragma mark - Public
-
+- (void)dealloc {
+    [self.commenResultVC removeFromParentViewController];
+}
 @end
+
