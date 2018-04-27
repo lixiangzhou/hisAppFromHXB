@@ -71,7 +71,7 @@
     
     Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
     
-    if ([self jumpToResultLogicalProcessingWithAction:action] && [responseModel.result isEqualToString:@"success"]) {
+    if ([self jumpToResultLogicalProcessingWithResponseModel:responseModel]) {
         [self.navigationController popToViewController:self.popVC animated:YES];
         [self.popVC updateNetWorkData];
     }else if(pageClass) {
@@ -83,28 +83,24 @@
     }
 }
 
-- (BOOL)jumpToResultLogicalProcessingWithAction:(NSString *)action {
-    
-    if ([self findBuyVCWithViewControllerName:@"HXBFin_Plan_Buy_ViewController"]
-        || [self findBuyVCWithViewControllerName:@"HXBFin_Loan_Buy_ViewController"]
-        || [self findBuyVCWithViewControllerName:@"HXBFin_creditorChange_buy_ViewController"]) {
+- (BOOL)jumpToResultLogicalProcessingWithResponseModel:(HXBLazyCatResponseModel *)responseModel{
+    if ([self findBuyVC] && !([responseModel.action isEqualToString:@"plan"] || [responseModel.action isEqualToString:@"loan"] ||[responseModel.action isEqualToString:@"transfer"]) && [responseModel.result isEqualToString:@"success"]) {
         
-        if (!([action isEqualToString:@"plan"] || [action isEqualToString:@"loan"] ||[action isEqualToString:@"plan"])) {
-            return YES;
-        }
+        return YES;
     }
     return NO;
 }
 
 /**
- 查找self.navigationController.viewControllers中是否包含某个控制器
+ 查找self.navigationController.viewControllers中是否包含购买控制器
 
- @param vcName 需要查找的控制器的名称
  @return 是否存在
  */
-- (BOOL)findBuyVCWithViewControllerName:(NSString *)vcName {
+- (BOOL)findBuyVC {
     for (int i = 0; i< self.navigationController.viewControllers.count - 1; i++) {
-        if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(vcName)]) {
+        if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_Plan_Buy_ViewController")]
+            || [self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_Loan_Buy_ViewController")]
+            ||[self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_creditorChange_buy_ViewController")]) {
             self.popVC = self.navigationController.viewControllers[i];
             return YES;
         }
