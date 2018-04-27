@@ -43,7 +43,7 @@
 {
     [[HXBBaseRequestManager sharedInstance] cancelRequest:self];
     if([self getHugView] == [UIApplication sharedApplication].keyWindow) {
-        [self hideProgress];
+        [self showMBP:NO withHudContent:nil];
     }
 }
 
@@ -52,17 +52,17 @@
     if(self.hugViewBlock) {
         view = self.hugViewBlock();
     }
-#ifndef DEBUG
-    if(view) {
-        view = [UIApplication sharedApplication].keyWindow;
-    }
-#endif
+
     return view;
 }
 
 #pragma mark 自定义弹窗
 - (void)showMBP:(BOOL)isShow withHudContent:(NSString*)hudContent{
     UIView* parentV = [self getHugView];
+    if(!parentV) {
+        return;
+    }
+    
     if (!_mbpView) {
         _mbpView = [[MBProgressHUD alloc] initWithView:parentV];
         _mbpView.removeFromSuperViewOnHide = YES;
@@ -97,7 +97,7 @@
 }
 
 #pragma mark 弹框显示
-- (void)showProgress:(NSString*)hudContent {
+- (void)showProgress:(NYBaseRequest *)request showHudCongtent:(NSString *)hudContent {
     [self showMBP:YES withHudContent:hudContent];
 }
 
@@ -113,7 +113,7 @@
     }
 }
 
-- (void)hideProgress {
+- (void)hideProgress:(NYBaseRequest *)request {
     [self showMBP:NO withHudContent:nil];
 }
 

@@ -74,8 +74,8 @@
  */
 - (void)showLoading
 {
-    if([self.hudDelegate respondsToSelector:@selector(showProgress:)]){
-        [self.hudDelegate showProgress:self.hudShowContent];
+    if([self.hudDelegate respondsToSelector:@selector(showProgress:showHudCongtent:)]){
+        [self.hudDelegate showProgress:self showHudCongtent:self.hudShowContent];
     }
 }
 
@@ -85,8 +85,8 @@
  */
 - (void)hideLoading
 {
-    if([self.hudDelegate respondsToSelector:@selector(hideProgress)]){
-        [self.hudDelegate hideProgress];
+    if([self.hudDelegate respondsToSelector:@selector(hideProgress:)]){
+        [self.hudDelegate hideProgress:self];
     }
 }
 /**

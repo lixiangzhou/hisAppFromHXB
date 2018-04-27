@@ -13,9 +13,9 @@
 @protocol HXBRequestHudDelegate <NSObject>
 
 #pragma mark 弹框显示
-- (void)showProgress:(NSString*)hudContent;
+- (void)showProgress:(NYBaseRequest *)request showHudCongtent:(NSString*)hudContent;
 - (void)showToast:(NSString *)toast;
-- (void)hideProgress;
+- (void)hideProgress:(NYBaseRequest *)request;
 
 #pragma mark 错误码处理
 /**
