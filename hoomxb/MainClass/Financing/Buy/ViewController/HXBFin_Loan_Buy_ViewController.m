@@ -23,7 +23,7 @@
 
 static NSString *const bankString = @"绑定银行卡";
 
-@interface HXBFin_Loan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
+@interface HXBFin_Loan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate, HXBRemoteUpdateInterface>
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
@@ -331,6 +331,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
         if(isSuccess) {
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
@@ -477,6 +478,10 @@ static NSString *const bankString = @"绑定银行卡";
     return _detailArray;
 }
 
+- (void)updateNetWorkData {
+    [self getNewUserInfo];
+    [self.tableView reloadData];
+}
 
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
 }

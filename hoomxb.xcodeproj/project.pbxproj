@@ -517,6 +517,7 @@
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
+		E18A1D6320947C5900C2DC43 /* HXBJoinImmediateView.m in Sources */ = {isa = PBXBuildFile; fileRef = E18A1D6220947C5900C2DC43 /* HXBJoinImmediateView.m */; };
 		E18B16BC202D52C500B5ACB8 /* HXBMyGestureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B16BB202D52C500B5ACB8 /* HXBMyGestureViewModel.m */; };
 		E18B16C4202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B16C3202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m */; };
 		E190EFA41F25D16E001E0B14 /* HXBNavWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA31F25D16E001E0B14 /* HXBNavWaterView.m */; };
@@ -1588,6 +1589,8 @@
 		E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBKeyBoardManager.m; sourceTree = "<group>"; };
 		E18986CD1F2F048B00FAA054 /* audit_status.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = audit_status.svg; sourceTree = "<group>"; };
 		E189D74F1ECAD6F8004DB1DC /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		E18A1D6120947C5900C2DC43 /* HXBJoinImmediateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBJoinImmediateView.h; sourceTree = "<group>"; };
+		E18A1D6220947C5900C2DC43 /* HXBJoinImmediateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBJoinImmediateView.m; sourceTree = "<group>"; };
 		E18B16BA202D52C500B5ACB8 /* HXBMyGestureViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyGestureViewModel.h; sourceTree = "<group>"; };
 		E18B16BB202D52C500B5ACB8 /* HXBMyGestureViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyGestureViewModel.m; sourceTree = "<group>"; };
 		E18B16C2202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBAccountWithdrawViewModel.h; sourceTree = "<group>"; };
@@ -5010,8 +5013,8 @@
 		E1C01469205235F000995860 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E1C014752052612C00995860 /* HXBJoinImmediateView.h */,
-				E1C014762052612C00995860 /* HXBJoinImmediateView.m */,
+				E18A1D6120947C5900C2DC43 /* HXBJoinImmediateView.h */,
+				E18A1D6220947C5900C2DC43 /* HXBJoinImmediateView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5813,6 +5816,7 @@
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				8DAD30841FBA8F8C00E2AEE8 /* HXBBaseTableViewCell.m in Sources */,
+				E18A1D6320947C5900C2DC43 /* HXBJoinImmediateView.m in Sources */,
 				9AF7605F204672A600539BFB /* HXBSetGesturePasswordAgent.m in Sources */,
 				E166CDB820562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m in Sources */,
 				8DAD307E1FBA8F8C00E2AEE8 /* HXBBaseModel.m in Sources */,

@@ -21,7 +21,7 @@
 #import "HXBLazyCatAccountWebViewController.h"
 
 
-@interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
+@interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate, HXBRemoteUpdateInterface>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 /** topView */
@@ -523,6 +523,7 @@ static const NSInteger topView_high = 300;
         if(isSuccess) {
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+            weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         }
@@ -568,6 +569,11 @@ static const NSInteger topView_high = 300;
     }
     [self setUpArray];
     [self changeItemWithInvestMoney:money];
+}
+
+- (void)updateNetWorkData {
+    [self getNewUserInfo];
+    [self.tableView reloadData];
 }
 
 - (void)unavailableMoney {
