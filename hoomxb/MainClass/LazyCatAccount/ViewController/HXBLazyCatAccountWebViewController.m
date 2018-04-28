@@ -13,6 +13,7 @@
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) UIViewController<HXBRemoteUpdateInterface> *popVC;
+@property (nonatomic, strong) NSMutableArray *popViewControllers;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -23,6 +24,17 @@
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
     [self setupJavascriptBridge];
     [self registerPageClass];
+    [self findPopVC];
+}
+
+- (void)findPopVC {
+    
+    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"),NSClassFromString(@"HxbMyTopUpViewController"),NSClassFromString(@"HxbWithdrawCardViewController"),NSClassFromString(@"HXBOpenDepositAccountViewController"), nil];
+    for (int i = 0; i < self.navigationController.viewControllers.count - 1; i++) {
+        if ([subVC containsObject:self.navigationController.viewControllers[i].class]) {
+            [self.popViewControllers addObject:self.navigationController.viewControllers[i]];
+        }
+    }
 }
 
 /**
@@ -92,9 +104,12 @@
         }
     }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
-        if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
-            [vc setResultPageProperty:responseModel];
+        if([vc respondsToSelector:@selector(setResultPageProperty:andWithPopViewControllers:)]) {
+            [vc setResultPageProperty:responseModel andWithPopViewControllers:self.popViewControllers];
             [self.navigationController pushViewController:vc animated:YES];
+        }
+        if ([vc respondsToSelector:@selector(setResultPageWithPopViewControllers:)]) {
+            [vc setResultPageWithPopViewControllers:self.popViewControllers];
         }
     }
 }

@@ -13,6 +13,12 @@
 @protocol HXBLazyCatResponseDelegate <NSObject>
 
 @required
-- (void)setResultPageProperty:(HXBLazyCatResponseModel*)model;
+- (void)setResultPageProperty:(HXBLazyCatResponseModel*)model andWithPopViewControllers:(NSArray *)vcArray;
+
+@optional
+/**
+ 返回上级层面的VC
+ */
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray;
 
 @end
