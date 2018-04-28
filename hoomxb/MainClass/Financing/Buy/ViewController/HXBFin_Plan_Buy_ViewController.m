@@ -18,7 +18,8 @@
 #import "HXBTransactionPasswordView.h"
 #import "HXBRootVCManager.h"
 #import "HXBFinPlanBuyViewModel.h"
-static NSString *const bankString = @"绑定银行卡";
+#import "HXBLazyCatAccountWebViewController.h"
+
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
 @property (nonatomic,strong) UITableView *tableView;
@@ -354,30 +355,20 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)chooseBuyTypeWithbuyType:(HXBBuyType)buyType {
     kWeakSelf
     NSDictionary *dic = nil;
-    if (buyType == HXBBuyTypeNoBankCard) {
-        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
-        withdrawCardViewController.block = ^(BOOL isBlindSuccess) {
-            if (isBlindSuccess) {
-                weakSelf.hasBindCard = @"1";
-                [weakSelf getNewUserInfo];
-            } else {
-                weakSelf.hasBindCard = @"0";
-            }
-        };
-        withdrawCardViewController.title = @"绑卡";
-        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+    if (buyType == HXBBuyTypeNoBankCard) {  /// 去绑卡
+        
     } else if (buyType == HXBBuyTypeBankBuy) {
-        dic = @{@"amount": weakSelf.inputMoneyStr,
+        dic = @{@"financePlanId": self.loanId,
+                @"amount": weakSelf.inputMoneyStr,
                 @"cashType": weakSelf.cashType,
                 @"buyType": weakSelf.buyType,
-                @"balanceAmount": weakSelf.balanceMoneyStr,
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
                 @"couponId": weakSelf.couponid
                 };
         [weakSelf buyPlanWithDic:dic];
     } else if (buyType == HXBBuyTypeBalance) {
-        dic = @{@"amount": weakSelf.inputMoneyStr,
+        dic = @{@"financePlanId": self.loanId,
+                @"amount": weakSelf.inputMoneyStr,
                 @"cashType": weakSelf.cashType,
                 @"buyType": weakSelf.buyType,
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
@@ -389,54 +380,59 @@ static NSString *const bankString = @"绑定银行卡";
 
 // 购买计划
 - (void)buyPlanWithDic:(NSDictionary *)dic {
+    [self.viewModel showHFBankWithContent:hfContentText];
     kWeakSelf
-    [_viewModel planBuyReslutWithPlanID:self.loanId parameter:dic resultBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.title = @"加入成功";
-            planBuySuccessVC.imageName = @"successful";
-            planBuySuccessVC.buy_title = @"加入成功";
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-            planBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-            planBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-            planBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.lockStart;
-            [planBuySuccessVC clickButtonWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-            }];
-            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-        } else {
-            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"加入失败";
-            switch (weakSelf.viewModel.errorCode) {
-                case kBuy_Result:
-                    failViewController.imageName = @"failure";
-                    failViewController.buy_title = @"加入失败";
-                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-                    failViewController.buy_ButtonTitle = @"重新出借";
-                    break;
-                    
-                case kBuy_Processing:
-                    failViewController.imageName = @"outOffTime";
-                    failViewController.buy_title = @"处理中";
-                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-                    failViewController.buy_ButtonTitle = @"重新出借";
-                    break;
-                    
-                default:
-                    [weakSelf.passwordView clearUpPassword];
-                    return;
-            }
-            [failViewController clickButtonWithBlock:^{
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-            }];
-            [weakSelf.navigationController pushViewController:failViewController animated:YES];
+    [_viewModel planBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
+        [weakSelf.viewModel hiddenHFBank];
+        if (isSuccess) { /// 跳转恒丰webView
+            HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+            HFVC.requestModel = weakSelf.viewModel.resultModel;
+            [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
+    //        if (isSuccess) {
+    //            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+    //            planBuySuccessVC.title = @"加入成功";
+    //            planBuySuccessVC.imageName = @"successful";
+    //            planBuySuccessVC.buy_title = @"加入成功";
+    //            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
+    //            planBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
+    //            planBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
+    //            planBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.lockStart;
+    //            [planBuySuccessVC clickButtonWithBlock:^{
+    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    //            }];
+    //            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
+    //        } else {
+    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+    //            failViewController.title = @"加入失败";
+    //            switch (weakSelf.viewModel.errorCode) {
+    //                case kBuy_Result:
+    //                    failViewController.imageName = @"failure";
+    //                    failViewController.buy_title = @"加入失败";
+    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
+    //                    failViewController.buy_ButtonTitle = @"重新出借";
+    //                    break;
+    //
+    //                case kBuy_Processing:
+    //                    failViewController.imageName = @"outOffTime";
+    //                    failViewController.buy_title = @"处理中";
+    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
+    //                    failViewController.buy_ButtonTitle = @"重新出借";
+    //                    break;
+    //
+    //                default:
+    //                    [weakSelf.passwordView clearUpPassword];
+    //                    return;
+    //            }
+    //            [failViewController clickButtonWithBlock:^{
+    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+    //            }];
+    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
+    //        }
     
 }
-
-
 
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
     if (model) {

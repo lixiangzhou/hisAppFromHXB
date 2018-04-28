@@ -36,7 +36,12 @@
  */
 - (void)loadWebPage {
     //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
-    NSDictionary* paramDic = @{@"serviceName":self.requestModel.serviceName, @"platformNo":self.requestModel.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.keySerial, @"sign":self.requestModel.sign, @"reqData":self.requestModel.reqData};
+    NSDictionary* paramDic = @{@"serviceName":self.requestModel.serviceName,
+                               @"platformNo":self.requestModel.platformNo,
+                               @"userDevice":@"MOBILE",
+                               @"keySerial":self.requestModel.keySerial,
+                               @"sign":self.requestModel.sign,
+                               @"reqData":self.requestModel.reqData};
     NSString* pageUrl = self.requestModel.url;
     if(!pageUrl) {
         pageUrl = self.pageUrl;

@@ -31,21 +31,11 @@
 /**
  债权购买结果
 
- @param loanID 债权id
  @param parameter 购买参数
  @param resultBlock 返回结果
  */
-- (void)loanTransformBuyReslutWithLoanID: (NSString *)loanID
-                               parameter: (NSDictionary *)parameter
-                             resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+- (void)loanTransformBuyReslutWithParameter : (NSDictionary *)parameter
+                                resultBlock : (void(^)(BOOL isSuccess))resultBlock;
 
-/**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
- */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
 
 @end
