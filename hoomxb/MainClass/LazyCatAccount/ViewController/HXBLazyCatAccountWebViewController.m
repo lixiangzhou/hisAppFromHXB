@@ -12,7 +12,6 @@
 #import "HXBLazyCatRequestResultModel.h"
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
-@property (nonatomic, strong) UIViewController<HXBRemoteUpdateInterface> *popVC;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 @end
 
@@ -98,14 +97,14 @@
     Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
     
     if ([self jumpToResultLogicalProcessingWithResponseModel:responseModel]) {
-        [self.navigationController popToViewController:self.popVC animated:YES];
-        if ([self.popVC respondsToSelector:@selector(updateNetWorkData)]) {
-            [self.popVC updateNetWorkData];
+        [self.navigationController popToViewController:self.popViewControllers.firstObject animated:YES];
+        if ([self.popViewControllers.firstObject respondsToSelector:@selector(updateNetWorkData)]) {
+            [self.popViewControllers.firstObject updateNetWorkData];
         }
     }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
-        if([vc respondsToSelector:@selector(setResultPageProperty:andWithPopViewControllers:)]) {
-            [vc setResultPageProperty:responseModel andWithPopViewControllers:self.popViewControllers];
+        if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
+            [vc setResultPageProperty:responseModel];
             [self.navigationController pushViewController:vc animated:YES];
         }
         if ([vc respondsToSelector:@selector(setResultPageWithPopViewControllers:)]) {
@@ -128,13 +127,10 @@
  @return 是否存在
  */
 - (BOOL)findBuyVC {
-    for (int i = 0; i< self.navigationController.viewControllers.count - 1; i++) {
-        if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_Plan_Buy_ViewController")]
-            || [self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_Loan_Buy_ViewController")]
-            ||[self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HXBFin_creditorChange_buy_ViewController")]) {
-            self.popVC = self.navigationController.viewControllers[i];
-            return YES;
-        }
+    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"), nil];
+    UIViewController *popVC = self.popViewControllers.firstObject;
+    if ([subVC containsObject:popVC.class]) {
+        return YES;
     }
     return NO;
 }
