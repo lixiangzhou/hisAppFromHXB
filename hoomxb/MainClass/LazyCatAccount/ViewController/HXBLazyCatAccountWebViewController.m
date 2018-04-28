@@ -19,7 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
     [self setupJavascriptBridge];
     [self registerPageClass];
 }
@@ -31,10 +32,18 @@
     self.pageClassDic = [NSMutableDictionary dictionary];
     self.pageClassDic[@"quickpay"] = NSClassFromString(@"");
     self.pageClassDic[@"withdraw"] = NSClassFromString(@"");
-    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"");
-    self.pageClassDic[@"plan"] = NSClassFromString(@"");
-    self.pageClassDic[@"loan"] = NSClassFromString(@"");
-    self.pageClassDic[@"transfer"] = NSClassFromString(@"");
+    //绑卡结果页
+    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBWithdrawCardResultViewController");
+    //解绑卡结果页
+    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBUnBindCardResultViewController");
+    //修改交易密码结果页
+    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBModifyTransactionPasswordResultViewController");
+    //计划购买结果
+    self.pageClassDic[@"plan"] = NSClassFromString(@"HXBPlanBuyResultViewController");
+    //散标购买结果
+    self.pageClassDic[@"loan"] = NSClassFromString(@"HXBLoanBuyResultViewController");
+    //债转购买结果
+    self.pageClassDic[@"transfer"] = NSClassFromString(@"HXBCreditorBuyResultViewController");
 }
 
 /**
