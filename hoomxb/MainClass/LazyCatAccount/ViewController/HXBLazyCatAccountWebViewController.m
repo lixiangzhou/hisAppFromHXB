@@ -33,9 +33,9 @@
     self.pageClassDic[@"quickpay"] = NSClassFromString(@"");
     self.pageClassDic[@"withdraw"] = NSClassFromString(@"");
     //绑卡结果页
-    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBWithdrawCardResultViewController");
+    self.pageClassDic[@"bindcard"] = NSClassFromString(@"HXBWithdrawCardResultViewController");
     //解绑卡结果页
-    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBUnBindCardResultViewController");
+    self.pageClassDic[@"unbindcard"] = NSClassFromString(@"HXBUnBindCardResultViewController");
     //修改交易密码结果页
     self.pageClassDic[@"passwordedit"] = NSClassFromString(@"HXBModifyTransactionPasswordResultViewController");
     //计划购买结果
