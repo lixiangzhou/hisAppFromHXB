@@ -9,7 +9,7 @@
 #import "HXBLazyCatAccountWebViewController.h"
 
 #import "HXBLazyCatResponseModel.h"
-
+#import "HXBLazyCatRequestResultModel.h"
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) UIViewController<HXBRemoteUpdateInterface> *popVC;
@@ -51,7 +51,7 @@
  */
 - (void)loadWebPage {
     //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
-    NSDictionary* paramDic = @{@"serviceName":self.requestModel.serviceName, @"platformNo":self.requestModel.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.keySerial, @"sign":self.requestModel.sign, @"reqData":self.requestModel.reqData};
+    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName, @"platformNo":self.requestModel.result.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.result.keySerial, @"sign":self.requestModel.result.sign, @"reqData":self.requestModel.result.reqData};
     NSString* pageUrl = self.requestModel.url;
     if(!pageUrl) {
         pageUrl = self.pageUrl;
