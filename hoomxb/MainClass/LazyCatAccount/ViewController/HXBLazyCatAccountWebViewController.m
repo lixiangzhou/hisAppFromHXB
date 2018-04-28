@@ -29,7 +29,12 @@
  */
 - (void)registerPageClass {
     self.pageClassDic = [NSMutableDictionary dictionary];
-    
+    self.pageClassDic[@"quickpay"] = NSClassFromString(@"");
+    self.pageClassDic[@"withdraw"] = NSClassFromString(@"");
+    self.pageClassDic[@"passwordedit"] = NSClassFromString(@"");
+    self.pageClassDic[@"plan"] = NSClassFromString(@"");
+    self.pageClassDic[@"loan"] = NSClassFromString(@"");
+    self.pageClassDic[@"transfer"] = NSClassFromString(@"");
 }
 
 /**
@@ -73,7 +78,9 @@
     
     if ([self jumpToResultLogicalProcessingWithResponseModel:responseModel]) {
         [self.navigationController popToViewController:self.popVC animated:YES];
-        [self.popVC updateNetWorkData];
+        if ([self.popVC respondsToSelector:@selector(updateNetWorkData)]) {
+            [self.popVC updateNetWorkData];
+        }
     }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
         if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
