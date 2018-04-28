@@ -7,31 +7,14 @@
 //
 
 #import "HXBLazyCatRequestModel.h"
-
+#import "HXBLazyCatRequestResultModel.h"
 @implementation HXBLazyCatRequestModel
 
-- (NSString *)serviceName {
-    return _serviceName?:@"";
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+             @"data" : [HXBLazyCatRequestResultModel class]
+             };
 }
 
-- (NSString *)platformNo {
-    return _platformNo?:@"";
-}
-
-- (NSString *)reqData {
-    return _reqData?:@"";
-}
-
-- (NSString *)keySerial {
-    return _keySerial?:@"";
-}
-
-- (NSString *)sign {
-    return _sign?:@"";
-}
-
-- (NSString *)url {
-    return _url?:@"";
-}
 
 @end
