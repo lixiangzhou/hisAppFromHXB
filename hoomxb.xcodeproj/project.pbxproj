@@ -41,6 +41,7 @@
 		4E613B391FC809C0003FC5F9 /* HXBWKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E613B381FC809C0003FC5F9 /* HXBWKWebViewProgressView.m */; };
 		4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBB1F189F02002A3E18 /* bank.svg */; };
 		4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBD1F189F11002A3E18 /* arrow.svg */; };
+		4E7CBC8520946FEB00B983EC /* HXBLazyCatRequestResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CBC8420946FEB00B983EC /* HXBLazyCatRequestResultModel.m */; };
 		4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3E1EBC1B5B00F7BDB3 /* pageControl@2x.png */; };
 		4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3F1EBC1B5B00F7BDB3 /* pageControl@3x.png */; };
 		4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF401EBC1B5B00F7BDB3 /* pageControl_select@2x.png */; };
@@ -657,6 +658,8 @@
 		4E7BBBF11FF646230092FD09 /* HXBSpacingMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBSpacingMacro.h; sourceTree = "<group>"; };
 		4E7BDEBB1F189F02002A3E18 /* bank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bank.svg; sourceTree = "<group>"; };
 		4E7BDEBD1F189F11002A3E18 /* arrow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arrow.svg; sourceTree = "<group>"; };
+		4E7CBC8320946FEB00B983EC /* HXBLazyCatRequestResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLazyCatRequestResultModel.h; sourceTree = "<group>"; };
+		4E7CBC8420946FEB00B983EC /* HXBLazyCatRequestResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBLazyCatRequestResultModel.m; sourceTree = "<group>"; };
 		4E7CCF3E1EBC1B5B00F7BDB3 /* pageControl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl@2x.png"; sourceTree = "<group>"; };
 		4E7CCF3F1EBC1B5B00F7BDB3 /* pageControl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl@3x.png"; sourceTree = "<group>"; };
 		4E7CCF401EBC1B5B00F7BDB3 /* pageControl_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl_select@2x.png"; sourceTree = "<group>"; };
@@ -2561,6 +2564,8 @@
 				9AD4FE90209060DB00BD8551 /* HXBLazyCatResultPageModel.m */,
 				9A34ECCC2088633A00D1FC1C /* HXBLazyCatRequestModel.h */,
 				9A34ECCD2088633A00D1FC1C /* HXBLazyCatRequestModel.m */,
+				4E7CBC8320946FEB00B983EC /* HXBLazyCatRequestResultModel.h */,
+				4E7CBC8420946FEB00B983EC /* HXBLazyCatRequestResultModel.m */,
 				9AC21DAA208DB2C300DF967F /* HXBLazyCatResponseModel.h */,
 				9AC21DAB208DB2C300DF967F /* HXBLazyCatResponseModel.m */,
 				9AD4FE8F20905BDD00BD8551 /* HXBLazyCatResponseDelegate.h */,
@@ -5221,7 +5226,6 @@
 				8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */,
 				8DBA85F51FB06CE200B1B50D /* Embed Frameworks */,
 				9A1B4B4E1FBC29EB0084CCE6 /* ShellScript */,
-				D3850FBAB69E964AD2C153DA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5452,21 +5456,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 5e78d407a64c6e3d8712144d2234b768aa86f98b aaaf2da8284ef37ab965847cbe7c07ce691fc4a16e1f7006bd05ffe469ec4a82";
 		};
-		D3850FBAB69E964AD2C153DA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5641,6 +5630,7 @@
 				8DAD30851FBA8F8C00E2AEE8 /* HXBBaseToolBarView.m in Sources */,
 				9AE033642022C422006D6140 /* HXBFinAddRecortdVC_Loan.m in Sources */,
 				E12A4CB0204500EC0095951E /* HXBAccountInfoViewModel.m in Sources */,
+				4E7CBC8520946FEB00B983EC /* HXBLazyCatRequestResultModel.m in Sources */,
 				E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */,
 				9AE0336F2022C422006D6140 /* HXBFinPlanContract_ContractWebView.m in Sources */,
 				8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */,

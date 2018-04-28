@@ -7,19 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HXBLazyCatRequestResultModel;
 @interface HXBLazyCatRequestModel : NSObject
 
-///接口名称
-@property (nonatomic, copy) NSString* serviceName;
-///平台编号
-@property (nonatomic, copy) NSString* platformNo;
-///业务数据报文
-@property (nonatomic, copy) NSString* reqData;
-///证书序号
-@property (nonatomic, copy) NSString* keySerial;
-///签名
-@property (nonatomic, copy) NSString* sign;
+//懒猫返回结果
+@property (nonatomic, strong) HXBLazyCatRequestResultModel* result;
+
 ///懒猫网关地址
 @property (nonatomic, copy) NSString* url;
 

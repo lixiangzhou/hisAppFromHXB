@@ -7,7 +7,14 @@
 //
 
 #import "HXBLazyCatRequestModel.h"
-
+#import "HXBLazyCatRequestResultModel.h"
 @implementation HXBLazyCatRequestModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+             @"data" : [HXBLazyCatRequestResultModel class]
+             };
+}
+
 
 @end

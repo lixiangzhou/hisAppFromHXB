@@ -225,4 +225,13 @@
     }
 }
 
+- (void)leftBackBtnClick
+{
+    if (self.contentModel.navBackBlock) {
+        self.contentModel.navBackBlock(self);
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 @end
