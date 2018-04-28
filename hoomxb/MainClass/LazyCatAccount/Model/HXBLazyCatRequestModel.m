@@ -10,6 +10,13 @@
 #import "HXBLazyCatRequestResultModel.h"
 @implementation HXBLazyCatRequestModel
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.result = [[HXBLazyCatRequestResultModel alloc] init];
+    }
+    return self;
+}
+
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{
              @"data" : [HXBLazyCatRequestResultModel class]
