@@ -10,6 +10,7 @@
 
 #import "HXBLazyCatResponseModel.h"
 #import "HXBLazyCatRequestResultModel.h"
+
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
@@ -49,11 +50,11 @@
 - (void)registerPageClass {
     self.pageClassDic = [NSMutableDictionary dictionary];
     //存管开户
-    self.pageClassDic[kEscrow] = NSClassFromString(@"");
+    self.pageClassDic[kEscrow] = NSClassFromString(@"HXBOpenDepositoryResultController");
     //提现
-    self.pageClassDic[kWithdrawal] = NSClassFromString(@"");
+    self.pageClassDic[kWithdrawal] = NSClassFromString(@"HxbWithdrawResultViewController");
     //快捷充值
-    self.pageClassDic[kQuickrecharge] = NSClassFromString(@"");
+    self.pageClassDic[kQuickrecharge] = NSClassFromString(@"HXBRechargeCompletedViewController");
     //绑卡结果页
     self.pageClassDic[kBindcard] = NSClassFromString(@"HXBWithdrawCardResultViewController");
     //解绑卡结果页
