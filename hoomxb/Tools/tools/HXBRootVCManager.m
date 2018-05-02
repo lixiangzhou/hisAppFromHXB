@@ -119,14 +119,15 @@
 
 #pragma mark - 获取最顶端控制器
 - (UIViewController *)topControllerWithRootController:(UIViewController *)rootController {
-    if ([rootController isKindOfClass:[UITabBarController class]]) {
+    if (rootController.presentedViewController) {
+        return [self topControllerWithRootController:rootController.presentedViewController];
+    }
+    else if ([rootController isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tabBarVC = (UITabBarController *)rootController;
         return [self topControllerWithRootController:tabBarVC.selectedViewController];
     } else if ([rootController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationVC = (UINavigationController *)rootController;
         return [self topControllerWithRootController:navigationVC.visibleViewController];
-    } else if (rootController.presentedViewController) {
-        return [self topControllerWithRootController:rootController.presentedViewController];
     } else {
         return rootController;
     }

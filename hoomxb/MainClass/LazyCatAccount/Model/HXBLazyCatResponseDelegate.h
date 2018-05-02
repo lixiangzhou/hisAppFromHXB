@@ -15,4 +15,10 @@
 @required
 - (void)setResultPageProperty:(HXBLazyCatResponseModel*)model;
 
+@optional
+/**
+ 返回上级层面的VC
+ */
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray;
+
 @end
