@@ -20,8 +20,22 @@
 {
     self = [super init];
     if (self) {
-        //使用默认类型
-        _data = [[HXBLazyCatResultPageModel alloc] init];
+        if([action isEqualToString:kTransfer] || [action isEqualToString:kPlan] || [action isEqualToString:kLoan]) {
+            //购买
+            _data = [[HXBLazyCatResultBuyModel alloc] init];
+        }
+        else if([action isEqualToString:kQuickrecharge]) {
+            //快捷充值
+            _data = [[HXBLazyCatResultQuickrechargeModel alloc] init];
+        }
+        else if([action isEqualToString:kWithdrawal]) {
+            //提现
+            _data = [[HXBLazyCatResultWithdrawalModel alloc] init];
+        }
+        else {
+            //使用默认类型
+            _data = [[HXBLazyCatResultPageModel alloc] init];
+        }
     }
     return self;
 }
