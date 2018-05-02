@@ -11,6 +11,7 @@
 #import <UICKeyChainStore.h>
 #import <Security/Security.h>
 #import "HXBRequestUserInfoAgent.h"
+#import "HXBAccountActivationManager.h"
 
 #define kGesturePwd self.keychain[kMobile]
 #define kSiginPwd @"HXBSinInCount"
@@ -215,8 +216,18 @@ static NSString *const hostH5 = @"hostH5";
     [HXBRequestUserInfoAgent downLoadUserInfoWithRequestBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if(viewModel) {
             [self setValueWithUserInfoModel:viewModel];
-            if (resultBlock) {
-                resultBlock(viewModel, nil);
+            
+            BOOL isAccountActivation = YES;
+            if(isAccountActivation) {//账户需要ji huo
+                [[HXBAccountActivationManager sharedInstance] activeAccount];
+                if (resultBlock) {
+                    resultBlock(nil, [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil]);
+                }
+            }
+            else {
+                if (resultBlock) {
+                    resultBlock(viewModel, nil);
+                }
             }
         }
         else{
