@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResultPageModel.h"
+#import "HXBLazyCatResultBuyModel.h"
+#import "HXBLazyCatResultWithdrawalModel.h"
+#import "HXBLazyCatResultQuickrechargeModel.h"
 
 @interface HXBLazyCatResponseModel : NSObject
 

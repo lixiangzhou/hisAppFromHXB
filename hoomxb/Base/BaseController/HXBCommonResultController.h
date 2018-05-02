@@ -35,6 +35,9 @@
 /// 第二个按钮的回调
 @property (nonatomic, assign) void (^secondBtnBlock)(HXBCommonResultController *resultController);
 
+/// 导航栏返回的回调，按照需要提供，提供就执行
+@property (nonatomic, copy) void (^navBackBlock)(HXBCommonResultController *resultController);
+
 /// 最常用的初始化方法
 - (instancetype)initWithImageName:(NSString *)imageName
                       titleString:(NSString *)titleString

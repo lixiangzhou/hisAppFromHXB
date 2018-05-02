@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const kPasswordedit; //修改交易密码
+extern NSString* const kEscrow; //存管开户
+extern NSString* const kBindcard; //绑定银行卡
+extern NSString* const kUnbindcard; //解绑银行卡
+extern NSString* const kWithdrawal; //提现
+extern NSString* const kQuickrecharge; //快捷充值
+extern NSString* const kLoan; //散标购买
+extern NSString* const kPlan; //计划购买
+extern NSString* const kTransfer; //债转
+
 @interface HXBLazyCatResultPageModel : NSObject
 
 ///标题

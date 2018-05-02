@@ -9,18 +9,39 @@
 #import "HXBLazyCatAccountWebViewController.h"
 
 #import "HXBLazyCatResponseModel.h"
+#import "HXBLazyCatRequestResultModel.h"
 
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
+@property (nonatomic, strong) NSMutableArray *popViewControllers;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
     [self setupJavascriptBridge];
     [self registerPageClass];
+    [self findPopVC];
+}
+
+- (void)findPopVC {
+    
+    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"),NSClassFromString(@"HxbMyTopUpViewController"),NSClassFromString(@"HxbWithdrawCardViewController"),NSClassFromString(@"HXBOpenDepositAccountViewController"), nil];
+    
+    NSInteger count = self.navigationController.viewControllers.count;
+    for (int i = 0; i <  count- 1; i++) {
+        if ([subVC containsObject:self.navigationController.viewControllers[i].class]) {
+            [self.popViewControllers addObject:self.navigationController.viewControllers[i]];
+        }
+    }
+    
+    if(self.popViewControllers.count <= 0) {
+        //如果找不到指定页面， 直接将前一个页面添加到列表
+        [self.popViewControllers addObject:self.navigationController.viewControllers[count-2]];
+    }
 }
 
 /**
@@ -28,7 +49,24 @@
  */
 - (void)registerPageClass {
     self.pageClassDic = [NSMutableDictionary dictionary];
-    
+    //存管开户
+    self.pageClassDic[kEscrow] = NSClassFromString(@"HXBOpenDepositoryResultController");
+    //提现
+    self.pageClassDic[kWithdrawal] = NSClassFromString(@"HxbWithdrawResultViewController");
+    //快捷充值
+    self.pageClassDic[kQuickrecharge] = NSClassFromString(@"HXBRechargeCompletedViewController");
+    //绑卡结果页
+    self.pageClassDic[kBindcard] = NSClassFromString(@"HXBWithdrawCardResultViewController");
+    //解绑卡结果页
+    self.pageClassDic[kUnbindcard] = NSClassFromString(@"HXBUnBindCardResultViewController");
+    //修改交易密码结果页
+    self.pageClassDic[kPasswordedit] = NSClassFromString(@"HXBModifyTransactionPasswordResultViewController");
+    //计划购买结果
+    self.pageClassDic[kPlan] = NSClassFromString(@"HXBPlanBuyResultViewController");
+    //散标购买结果
+    self.pageClassDic[kLoan] = NSClassFromString(@"HXBLoanBuyResultViewController");
+    //债转购买结果
+    self.pageClassDic[kTransfer] = NSClassFromString(@"HXBCreditorBuyResultViewController");
 }
 
 /**
@@ -36,7 +74,7 @@
  */
 - (void)loadWebPage {
     //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
-    NSDictionary* paramDic = @{@"serviceName":self.requestModel.serviceName, @"platformNo":self.requestModel.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.keySerial, @"sign":self.requestModel.sign, @"reqData":self.requestModel.reqData};
+    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName, @"platformNo":self.requestModel.result.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.result.keySerial, @"sign":self.requestModel.result.sign, @"reqData":self.requestModel.result.reqData};
     NSString* pageUrl = self.requestModel.url;
     if(!pageUrl) {
         pageUrl = self.pageUrl;
@@ -69,13 +107,46 @@
     [responseModel yy_modelSetWithDictionary:data];
     
     Class pageClass = (Class)[self.pageClassDic objectAtPath:action];
-    if(pageClass) {
+    
+    if ([self jumpToResultLogicalProcessingWithResponseModel:responseModel]) {
+        [self.navigationController popToViewController:self.popViewControllers.firstObject animated:YES];
+        if ([self.popViewControllers.firstObject respondsToSelector:@selector(updateNetWorkData)]) {
+            [self.popViewControllers.firstObject updateNetWorkData];
+        }
+    }else if(pageClass) {
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
         if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
             [vc setResultPageProperty:responseModel];
             [self.navigationController pushViewController:vc animated:YES];
         }
+        if ([vc respondsToSelector:@selector(setResultPageWithPopViewControllers:)]) {
+            [vc setResultPageWithPopViewControllers:self.popViewControllers];
+        }
     }
 }
+
+- (BOOL)jumpToResultLogicalProcessingWithResponseModel:(HXBLazyCatResponseModel *)responseModel{
+    if ([self findBuyVC] && !([responseModel.action isEqualToString:@"plan"] || [responseModel.action isEqualToString:@"loan"] ||[responseModel.action isEqualToString:@"transfer"]) && [responseModel.result isEqualToString:@"success"]) {
+        
+        return YES;
+    }
+    return NO;
+}
+
+/**
+ 查找self.navigationController.viewControllers中是否包含购买控制器
+
+ @return 是否存在
+ */
+- (BOOL)findBuyVC {
+    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"), nil];
+    UIViewController *popVC = self.popViewControllers.firstObject;
+    if ([subVC containsObject:popVC.class]) {
+        return YES;
+    }
+    return NO;
+}
+
+
 
 @end
