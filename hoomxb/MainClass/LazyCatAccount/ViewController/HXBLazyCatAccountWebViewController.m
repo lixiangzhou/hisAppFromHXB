@@ -10,12 +10,14 @@
 
 #import "HXBLazyCatResponseModel.h"
 #import "HXBLazyCatRequestResultModel.h"
+#import "WebViewJavascriptBridge.h"
 
-@interface HXBLazyCatAccountWebViewController ()
+@interface HXBLazyCatAccountWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
 @property (nonatomic, strong) UIWebView* webView;
+@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -24,7 +26,7 @@
     [super viewDidLoad];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-//    [self setupJavascriptBridge];
+    //    [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
     
@@ -53,6 +55,11 @@
         make.left.right.bottom.equalTo(self.view);
         make.top.mas_equalTo(HXBStatusBarAndNavigationBarHeight);
     }];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
 }
 
 - (void)findPopVC {
