@@ -251,7 +251,10 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)chooseBuyTypeWithbuyType:(HXBBuyType)buyType {
     NSDictionary *dic = nil;
     if (buyType == HXBBuyTypeNoBankCard) {  /// 去绑卡
-        
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
+        withdrawCardViewController.title = @"绑卡";
+        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {
         dic = @{@"loanId": self.loanId,
                 @"amount": self.inputMoneyStr,

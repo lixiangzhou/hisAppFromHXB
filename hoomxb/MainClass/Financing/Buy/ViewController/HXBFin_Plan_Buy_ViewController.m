@@ -356,7 +356,10 @@
     kWeakSelf
     NSDictionary *dic = nil;
     if (buyType == HXBBuyTypeNoBankCard) {  /// 去绑卡
-        
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
+        withdrawCardViewController.title = @"绑卡";
+        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {
         dic = @{@"financePlanId": self.loanId,
                 @"amount": weakSelf.inputMoneyStr,
