@@ -217,9 +217,9 @@ static NSString *const hostH5 = @"hostH5";
         if(viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             
-            BOOL isAccountActivation = NO;
+            BOOL isAccountActivation = YES;
             if(isAccountActivation) {//账户需要激活
-                [[HXBAccountActivationManager sharedInstance] activeAccount];
+                [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
                 if (resultBlock) {
                     resultBlock(nil, [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil]);
                 }

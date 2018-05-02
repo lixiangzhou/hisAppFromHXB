@@ -14,6 +14,8 @@
 @interface HXBLazyCatAccountWebViewController ()
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
+
+@property (nonatomic, strong) UIWebView* webView;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -22,9 +24,21 @@
     [super viewDidLoad];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-    [self setupJavascriptBridge];
+//    [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
+    
+    [self setupUI];
+}
+
+- (void)setupUI {
+    _webView = [[UIWebView alloc] init];
+    [self.view addSubview:self.webView];
+    
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.mas_equalTo(HXBNavigationBarHeight);
+    }];
 }
 
 - (void)findPopVC {
@@ -74,29 +88,45 @@
  */
 - (void)loadWebPage {
     //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
-    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName, @"platformNo":self.requestModel.result.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.result.keySerial, @"sign":self.requestModel.result.sign, @"reqData":self.requestModel.result.reqData};
+//    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName, @"platformNo":self.requestModel.result.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.result.keySerial, @"sign":self.requestModel.result.sign, @"reqData":self.requestModel.result.reqData};
+//    NSString* pageUrl = self.requestModel.url;
+//    if(!pageUrl) {
+//        pageUrl = self.pageUrl;
+//    }
+//    NSString* jsonString = [paramDic jsonString];
+//    NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",HXB_POST_JS,pageUrl,jsonString];
+//    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
+//
+//    }];
+    
+    NSString* serviceName = self.requestModel.result.serviceName;
+    NSString* platformNo = self.requestModel.result.platformNo;
+    NSString* userDevice = @"MOBILE";
+    NSString* keySerial = self.requestModel.result.keySerial;
+    NSString* sign = self.requestModel.result.sign;
+    NSString* reqData = self.requestModel.result.reqData;
+    
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
     NSString* pageUrl = self.requestModel.url;
-    if(!pageUrl) {
-        pageUrl = self.pageUrl;
-    }
-    NSString* jsonString = [paramDic jsonString];
-    NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",HXB_POST_JS,pageUrl,jsonString];
-    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
-        
-    }];
+    [urlRequest setURL:[NSURL URLWithString:pageUrl]];
+    NSString* param = [NSString stringWithFormat:@"serviceName=%@&platformNo=%@&userDevice=%@&keySerial=%@&reqData=%@&sign=%@", serviceName, platformNo, userDevice, keySerial, [reqData URLEncoding], [sign URLEncoding] ];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:[param dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self.webView loadRequest:urlRequest];
 }
 
 /**
  桥接H5回调
  */
 - (void)setupJavascriptBridge {
-    //恒丰异步回调成功
-    kWeakSelf
-    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"%@",data);
-        //根据数据跳转到响应的结果页面
-        [weakSelf jumpToResultPageWithData:data];
-    }];
+//    //恒丰异步回调成功
+//    kWeakSelf
+//    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"%@",data);
+//        //根据数据跳转到响应的结果页面
+//        [weakSelf jumpToResultPageWithData:data];
+//    }];
 }
 
 //根据数据跳转到响应的结果页面
