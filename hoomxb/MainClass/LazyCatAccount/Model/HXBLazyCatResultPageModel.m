@@ -8,6 +8,16 @@
 
 #import "HXBLazyCatResultPageModel.h"
 
+NSString* const kPasswordedit = @"passwordedit";
+NSString* const kEscrow = @"escrow";
+NSString* const kBindcard = @"bindcard";
+NSString* const kUnbindcard = @"unbindcard";
+NSString* const kWithdrawal = @"withdrawal";
+NSString* const kQuickrecharge = @"quickrecharge";
+NSString* const kLoan = @"loan";
+NSString* const kPlan = @"plan";
+NSString* const kTransfer = @"transfer";
+
 @implementation HXBLazyCatResultPageModel
 
 @end
