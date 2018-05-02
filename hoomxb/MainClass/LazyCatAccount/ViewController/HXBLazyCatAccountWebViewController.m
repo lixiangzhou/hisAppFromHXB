@@ -92,7 +92,7 @@
 - (void)setupJavascriptBridge {
     //恒丰异步回调成功
     kWeakSelf
-    [self registJavascriptBridge:@"" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         //根据数据跳转到响应的结果页面
         [weakSelf jumpToResultPageWithData:data];
