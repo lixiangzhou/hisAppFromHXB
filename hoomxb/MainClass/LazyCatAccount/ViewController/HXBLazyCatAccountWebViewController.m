@@ -10,12 +10,14 @@
 
 #import "HXBLazyCatResponseModel.h"
 #import "HXBLazyCatRequestResultModel.h"
+#import "WebViewJavascriptBridge.h"
 
-@interface HXBLazyCatAccountWebViewController ()
+@interface HXBLazyCatAccountWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
 @property (nonatomic, strong) UIWebView* webView;
+@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -38,6 +40,19 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.mas_equalTo(HXBNavigationBarHeight);
+    }];
+    
+    /****** 加载桥梁对象 ******/
+    [WebViewJavascriptBridge enableLogging];
+    
+    /****** 初始化 ******/
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+    }];
+    kWeakSelf
+    /****** OC端注册一个方法 (测试)******/
+    [self.bridge registerHandler:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        [weakSelf jumpToResultPageWithData:data];
     }];
 }
 
