@@ -35,6 +35,7 @@
 
 - (void)setupUI {
     _webView = [[UIWebView alloc] init];
+    _webView.delegate = self;
     [self.view addSubview:self.webView];
     
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,6 +55,11 @@
         NSLog(@"%@",data);
         [weakSelf jumpToResultPageWithData:data];
     }];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
 }
 
 - (void)findPopVC {
