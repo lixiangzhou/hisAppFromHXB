@@ -185,11 +185,11 @@
         UIViewController<HXBLazyCatResponseDelegate> *vc = [[pageClass alloc] init];
         if([vc respondsToSelector:@selector(setResultPageProperty:)]) {
             [vc setResultPageProperty:responseModel];
-            [self.navigationController pushViewController:vc animated:YES];
         }
         if ([vc respondsToSelector:@selector(setResultPageWithPopViewControllers:)]) {
             [vc setResultPageWithPopViewControllers:self.popViewControllers];
         }
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
