@@ -6,7 +6,7 @@
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "WebViewJavascriptBridgeBase.h"/Users/caihongji/ios/hoomxb/Base/BaseController/WebViewController/WebViewJavascriptBridgeBase+HXBHandle.h
+#import "WebViewJavascriptBridgeBase.h"
 
 @interface WebViewJavascriptBridgeBase(HXBHandle)
 

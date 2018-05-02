@@ -24,20 +24,34 @@
     [super viewDidLoad];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-//    [self setupJavascriptBridge];
+    //    [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
     
     [self setupUI];
+    [self loadWebPage];
+}
+
+- (void)leftBackBtnClick {
+    if([self.webView canGoBack]) {
+        [self.webView goBack];
+    }
 }
 
 - (void)setupUI {
+    self.isColourGradientNavigationBar = YES;
     _webView = [[UIWebView alloc] init];
+    if (@available(iOS 11.0, *)) {
+        _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.webView];
     
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.mas_equalTo(HXBNavigationBarHeight);
+        make.top.mas_equalTo(HXBStatusBarAndNavigationBarHeight);
     }];
 }
 
