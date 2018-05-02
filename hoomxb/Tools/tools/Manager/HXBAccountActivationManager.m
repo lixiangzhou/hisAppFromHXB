@@ -11,6 +11,8 @@
 #import "HXBVersionUpdateManager.h"
 #import "HXBHomePopViewManager.h"
 
+#import "HXBAccountActivationViewController.h"
+
 @implementation HXBAccountActivationManager
 
 + (instancetype)sharedInstance
@@ -27,9 +29,22 @@
 /**
  激活账户
  */
-- (void)activeAccount {
+- (void)entryActiveAccountPage {
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
+    
+    HXBAccountActivationViewController *alertVC = [[HXBAccountActivationViewController alloc] init];
+    UINavigationController *navVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
+    [topVC presentViewController:alertVC animated:YES completion:^{
+        
+    }];
+}
+
+/**
+ 退出账户激活页
+ */
+- (void)exitActiveAccountPage {
+    
 }
 
 @end
