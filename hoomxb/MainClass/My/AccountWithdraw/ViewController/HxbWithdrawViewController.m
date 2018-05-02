@@ -20,6 +20,8 @@
 
 #import "HXBAccountWithdrawViewModel.h"
 #import "HXBRootVCManager.h"
+#import "HXBLazyCatAccountWebViewController.h"
+
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -40,9 +42,6 @@
  数据模型
  */
 @property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
-
-
-@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 
 @property (nonatomic, assign) BOOL isLoadBankCardSuccess;
 
@@ -105,9 +104,7 @@
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
-
-#pragma mark - Events
-
+#pragma mark - UI
 /**
  增加提现记录的按钮
  */
@@ -120,14 +117,6 @@
     [cashRegisterBtn sizeToFit];
     UIBarButtonItem *cashRegisterItem = [[UIBarButtonItem alloc] initWithCustomView:cashRegisterBtn];
     self.navigationItem.rightBarButtonItem = cashRegisterItem;
-}
-
-/**
- 进入提现记录
- */
-- (void)pushCashRegisterVC {
-    HXBWithdrawRecordViewController *cashRegisterVC = [[HXBWithdrawRecordViewController alloc] init];
-    [self.navigationController pushViewController:cashRegisterVC animated:YES];
 }
 
 - (void)setCardViewFrame{
@@ -206,50 +195,14 @@
 
 }
 
-- (void)withdrawals
-{
-    if (self.presentedViewController != self.alertVC) {
-        self.alertVC = nil;
-        [self presentViewController:self.alertVC animated:NO completion:nil];
-    }
-}
+#pragma mark - Action
 
 /**
- 发送验证码
+ 进入提现记录
  */
-- (void)withdrawSmscode
-{
-    kWeakSelf
-    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.amountTextField.text andWithType:@"sms" andWithAction:@"withdraw" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
-        if (isSuccess) {
-            [weakSelf withdrawals];
-            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-        }
-        else {
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
-        }
-    }];
-}
-
-#pragma mark --- 提现请求
-- (void)checkWithdrawals:(NSString *)smscode
-{
-//    self.view.userInteractionEnabled = NO;
-    kWeakSelf
-    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
-    requestArgument[@"bankno"] = self.withdrawModel.bankCard.bankCode;
-    requestArgument[@"city"] = self.withdrawModel.bankCard.city;
-    requestArgument[@"bank"] = self.withdrawModel.bankCard.cardId;
-    requestArgument[@"smscode"] = smscode;
-    requestArgument[@"amount"] = self.amountTextField.text;
-    [_viewModel accountWithdrawaWithParameter:requestArgument andRequestMethod:NYRequestMethodPost resultBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-            HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-            withdrawResultVC.bankCardModel = weakSelf.withdrawModel.bankCard;
-            [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
-        }
-    }];
+- (void)pushCashRegisterVC {
+    HXBWithdrawRecordViewController *cashRegisterVC = [[HXBWithdrawRecordViewController alloc] init];
+    [self.navigationController pushViewController:cashRegisterVC animated:YES];
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
@@ -262,10 +215,29 @@
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"最小提现金额为%d元",self.withdrawModel.minWithdrawAmount]];
         return;
     }
-    [self withdrawSmscode];
-    
+    kWeakSelf
+    [self.viewModel accountWithdrawalWithAmount:self.amountTextField.text resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            HXBLazyCatAccountWebViewController *webVC = [HXBLazyCatAccountWebViewController new];
+            webVC.requestModel = weakSelf.viewModel.lazyCatReqModel;
+            [weakSelf.navigationController pushViewController:webVC animated:YES];
+        }
+    }];
 }
 
+- (void)leftBackBtnClick
+{
+    NSInteger index = self.navigationController.viewControllers.count;
+    UIViewController *VC = self.navigationController.viewControllers[index - 2];
+    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+        [self.navigationController popToViewController:self.navigationController.viewControllers[index - 3] animated:YES];
+    }else
+    {
+        [super leftBackBtnClick];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
 //参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 {
@@ -305,6 +277,7 @@
     return YES;
 }
 
+#pragma mark - Helper
 - (void)loadBankCard
 {
     kWeakSelf
@@ -322,18 +295,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
-}
-
-- (void)leftBackBtnClick
-{
-    NSInteger index = self.navigationController.viewControllers.count;
-    UIViewController *VC = self.navigationController.viewControllers[index - 2];
-    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
-        [self.navigationController popToViewController:self.navigationController.viewControllers[index - 3] animated:YES];
-    }else
-    {
-        [super leftBackBtnClick];
-    }
 }
 
 #pragma mark - Setter
@@ -478,28 +439,6 @@
     return _reminderLabel;
 }
 
-- (HXBVerificationCodeAlertVC *)alertVC
-{
-    if (!_alertVC) {
-        kWeakSelf
-        _alertVC = [[HXBVerificationCodeAlertVC alloc] init];
-        _alertVC.messageTitle = @"请输入短信验证码";
-        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
-        _alertVC.sureBtnClick = ^(NSString *pwd){
-            if (pwd.length == 0) {
-                [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-                return;
-            }
-            [weakSelf checkWithdrawals:pwd];
-        };
-        
-        _alertVC.getVerificationCodeBlock = ^{
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
-            [weakSelf withdrawSmscode];
-        };
-    }
-    return _alertVC;
-}
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     kWeakSelf
     if (!_notifitionView) {

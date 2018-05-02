@@ -7,7 +7,8 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HXBCommonResultController.h"
 
-@interface HXBOpenDepositoryResultController : HXBBaseViewController
+@interface HXBOpenDepositoryResultController : HXBCommonResultController
 
 @end

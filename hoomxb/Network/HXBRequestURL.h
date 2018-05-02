@@ -117,6 +117,9 @@
 #define kHXBAccount_Bindcard @"/account/bindcard" //绑卡
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
 
+#define kHXBAccount_Quickcharge @"/account/quickrecharge"     // 懒猫-快捷充值
+#define kHXBAccount_Withdrawal @"/account/withdrawal"     // 懒猫--提现
+
 //MARK: ======================= 协议 ==========================
 //协议或合同名    端口号后链接    状态    账户内连接
 #define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》

@@ -9,17 +9,24 @@
 #import "HXBCommonResultController.h"
 
 @implementation HXBCommonResultContentModel
-- (instancetype)initWithImageName:(NSString *)imageName titleString:(NSString *)titleString descString:(NSString *)descString firstBtnTitle:(NSString *)firstBtnTitle
+- (instancetype)init
 {
     self = [super init];
+    if (self) {
+        self.descAlignment = NSTextAlignmentCenter;
+        self.descHasMark = NO;
+    }
+    return self;
+}
+
+- (instancetype)initWithImageName:(NSString *)imageName titleString:(NSString *)titleString descString:(NSString *)descString firstBtnTitle:(NSString *)firstBtnTitle
+{
+    self = [self init];
     
     self.imageName = imageName;
     self.titleString = titleString;
     self.descString = descString;
     self.firstBtnTitle = firstBtnTitle;
-    
-    self.descAlignment = NSTextAlignmentCenter;
-    self.descHasMark = NO;
     
     return self;
 }

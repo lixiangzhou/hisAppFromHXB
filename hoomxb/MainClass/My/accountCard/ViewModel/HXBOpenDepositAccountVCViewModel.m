@@ -110,9 +110,7 @@
     request.requestArgument = param;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        HXBLazyCatRequestModel *model = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"][@"result"]];
-        model.url = responseObject[@"data"][@"url"];
-        weakSelf.lazyCatReqModel = model;
+        weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
         if (resultBlock) {
             resultBlock(YES);
         }

@@ -9,14 +9,16 @@
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBRechargesuccessView.h"
 #import "HXBRechargeFailView.h"
+#import "HXBLazyCatResponseDelegate.h"
+#import "HXBLazyCatResponseModel.h"
 
-
-
-@interface HXBRechargeCompletedViewController ()
+@interface HXBRechargeCompletedViewController () <HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBRechargesuccessView *rechargesuccessView;
 
-@property (nonatomic, strong) HXBRechargeFailView *rechargeFailView;
+@property (nonatomic, weak) UIViewController *popVC;
+
+@property (nonatomic, strong) HXBLazyCatResponseModel *responseModel;
 @end
 
 @implementation HXBRechargeCompletedViewController
@@ -28,7 +30,7 @@
     self.title = @"充值成功";
     [self.view addSubview:self.rechargesuccessView];
     self.rechargesuccessView.amount = self.amount;
-
+    [self.rechargesuccessView setTitle:self.responseModel.data.title descString:self.responseModel.data.content];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,6 +48,16 @@
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
+    self.popVC = vcArray.firstObject;
+}
+
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.responseModel = model;
+}
+
+#pragma mark - Lazy
 - (HXBRechargesuccessView *)rechargesuccessView
 {
     if (!_rechargesuccessView) {
@@ -53,7 +65,7 @@
         _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popToViewController:self.popVC animated:YES];
         };
         //立即投资
         _rechargesuccessView.immediateInvestmentBlock = ^{
@@ -64,18 +76,7 @@
     return _rechargesuccessView;
 }
 
-- (HXBRechargeFailView *)rechargeFailView
-{
-    if (!_rechargeFailView) {
-        kWeakSelf
-        _rechargeFailView = [[HXBRechargeFailView alloc] initWithFrame:self.view.bounds];
-        _rechargeFailView.investmentBtnClickBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        };
-    }
-    return _rechargeFailView;
-}
-
+#pragma mark - Action
 - (void)leftBackBtnClick
 {
     [self.navigationController popToRootViewControllerAnimated:YES];

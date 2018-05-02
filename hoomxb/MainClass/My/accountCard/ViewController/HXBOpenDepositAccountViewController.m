@@ -20,7 +20,11 @@
 #import "SVGKit/SVGKImage.h"
 #import "HXBCustomTextField.h"
 
-     #define kInputHeight 50
+#define kInputHeight 50
+
+#import "HXBOpenDepositoryResultController.h"
+#import "HXBLazyCatResponseDelegate.h"
+#import "HXBLazyCatResponseModel.h"
 
 @interface HXBOpenDepositAccountViewController () <UITextFieldDelegate>
 /*
