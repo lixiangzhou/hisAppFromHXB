@@ -23,15 +23,7 @@
  计划购买跳转恒丰银行的model
  */
 @property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
-/**
- 错误状态码
- */
-@property (nonatomic, assign) NSInteger errorCode;
 
-/**
- 错误描述
- */
-@property (nonatomic, copy) NSString *errorMessage;
 
 /**
  最优优惠券

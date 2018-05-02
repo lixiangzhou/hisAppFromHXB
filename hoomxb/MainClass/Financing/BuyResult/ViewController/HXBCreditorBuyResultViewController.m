@@ -177,7 +177,7 @@
     
     [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         viewManager.leftStrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-        viewManager.rightStrArray = @[@"", @"", @"", @""];
+        viewManager.rightStrArray = @[model, @"", @"", @""];
         viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
@@ -198,6 +198,10 @@
 
 - (void)secondBtnClick:(UIButton *)btn {
     
+}
+
+- (void)leftBackBtnClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - setter

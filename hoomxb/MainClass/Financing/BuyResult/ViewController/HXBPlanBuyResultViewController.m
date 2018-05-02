@@ -10,6 +10,7 @@
 #import "HXBCommonResultController.h"
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
+#import "HXBLazyCatResultBuyModel.h"
 
 @interface HXBPlanBuyResultViewController ()<HXBLazyCatResponseDelegate>
 
@@ -45,14 +46,15 @@
 
 #pragma mark - Action
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
     self.commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:@""
-                                                                                  titleString:model.data.title
+                                                                                  titleString:resultModel.title
                                                                                    descString:model.data.content
                                                                                 firstBtnTitle:@"查看我的出借"];
     self.commenResultVC.contentModel.secondBtnTitle = @"";
     kWeakSelf
     self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
         [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     };
     if (self.commenResultVC.contentModel.secondBtnTitle) {
@@ -60,6 +62,10 @@
             
         };
     }
+}
+
+- (void)leftBackBtnClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)dealloc {

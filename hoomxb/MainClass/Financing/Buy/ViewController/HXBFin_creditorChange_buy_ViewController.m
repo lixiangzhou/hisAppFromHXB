@@ -19,6 +19,7 @@
 #import "HXBTransactionPasswordView.h"
 #import "HXBRootVCManager.h"
 #import "HXBFincreditorChangebuyViewModel.h"
+#import "HXBLazyCatAccountWebViewController.h"
 
 static NSString *const bankString = @"绑定银行卡";
 
@@ -222,91 +223,85 @@ static NSString *const bankString = @"绑定银行卡";
  _inputMoneyStr              输入的金额
  */
 - (void)requestForCreditor {
-    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? YES:NO;//YES:含非零小数
-    BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
-    }else{
-        if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
+        return;
+    }
+    
+    if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
+        if (self.isExceedLimitInvest && !_isSelectLimit) {
+            [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
+            return;
+        }
+        [self chooseBuyTypeWithbuyType:_hxbBuyType];
+        return;
+    }
+    
+    if ([_inputMoneyStr doubleValue] < [_minRegisterAmount doubleValue]) {
+        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+        _inputMoneyStr = _minRegisterAmount;
+        [self setUpArray];
+        [self changeItemWithInvestMoney:_inputMoneyStr];
+        [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
+        return;
+    }
+    
+    if ([_inputMoneyStr doubleValue] > _availablePoint.floatValue) {
+        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
+        _inputMoneyStr = _availablePoint;
+        [self setUpArray];
+        [self changeItemWithInvestMoney:_inputMoneyStr];
+        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
+        return;
+    }
+    
+    if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
+        return;
+    }
+    
+    BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+    if (!isFitToBuy) {
+        if (_inputMoneyStr.doubleValue == _availablePoint.doubleValue) {
             if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
             [self chooseBuyTypeWithbuyType:_hxbBuyType];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+        }
+    } else {
+        if (self.isExceedLimitInvest && !_isSelectLimit) {
+            [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
             return;
         }
-        if (isHasContainsNonzeroDecimals) {
-            if ((long long)([_inputMoneyStr doubleValue] * 100) == (long long)([_availablePoint doubleValue] * 100)) {
-                if (self.isExceedLimitInvest && !_isSelectLimit) {
-                    [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-                    return;
-                }
-                [self chooseBuyTypeWithbuyType:_hxbBuyType];
-                return;
-            } else {
-                if ([_inputMoneyStr doubleValue] < [_minRegisterAmount doubleValue]) {
-                    _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
-                    _inputMoneyStr = _minRegisterAmount;
-                    [self setUpArray];
-                    [self changeItemWithInvestMoney:_inputMoneyStr];
-                    [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
-                } else if ([_inputMoneyStr doubleValue] > _availablePoint.floatValue) {
-                    _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
-                    _inputMoneyStr = _availablePoint;
-                    [self setUpArray];
-                    [self changeItemWithInvestMoney:_inputMoneyStr];
-                    [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
-                } else {
-                    [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-                }
-                return;
-            }
-        } else {
-            if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
-                self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
-                _inputMoneyStr = _availablePoint;
-                [self setUpArray];
-                [self changeItemWithInvestMoney:_inputMoneyStr];
-                [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
-            } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-                _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
-                _inputMoneyStr = _minRegisterAmount;
-                [self setUpArray];
-                [self changeItemWithInvestMoney:_inputMoneyStr];
-                [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
-            } else if (!isFitToBuy) {
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-            } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
-            } else {
-                if (self.isExceedLimitInvest && !_isSelectLimit) {
-                    [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-                    return;
-                }
-                [self chooseBuyTypeWithbuyType:_hxbBuyType];
-            }
-        }
+        [self chooseBuyTypeWithbuyType:_hxbBuyType];
     }
 }
 
 // 判断是什么投资类型（充值购买，余额购买、未绑卡）
 - (void)chooseBuyTypeWithbuyType:(HXBBuyType)buyType {
-    kWeakSelf
     NSDictionary *dic = nil;
+    kWeakSelf
     if (buyType == HXBBuyTypeNoBankCard) {  /// 去绑卡
         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
         withdrawCardViewController.title = @"绑卡";
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-    } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值
-        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", weakSelf.inputMoneyStr.doubleValue]};
-        /// fixme
+    } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值的金额为投资的钱减去账户余额
+        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceTitle.doubleValue]};
+        [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
+            HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+            HFVC.requestModel = weakSelf.viewModel.resultModel;
+            [weakSelf.navigationController pushViewController:HFVC animated:YES];
+        }];
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
-                @"buyAmount": [NSString stringWithFormat:@"%.2f", weakSelf.inputMoneyStr.doubleValue],
+                @"buyAmount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit]
                 };
-        [weakSelf buyCreditorWithDic:dic];
+        [self buyCreditorWithDic:dic];
     }
 }
 
@@ -317,7 +312,9 @@ static NSString *const bankString = @"绑定银行卡";
     [_viewModel loanTransformBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
         [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
-            
+            HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+            HFVC.requestModel = weakSelf.viewModel.resultModel;
+            [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
     //        if (isSuccess) {

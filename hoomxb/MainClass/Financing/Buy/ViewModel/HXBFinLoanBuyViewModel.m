@@ -18,14 +18,6 @@
     return self;
 }
 
-- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    if ([request.requestUrl containsString:@"result"]) {
-        return NO;
-    } else {
-        return [super erroStateCodeDeal:request];
-    }
-}
-
 /**
  散标购买
  

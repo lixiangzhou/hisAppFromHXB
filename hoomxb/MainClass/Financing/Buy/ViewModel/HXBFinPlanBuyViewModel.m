@@ -19,14 +19,6 @@
     return self;
 }
 
-- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    if ([request.requestUrl containsString:@"result"]) {
-        return NO;
-    } else {
-        return [super erroStateCodeDeal:request];
-    }
-}
-
 /**
  最优优惠券
  

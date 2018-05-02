@@ -7,27 +7,25 @@
 //
 
 #import "HXBBaseViewModel.h"
-#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
+#import "HXBLazyCatRequestModel.h"
 #import "HXBBaseViewModel+HXBBankCardInfo.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBFincreditorChangebuyViewModel : HXBBaseViewModel
 
 /**
- 成功的model
+ 债转购买结果Model
  */
-@property (nonatomic, strong) HXBFin_LoanTruansfer_BuyResoutViewModel *resultModel;
+@property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
 
 /**
- 错误状态码
+ 债权充值结果
+ 
+ @param parameter 购买参数
+ @param resultBlock 返回结果
  */
-@property (nonatomic, assign) NSInteger errorCode;
-
-/**
- 错误描述
- */
-@property (nonatomic, copy) NSString *errorMessage;
-
+- (void)rechargeWithParameter : (NSDictionary *)parameter
+                  resultBlock : (void(^)(BOOL isSuccess))resultBlock;
 /**
  债权购买结果
 

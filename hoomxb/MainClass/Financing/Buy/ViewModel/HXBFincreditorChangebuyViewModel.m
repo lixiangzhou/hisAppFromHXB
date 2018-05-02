@@ -13,17 +13,31 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _resultModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc] init];
+        _resultModel = [[HXBLazyCatRequestModel alloc] init];
     }
     return self;
 }
 
-- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    if ([request.requestUrl containsString:@"result"]) {
-        return NO;
-    } else {
-        return [super erroStateCodeDeal:request];
-    }
+/**
+ 债权充值结果
+ 
+ @param parameter 购买参数
+ @param resultBlock 返回结果
+ */
+- (void)rechargeWithParameter : (NSDictionary *)parameter
+                  resultBlock : (void(^)(BOOL isSuccess))resultBlock {
+    kWeakSelf
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestMethod = NYRequestMethodPost;
+    request.requestUrl = @"/account/quickrecharge";
+    request.requestArgument = parameter;
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        NSDictionary *data = responseObject[kResponseData];
+        [weakSelf.resultModel yy_modelSetWithDictionary:data];
+        if (resultBlock) resultBlock(YES);
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) resultBlock(NO);
+    }];
 }
 
 /**

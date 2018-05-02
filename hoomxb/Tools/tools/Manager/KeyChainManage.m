@@ -217,7 +217,7 @@ static NSString *const hostH5 = @"hostH5";
         if(viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             
-            BOOL isAccountActivation = YES;
+            BOOL isAccountActivation = NO;
             if(isAccountActivation) {//账户需要ji huo
                 [[HXBAccountActivationManager sharedInstance] activeAccount];
                 if (resultBlock) {

@@ -353,7 +353,6 @@
 
 // 判断是什么投资类型（充值购买，余额购买、未绑卡）
 - (void)chooseBuyTypeWithbuyType:(HXBBuyType)buyType {
-    kWeakSelf
     NSDictionary *dic = nil;
     if (buyType == HXBBuyTypeNoBankCard) {  /// 去绑卡
         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
@@ -362,22 +361,23 @@
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {
         dic = @{@"financePlanId": self.loanId,
-                @"amount": weakSelf.inputMoneyStr,
-                @"cashType": weakSelf.cashType,
-                @"buyType": weakSelf.buyType,
+                @"amount": self.inputMoneyStr,
+                @"cashType": self.cashType,
+                @"buyType": @"recharge",
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
-                @"couponId": weakSelf.couponid
+                @"couponId": self.couponid
                 };
-        [weakSelf buyPlanWithDic:dic];
+        [self buyPlanWithDic:dic];
     } else if (buyType == HXBBuyTypeBalance) {
+        
         dic = @{@"financePlanId": self.loanId,
-                @"amount": weakSelf.inputMoneyStr,
-                @"cashType": weakSelf.cashType,
-                @"buyType": weakSelf.buyType,
+                @"amount": self.inputMoneyStr,
+                @"cashType": self.cashType,
+                @"buyType": @"balance",
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
-                @"couponId": weakSelf.couponid
+                @"couponId": self.couponid
                 };
-        [weakSelf buyPlanWithDic:dic];
+        [self buyPlanWithDic:dic];
     }
 }
 

@@ -61,6 +61,10 @@
     }
 }
 
+- (void)leftBackBtnClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)dealloc {
     [self.commenResultVC removeFromParentViewController];
 }
