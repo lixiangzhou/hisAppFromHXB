@@ -98,7 +98,7 @@
 #define kHXBSetWithdrawals_recordtURL    @"/account/withdraw/record"//提现记录
 
 //MARK: ======================= 账户外购买 ==========================
-#define kHXBFin_Plan_ConfirmBuyReslut       @"plan/purchase"              /// 计划购买
+#define kHXBFin_Plan_ConfirmBuyReslut       @"/plan/purchase"              /// 计划购买
 #define kHXBFin_Loan_ConfirmBuyReslut       @"/loan/purchase"             /// 散标购买
 #define kHXBFin_Transfer_ConfirmBuyReslut   @"/transfer/purchase"         /// 债权购买
 

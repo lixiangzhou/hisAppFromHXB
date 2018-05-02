@@ -73,12 +73,7 @@
  */
 - (void)loadWebPage {
     //由于wkwebview不支持POST方式， 所以此处采用JS直接POST表单的加载方式
-    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName,
-                               @"platformNo":self.requestModel.result.platformNo,
-                               @"userDevice":@"MOBILE",
-                               @"keySerial":self.requestModel.result.keySerial,
-                               @"sign":self.requestModel.result.sign,
-                               @"reqData":self.requestModel.result.reqData};
+    NSDictionary* paramDic = @{@"serviceName":self.requestModel.result.serviceName, @"platformNo":self.requestModel.result.platformNo, @"userDevice":@"MOBILE", @"keySerial":self.requestModel.result.keySerial, @"sign":self.requestModel.result.sign, @"reqData":self.requestModel.result.reqData};
     NSString* pageUrl = self.requestModel.url;
     if(!pageUrl) {
         pageUrl = self.pageUrl;
@@ -96,7 +91,7 @@
 - (void)setupJavascriptBridge {
     //恒丰异步回调成功
     kWeakSelf
-    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self registJavascriptBridge:@"" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         //根据数据跳转到响应的结果页面
         [weakSelf jumpToResultPageWithData:data];

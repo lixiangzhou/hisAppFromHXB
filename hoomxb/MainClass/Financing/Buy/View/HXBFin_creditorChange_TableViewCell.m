@@ -105,9 +105,10 @@
         _bankImageView.hidden = NO;
         _bankImageView.svgImageString = [NSString stringWithFormat:@"%@.svg",_bankImageName];
     }
+    kWeakSelf
     [_titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self);
-        make.left.equalTo(@(kScrAdaptationW(15) + _bankImageView.width));
+        make.top.bottom.equalTo(weakSelf);
+        make.left.equalTo(@(kScrAdaptationW(15) + weakSelf.bankImageView.width));
         make.width.offset(kScrAdaptationW(200));
     }];
 }
