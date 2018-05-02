@@ -60,9 +60,12 @@
     /****** 加载桥梁对象 ******/
     [WebViewJavascriptBridge enableLogging];
     
+    
     /****** 初始化 ******/
     _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
     }];
+    
+    
     kWeakSelf
     /****** OC端注册一个方法 (测试)******/
     [self.bridge registerHandler:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
