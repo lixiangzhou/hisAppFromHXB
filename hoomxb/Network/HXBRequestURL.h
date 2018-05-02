@@ -79,7 +79,7 @@
 
 //MARK: ======================= 账户设置 =======================
 #define kHXBSetUPAccount_MobifyPassword_LoginRequestURL @"/account/password"//修改登录密码
-#define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口
+#define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/account/tradCashPwdEdit"//@"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口
 #define kHXBSetTransaction_MobifyPassword_SendSmscodeURL @"/send/smscode/base"//修改交易密码--发送验证码
 #define kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL @"/account/checkIdentitySms"//修改交易密码--校验身份证和短信接口
 
@@ -113,7 +113,7 @@
 #define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口 短验和语音统一为一个借口
-#define kHXBAccount_Bindcard @"/account/bindcard" //绑卡
+#define kHXBAccount_Bindcard @"/account/bankcard/bindcard"//@"/account/bindcard" //绑卡
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
 
 //MARK: ======================= 协议 ==========================

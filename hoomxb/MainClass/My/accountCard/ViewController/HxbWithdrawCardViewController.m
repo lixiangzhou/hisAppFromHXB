@@ -136,25 +136,14 @@
  */
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     
-    [self.bindBankCardVM showHFBankWithContent:@"正在跳转至恒丰银行"];
-//    HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
-//    HXBLazyCatRequestModel *reqModel = [[HXBLazyCatRequestModel alloc]init];
-//    reqModel.url = @"/user/escrow";
-//    reqModel.serviceName = @"";
-//    reqModel.platformNo= @"";
-//    reqModel.keySerial= @"";
-//    reqModel.sign= @"";
-//    reqModel.reqData= @"";
-//
-//    lazyCatWebVC.requestModel = reqModel;
-//    [self.navigationController pushViewController:lazyCatWebVC animated:YES];
-//
-    
-    
     kWeakSelf
     [self.bindBankCardVM bindBankCardRequestWithArgument:dic andFinishBlock:^(BOOL isSuccess)  {
         if (isSuccess) {
-            [weakSelf bindBankCardRequest];
+//            [weakSelf bindBankCardRequest];
+            
+            HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+            lazyCatWebVC.requestModel = weakSelf.bindBankCardVM.lazyCatRequestModel;
+            [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
         }
     }];
 }

@@ -147,7 +147,7 @@
             if (isSuccess) {
                 weakSelf.cardBinModel = weakSelf.bindBankCardVM.cardBinModel;
                 NSDictionary *dic = @{
-                                      @"bankCard" : weakSelf.bankCardID,
+                                      @"bankNum" : weakSelf.bankCardID,
 //                                      @"bankReservedMobile" : weakSelf.phoneNumberTextField.text,
                                       @"bankCode" : weakSelf.cardBinModel.bankCode
                                       };

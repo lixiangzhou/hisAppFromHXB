@@ -156,18 +156,15 @@ UITableViewDataSource,UITableViewDelegate
 //                modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
 //                [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
                 
-                [self.viewModel showHFBankWithContent:@"正在跳转至恒丰银行"];
-                HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
-                HXBLazyCatRequestModel *reqModel = [[HXBLazyCatRequestModel alloc]init];
-                reqModel.url = @"/user/escrow";
-                reqModel.serviceName = @"";
-                reqModel.platformNo= @"";
-                reqModel.keySerial= @"";
-                reqModel.sign= @"";
-                reqModel.reqData= @"";
                 
-                lazyCatWebVC.requestModel = reqModel;
-                [self.navigationController pushViewController:lazyCatWebVC animated:YES];
+                [weakSelf.viewModel modifyTransactionPasswordResultBlock:^(BOOL isSuccess) {
+                    if (isSuccess) {
+                        HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+                        lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
+                        [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
+                    }
+                }];
+                
             }else
             {
                 if (!weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCreateEscrowAcc) {
