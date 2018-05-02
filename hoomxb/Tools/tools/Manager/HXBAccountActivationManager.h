@@ -15,8 +15,13 @@
 
 + (instancetype)sharedInstance;
 /**
- 激活账户
+ 进入激活账户页
  */
-- (void)activeAccount;
+- (void)entryActiveAccountPage;
+
+/**
+ 退出账户激活页
+ */
+- (void)exitActiveAccountPage;
 
 @end

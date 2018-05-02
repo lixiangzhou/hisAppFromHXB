@@ -9,7 +9,7 @@
 #import "HXBBaseWKWebViewController.h"
 #import "HXBLazyCatRequestModel.h"
 
-@interface HXBLazyCatAccountWebViewController : HXBBaseWKWebViewController
+@interface HXBLazyCatAccountWebViewController : HXBBaseViewController
 
 @property (nonatomic, strong) HXBLazyCatRequestModel *requestModel;
 
