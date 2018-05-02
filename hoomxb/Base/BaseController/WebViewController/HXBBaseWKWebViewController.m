@@ -113,9 +113,11 @@
 }
 
 - (void)dealloc {
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.webView removeObserver:self forKeyPath:@"title"];
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    if(_webView) {
+        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+        [self.webView removeObserver:self forKeyPath:@"title"];
+        [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    }
 }
 
 - (void)reLoadWhenViewAppear {

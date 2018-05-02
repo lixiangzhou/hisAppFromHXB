@@ -15,6 +15,9 @@
 #import "HXBGeneralAlertVC.h"
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBBankCardViewModel.h"
+
+#import "HXBLazyCatAccountWebViewController.h"
+#import "HXBLazyCatRequestModel.h"
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -71,6 +74,11 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.viewModel hiddenHFBank];
+}
+
 - (void)setupRightBarBtn {
     UIButton *unbundBankBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(31), kScrAdaptationH(19))];
     [unbundBankBtn setTitle:@"解绑" forState:UIControlStateNormal];
@@ -104,9 +112,29 @@
         if (!self.bankCardModel.enableUnbind) {
             [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
         } else {
-            HXBUnBindCardController *VC = [HXBUnBindCardController new];
-            VC.bankCardModel = self.bankCardModel;
-            [self.navigationController pushViewController:VC animated:YES];
+//            HXBUnBindCardController *VC = [HXBUnBindCardController new];
+//            VC.bankCardModel = self.bankCardModel;
+//            [self.navigationController pushViewController:VC animated:YES];
+            
+            
+            kWeakSelf
+            [self.viewModel requestUnBindWithParam:nil finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
+                
+                if (canPush) {
+                    [self.viewModel showHFBankWithContent:@"正在跳转至恒丰银行"];
+                    HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+                    HXBLazyCatRequestModel *reqModel = [[HXBLazyCatRequestModel alloc]init];
+                    reqModel.url = @"/user/escrow";
+                    reqModel.serviceName = @"";
+                    reqModel.platformNo= @"";
+                    reqModel.keySerial= @"";
+                    reqModel.sign= @"";
+                    reqModel.reqData= @"";
+                    
+                    lazyCatWebVC.requestModel = reqModel;
+                    [self.navigationController pushViewController:lazyCatWebVC animated:YES];
+                }
+            }];
         }
     }
 }

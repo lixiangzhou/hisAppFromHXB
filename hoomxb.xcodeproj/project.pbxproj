@@ -522,6 +522,9 @@
 		E19105AF20455278002B3831 /* HXBMainListViewPlanViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E19105AE20455278002B3831 /* HXBMainListViewPlanViewModel.m */; };
 		E19105B220455358002B3831 /* HXBMainListViewPlanTopViewViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E19105B120455358002B3831 /* HXBMainListViewPlanTopViewViewModel.m */; };
 		E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */ = {isa = PBXBuildFile; fileRef = E1A1BEF11F386C080006BAA7 /* explain.svg */; };
+		E1A5A628209308BB0099E9A1 /* HXBWithdrawCardResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A5A627209308BB0099E9A1 /* HXBWithdrawCardResultViewController.m */; };
+		E1A5A62B209441DF0099E9A1 /* HXBUnBindCardResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A5A62A209441DF0099E9A1 /* HXBUnBindCardResultViewController.m */; };
+		E1A5A62E209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A5A62D209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.m */; };
 		E1B21E662042B09200DD3784 /* HXBMY_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E652042B09200DD3784 /* HXBMY_PlanDetailView.m */; };
 		E1B21E682042B18B00DD3784 /* HXBMainListView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E672042B18A00DD3784 /* HXBMainListView_Plan.m */; };
 		E1B21E6A2042B26800DD3784 /* HXBMainListView_Plan_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E692042B26800DD3784 /* HXBMainListView_Plan_TopView.m */; };
@@ -1596,6 +1599,12 @@
 		E19105B020455358002B3831 /* HXBMainListViewPlanTopViewViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMainListViewPlanTopViewViewModel.h; sourceTree = "<group>"; };
 		E19105B120455358002B3831 /* HXBMainListViewPlanTopViewViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMainListViewPlanTopViewViewModel.m; sourceTree = "<group>"; };
 		E1A1BEF11F386C080006BAA7 /* explain.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = explain.svg; sourceTree = "<group>"; };
+		E1A5A626209308BB0099E9A1 /* HXBWithdrawCardResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawCardResultViewController.h; sourceTree = "<group>"; };
+		E1A5A627209308BB0099E9A1 /* HXBWithdrawCardResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardResultViewController.m; sourceTree = "<group>"; };
+		E1A5A629209441DF0099E9A1 /* HXBUnBindCardResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUnBindCardResultViewController.h; sourceTree = "<group>"; };
+		E1A5A62A209441DF0099E9A1 /* HXBUnBindCardResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUnBindCardResultViewController.m; sourceTree = "<group>"; };
+		E1A5A62C209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordResultViewController.h; sourceTree = "<group>"; };
+		E1A5A62D209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordResultViewController.m; sourceTree = "<group>"; };
 		E1B21E632042B08200DD3784 /* HXBMy_Plan_Swipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Plan_Swipe.m; sourceTree = "<group>"; };
 		E1B21E652042B09200DD3784 /* HXBMY_PlanDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanDetailView.m; sourceTree = "<group>"; };
 		E1B21E672042B18A00DD3784 /* HXBMainListView_Plan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan.m; sourceTree = "<group>"; };
@@ -2749,6 +2758,8 @@
 				9AE030722022C314006D6140 /* HXBDepositoryAlertViewController.m */,
 				9AE030732022C314006D6140 /* HxbMyBankCardViewController.h */,
 				9AE030742022C314006D6140 /* HxbMyBankCardViewController.m */,
+				E1A5A629209441DF0099E9A1 /* HXBUnBindCardResultViewController.h */,
+				E1A5A62A209441DF0099E9A1 /* HXBUnBindCardResultViewController.m */,
 				9AE030752022C314006D6140 /* HXBMyBankResultViewController.h */,
 				9AE030762022C314006D6140 /* HXBMyBankResultViewController.m */,
 				9AE030772022C314006D6140 /* HXBOpenDepositAccountViewController.h */,
@@ -2759,6 +2770,8 @@
 				9AE0307C2022C314006D6140 /* HXBUnBindCardController.m */,
 				9AE0307D2022C314006D6140 /* HxbWithdrawCardViewController.h */,
 				9AE0307E2022C314006D6140 /* HxbWithdrawCardViewController.m */,
+				E1A5A626209308BB0099E9A1 /* HXBWithdrawCardResultViewController.h */,
+				E1A5A627209308BB0099E9A1 /* HXBWithdrawCardResultViewController.m */,
 				9AE0307F2022C314006D6140 /* HxbWithdrawResultViewController.h */,
 				9AE030802022C314006D6140 /* HxbWithdrawResultViewController.m */,
 			);
@@ -2874,6 +2887,8 @@
 				E1B21E6F2042B38E00DD3784 /* HXBSetTransactionPasswordViewController.m */,
 				9AE030A72022C315006D6140 /* HXBTransactionPasswordConfirmationViewController.h */,
 				E1B21E712042B39800DD3784 /* HXBTransactionPasswordConfirmationViewController.m */,
+				E1A5A62C209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.h */,
+				E1A5A62D209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -5518,6 +5533,7 @@
 				E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */,
 				9AE0327A2022C317006D6140 /* HXBMYModel_CapitalRecordDetailModel.m in Sources */,
 				9AE031F42022C317006D6140 /* HXBRechargesuccessView.m in Sources */,
+				E1A5A62E209445E60099E9A1 /* HXBModifyTransactionPasswordResultViewController.m in Sources */,
 				9AE034AA20232B0F006D6140 /* HXBHomePageHeadView.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
 				9AE033862022C422006D6140 /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
@@ -5614,6 +5630,7 @@
 				9AE031F82022C317006D6140 /* HxbMyBankCardViewController.m in Sources */,
 				9AE032332022C317006D6140 /* HXBMYModel_MainPlanModel.m in Sources */,
 				9AE032092022C317006D6140 /* HXBTransactionPasswordConfirmationView.m in Sources */,
+				E1A5A628209308BB0099E9A1 /* HXBWithdrawCardResultViewController.m in Sources */,
 				4E026FD62088798F00738A77 /* HXBLazyCatAccountWebViewController.m in Sources */,
 				9AE034C520232B0F006D6140 /* HXBNoticeVCViewModel.m in Sources */,
 				9AE031F22022C317006D6140 /* HXBMyTopUpHeaderView.m in Sources */,
@@ -5874,6 +5891,7 @@
 				9AE0338B2022C422006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */,
 				9AE033AB2022C423006D6140 /* HXBFinanctingDetail_progressCell.m in Sources */,
 				9AE033732022C422006D6140 /* HXBFin_Plan_BuyViewModel.m in Sources */,
+				E1A5A62B209441DF0099E9A1 /* HXBUnBindCardResultViewController.m in Sources */,
 				E1FCA43C204F8E70002A0523 /* HXBChooseDiscountCouponViewModel.m in Sources */,
 				9AE031E62022C317006D6140 /* HXBBankView.m in Sources */,
 				4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */,

@@ -20,6 +20,7 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBAccountSecureCell.h"
 #import "HXBMyAccountSecurityViewModel.h"
+#import "HXBLazyCatAccountWebViewController.h"
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -52,6 +53,11 @@ UITableViewDataSource,UITableViewDelegate
     [self.tableView reloadData];
     
     self.isColourGradientNavigationBar = YES;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.viewModel hiddenHFBank];
 }
 
 #pragma mark - UITableViewDelegate
@@ -145,10 +151,23 @@ UITableViewDataSource,UITableViewDelegate
             }
             
             if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-                modifyTransactionPasswordVC.title = @"修改交易密码";
-                modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
-                [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+//                HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+//                modifyTransactionPasswordVC.title = @"修改交易密码";
+//                modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+//                [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+                
+                [self.viewModel showHFBankWithContent:@"正在跳转至恒丰银行"];
+                HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+                HXBLazyCatRequestModel *reqModel = [[HXBLazyCatRequestModel alloc]init];
+                reqModel.url = @"/user/escrow";
+                reqModel.serviceName = @"";
+                reqModel.platformNo= @"";
+                reqModel.keySerial= @"";
+                reqModel.sign= @"";
+                reqModel.reqData= @"";
+                
+                lazyCatWebVC.requestModel = reqModel;
+                [self.navigationController pushViewController:lazyCatWebVC animated:YES];
             }else
             {
                 if (!weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCreateEscrowAcc) {
