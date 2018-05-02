@@ -7,7 +7,6 @@
 //
 
 #import "HxbWithdrawCardViewController.h"
-#import "HxbWithdrawResultViewController.h"
 #import "HXBBankCardModel.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBBankCardListViewController.h"

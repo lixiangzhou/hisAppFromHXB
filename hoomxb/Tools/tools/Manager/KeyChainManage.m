@@ -48,8 +48,6 @@ static NSString * const kNo = @"0";
 static NSString *const kIsAllPassed = @"kIsAllPassed";
 ///是否绑卡
 static NSString *const kIsBindCard = @"kIsBindCard";
-///是否有交易密码
-static NSString *const kISCashPasswordPassed = @"kISCashPasswordPassed";
 ///是否实名
 static NSString *const kIsIdPassed = @"kIsIdPassed";
 ///是否 手机号
@@ -107,8 +105,7 @@ static NSString *const hostH5 = @"hostH5";
 @property (nonatomic,copy) NSString *isVerify;
 ///是否绑卡
 @property (nonatomic,copy) NSString *isBindCard;
-///isCashPasswordPassed
-@property (nonatomic,copy) NSString *isCashPasswordPassed;
+
 ///isIdPassed    String    是否实名
 @property (nonatomic,copy) NSString *isIdPassed;
 ///是否手机号
@@ -153,10 +150,6 @@ static NSString *const hostH5 = @"hostH5";
     //是否绑卡 已绑卡， 0：未绑卡
     _isBindCard = userInfoViewModel.userInfoModel.userInfo.hasBindCard;
     _keychain[kIsBindCard] = _isBindCard;
-    
-    //isCashPasswordPassed    String    是否有交易密码
-    _isCashPasswordPassed = userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed;
-     _keychain[kISCashPasswordPassed] = _isCashPasswordPassed;
     
     ///isIdPassed    String    是否实名
     _isIdPassed = userInfoViewModel.userInfoModel.userInfo.isIdPassed;

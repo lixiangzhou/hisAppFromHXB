@@ -14,7 +14,6 @@
 #import "HXBModifyTransactionPasswordViewController.h"//交易密码
 //#import "HxbSecurityCertificationViewController.h"//安全认证
 #import "HXBCheckLoginPasswordViewController.h"//验证登录密码
-#import "HXBOpenDepositAccountViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBBottomLineTableViewCell.h"
 #import "HXBDepositoryAlertViewController.h"
@@ -136,42 +135,7 @@ UITableViewDataSource,UITableViewDelegate
 }
 
 - (void)modifyTransactionPwd {
-    kWeakSelf
-    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                return;
-            }
-            
-            if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-                modifyTransactionPasswordVC.title = @"修改交易密码";
-                modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
-                [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-            }else
-            {
-                if (!weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                    HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
-                    kWeakSelf
-                    alertVC.immediateOpenBlock = ^{
-                        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                        openDepositAccountVC.title = @"开通存管账户";
-                        //                        openDepositAccountVC.userModel = viewModel;
-                        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-                    };
-                    [weakSelf presentViewController:alertVC animated:NO completion:nil];
-                }else
-                {
-                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                    openDepositAccountVC.title = @"完善信息";
-                    openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-                }
-            }
-        }
-    }];
+    // TODO: 跳转到恒丰存管修改交易密码
 }
 
 - (void)modifyPhone
@@ -185,40 +149,22 @@ UITableViewDataSource,UITableViewDelegate
                     [weakSelf getintoModifyPhone];
                 }
             } else {
-                if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                    return;
-                }
                 if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
                     if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
                         [weakSelf getintoModifyPhone];
                     }
                 } else {
-                    if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"由于银行限制，您需要绑定银行卡后方可修改手机号" andLeftBtnName:@"暂不绑定" andRightBtnName:@"立即绑定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-                        alertVC.isCenterShow = YES;
-                        [alertVC setRightBtnBlock:^{
-                            //进入绑卡界面
-                            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                            withdrawCardViewController.title = @"绑卡";
-                            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-                        }];
-                        
-                        [self presentViewController:alertVC animated:NO completion:nil];
-                    } else {
-                        //                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-                        //                    alertVC.isCenterShow = YES;
-                        //                    [alertVC setRightBtnBlock:^{
-                        //完善信息
-                        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                        openDepositAccountVC.title = @"完善信息";
-                        openDepositAccountVC.type = HXBChangePhone;
-                        //                    openDepositAccountVC.userModel = self.userInfoViewModel;
-                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-                        //                    }];
-                        //                    [self presentViewController:alertVC animated:NO completion:nil];
-                    }
+                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"由于银行限制，您需要绑定银行卡后方可修改手机号" andLeftBtnName:@"暂不绑定" andRightBtnName:@"立即绑定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+                    alertVC.isCenterShow = YES;
+                    [alertVC setRightBtnBlock:^{
+                        //进入绑卡界面
+                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                        withdrawCardViewController.title = @"绑卡";
+                        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                    }];
+                    
+                    [self presentViewController:alertVC animated:NO completion:nil];
                 }
             }
         }

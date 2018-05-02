@@ -137,6 +137,7 @@
 		8D56C7972043C61F008C3F1C /* HXBTransactionPasswordConfirmationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C7962043C61F008C3F1C /* HXBTransactionPasswordConfirmationViewModel.m */; };
 		8D56C79B2043FEE3008C3F1C /* HXBFinPlanBuyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C79A2043FEE3008C3F1C /* HXBFinPlanBuyViewModel.m */; };
 		8D9F88DA20916EB8003C8108 /* HXBCommonResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F88D920916EB8003C8108 /* HXBCommonResultController.m */; };
+		8D9F88E920996251003C8108 /* HXBOpenDepositoryResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F88E820996251003C8108 /* HXBOpenDepositoryResultController.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
 		8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30441FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.m */; };
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
@@ -806,6 +807,8 @@
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8D9F88D820916EB8003C8108 /* HXBCommonResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCommonResultController.h; sourceTree = "<group>"; };
 		8D9F88D920916EB8003C8108 /* HXBCommonResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCommonResultController.m; sourceTree = "<group>"; };
+		8D9F88E720996251003C8108 /* HXBOpenDepositoryResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositoryResultController.h; sourceTree = "<group>"; };
+		8D9F88E820996251003C8108 /* HXBOpenDepositoryResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositoryResultController.m; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
 		8DAD30431FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseAlertViewController.h; sourceTree = "<group>"; };
@@ -2753,6 +2756,8 @@
 				9AE030762022C314006D6140 /* HXBMyBankResultViewController.m */,
 				9AE030772022C314006D6140 /* HXBOpenDepositAccountViewController.h */,
 				9AE030782022C314006D6140 /* HXBOpenDepositAccountViewController.m */,
+				8D9F88E720996251003C8108 /* HXBOpenDepositoryResultController.h */,
+				8D9F88E820996251003C8108 /* HXBOpenDepositoryResultController.m */,
 				9AE030792022C314006D6140 /* HXBRechargeCompletedViewController.h */,
 				9AE0307A2022C314006D6140 /* HXBRechargeCompletedViewController.m */,
 				9AE0307B2022C314006D6140 /* HXBUnBindCardController.h */,
@@ -5380,21 +5385,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		192F499BC36DF2E50411BAAD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		66E283077D9763B274CFFA54 /* bu */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5920,6 +5910,7 @@
 				9AE032262022C317006D6140 /* HxbMyTopUpViewController.m in Sources */,
 				9AE033AC2022C423006D6140 /* HXBFinanctingDetail_trustCell.m in Sources */,
 				4EB420901F25FCDC00631A25 /* HXBMiddlekey.m in Sources */,
+				8D9F88E920996251003C8108 /* HXBOpenDepositoryResultController.m in Sources */,
 				9AE033852022C422006D6140 /* HXBFinHomePageViewModel_LoanList.m in Sources */,
 				9AE031E82022C317006D6140 /* HXBPresentInformationView.m in Sources */,
 				9AE0325C2022C317006D6140 /* HBAlertPasswordView.m in Sources */,

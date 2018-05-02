@@ -108,6 +108,7 @@
 #define kHXBHome_AnnounceURL @"/announce"//公告
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
+#define kHXBOpenDepository @"/user/escrowAcc"   // 懒猫—存管开户
 #define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbind" // 解绑银行卡操作
 #define kHXBUserInfo_BankCard @"/account/bankcard"//@"/account/user/card" //用户获取绑定银行卡信息
 #define kHXBWithdraw @"/account/withdraw" //提现页面

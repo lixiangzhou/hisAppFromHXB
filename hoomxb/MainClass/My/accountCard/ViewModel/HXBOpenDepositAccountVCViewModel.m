@@ -7,9 +7,9 @@
 //
 
 #import "HXBOpenDepositAccountVCViewModel.h"
-#import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-#import "HXBBankCardModel.h"
+
+
 @interface HXBOpenDepositAccountVCViewModel()
 
 @property (nonatomic, strong) NYBaseRequest *cardBinrequest;
@@ -83,6 +83,45 @@
         }
     }];
     
+}
+
+- (void)openDepositoryWithUsrname:(NSString *)username idNo:(NSString *)idNo bankNo:(NSString *)bankNo resultBlock:(void (^)(BOOL))resultBlock {
+    
+    kWeakSelf
+    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:YES andCallBack:^(BOOL isSuccess) {
+        if (isSuccess) {
+            NSDictionary *param = @{
+                                    @"name" : username,
+                                    @"idNo" : idNo,
+                                    @"cardNumber" : bankNo,
+                                    @"bankCode" : weakSelf.cardBinModel.bankCode,
+                                    };
+            [weakSelf openDepositoryWithParam:param resultBlock:resultBlock];
+        }
+        
+    }];
+    
+}
+
+- (void)openDepositoryWithParam:(NSDictionary *)param resultBlock:(void(^)(BOOL))resultBlock {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBOpenDepository;
+    request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = param;
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        HXBLazyCatRequestModel *model = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"][@"result"]];
+        model.url = responseObject[@"data"][@"url"];
+        weakSelf.lazyCatReqModel = model;
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        weakSelf.lazyCatReqModel = nil;
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
 }
 
 /**

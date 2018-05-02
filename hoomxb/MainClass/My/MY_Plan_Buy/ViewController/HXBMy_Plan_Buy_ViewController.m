@@ -116,12 +116,8 @@
     kWeakSelf
     [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+            if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
             {
-                if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isUnbundling) {
-                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                    return;
-                }
                 //进入绑卡界面
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                 withdrawCardViewController.title = @"绑卡";
