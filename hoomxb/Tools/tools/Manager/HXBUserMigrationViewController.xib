@@ -12,6 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HXBUserMigrationViewController">
             <connections>
+                <outlet property="alertView" destination="bzE-Sq-BQB" id="IJi-FY-Mqz"/>
+                <outlet property="bgView" destination="Jsj-aG-CDz" id="bHp-Ms-LcT"/>
+                <outlet property="descLab" destination="ZH9-Hx-S8R" id="xPq-et-nLf"/>
+                <outlet property="leftBtn" destination="GLs-nk-hrM" id="hrD-Pc-h6U"/>
+                <outlet property="rightBtn" destination="tpm-Eo-2Ys" id="SID-Bm-fqZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,13 +25,75 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6g0-FB-P1i">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsj-aG-CDz">
+                    <rect key="frame" x="0.0" y="20" width="374" height="626"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzE-Sq-BQB">
+                            <rect key="frame" x="30" y="220" width="314" height="170"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="为保障您的账户安全，请先激活您的账户再进行下一步操作" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZH9-Hx-S8R">
+                                    <rect key="frame" x="30" y="30" width="264" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nuu-B6-gxK">
+                                    <rect key="frame" x="0.0" y="135" width="314" height="35"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLs-nk-hrM">
+                                            <rect key="frame" x="0.0" y="0.0" width="157" height="35"/>
+                                            <state key="normal" title="暂不激活">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="clickLeftBtn:" destination="-1" eventType="touchUpInside" id="ikO-sh-stQ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpm-Eo-2Ys">
+                                            <rect key="frame" x="157" y="0.0" width="157" height="35"/>
+                                            <color key="backgroundColor" red="0.9876538212" green="0.05653295564" blue="0.091504463219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" title="账户激活">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="clickRightBtn:" destination="-1" eventType="touchUpInside" id="USi-s3-GGd"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="R7G-bi-hnU"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="ZH9-Hx-S8R" firstAttribute="top" secondItem="bzE-Sq-BQB" secondAttribute="top" constant="30" id="FYx-Lc-3ez"/>
+                                <constraint firstAttribute="trailing" secondItem="ZH9-Hx-S8R" secondAttribute="trailing" constant="20" id="I3w-gM-WAz"/>
+                                <constraint firstAttribute="bottom" secondItem="nuu-B6-gxK" secondAttribute="bottom" id="IJE-TS-DeP"/>
+                                <constraint firstItem="nuu-B6-gxK" firstAttribute="leading" secondItem="bzE-Sq-BQB" secondAttribute="leading" id="Y6V-QU-iWj"/>
+                                <constraint firstItem="ZH9-Hx-S8R" firstAttribute="leading" secondItem="bzE-Sq-BQB" secondAttribute="leading" constant="30" id="aAA-6G-q1Y"/>
+                                <constraint firstAttribute="height" constant="170" id="lUl-tS-akQ"/>
+                                <constraint firstAttribute="trailing" secondItem="nuu-B6-gxK" secondAttribute="trailing" id="mq1-tb-2Av"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="bzE-Sq-BQB" firstAttribute="top" secondItem="Jsj-aG-CDz" secondAttribute="top" constant="220" id="Gak-w8-xO6"/>
+                        <constraint firstItem="bzE-Sq-BQB" firstAttribute="leading" secondItem="Jsj-aG-CDz" secondAttribute="leading" constant="30" id="Vjx-g0-aBZ"/>
+                        <constraint firstAttribute="trailing" secondItem="bzE-Sq-BQB" secondAttribute="trailing" constant="30" id="ceo-Gc-ibo"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Jsj-aG-CDz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BjX-Ih-ecq"/>
+                <constraint firstItem="Jsj-aG-CDz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JSC-UL-Hhq"/>
+                <constraint firstItem="Jsj-aG-CDz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="RDj-b0-Ru7"/>
+                <constraint firstItem="Jsj-aG-CDz" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hdI-sg-fG1"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
     </objects>
 </document>
