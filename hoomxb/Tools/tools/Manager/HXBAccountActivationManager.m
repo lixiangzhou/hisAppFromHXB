@@ -12,9 +12,9 @@
 #import "HXBHomePopViewManager.h"
 
 #import "HXBAccountActivationViewController.h"
-
+#import "HXBUserMigrationViewController.h"
 @interface HXBAccountActivationManager()
-@property (nonatomic, strong) UIViewController* accountActivationVC;
+@property (nonatomic, strong) HXBUserMigrationViewController* accountActivationVC;
 @end
 
 @implementation HXBAccountActivationManager
@@ -36,7 +36,7 @@
 - (void)entryActiveAccountPage {
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
-    
+    _accountActivationVC = [HXBUserMigrationViewController new];
     if(self.accountActivationVC) {
         [topVC presentViewController:self.accountActivationVC animated:YES completion:^{
             

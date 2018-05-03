@@ -15,6 +15,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBSignInViewModel.h"
 
+#import "HXBUserMigrationViewController.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
 static NSString *const kMobile_NotExis = @"手机号尚未注册";
@@ -45,6 +46,18 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     [self registerSignUPEvent];///注册 点击signUP事件
     [self registerClickforgetPasswordButton];///忘记密码
     [self registerClickUserAgreementBtn];///用户协议
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 200, 200)];
+    btn.backgroundColor = [UIColor redColor];
+    [btn addTarget:self action:@selector(toucha) forControlEvents:UIControlEventTouchUpInside];
+    [self.signView addSubview:btn];
+    
+}
+
+- (void)toucha{
+    
+    HXBUserMigrationViewController *vc =[[HXBUserMigrationViewController alloc]init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
