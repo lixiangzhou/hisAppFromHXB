@@ -80,6 +80,7 @@
 }
 
 - (void)findPopVC {
+    _popViewControllers = [[NSMutableArray alloc] init];
     
     NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"),NSClassFromString(@"HxbMyTopUpViewController"),NSClassFromString(@"HxbWithdrawCardViewController"),NSClassFromString(@"HXBOpenDepositAccountViewController"), nil];
     
