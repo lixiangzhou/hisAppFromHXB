@@ -13,6 +13,10 @@
 
 #import "HXBAccountActivationViewController.h"
 
+@interface HXBAccountActivationManager()
+@property (nonatomic, strong) UIViewController* accountActivationVC;
+@end
+
 @implementation HXBAccountActivationManager
 
 + (instancetype)sharedInstance
@@ -33,18 +37,18 @@
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
     
-    HXBAccountActivationViewController *alertVC = [[HXBAccountActivationViewController alloc] init];
-    UINavigationController *navVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
-    [topVC presentViewController:alertVC animated:YES completion:^{
-        
-    }];
+    if(self.accountActivationVC) {
+        [topVC presentViewController:self.accountActivationVC animated:YES completion:^{
+            
+        }];
+    }
 }
 
 /**
  退出账户激活页
  */
 - (void)exitActiveAccountPage {
-    
+    [self.accountActivationVC dismissViewControllerAnimated:NO completion:nil];
 }
 
 @end

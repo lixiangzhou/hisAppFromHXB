@@ -91,7 +91,7 @@
         }
     }
     
-    if(self.popViewControllers.count <= 0) {
+    if(self.popViewControllers.count<=0 && count>1) {
         //如果找不到指定页面， 直接将前一个页面添加到列表
         [self.popViewControllers addObject:self.navigationController.viewControllers[count-2]];
     }
