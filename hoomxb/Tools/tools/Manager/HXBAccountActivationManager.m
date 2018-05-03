@@ -48,7 +48,10 @@
  退出账户激活页
  */
 - (void)exitActiveAccountPage {
-    [self.accountActivationVC dismissViewControllerAnimated:NO completion:nil];
+    if(self.accountActivationVC.presentingViewController) {
+        [self.accountActivationVC dismissViewControllerAnimated:NO completion:nil];
+    }
+    
 }
 
 @end
