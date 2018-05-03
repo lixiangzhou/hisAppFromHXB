@@ -82,7 +82,7 @@
 - (void)findPopVC {
     _popViewControllers = [[NSMutableArray alloc] init];
     
-    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"),NSClassFromString(@"HxbMyTopUpViewController"),NSClassFromString(@"HxbWithdrawCardViewController"),NSClassFromString(@"HXBOpenDepositAccountViewController"), nil];
+    NSSet *subVC = [NSSet setWithObjects:NSClassFromString(@"HXBFin_Plan_Buy_ViewController"),NSClassFromString(@"HXBFin_Loan_Buy_ViewController"),NSClassFromString(@"HXBFin_creditorChange_buy_ViewController"),NSClassFromString(@"HxbMyTopUpViewController"),NSClassFromString(@"HxbWithdrawCardViewController"),NSClassFromString(@"HXBOpenDepositAccountViewController"),NSClassFromString(@"HXBBindBankCardViewController"), nil];
     
     NSInteger count = self.navigationController.viewControllers.count;
     for (int i = 0; i <  count- 1; i++) {
@@ -91,7 +91,7 @@
         }
     }
     
-    if(self.popViewControllers.count <= 0) {
+    if(self.popViewControllers.count<=0 && count>1) {
         //如果找不到指定页面， 直接将前一个页面添加到列表
         [self.popViewControllers addObject:self.navigationController.viewControllers[count-2]];
     }
