@@ -132,6 +132,9 @@
 
 @property (nonatomic, copy) NSString *quitWaysDesc;
 
+/// --------------------2.7 增加-----------------
+/// 是否允许追加购买
+@property (nonatomic, assign) BOOL isAllowedRepeatPurchase;
 
 ///String	剩余可追加金额
 @property (nonatomic,copy) NSString *potUserRemainAmount;

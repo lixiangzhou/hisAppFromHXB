@@ -49,7 +49,7 @@
     HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
     self.commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:@""
                                                                                   titleString:resultModel.title
-                                                                                   descString:model.data.content
+                                                                                   descString:resultModel.content
                                                                                 firstBtnTitle:@"查看我的出借"];
     self.commenResultVC.contentModel.secondBtnTitle = @"";
     kWeakSelf
