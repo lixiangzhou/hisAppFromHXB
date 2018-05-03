@@ -6,8 +6,7 @@
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseViewController.h"
-
-@interface HXBWithdrawCardResultViewController : HXBBaseViewController
+#import "HXBCommonResultController.h"
+@interface HXBWithdrawCardResultViewController : HXBCommonResultController
 
 @end

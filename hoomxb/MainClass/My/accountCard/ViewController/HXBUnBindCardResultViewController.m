@@ -7,7 +7,6 @@
 //  解绑卡结果页
 
 #import "HXBUnBindCardResultViewController.h"
-#import "HXBCommonResultController.h"
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
 #import "HxbWithdrawCardViewController.h"
@@ -15,20 +14,15 @@
 #import "HxbMyBankCardViewController.h"
 
 @interface HXBUnBindCardResultViewController ()<HXBLazyCatResponseDelegate>
-@property (nonatomic,strong) HXBCommonResultController *commonResultVC;
+
 @end
 
 @implementation HXBUnBindCardResultViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-}
-
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     kWeakSelf
-    self.commonResultVC = [[HXBCommonResultController alloc]init];
+
     HXBCommonResultContentModel *commonResultModel = nil;
     
     if ([model.result isEqualToString:@"success"]) { //成功
@@ -98,8 +92,8 @@
         };
     }
     
-    self.commonResultVC.contentModel = commonResultModel;
-    [self.view addSubview: self.commonResultVC.view];
+    self.contentModel = commonResultModel;
+//    [self.view addSubview: self.commonResultVC.view];
 }
 
 - (void)leftBackBtnClick {

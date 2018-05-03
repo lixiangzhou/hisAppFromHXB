@@ -8,12 +8,11 @@
 
 #import "HXBModifyTransactionPasswordResultViewController.h"
 
-#import "HXBCommonResultController.h"
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
 #import "HxbMyAccountSecurityViewController.h"
 @interface HXBModifyTransactionPasswordResultViewController ()<HXBLazyCatResponseDelegate>
-@property (nonatomic,strong) HXBCommonResultController *commonResultVC;
+
 @end
 
 @implementation HXBModifyTransactionPasswordResultViewController
@@ -21,7 +20,7 @@
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     kWeakSelf
-    self.commonResultVC = [[HXBCommonResultController alloc]init];
+    
     HXBCommonResultContentModel *commonResultModel = nil;
     
     if ([model.result isEqualToString:@"success"]) { //成功
@@ -48,8 +47,8 @@
         }
     };
     
-    self.commonResultVC.contentModel = commonResultModel;
-    [self.view addSubview: self.commonResultVC.view];
+    self.contentModel = commonResultModel;
+//    [self.view addSubview: self.commonResultVC.view];
 }
 
 - (void)leftBackBtnClick
