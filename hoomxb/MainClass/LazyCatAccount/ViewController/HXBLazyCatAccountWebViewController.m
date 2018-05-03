@@ -16,8 +16,8 @@
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
-@property (nonatomic, strong) UIWebView* webView;
-@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
+//@property (nonatomic, strong) UIWebView* webView;
+//@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -26,12 +26,12 @@
     [super viewDidLoad];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-    //    [self setupJavascriptBridge];
+    [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
     
-    [self setupUI];
-    [self loadWebPage];
+//    [self setupUI];
+//    [self loadWebPage];
 }
 
 - (void)leftBackBtnClick {
@@ -136,7 +136,7 @@
 //    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
 //
 //    }];
-    
+
     NSString* serviceName = self.requestModel.result.serviceName;
     NSString* platformNo = self.requestModel.result.platformNo;
     NSString* userDevice = @"MOBILE";
@@ -158,13 +158,13 @@
  桥接H5回调
  */
 - (void)setupJavascriptBridge {
-//    //恒丰异步回调成功
-//    kWeakSelf
-//    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
-//        NSLog(@"%@",data);
-//        //根据数据跳转到响应的结果页面
-//        [weakSelf jumpToResultPageWithData:data];
-//    }];
+    //恒丰异步回调成功
+    kWeakSelf
+    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        //根据数据跳转到响应的结果页面
+        [weakSelf jumpToResultPageWithData:data];
+    }];
 }
 
 //根据数据跳转到响应的结果页面
