@@ -50,7 +50,7 @@
 
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
-    self.popVC = vcArray.firstObject;
+    self.popVC = vcArray.lastObject;
 }
 
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
@@ -65,7 +65,7 @@
         _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
-            [weakSelf.navigationController popToViewController:self.popVC animated:YES];
+            [weakSelf.navigationController popToViewController:weakSelf.popVC animated:YES];
         };
         //立即投资
         _rechargesuccessView.immediateInvestmentBlock = ^{
@@ -79,7 +79,7 @@
 #pragma mark - Action
 - (void)leftBackBtnClick
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToViewController:self.popVC animated:YES];
 }
 
 

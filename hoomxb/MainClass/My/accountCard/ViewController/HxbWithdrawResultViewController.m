@@ -9,9 +9,13 @@
 #import "HxbWithdrawResultViewController.h"
 #import "HXBBankCardModel.h"
 #import "HXBPresentInformationView.h"
-@interface HxbWithdrawResultViewController ()
+#import "HXBLazyCatResponseDelegate.h"
+
+@interface HxbWithdrawResultViewController () <HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBPresentInformationView *presentInformationView;
+
+@property (nonatomic, weak) UIViewController *popVC;
 
 @end
 
@@ -42,21 +46,40 @@
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.bankCardModel = [HXBBankCardModel new];
+//    self.bankCardNumberLabel.text = [NSString stringWithFormat:@"%@ 尾号 %@",self.bankCardModel.bankType,[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
+//    //    self.bankCardModel.amount doubleValue
+//
+//    self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%@",[NSString hxb_getPerMilWithDouble:[self.bankCardModel.amount doubleValue]]];
+//    self.withdrawalsTimeLabel.text = self.bankCardModel.bankArriveTimeText;
+    
+//    self.bankCardModel.bankType =
+//    self.bankCardModel
+}
+
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
+    self.popVC = vcArray.lastObject;
+}
+
+#pragma mark - Action
+- (void)leftBackBtnClick {
+    [self.navigationController popToViewController:self.popVC animated:YES];
+}
+
+#pragma mark - Lazy
 - (HXBPresentInformationView *)presentInformationView
 {
     if (!_presentInformationView) {
         kWeakSelf
         _presentInformationView = [[HXBPresentInformationView alloc] initWithFrame:self.view.bounds];
         _presentInformationView.completeBlock = ^{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"提现充值" object:weakSelf];
+            //            [[NSNotificationCenter defaultCenter] postNotificationName:@"提现充值" object:weakSelf];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         };
     }
     return _presentInformationView;
-}
-
-- (void)leftBackBtnClick {
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
