@@ -10,6 +10,10 @@
 #import "HXBBankCardModel.h"
 #import "HXBPresentInformationView.h"
 #import "HXBLazyCatResponseDelegate.h"
+#import "HXBLazyCatResultWithdrawalModel.h"
+#import "HXBLazyCatResponseModel.h"
+#import "HXBAccountWithdrawViewModel.h"
+#import "HXBWithdrawModel.h"
 
 @interface HxbWithdrawResultViewController () <HXBLazyCatResponseDelegate>
 
@@ -26,7 +30,7 @@
     self.title = @"提现结果";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.presentInformationView];
-    self.presentInformationView.bankCardModel = self.bankCardModel;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -48,15 +52,16 @@
 
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.bankCardModel = [HXBBankCardModel new];
-//    self.bankCardNumberLabel.text = [NSString stringWithFormat:@"%@ 尾号 %@",self.bankCardModel.bankType,[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
-//    //    self.bankCardModel.amount doubleValue
-//
-//    self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%@",[NSString hxb_getPerMilWithDouble:[self.bankCardModel.amount doubleValue]]];
-//    self.withdrawalsTimeLabel.text = self.bankCardModel.bankArriveTimeText;
-    
-//    self.bankCardModel.bankType =
-//    self.bankCardModel
+    HXBAccountWithdrawViewModel *viewModel = [HXBAccountWithdrawViewModel new];
+    kWeakSelf
+    [viewModel accountWithdrawaWithParameter:nil andRequestMethod:NYRequestMethodGet resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.bankCardModel = viewModel.withdrawModel.bankCard;
+            weakSelf.bankCardModel.amount = ((HXBLazyCatResultWithdrawalModel *)model.data).amount;
+            
+            weakSelf.presentInformationView.bankCardModel = weakSelf.bankCardModel;
+        }
+    }];
 }
 
 - (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
