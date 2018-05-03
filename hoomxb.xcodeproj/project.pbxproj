@@ -520,6 +520,8 @@
 		E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBA20562D3900666749 /* HXBMyPlanDetailsExitModel.m */; };
 		E166CDBE20562F5400666749 /* HXBMyPlanDetailsExitMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */; };
 		E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */; };
+		E1681AEB209B32A500CDEE18 /* HXBBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AE7209B32A400CDEE18 /* HXBBaseWebViewController.m */; };
+		E1681AEC209B32A500CDEE18 /* HXBWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AE8209B32A400CDEE18 /* HXBWebViewProgress.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
@@ -1604,6 +1606,10 @@
 		E166CDBD20562F5400666749 /* HXBMyPlanDetailsExitMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitMainView.m; sourceTree = "<group>"; };
 		E166CDBF2056955800666749 /* HXBMyPlanDetailsExitResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsExitResultModel.h; sourceTree = "<group>"; };
 		E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanDetailsExitResultModel.m; sourceTree = "<group>"; };
+		E1681AE7209B32A400CDEE18 /* HXBBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWebViewController.m; sourceTree = "<group>"; };
+		E1681AE8209B32A400CDEE18 /* HXBWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWebViewProgress.m; sourceTree = "<group>"; };
+		E1681AE9209B32A500CDEE18 /* HXBBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWebViewController.h; sourceTree = "<group>"; };
+		E1681AEA209B32A500CDEE18 /* HXBWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWebViewProgress.h; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E18330AA1EF23D75009807A9 /* HXBKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBKeyBoardManager.h; sourceTree = "<group>"; };
@@ -2566,6 +2572,10 @@
 		9A36E3291FC6AB1700C318B3 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E1681AE9209B32A500CDEE18 /* HXBBaseWebViewController.h */,
+				E1681AE7209B32A400CDEE18 /* HXBBaseWebViewController.m */,
+				E1681AEA209B32A500CDEE18 /* HXBWebViewProgress.h */,
+				E1681AE8209B32A400CDEE18 /* HXBWebViewProgress.m */,
 				9A647E10204E968700EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.h */,
 				9A647E11204E968800EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m */,
 				9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */,
@@ -5548,6 +5558,7 @@
 				8DAD30891FBA8F8C00E2AEE8 /* HXBNoNetworkStatusView.m in Sources */,
 				9AE033A82022C423006D6140 /* HXBFin_PlanDetailView.m in Sources */,
 				9AE0324E2022C317006D6140 /* HXBProgressView.m in Sources */,
+				E1681AEC209B32A500CDEE18 /* HXBWebViewProgress.m in Sources */,
 				E11D78192029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.m in Sources */,
 				9AE031FE2022C317006D6140 /* HxbWithdrawResultViewController.m in Sources */,
 				9AE033782022C422006D6140 /* HXBFinBaseNegotiateView.m in Sources */,
@@ -5924,6 +5935,7 @@
 				4E0446E21FBEA9A50030E276 /* HXBUMShareViewModel.m in Sources */,
 				9AE031EE2022C317006D6140 /* HXBCardholderInformationView.m in Sources */,
 				4E3A27D11FBAEE4D004FB54D /* HXBRootVCManager.m in Sources */,
+				E1681AEB209B32A500CDEE18 /* HXBBaseWebViewController.m in Sources */,
 				4E2BACA81FB2EE3A002A3C82 /* HXBUMengShareManager.m in Sources */,
 				9AE033632022C422006D6140 /* HXBFinAddRecordVC_Plan.m in Sources */,
 				9AE032102022C317006D6140 /* HXBMY_LoanTruansferViewModel.m in Sources */,
@@ -5947,7 +5959,6 @@
 				9AE033AA2022C423006D6140 /* HXBFinanctingDetail_imageCell.m in Sources */,
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,
 				9AE032072022C317006D6140 /* HXBGesturePasswordViewController.m in Sources */,
-				9A6227E1209AE62B006826D4 /* HXBBaseWebViewController.m in Sources */,
 				9AE033622022C422006D6140 /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */,
 				E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */,
 				4EB73CC8204563E200BC2E48 /* HXBSendSmscodeVCViewModel.m in Sources */,
