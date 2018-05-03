@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIView *backView; /// 白色透明背景
 @property (nonatomic, strong) TumblrAnimationView *tumblrAnimationView; /// 圆点动画
 @property (nonatomic, strong) UILabel *label; /// hud文案Label
+@property (nonatomic, assign) float hfViewCenterY;
 
 @end
 
@@ -36,7 +37,7 @@
     self.backView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
     [self addSubview:self.backView];
     
-    UIView *hudView = [[UIView alloc] initWithFrame:CGRectMake(kScreenW / 2 - 110, 300, 220, 95)];
+    UIView *hudView = [[UIView alloc] initWithFrame:CGRectMake(kScreenW / 2 - kScrAdaptationW(110), self.centerY - kScrAdaptationH(47.5), kScrAdaptationW(220), kScrAdaptationH(95))];
     hudView.layer.cornerRadius = 4;
     hudView.backgroundColor = [UIColor colorWithRed:119/ 256.0 green:119/256.0 blue:119/256.0 alpha:1];
     [self.backView addSubview:hudView];

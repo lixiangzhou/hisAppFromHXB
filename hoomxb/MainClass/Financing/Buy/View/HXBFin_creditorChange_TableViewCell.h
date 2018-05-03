@@ -22,6 +22,7 @@
 @property (nonatomic, assign)  BOOL isDiscountRow;
 /** 是否匹配最优有优惠券 */
 @property (nonatomic, assign)  BOOL hasBestCoupon;
-
+/** 银行名称 */
+@property (nonatomic, copy) NSString *bankImageName;
 
 @end

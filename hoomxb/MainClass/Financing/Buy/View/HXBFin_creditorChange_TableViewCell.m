@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *detailLabel;
 /** 横线 */
 @property (nonatomic, strong) UIView *lineView;
+/** 图片 */
+@property (nonatomic, strong) UIImageView *bankImageView;
 /** 小菊花 */
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
@@ -31,6 +33,7 @@
 }
 
 - (void)buildUI {
+    [self.contentView addSubview:self.bankImageView];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.detailLabel];
     [self.contentView addSubview:self.lineView];
@@ -45,9 +48,16 @@
 }
 
 - (void)setupFrame {
+    
+    [_bankImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(kScrAdaptationW(15));
+        make.left.equalTo(@(kScrAdaptationW(15)));
+        make.width.height.offset(kScrAdaptationW(25));
+    }];
+    
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
-        make.left.equalTo(@(kScrAdaptationW(15)));
+        make.left.equalTo(_bankImageView.mas_right).offset(kScrAdaptationW(10));
         make.width.offset(kScrAdaptationW(200));
     }];
     
@@ -76,15 +86,32 @@
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(3, _titleStr.length - 3)];
         _titleLabel.attributedText = attributedStr;
         
-    } else if ([_titleStr containsString:@"可用余额"]) {
+    } else if ([_titleStr containsString:@"（"]) {
         
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
-        [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, _titleStr.length - 4)];
+        [attributedStr addAttribute:NSForegroundColorAttributeName value:kHXBColor_999999_100 range:NSMakeRange(4, _titleStr.length - 4)];
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(4, _titleStr.length - 4)];
         _titleLabel.attributedText = attributedStr;
     }
 }
 
+- (void)setBankImageName:(NSString *)bankImageName {
+    _bankImageName = bankImageName;
+    if (!_bankImageName.length) {
+        _bankImageView.width = 0;
+        _bankImageView.hidden = YES;
+    } else {
+        _bankImageView.width = kScrAdaptationW(35);
+        _bankImageView.hidden = NO;
+        _bankImageView.svgImageString = [NSString stringWithFormat:@"%@.svg",_bankImageName];
+    }
+    kWeakSelf
+    [_titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(weakSelf);
+        make.left.equalTo(@(kScrAdaptationW(15) + weakSelf.bankImageView.width));
+        make.width.offset(kScrAdaptationW(200));
+    }];
+}
 
 - (void)setIsStartAnimation:(BOOL)isStartAnimation {
     _isStartAnimation = isStartAnimation;
@@ -161,7 +188,13 @@
     return _lineView;
 }
 
-
+- (UIImageView *)bankImageView {
+    if (!_bankImageView) {
+        _bankImageView = [[UIImageView alloc] init];
+        _bankImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _bankImageView;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

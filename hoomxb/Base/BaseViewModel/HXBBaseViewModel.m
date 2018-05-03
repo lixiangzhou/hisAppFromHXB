@@ -82,18 +82,18 @@
 }
 
 #pragma mark 自定义恒丰银行跳转弹窗
-- (void)showHFBank:(BOOL)isShow content:(NSString*)content {
+- (void)showHFBankWithContent:(NSString*)content {
     UIView *parentV = [self getHugView];
     if (!_hfBankView) {
         _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:CGRectZero];
         _hfBankView.hudContent = content;
     }
     [parentV addSubview:_hfBankView];
-    if (isShow) {
-        [parentV bringSubviewToFront:_hfBankView];
-    } else {
-        [parentV sendSubviewToBack:_hfBankView];
-    }
+    [parentV bringSubviewToFront:_hfBankView];
+}
+
+- (void)hiddenHFBank {
+    [_hfBankView removeFromSuperview];
 }
 
 #pragma mark 弹框显示
