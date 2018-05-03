@@ -14,7 +14,10 @@
 #import "HxbAccountInfoViewController.h"
 
 @interface HXBOpenDepositoryResultController () <HXBLazyCatResponseDelegate>
-@property (nonatomic, weak) UIViewController *popVC;
+@property (nonatomic, weak) UIViewController *openDepositoryVC;
+@property (nonatomic, weak) UIViewController *openDepositoryTipVC;
+
+@property (nonatomic, copy) NSString *result;
 @end
 
 @implementation HXBOpenDepositoryResultController
@@ -25,6 +28,7 @@
     self.contentModel.titleString = model.data.title;
     self.contentModel.descString = model.data.content;
     
+    self.result = model.result;
     if ([model.result isEqualToString:@"success"]) {
         [self successResult];
     } else if ([model.result isEqualToString:@"error"]) {
@@ -35,7 +39,13 @@
 }
 
 - (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
-    self.popVC = vcArray.lastObject;
+    for (UIViewController *VC in vcArray) {
+        if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")]) {
+            self.openDepositoryVC = VC;
+        } else if ([VC isKindOfClass:NSClassFromString(@"HXBBindBankCardViewController")]) {
+            self.openDepositoryTipVC = VC;
+        }
+    }
 }
 
 #pragma mark - Helper
@@ -44,18 +54,20 @@
     self.contentModel.imageName = @"";
     
     self.contentModel.firstBtnTitle = @"去充值";
+    kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        HxbMyTopUpViewController *VC = [HxbMyTopUpViewController new];
-        [resultController.navigationController pushViewController:VC animated:YES];
+        [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+        [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
+        // 以防万一
+        [resultController.navigationController popToRootViewControllerAnimated:NO];
+        if (weakSelf.openDepositoryTipVC) {
+            [resultController dismissViewControllerAnimated:NO completion:nil];
+        }
     };
     
     self.contentModel.secondBtnTitle = @"先逛逛";
     self.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
-        [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
-        [resultController.navigationController popToRootViewControllerAnimated:NO];
-        if ([HXBRootVCManager manager].mainTabbarVC.presentedViewController) {
-            [[HXBRootVCManager manager].mainTabbarVC.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-        }
+        [weakSelf popToHomeVC];
     };
 }
 
@@ -65,7 +77,7 @@
     self.contentModel.firstBtnTitle = @"返回";
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [resultController.navigationController popToViewController:weakSelf.popVC animated:YES];
+        [resultController.navigationController popToViewController:weakSelf.openDepositoryVC animated:YES];
     };
 }
 
@@ -76,10 +88,12 @@
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
             request.showHud = YES;
-            [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
-            [resultController.navigationController popToRootViewControllerAnimated:NO];
         } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
             if (error == nil) {
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+                [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
+                [resultController.navigationController popToRootViewControllerAnimated:NO];
+                
                 HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
                 accountInfoVC.userInfoViewModel = viewModel;
                 accountInfoVC.isDisplayAdvisor = viewModel.userInfoModel.userInfo.isDisplayAdvisor;
@@ -89,11 +103,24 @@
     };
 }
 
+- (void)popToHomeVC {
+    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
+    [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
+    // 以防万一
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    if (self.openDepositoryTipVC) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
 #pragma mark - Action
 
 - (void)leftBackBtnClick {
-    [self.navigationController popToViewController:self.popVC animated:YES];
+    if ([self.result isEqualToString:@""]) {
+        [self popToHomeVC];
+    } else {
+        [self.navigationController popToViewController:self.openDepositoryVC animated:YES];
+    }
 }
-
 
 @end

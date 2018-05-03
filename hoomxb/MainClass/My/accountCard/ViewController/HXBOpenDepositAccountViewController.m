@@ -359,7 +359,6 @@
         [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     } else if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
         HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-        if (!KeyChain.isLogin)  return;
         [self.navigationController pushViewController:withdrawViewController animated:YES];
     } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
     {
