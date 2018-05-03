@@ -13,87 +13,69 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _resultModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc] init];
+        _resultModel = [[HXBLazyCatRequestModel alloc] init];
     }
     return self;
 }
 
-- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    if ([request.requestUrl containsString:@"result"]) {
-        return NO;
-    } else {
-        return [super erroStateCodeDeal:request];
-    }
-}
-
 /**
- 债权购买结果
+ 债权充值结果
  
- @param loanID 债权id
  @param parameter 购买参数
  @param resultBlock 返回结果
  */
-- (void)loanTransformBuyReslutWithLoanID: (NSString *)loanID
-                              parameter : (NSDictionary *)parameter
-                             resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+- (void)rechargeWithParameter : (NSDictionary *)parameter
+                  resultBlock : (void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanID);
+    request.requestUrl = @"/account/quickrecharge";
     request.requestArgument = parameter;
-    request.showHud = YES;
-    request.hudShowContent = @"安全支付";
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (request.responseObject) {
-            NSInteger status = [request.responseObject[kResponseStatus] integerValue];
-            weakSelf.errorMessage = request.responseObject[kResponseMessage];
-            NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
-            if (status) {
-                if ([errorType isEqualToString:@"TOAST"]) {
-                    [HxbHUDProgress showTextWithMessage:request.responseObject[@"message"]];
-                    status = kBuy_Toast;
-                } else if ([errorType isEqualToString:@"RESULT"]) {
-                    status = kBuy_Result;
-                } else if ([errorType isEqualToString:@"PROCESSING"]) {
-                    status = kBuy_Processing;
-                }
-                weakSelf.errorCode = status;
-            }
-        }
         if (resultBlock) resultBlock(NO);
     }];
 }
 
 /**
- 获取充值短验(聪聪改)
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
+ 债权购买结果
+ 
+ @param parameter 购买参数
+ @param resultBlock 返回结果
  */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock {
+- (void)loanTransformBuyReslutWithParameter : (NSDictionary *)parameter
+                                resultBlock : (void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
-    [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
-        request.requestArgument = @{
-                                    @"amount" : amount,
-                                    @"action":action,
-                                    @"type":type
-                                    };
-        request.hudDelegate = weakSelf;
-        request.showHud = YES;
-    } resultBlock:^(id responseObject, NSError *error) {
-        if (error) {
-            callbackBlock(NO,error);
-        }
-        else {
-            callbackBlock(YES,nil);
-        }
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestMethod = NYRequestMethodPost;
+    request.requestUrl = kHXBFin_Transfer_ConfirmBuyReslut;
+    request.requestArgument = parameter;
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        NSDictionary *data = responseObject[kResponseData];
+        [weakSelf.resultModel yy_modelSetWithDictionary:data];
+        if (resultBlock) resultBlock(YES);
+    } failure:^(NYBaseRequest *request, NSError *error) {
+//        if (request.responseObject) {
+//            NSInteger status = [request.responseObject[kResponseStatus] integerValue];
+//            weakSelf.errorMessage = request.responseObject[kResponseMessage];
+//            NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
+//            if (status) {
+//                if ([errorType isEqualToString:@"TOAST"]) {
+//                    [HxbHUDProgress showTextWithMessage:request.responseObject[@"message"]];
+//                    status = kBuy_Toast;
+//                } else if ([errorType isEqualToString:@"RESULT"]) {
+//                    status = kBuy_Result;
+//                } else if ([errorType isEqualToString:@"PROCESSING"]) {
+//                    status = kBuy_Processing;
+//                }
+//                weakSelf.errorCode = status;
+//            }
+//        }
+        if (resultBlock) resultBlock(NO);
     }];
 }
-
 
 @end
