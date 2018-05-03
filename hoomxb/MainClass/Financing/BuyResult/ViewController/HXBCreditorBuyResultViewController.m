@@ -10,6 +10,7 @@
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
 #import "HXBBaseView_MoreTopBottomView.h"
+#import "HXBUMengShareManager.h"
 
 @interface HXBCreditorBuyResultViewController ()<HXBLazyCatResponseDelegate>
 
@@ -104,10 +105,7 @@
     [secondBtn addTarget:self action:@selector(secondBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:secondBtn];
     self.secondBtn = secondBtn;
-    
-    
 
-    
 }
 
 - (void)setConstraints {
@@ -168,16 +166,21 @@
 
 #pragma mark - setData
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.iconView.image = [UIImage imageNamed:@""];
-    self.titleLabel.text = model.data.title;
-    self.descLabel.text = model.data.content;
+    
+    HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
+    
+    self.iconView.image = [UIImage imageNamed:model.imageName];
+    self.titleLabel.text = resultModel.title;
+    self.descLabel.text = resultModel.tips;
     
     [self.firstBtn setTitle:@"查看我的出借" forState:UIControlStateNormal];
-    [self.secondBtn setTitle:@""forState:UIControlStateNormal];
+    if (resultModel.isInviteActivityShow) {
+        [self.secondBtn setTitle:resultModel.inviteActivityDesc forState:UIControlStateNormal];
+    }
     
     [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         viewManager.leftStrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-        viewManager.rightStrArray = @[model, @"", @"", @""];
+        viewManager.rightStrArray = @[resultModel.nextRepayDate_new, resultModel.buyAmount_new, resultModel.principal_new, resultModel.interest_new];
         viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
@@ -197,7 +200,8 @@
 }
 
 - (void)secondBtnClick:(UIButton *)btn {
-    
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 - (void)leftBackBtnClick {

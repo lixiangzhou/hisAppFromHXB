@@ -12,7 +12,7 @@
 /**通用购买字段***************************************/
 
 //是否显示邀请好友
-@property (nonatomic, copy) NSString* isInviteActivityShow;
+@property (nonatomic, assign) BOOL isInviteActivityShow;
 //邀请好友描述
 @property (nonatomic, copy) NSString* inviteActivityDesc;
 
@@ -27,5 +27,22 @@
 @property (nonatomic, copy) NSString* buyAmount;
 @property (nonatomic, copy) NSString* nextRepayDate;
 @property (nonatomic, copy) NSString* tips;
+
+/**
+ 下一个还款日_new
+ */
+@property (nonatomic,copy) NSString *nextRepayDate_new;
+/**
+ 投资金额_new
+ */
+@property (nonatomic,copy) NSString *buyAmount_new;
+/**
+ 公允利息_new
+ */
+@property (nonatomic,copy) NSString *interest_new;
+/**
+ 实际买入本金_new
+ */
+@property (nonatomic,copy) NSString *principal_new;
 
 @end

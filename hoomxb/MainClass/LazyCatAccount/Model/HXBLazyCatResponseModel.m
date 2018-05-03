@@ -40,4 +40,17 @@
     return self;
 }
 
+- (NSString *)imageName {
+    if ([self.result isEqualToString:@"success"]) {
+        _imageName = @"successful";
+    } else if ([self.result isEqualToString:@"error"]) {
+        _imageName = @"failure";
+    } else if ([self.result isEqualToString:@"timeout"]) {
+        _imageName = @"outOffTime";
+    } else {
+        _imageName = @"--";
+    }
+    return _imageName;
+}
+
 @end

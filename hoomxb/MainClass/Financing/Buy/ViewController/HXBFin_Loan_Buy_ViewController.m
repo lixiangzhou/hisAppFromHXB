@@ -283,49 +283,6 @@ static NSString *const bankString = @"绑定银行卡";
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-    //            loanBuySuccessVC.title = @"购买成功";
-    //            loanBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            loanBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            loanBuySuccessVC.imageName = @"successful";
-    //            loanBuySuccessVC.buy_title = @"投标成功";
-    //            loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
-    //            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            [loanBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-    //            failViewController.title = @"出借失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"出借失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    [weakSelf.passwordView clearUpPassword];
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
 }
 
 // 获取用户信息

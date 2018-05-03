@@ -10,6 +10,7 @@
 #import "HXBCommonResultController.h"
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
+#import "HXBUMengShareManager.h"
 
 @interface HXBLoanBuyResultViewController() <HXBLazyCatResponseDelegate>
 
@@ -34,32 +35,44 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.isRedColorWithNavigationBar = YES;
     
-    self.commenResultVC = [[HXBCommonResultController alloc] init];
-    self.commenResultVC.contentModel.descHasMark = YES;
-    self.commenResultVC.contentModel.descAlignment = NSTextAlignmentLeft;
-    
     [self addChildViewController:self.commenResultVC];
     [self.view addSubview:self.commenResultVC.view];
 }
 
 #pragma mark - Action
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:@""
-                                                                                  titleString:model.data.title
-                                                                                   descString:model.data.content
-                                                                                firstBtnTitle:@"查看我的出借"];
-    self.commenResultVC.contentModel.secondBtnTitle = @"";
+    
+    HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
+    self.commenResultVC.contentModel = [HXBCommonResultContentModel new];
+    self.commenResultVC.contentModel.descHasMark = YES;
+    self.commenResultVC.contentModel.descAlignment = NSTextAlignmentLeft;
+    self.commenResultVC.contentModel.imageName = model.imageName;
+    self.commenResultVC.contentModel.titleString = resultModel.title;
+    self.commenResultVC.contentModel.descString = resultModel.content;
+    self.commenResultVC.contentModel.firstBtnTitle = @"查看我的出借";
+    self.commenResultVC.contentModel.secondBtnTitle = resultModel.isInviteActivityShow ? resultModel.inviteActivityDesc : @"";
+    
     kWeakSelf
     self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
         [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     };
+    
     if (self.commenResultVC.contentModel.secondBtnTitle) {
         self.commenResultVC.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
-            
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
+            [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
         };
     }
 }
+
+- (HXBCommonResultController *)commenResultVC {
+    if (!_commenResultVC) {
+        _commenResultVC = [[HXBCommonResultController alloc] init];
+    }
+    return _commenResultVC;
+}
+
 
 - (void)leftBackBtnClick {
     [self.navigationController popToRootViewControllerAnimated:YES];

@@ -298,7 +298,7 @@ static NSString *const bankString = @"绑定银行卡";
         }];
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
-                @"buyAmount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
+                @"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit]
                 };
         [self buyCreditorWithDic:dic];
@@ -327,7 +327,7 @@ static NSString *const bankString = @"绑定银行卡";
     //            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
     //            loanBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.isRepayed ? @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回" : @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入出借本金";
     //            loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-    //            loanBuySuccessVC.massage_Right_StrArray = @[weakSelf.viewModel.resultModel.nextRepayDate_new, weakSelf.viewModel.resultModel.buyAmount_new, weakSelf.viewModel.resultModel.principal_new, weakSelf.viewModel.resultModel.interest_new];
+//                loanBuySuccessVC.massage_Right_StrArray = @[weakSelf.viewModel.resultModel.nextRepayDate_new, weakSelf.viewModel.resultModel.buyAmount_new, weakSelf.viewModel.resultModel.principal_new, weakSelf.viewModel.resultModel.interest_new];
     //            [loanBuySuccessVC clickButtonWithBlock:^{
     //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
     //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];

@@ -393,47 +393,6 @@
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-    //            planBuySuccessVC.title = @"加入成功";
-    //            planBuySuccessVC.imageName = @"successful";
-    //            planBuySuccessVC.buy_title = @"加入成功";
-    //            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            planBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            planBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            planBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.lockStart;
-    //            [planBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-    //            failViewController.title = @"加入失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"加入失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    [weakSelf.passwordView clearUpPassword];
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
     
 }
 
