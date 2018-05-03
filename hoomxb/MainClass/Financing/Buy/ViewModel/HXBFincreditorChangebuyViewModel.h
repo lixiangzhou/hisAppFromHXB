@@ -7,45 +7,33 @@
 //
 
 #import "HXBBaseViewModel.h"
-#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
+#import "HXBLazyCatRequestModel.h"
 #import "HXBBaseViewModel+HXBBankCardInfo.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBFincreditorChangebuyViewModel : HXBBaseViewModel
 
 /**
- 成功的model
+ 债转购买结果Model
  */
-@property (nonatomic, strong) HXBFin_LoanTruansfer_BuyResoutViewModel *resultModel;
+@property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
 
 /**
- 错误状态码
- */
-@property (nonatomic, assign) NSInteger errorCode;
-
-/**
- 错误描述
- */
-@property (nonatomic, copy) NSString *errorMessage;
-
-/**
- 债权购买结果
-
- @param loanID 债权id
+ 债权充值结果
+ 
  @param parameter 购买参数
  @param resultBlock 返回结果
  */
-- (void)loanTransformBuyReslutWithLoanID: (NSString *)loanID
-                               parameter: (NSDictionary *)parameter
-                             resultBlock: (void(^)(BOOL isSuccess))resultBlock;
-
+- (void)rechargeWithParameter : (NSDictionary *)parameter
+                  resultBlock : (void(^)(BOOL isSuccess))resultBlock;
 /**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
+ 债权购买结果
+
+ @param parameter 购买参数
+ @param resultBlock 返回结果
  */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
+- (void)loanTransformBuyReslutWithParameter : (NSDictionary *)parameter
+                                resultBlock : (void(^)(BOOL isSuccess))resultBlock;
+
 
 @end

@@ -8,7 +8,7 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBBestCouponModel.h"
-#import "HXBFinModel_BuyResoult_PlanModel.h"
+#import "HXBLazyCatRequestModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
 #import "HXBBaseViewModel+HXBBankCardInfo.h"
 
@@ -20,18 +20,10 @@
 @property (nonatomic, strong) HXBBestCouponModel *bestCouponModel;
 
 /**
- 计划购买结果Model
+ 计划购买跳转恒丰银行的model
  */
-@property (nonatomic, strong) HXBFinModel_BuyResoult_PlanModel *resultModel;
-/**
- 错误状态码
- */
-@property (nonatomic, assign) NSInteger errorCode;
+@property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
 
-/**
- 错误描述
- */
-@property (nonatomic, copy) NSString *errorMessage;
 
 /**
  最优优惠券
@@ -46,21 +38,11 @@
 /**
  计划购买
 
- @param planID 计划id
  @param parameter 请求参数
  @param resultBlock 返回数据
  */
-- (void)planBuyReslutWithPlanID: (NSString *)planID
-                      parameter: (NSDictionary *)parameter
-                    resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+- (void)planBuyReslutWithParameter: (NSDictionary *)parameter
+                       resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
-/**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
- */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
 
 @end

@@ -11,6 +11,7 @@
 #import "HXBBaseModel.h"
 
 typedef UIView* (^HugViewBlock)();
+static NSString *const hfContentText = @"正在跳转至恒丰银行";
 
 @interface HXBBaseViewModel : HXBBaseModel <HXBRequestHudDelegate>
 
@@ -18,13 +19,16 @@ typedef UIView* (^HugViewBlock)();
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock;
 
-
 /**
  是否展示恒丰银行HUD
 
- @param isShow 是否展示
  @param content 展示文案
  */
-- (void)showHFBank:(BOOL)isShow content:(NSString*)content;
+- (void)showHFBankWithContent:(NSString *)content;
+
+/**
+ 隐藏恒丰银行HUD
+ */
+- (void)hiddenHFBank;
 
 @end
