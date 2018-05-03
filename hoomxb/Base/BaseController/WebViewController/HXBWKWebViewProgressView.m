@@ -10,8 +10,8 @@
 
 @interface HXBWKWebViewProgressView ()
 
-@property (nonatomic) UIView *progressBarView;
-@property (nonatomic) NSTimeInterval barAnimationDuration;
+@property (nonatomic, strong) UIView *progressBarView;
+@property (nonatomic, assign) NSTimeInterval barAnimationDuration;
 
 @end
 
@@ -39,12 +39,18 @@
 - (void)setUI {
     self.userInteractionEnabled = NO;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _progressBarView = [[UIView alloc] initWithFrame:CGRectZero];
-    _progressBarView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _progressBarView.backgroundColor = COR29;
-    [self addSubview:_progressBarView];
 }
 
+- (UIView *)progressBarView {
+    if(!_progressBarView) {
+        _progressBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, self.height)];
+        _progressBarView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _progressBarView.backgroundColor = COR29;
+        [self addSubview:_progressBarView];
+    }
+    
+    return _progressBarView;
+}
 #pragma mark - Action
 
 
@@ -52,21 +58,22 @@
 - (void)setProgress:(float)progress animated:(BOOL)animated
 {
     BOOL isGrowing = progress > 0.0;
+    
     [UIView animateWithDuration:(isGrowing && animated) ? _barAnimationDuration : 0.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        CGRect frame = _progressBarView.frame;
-        frame.size.width = progress * kScreenWidth;
-        _progressBarView.frame = frame;
-        NSLog(@"进度%lf",_progressBarView.width);
+        CGRect frame = self.progressBarView.frame;
+        frame.size.width = progress * self.width;
+        self.progressBarView.frame = frame;
+        NSLog(@"进度%lf",self.progressBarView.width);
     } completion:^(BOOL finished) {
-        if (progress >= 1.0) {
+        if (progress>=1.0 && self.progressBarView.frame.size.width==self.width) {
             if (self.webViewLoadSuccessBlock) {
                 self.webViewLoadSuccessBlock();
             }
             //完成加载之后需要将进度条重置为0
-            _progressBarView.width = 0;
+            [self.progressBarView removeFromSuperview];
+            self.progressBarView = nil;
         }
     }];
-    
 }
 
 #pragma mark - Helper

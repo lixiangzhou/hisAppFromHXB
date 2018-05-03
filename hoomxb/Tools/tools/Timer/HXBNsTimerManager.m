@@ -43,9 +43,7 @@
     manager.repeatSecond = ti;
     manager.countDownBlock = countDownBlock;
     manager.isCountDown = isCountDown;
-    if(!isCountDown) {
-        manager.totalSeconds = 0;
-    }
+    
     return manager;
 }
 
@@ -92,7 +90,7 @@
     }
     else{
         _recordTimes += diffTime;
-        if(_recordTimes > self.totalSeconds) {
+        if(self.totalSeconds>0 && _recordTimes>self.totalSeconds) {
             _recordTimes = self.totalSeconds;
             [self stopTimer];
         }
