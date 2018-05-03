@@ -16,8 +16,8 @@
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
-@property (nonatomic, strong) UIWebView* webView;
-@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
+//@property (nonatomic, strong) UIWebView* webView;
+//@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -26,58 +26,58 @@
     [super viewDidLoad];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-    //    [self setupJavascriptBridge];
+    [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
     
-    [self setupUI];
-    [self loadWebPage];
+//    [self setupUI];
+//    [self loadWebPage];
 }
 
-- (void)leftBackBtnClick {
-    if([self.webView canGoBack]) {
-        [self.webView goBack];
-    }
-}
+//- (void)leftBackBtnClick {
+//    if([self.webView canGoBack]) {
+//        [self.webView goBack];
+//    }
+//}
 
-- (void)setupUI {
-    self.isColourGradientNavigationBar = YES;
-    _webView = [[UIWebView alloc] init];
-    if (@available(iOS 11.0, *)) {
-        _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        // Fallback on earlier versions
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    _webView.delegate = self;
-    [self.view addSubview:self.webView];
-    
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.top.mas_equalTo(HXBStatusBarAndNavigationBarHeight);
-    }];
-    
-    /****** 加载桥梁对象 ******/
-    [WebViewJavascriptBridge enableLogging];
-    
-    
-    /****** 初始化 ******/
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-    }];
-    
-    
-    kWeakSelf
-    /****** OC端注册一个方法 (测试)******/
-    [self.bridge registerHandler:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"%@",data);
-        [weakSelf jumpToResultPageWithData:data];
-    }];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
-}
+//- (void)setupUI {
+//    self.isColourGradientNavigationBar = YES;
+//    _webView = [[UIWebView alloc] init];
+//    if (@available(iOS 11.0, *)) {
+//        _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    } else {
+//        // Fallback on earlier versions
+//        self.automaticallyAdjustsScrollViewInsets = NO;
+//    }
+//    _webView.delegate = self;
+//    [self.view addSubview:self.webView];
+//
+//    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(self.view);
+//        make.top.mas_equalTo(HXBStatusBarAndNavigationBarHeight);
+//    }];
+//
+//    /****** 加载桥梁对象 ******/
+//    [WebViewJavascriptBridge enableLogging];
+//
+//
+//    /****** 初始化 ******/
+//    _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//    }];
+//
+//
+//    kWeakSelf
+//    /****** OC端注册一个方法 (测试)******/
+//    [self.bridge registerHandler:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"%@",data);
+//        [weakSelf jumpToResultPageWithData:data];
+//    }];
+//}
+//
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+//    self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
+//}
 
 - (void)findPopVC {
     _popViewControllers = [[NSMutableArray alloc] init];
@@ -137,7 +137,7 @@
 //    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
 //
 //    }];
-    
+
     NSString* serviceName = self.requestModel.result.serviceName;
     NSString* platformNo = self.requestModel.result.platformNo;
     NSString* userDevice = @"MOBILE";
@@ -159,13 +159,13 @@
  桥接H5回调
  */
 - (void)setupJavascriptBridge {
-//    //恒丰异步回调成功
-//    kWeakSelf
-//    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
-//        NSLog(@"%@",data);
-//        //根据数据跳转到响应的结果页面
-//        [weakSelf jumpToResultPageWithData:data];
-//    }];
+    //恒丰异步回调成功
+    kWeakSelf
+    [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        //根据数据跳转到响应的结果页面
+        [weakSelf jumpToResultPageWithData:data];
+    }];
 }
 
 //根据数据跳转到响应的结果页面
