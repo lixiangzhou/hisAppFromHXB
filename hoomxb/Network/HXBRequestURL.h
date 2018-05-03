@@ -97,12 +97,14 @@
 #define kHXBSetWithdrawals_withdrawArriveTimeURL   @"/account/withdraw/arriveTime"//到账时间
 #define kHXBSetWithdrawals_recordtURL    @"/account/withdraw/record"//提现记录
 
-//MARK: ======================= 购买 ==========================
-#define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]//确认购买
-#define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]//购买
+//MARK: ======================= 账户外购买 ==========================
+#define kHXBFin_Plan_ConfirmBuyReslut       @"/plan/purchase"              /// 计划购买
+#define kHXBFin_Loan_ConfirmBuyReslut       @"/loan/purchase"             /// 散标购买
+#define kHXBFin_Transfer_ConfirmBuyReslut   @"/transfer/purchase"         /// 债权购买
+
+//MARK: ======================= 账户内购买 ==========================
+#define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]
 #define kHXBFin_Buy_LoanURL(LoanID) [NSString stringWithFormat:@"/loan/%@/confirm",(LoanID)]
-#define kHXBFin_BuyReslut_LoanURL(loanID) [NSString stringWithFormat:@"/loan/%@/result",(loanID)]
-#define kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID) [NSString stringWithFormat:@"/transfer/%@/result",(loanTruansferID)]///债权购买
 
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告

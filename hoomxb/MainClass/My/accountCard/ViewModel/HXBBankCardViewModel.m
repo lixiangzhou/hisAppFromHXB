@@ -97,7 +97,7 @@
     bindAPI.requestUrl = kHXBUserInfo_UnbindBankCard;
     bindAPI.requestMethod = NYRequestMethodPost;
     bindAPI.requestArgument = param;
-    [self showHFBankWithContent:@"正在跳转至恒丰银行"];
+    [self showHFBankWithContent:hfContentText];
     kWeakSelf
     [bindAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         
@@ -138,7 +138,7 @@
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
     versionUpdateAPI.showHud = NO;
-    [self showHFBankWithContent:@"正在跳转至恒丰银行"];
+    [self showHFBankWithContent:hfContentText];
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         [weakSelf hiddenHFBank];
         weakSelf.lazyCatRequestModel = [[HXBLazyCatRequestModel alloc]init];

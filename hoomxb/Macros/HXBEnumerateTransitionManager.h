@@ -79,6 +79,11 @@ typedef enum : NSUInteger {
     HXBRequestType_MY_LoanRequestType_Truansfer
 }HXBRequestType_MY_LoanRequestType;
 
+typedef NS_ENUM(NSUInteger, HXBBuyType) {
+    HXBBuyTypeBalance,
+    HXBBuyTypeNoBankCard,
+    HXBBuyTypeBankBuy,
+};
 
 //MARK: ----- request loan -------
 ///已结清

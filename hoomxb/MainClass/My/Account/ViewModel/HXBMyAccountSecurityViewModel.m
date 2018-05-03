@@ -19,7 +19,7 @@
     request.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
     request.requestMethod = NYRequestMethodPost;
     request.showHud = NO;
-    [weakSelf showHFBankWithContent:@"正在跳转至恒丰银行"];
+    [weakSelf showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf hiddenHFBank];
         weakSelf.lazyCatRequestModel = [[HXBLazyCatRequestModel alloc]init];

@@ -65,4 +65,13 @@
     formatter.maximumFractionDigits = fractionDigits;
     return [formatter stringFromNumber:[NSNumber numberWithDouble:number]];
 }
+
+///隐藏银行卡后四位前面所有的数字 为 *
++ (NSString *)getHiddenBankNum:(NSString *)bankNum {
+    if (bankNum.length > 4) {
+        return [NSString stringWithFormat:@"**%@", [bankNum substringToIndex:4]];
+    } else {
+        return @"--";
+    }
+}
 @end

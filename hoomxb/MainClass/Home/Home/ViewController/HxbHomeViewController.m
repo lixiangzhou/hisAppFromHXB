@@ -64,6 +64,7 @@
     [self hideNavigationBar:animated];
     [self getData:YES];
     self.homeView.userInfoViewModel = self.homeVimewModle.userInfoModel;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated

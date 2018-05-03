@@ -23,4 +23,7 @@
 - (NSString *) hxb_StringWithFormatAndDeleteLastChar: (NSString *)string;
 /// 对数字取整
 + (NSString *)getIntegerStringWithNumber:(double)number fractionDigits:(int)fractionDigits;
+///隐藏银行卡后四位前面所有的数字 为 *
++ (NSString *)getHiddenBankNum:(NSString *)bankNum;
+
 @end
