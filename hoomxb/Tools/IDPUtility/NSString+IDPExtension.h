@@ -24,4 +24,7 @@
  @return 字典
  */
 - (NSDictionary*)toDictionary;
+
+- (NSString *)URLEncoding;
+- (NSString *)URLDecoding;
 @end

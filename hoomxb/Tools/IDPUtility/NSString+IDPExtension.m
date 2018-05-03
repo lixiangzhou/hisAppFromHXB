@@ -84,4 +84,21 @@
     }
     return dic;
 }
+
+- (NSString *)URLEncoding
+{
+    NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+    NSString *upSign = [self stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+    
+    return upSign;
+}
+
+- (NSString *)URLDecoding
+{
+    NSMutableString *outputStr = [NSMutableString stringWithString:self];
+    [outputStr replaceOccurrencesOfString:@"+" withString:@"" options:NSLiteralSearch range:NSMakeRange(0,[outputStr length])];
+    
+    return [outputStr stringByRemovingPercentEncoding];
+}
 @end
