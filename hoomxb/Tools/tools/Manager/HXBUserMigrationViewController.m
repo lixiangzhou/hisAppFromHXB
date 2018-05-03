@@ -25,6 +25,7 @@
 }
 - (IBAction)clickRightBtn:(id)sender {
     
+    
 }
 
 - (IBAction)clickLeftBtn:(id)sender {

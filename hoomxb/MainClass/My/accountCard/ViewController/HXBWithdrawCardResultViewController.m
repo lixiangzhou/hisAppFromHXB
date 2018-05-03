@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, PopViewController) {
 @property (nonatomic,strong) NSArray *popViewControllersArray;
 @property (nonatomic,assign) PopViewController popControllerType;
 @property (nonatomic,strong) HXBLazyCatResponseModel *responseModel;
+@property (nonatomic,strong) HXBCommonResultController *commonResultVC;
 @end
 
 @implementation HXBWithdrawCardResultViewController
@@ -40,7 +41,7 @@ typedef NS_ENUM(NSInteger, PopViewController) {
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     kWeakSelf
     self.responseModel = model;
-    HXBCommonResultController *commonResultVC = [[HXBCommonResultController alloc]init];
+    self.commonResultVC = [[HXBCommonResultController alloc]init];
     HXBCommonResultContentModel *commonResultModel = nil;
     
     if ([self respondsToSelector:@selector(setResultPageWithPopViewControllers:)]) {
@@ -87,8 +88,8 @@ typedef NS_ENUM(NSInteger, PopViewController) {
         };
     }
     
-    commonResultVC.contentModel = commonResultModel;
-    self.view = commonResultVC.view;
+    self.commonResultVC.contentModel = commonResultModel;
+    [self.view addSubview: self.commonResultVC.view];
 }
 
 - (void)leftBackBtnClick {
