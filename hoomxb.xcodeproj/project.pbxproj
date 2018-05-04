@@ -522,6 +522,8 @@
 		E166CDC12056955800666749 /* HXBMyPlanDetailsExitResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166CDC02056955800666749 /* HXBMyPlanDetailsExitResultModel.m */; };
 		E1681AEB209B32A500CDEE18 /* HXBBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AE7209B32A400CDEE18 /* HXBBaseWebViewController.m */; };
 		E1681AEC209B32A500CDEE18 /* HXBWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AE8209B32A400CDEE18 /* HXBWebViewProgress.m */; };
+		E1681AEF209C52E600CDEE18 /* HXBUserMigrationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AEE209C52E600CDEE18 /* HXBUserMigrationViewModel.m */; };
+		E1681AF2209C5B9000CDEE18 /* HXBUserMigrationResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1681AF1209C5B9000CDEE18 /* HXBUserMigrationResultViewController.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
@@ -1610,6 +1612,10 @@
 		E1681AE8209B32A400CDEE18 /* HXBWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWebViewProgress.m; sourceTree = "<group>"; };
 		E1681AE9209B32A500CDEE18 /* HXBBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWebViewController.h; sourceTree = "<group>"; };
 		E1681AEA209B32A500CDEE18 /* HXBWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWebViewProgress.h; sourceTree = "<group>"; };
+		E1681AED209C52E600CDEE18 /* HXBUserMigrationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUserMigrationViewModel.h; sourceTree = "<group>"; };
+		E1681AEE209C52E600CDEE18 /* HXBUserMigrationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUserMigrationViewModel.m; sourceTree = "<group>"; };
+		E1681AF0209C5B9000CDEE18 /* HXBUserMigrationResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUserMigrationResultViewController.h; sourceTree = "<group>"; };
+		E1681AF1209C5B9000CDEE18 /* HXBUserMigrationResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUserMigrationResultViewController.m; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E18330AA1EF23D75009807A9 /* HXBKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBKeyBoardManager.h; sourceTree = "<group>"; };
@@ -5150,6 +5156,10 @@
 				9A93E0D420999DBA00ABF7D9 /* HXBAccountActivationManager.m */,
 				E141E7452099D58C00282049 /* HXBUserMigrationViewController.h */,
 				E141E7462099D58C00282049 /* HXBUserMigrationViewController.m */,
+				E1681AF0209C5B9000CDEE18 /* HXBUserMigrationResultViewController.h */,
+				E1681AF1209C5B9000CDEE18 /* HXBUserMigrationResultViewController.m */,
+				E1681AED209C52E600CDEE18 /* HXBUserMigrationViewModel.h */,
+				E1681AEE209C52E600CDEE18 /* HXBUserMigrationViewModel.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -5881,6 +5891,7 @@
 				9AE032002022C317006D6140 /* CALayer+Anim.m in Sources */,
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
+				E1681AF2209C5B9000CDEE18 /* HXBUserMigrationResultViewController.m in Sources */,
 				4E1053FA1FE7BE9900BCE2F4 /* HXBCustomNavView.m in Sources */,
 				9AE032302022C317006D6140 /* HXBMyCouponListViewController.m in Sources */,
 				9A93E0D520999DBA00ABF7D9 /* HXBAccountActivationManager.m in Sources */,
@@ -5969,6 +5980,7 @@
 				9AE034AD20232B0F006D6140 /* HxbHomeView.m in Sources */,
 				9AE033832022C422006D6140 /* HXBFin_Plan_Buy_ViewController.m in Sources */,
 				9AE0322D2022C317006D6140 /* HXBMyCouponListView.m in Sources */,
+				E1681AEF209C52E600CDEE18 /* HXBUserMigrationViewModel.m in Sources */,
 				9AE031EB2022C317006D6140 /* HXBBankList.m in Sources */,
 				288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */,
 				9AE032592022C317006D6140 /* HxbAccountInfoViewController.m in Sources */,

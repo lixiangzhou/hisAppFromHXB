@@ -6,8 +6,8 @@
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBCommonResultController.h"
+#import "HXBBaseViewController.h"
 
-@interface HXBUnBindCardResultViewController : HXBCommonResultController
+@interface HXBUnBindCardResultViewController : HXBBaseViewController
 
 @end

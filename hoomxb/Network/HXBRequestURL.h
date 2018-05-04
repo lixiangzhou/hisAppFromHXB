@@ -86,6 +86,7 @@
 #define kHXBSetGesturePasswordRequest_CheckLoginPasswordURL @"/user/checkLoginPassword"//校验登录密码
 #define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"//修改交易密码--修改交易密码接口
 #define kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL @"/account/mobile"//修改手机号--修改手机号接口
+#define kHXBLazyCat_UserMigration    @"/account/active" //懒猫-用户账户激活
 
 #define kHXBMY_VersionUpdateURL @"/update"//版本更新
 

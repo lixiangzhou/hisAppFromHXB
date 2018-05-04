@@ -10,32 +10,29 @@
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
 #import "HxbWithdrawCardViewController.h"
-
+#import "HXBCommonResultController.h"
 /// 来源
 typedef NS_ENUM(NSInteger, PopViewController) {
     kHXBPopBuysController,  //!< 计划、散标、债转购买页
-    kHXBPopTopUpAndWithdrawAndWithdrawCardController,   //!< 充值、提现,账户内 绑卡
+    kHXBPopTopUpAndWithdrawAndWithdrawCardController   //!< 充值、提现,账户内 绑卡
 };
 
 @interface HXBWithdrawCardResultViewController ()<HXBLazyCatResponseDelegate>
 @property (nonatomic,strong) NSArray *popViewControllersArray;
 @property (nonatomic,assign) PopViewController popControllerType;
 @property (nonatomic,strong) HXBLazyCatResponseModel *responseModel;
+@property (nonatomic,strong) HXBCommonResultController *commonResultVC;
 @end
 
 @implementation HXBWithdrawCardResultViewController
 
-
-#pragma mark - HXBLazyCatResponseDelegate
-- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray
-{
-    self.popViewControllersArray = vcArray;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setPopControllerType];
+    [self setAction];
 }
 
-- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    kWeakSelf
-    self.responseModel = model;
-    HXBCommonResultContentModel *commonResultModel = nil;
+- (void)setPopControllerType {
     
     if (self.popViewControllersArray.count > 0) {
         if ([self.popViewControllersArray[0] isKindOfClass:NSClassFromString(@"HXBFin_Plan_Buy_ViewController")] || [self.popViewControllersArray[0] isKindOfClass:NSClassFromString(@"HXBFin_Loan_Buy_ViewController")] ||[self.popViewControllersArray[0] isKindOfClass:NSClassFromString(@"HXBFin_creditorChange_buy_ViewController")]) {
@@ -44,12 +41,17 @@ typedef NS_ENUM(NSInteger, PopViewController) {
             self.popControllerType = kHXBPopTopUpAndWithdrawAndWithdrawCardController;
         }
     }
-    
-    if ([model.result isEqualToString:@"success"]) { //成功
+}
+
+- (void)setAction {
+    kWeakSelf
+    self.commonResultVC = [HXBCommonResultController new];
+    HXBCommonResultContentModel *commonResultModel = nil;
+    if ([self.responseModel.result isEqualToString:@"success"]) { //成功
         if (self.popControllerType == kHXBPopBuysController) {
             return; //从购买来的绑卡 成功不进结果页
         }
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:model.data.title descString:model.data.content firstBtnTitle: @"完成"];
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"完成"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             //返回绑卡前界面
             int i = 0;
@@ -59,41 +61,43 @@ typedef NS_ENUM(NSInteger, PopViewController) {
                 }
             }
             if (i>0) {
-                 [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i-1] animated:YES];
+                [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i-1] animated:YES];
             } //
         };
-    } else if ([model.result isEqualToString:@"error"]){ //失败
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:model.data.title descString:model.data.content firstBtnTitle: @"重新绑卡"];
+    } else if ([self.responseModel.result isEqualToString:@"error"]){ //失败
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"重新绑卡"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             //返回绑卡界面
-            //购买来的
-            if (self.popControllerType == kHXBPopBuysController) {
-                int i = 0;
-                for (; i<weakSelf.navigationController.viewControllers.count; i++) {
-                    if ([weakSelf.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
-                        break;
-                    }
-                }
-                if (i>0) {
-                    [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i] animated:YES];
-                }
-            } else {
-                //充值 提现 我的
-                if (weakSelf.popViewControllersArray.count>0) {
-                    [weakSelf.navigationController popToViewController:weakSelf.popViewControllersArray[0] animated:YES];
+            int i = 0;
+            for (; i<weakSelf.navigationController.viewControllers.count; i++) {
+                if ([weakSelf.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+                    break;
                 }
             }
+            if (i>0) {
+                [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i] animated:YES];
+            }
         };
-    }else if ([model.result isEqualToString:@"timeout"]) { //超时
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:model.data.title descString:model.data.content firstBtnTitle: @"返回"];
+    }else if ([self.responseModel.result isEqualToString:@"timeout"]) { //超时
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"返回"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             //无论从购买 充值 提现 我的，都返回到第0个
             [weakSelf.navigationController popToViewController:weakSelf.popViewControllersArray[0] animated:YES];
         };
     }
     
-    self.contentModel = commonResultModel;
-//    [self.view addSubview: self.commonResultVC.view];
+    self.commonResultVC.contentModel = commonResultModel;
+    [self.view addSubview: self.commonResultVC.view];
+}
+
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray
+{
+    self.popViewControllersArray = vcArray;
+}
+
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.responseModel = model;
 }
 
 - (void)leftBackBtnClick {

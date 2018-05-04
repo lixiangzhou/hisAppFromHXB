@@ -12,29 +12,51 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HxbAccountInfoViewController.h"
 #import "HxbMyBankCardViewController.h"
-
+#import "HXBCommonResultController.h"
 @interface HXBUnBindCardResultViewController ()<HXBLazyCatResponseDelegate>
-
+@property (nonatomic,strong) HXBCommonResultController *commonResultVC;
+@property (nonatomic,strong) HXBLazyCatResponseModel *responseModel;
 @end
 
 @implementation HXBUnBindCardResultViewController
 
-#pragma mark - HXBLazyCatResponseDelegate
-- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    kWeakSelf
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setAction];
+}
 
+- (void)setAction {
+    kWeakSelf
     HXBCommonResultContentModel *commonResultModel = nil;
-    
-    if ([model.result isEqualToString:@"success"]) { //成功
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:model.data.title descString:model.data.content firstBtnTitle: @"绑定新银行卡"];
+    self.commonResultVC = [HXBCommonResultController new];
+    if ([self.responseModel.result isEqualToString:@"success"]) { //成功
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"绑定新银行卡"];
         
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-            //重新绑卡 进入绑卡界面
+                        //重新绑卡 进入绑卡界面
+            //设置新的栈
+            NSMutableArray *controllers = [NSMutableArray arrayWithArray:[self.navigationController.viewControllers subarrayWithRange:NSMakeRange(0, 2)]];
+            self.navigationController.viewControllers = controllers;
+            
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
             withdrawCardViewController.title = @"绑卡";
             withdrawCardViewController.className = @"HxbAccountInfoViewController";
             withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            //返回 账户信息列表页
+//            __block HxbAccountInfoViewController *accountVC = nil;
+//            [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+//                    accountVC = obj;
+//                }
+//                if (accountVC) {
+//                    *stop = YES;
+//                }
+//            }];
+//
+//            if (accountVC) {
+//                [weakSelf.navigationController popToViewController:accountVC animated:YES];
+//            }
         };
         commonResultModel.secondBtnTitle = @"完成";
         commonResultModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
@@ -54,8 +76,8 @@
             }
         };
         
-    } else if ([model.result isEqualToString:@"error"]){ //失败
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:model.data.title descString:model.data.content firstBtnTitle: @"重新解绑"];
+    } else if ([self.responseModel.result isEqualToString:@"error"]){ //失败
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"重新解绑"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             //返回解绑卡页面
             __block HxbMyBankCardViewController *myBankCardVC = nil;
@@ -72,8 +94,8 @@
                 [weakSelf.navigationController popToViewController:myBankCardVC animated:YES];
             }
         };
-    }else if ([model.result isEqualToString:@"timeout"]) { //超时
-        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:model.data.title descString:model.data.content firstBtnTitle: @"返回"];
+    }else if ([self.responseModel.result isEqualToString:@"timeout"]) { //超时
+        commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"返回"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             //返回 账户信息列表页
             __block HxbAccountInfoViewController *accountVC = nil;
@@ -92,8 +114,13 @@
         };
     }
     
-    self.contentModel = commonResultModel;
-//    [self.view addSubview: self.commonResultVC.view];
+    self.commonResultVC.contentModel = commonResultModel;
+    [self.view addSubview: self.commonResultVC.view];
+}
+
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.responseModel = model;
 }
 
 - (void)leftBackBtnClick {
