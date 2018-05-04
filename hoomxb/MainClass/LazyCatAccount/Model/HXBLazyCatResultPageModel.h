@@ -17,6 +17,7 @@ extern NSString* const kQuickrecharge; //快捷充值
 extern NSString* const kLoan; //散标购买
 extern NSString* const kPlan; //计划购买
 extern NSString* const kTransfer; //债转
+extern NSString* const kTransfersale; //债转转让
 
 @interface HXBLazyCatResultPageModel : NSObject
 
