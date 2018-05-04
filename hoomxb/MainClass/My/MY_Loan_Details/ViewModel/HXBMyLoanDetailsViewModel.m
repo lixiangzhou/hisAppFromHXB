@@ -53,25 +53,42 @@
 }
 
 // 账户内-债权转让功能接口
-- (void)accountLoanTransferRequestResultWithTransferID: (NSString *)transferID
-                                              password:(NSString *)password
-                                  currentTransferValue:(NSString *)currentTransferValue
-                                           resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+- (void)accountLoanTransferRequestResultWithParams:(NSDictionary *)params
+                                       resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_TransferResultURL(transferID);
-    currentTransferValue = currentTransferValue ? currentTransferValue : @"";
-    request.requestArgument = @{@"tradPassword" : password, @"currentTransferValue" : currentTransferValue};
-    request.showHud = YES;
+    request.requestUrl = kHXBFin_TransferResultURL;
+    request.requestArgument = params;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        weakSelf.responseObject = responseObject;
+        NSDictionary *data = responseObject[kResponseData];
+        [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        weakSelf.responseObject = request.responseObject;
         if (resultBlock) resultBlock(NO);
     }];
 }
+
+
+//- (void)accountLoanTransferRequestResultWithTransferID: (NSString *)transferID
+//                                              password:(NSString *)password
+//                                  currentTransferValue:(NSString *)currentTransferValue
+//                                           resultBlock: (void(^)(BOOL isSuccess))resultBlock {
+//    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+//    request.requestMethod = NYRequestMethodPost;
+//    request.requestUrl = kHXBFin_TransferResultURL(transferID);
+//    currentTransferValue = currentTransferValue ? currentTransferValue : @"";
+//    request.requestArgument = @{@"tradPassword" : password, @"currentTransferValue" : currentTransferValue};
+//    request.showHud = YES;
+//    kWeakSelf
+//    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+//        weakSelf.responseObject = responseObject;
+//        if (resultBlock) resultBlock(YES);
+//    } failure:^(NYBaseRequest *request, NSError *error) {
+//        weakSelf.responseObject = request.responseObject;
+//        if (resultBlock) resultBlock(NO);
+//    }];
+//}
 
 
 

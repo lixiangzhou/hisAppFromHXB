@@ -486,8 +486,9 @@ static const NSInteger topView_high = 300;
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
-            [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            [weakSelf hasBuyType];
+            [weakSelf.tableView reloadData];
         }
         else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
@@ -504,6 +505,10 @@ static const NSInteger topView_high = 300;
     self.couponTitle = @"优惠券";
     self.discountMoney = 0;
     self.afterDiscountMoney = money.floatValue;
+}
+
+- (void)updateNetWorkData {
+    [self getNewUserInfo];
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {
@@ -531,11 +536,6 @@ static const NSInteger topView_high = 300;
     }
     [self setUpArray];
     [self changeItemWithInvestMoney:money];
-}
-
-- (void)updateNetWorkData {
-    [self getNewUserInfo];
-    [self.tableView reloadData];
 }
 
 - (void)unavailableMoney {

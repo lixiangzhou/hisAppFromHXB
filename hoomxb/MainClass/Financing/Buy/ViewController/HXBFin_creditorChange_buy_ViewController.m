@@ -290,7 +290,7 @@ static NSString *const bankString = @"绑定银行卡";
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值的金额为投资的钱减去账户余额
-        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceTitle.doubleValue]};
+        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]};
         [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
@@ -407,10 +407,10 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-            [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-        }
-        else {
+            [weakSelf hasBuyType];
+            [weakSelf.tableView reloadData];
+        } else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         }
     }];
@@ -531,7 +531,6 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)updateNetWorkData {
     [self getNewUserInfo];
-    [self.tableView reloadData];
 }
 
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
