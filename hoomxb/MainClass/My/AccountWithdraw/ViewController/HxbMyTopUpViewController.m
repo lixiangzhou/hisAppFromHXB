@@ -9,7 +9,6 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HXBMyTopUpBaseView.h"
-#import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"

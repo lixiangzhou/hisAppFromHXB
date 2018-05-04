@@ -43,6 +43,8 @@
 @property (nonatomic, weak) UIImageView *maskView;
 /// 小号描述文字
 @property (nonatomic, weak) UILabel *descLabel;
+/// 中间比较特殊的View，需要自定义
+@property (nonatomic, weak) UIView *customView;
 /// 第一个按钮
 @property (nonatomic, weak) UIButton *firstBtn;
 /// 第二个按钮
@@ -95,6 +97,10 @@
     [descView addSubview:maskView];
     self.maskView = maskView;
     
+    UIView *customView = [UIView new];
+    [self.view addSubview:customView];
+    self.customView = customView;
+    
     // 第一个按钮
     UIButton *firstBtn = [UIButton new];
     firstBtn.layer.cornerRadius = 4;
@@ -134,14 +140,14 @@
         make.centerX.equalTo(weakSelf.view);
     }];
     
-    [self.descView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(20);
-        make.left.equalTo(@20);
-        make.right.equalTo(@-20);
-    }];
-    
     // 如果有描述，就显示
     if (self.contentModel.descString) {
+        [self.descView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.titleLabel.mas_bottom).offset(20);
+            make.left.equalTo(@20);
+            make.right.equalTo(@-20);
+        }];
+        
         if (self.contentModel.descAlignment == NSTextAlignmentLeft) {   // 左对齐，若有 ！，创建ImageView，因为这种情况下，文本要求一直在 ！ 右边
             [self.maskView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.descView);
@@ -172,8 +178,14 @@
         self.descView.hidden = YES;
     }
     
+    [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.descView.mas_bottom);
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@0);
+    }];
+    
     [self.firstBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.descView.mas_bottom).offset(50);
+        make.top.equalTo(self.customView.mas_bottom).offset(50);
         make.left.equalTo(@20);
         make.right.equalTo(@-20);
         make.height.equalTo(@41);
@@ -215,6 +227,10 @@
     [self.firstBtn setTitle:self.contentModel.firstBtnTitle forState:UIControlStateNormal];
     if (self.contentModel.secondBtnTitle) {
         [self.secondBtn setTitle:self.contentModel.secondBtnTitle forState:UIControlStateNormal];
+    }
+    
+    if (self.configCustomView) {
+        self.configCustomView(self.customView);
     }
 }
 

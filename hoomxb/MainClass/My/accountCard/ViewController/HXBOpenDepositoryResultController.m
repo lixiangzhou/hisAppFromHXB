@@ -22,6 +22,12 @@
 
 @implementation HXBOpenDepositoryResultController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.title = @"恒丰银行存管开户";
+}
+
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     self.contentModel = [HXBCommonResultContentModel new];
@@ -51,18 +57,12 @@
 #pragma mark - Helper
 
 - (void)successResult {
-    self.contentModel.imageName = @"";
+    self.contentModel.imageName = @"successful";
     
     self.contentModel.firstBtnTitle = @"去充值";
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
-        [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
-        // 以防万一
-        [resultController.navigationController popToRootViewControllerAnimated:NO];
-        if (weakSelf.openDepositoryTipVC) {
-            [resultController dismissViewControllerAnimated:NO completion:nil];
-        }
+        [weakSelf popToMine];
     };
     
     self.contentModel.secondBtnTitle = @"先逛逛";
@@ -72,9 +72,9 @@
 }
 
 - (void)errorResult {
-    self.contentModel.imageName = @"";
+    self.contentModel.imageName = @"failure";
     
-    self.contentModel.firstBtnTitle = @"返回";
+    self.contentModel.firstBtnTitle = @"重新开户";
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         [resultController.navigationController popToViewController:weakSelf.openDepositoryVC animated:YES];
@@ -82,32 +82,26 @@
 }
 
 - (void)timeoutResult {
-    self.contentModel.imageName = @"";
+    self.contentModel.imageName = @"outOffTime";
     
     self.contentModel.firstBtnTitle = @"我的账户";
+    kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
-            request.showHud = YES;
-        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-            if (error == nil) {
-                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
-                [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
-                [resultController.navigationController popToRootViewControllerAnimated:NO];
-                
-                HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
-                accountInfoVC.userInfoViewModel = viewModel;
-                accountInfoVC.isDisplayAdvisor = viewModel.userInfoModel.userInfo.isDisplayAdvisor;
-                [resultController.navigationController pushViewController:accountInfoVC animated:YES];
-            }
-        }];
+        [weakSelf popToMine];
     };
 }
 
 - (void)popToHomeVC {
     [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
-    [[HXBRootVCManager manager].mainTabbarVC.selectedViewController.navigationController popToRootViewControllerAnimated:NO];
-    // 以防万一
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    if (self.openDepositoryTipVC) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+    [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
+}
+
+- (void)popToMine {
+    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
     if (self.openDepositoryTipVC) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
@@ -116,7 +110,7 @@
 #pragma mark - Action
 
 - (void)leftBackBtnClick {
-    if ([self.result isEqualToString:@""]) {
+    if ([self.result isEqualToString:@"success"]) {
         [self popToHomeVC];
     } else {
         [self.navigationController popToViewController:self.openDepositoryVC animated:YES];

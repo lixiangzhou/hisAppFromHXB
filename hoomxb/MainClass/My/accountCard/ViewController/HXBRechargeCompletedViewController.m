@@ -11,23 +11,104 @@
 #import "HXBRechargeFailView.h"
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
+#import "HXBRootVCManager.h"
 
 @interface HXBRechargeCompletedViewController () <HXBLazyCatResponseDelegate>
 
-@property (nonatomic, strong) HXBRechargesuccessView *rechargesuccessView;
+//@property (nonatomic, strong) HXBRechargesuccessView *rechargesuccessView;
 
 @property (nonatomic, weak) UIViewController *popVC;
 
 @property (nonatomic, strong) HXBLazyCatResponseModel *responseModel;
+
 @end
 
 @implementation HXBRechargeCompletedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //充值成功
-    self.isColourGradientNavigationBar = YES;
+    
     self.title = @"充值成功";
+}
+
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.contentModel = [HXBCommonResultContentModel new];
+    self.contentModel.titleString = model.data.title;
+    self.contentModel.descString = model.data.content;
+    
+    if ([model.result isEqualToString:@"success"]) {
+        [self successResult];
+    } else if ([model.result isEqualToString:@"error"]) {
+        [self errorResult];
+    } else if ([model.result isEqualToString:@"timeout"]) {
+        [self timeoutResult];
+    }
+}
+
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
+    self.popVC = vcArray.lastObject;
+}
+
+#pragma mark - Helper
+
+- (void)successResult {
+    self.contentModel.imageName = @"successful";
+    
+    self.contentModel.firstBtnTitle = @"立即出借";
+    kWeakSelf
+    self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+        [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
+        [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
+        
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    };
+    
+    self.contentModel.secondBtnTitle = @"继续充值";
+    self.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
+        [weakSelf toMine];
+    };
+}
+
+- (void)errorResult {
+    self.contentModel.imageName = @"failure";
+    
+    self.contentModel.firstBtnTitle = @"重新充值";
+    kWeakSelf
+    self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+        [weakSelf toMine];
+    };
+}
+
+- (void)timeoutResult {
+    self.contentModel.imageName = @"outOffTime";
+    
+    self.contentModel.firstBtnTitle = @"我的账户";
+    kWeakSelf
+    self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+        [weakSelf toMine];
+    };
+}
+
+/// 到我的页面
+- (void)toMine {
+    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+    [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - Action
+
+- (void)leftBackBtnClick {
+    [self toMine];
+}
+
+/*
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.title = @"充值成功";
+    
     [self.view addSubview:self.rechargesuccessView];
     self.rechargesuccessView.amount = self.amount;
     [self.rechargesuccessView setTitle:self.responseModel.data.title descString:self.responseModel.data.content];
@@ -82,5 +163,5 @@
     [self.navigationController popToViewController:self.popVC animated:YES];
 }
 
-
+*/
 @end
