@@ -36,7 +36,8 @@
 - (void)entryActiveAccountPage {
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
-    
+    HXBAccountActivationViewController* vc = [[HXBAccountActivationViewController alloc] init];
+    self.accountActivationVC = vc;
     if(self.accountActivationVC) {
         [topVC presentViewController:self.accountActivationVC animated:YES completion:^{
             
