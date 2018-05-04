@@ -8,8 +8,16 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBLazyCatRequestModel.h"
 
 @interface HXBMyTopUpVCViewModel : HXBBaseViewModel
+
+@property (nonatomic, strong) HXBLazyCatRequestModel *lazyCatReqModel;
+
+/**
+ 快捷充值接口
+ */
+- (void)accountQuickChargeWithAmount:(NSString *)amount resultBlock:(void(^)(BOOL isSuccess))resultBlock;
 
 /**
  快捷充值确认

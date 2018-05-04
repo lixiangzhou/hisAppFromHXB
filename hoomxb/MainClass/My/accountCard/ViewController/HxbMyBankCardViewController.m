@@ -82,32 +82,12 @@
 }
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
-    if ([self.isCashPasswordPassed isEqualToString:@"0"]) { //未设置交易密码
-        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"为了您的账户安全，请完善存管账户信息后再进行解绑操作" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-        [self presentViewController:alertVC animated:NO completion:nil];
-        kWeakSelf
-        [alertVC setLeftBtnBlock:^{
-           NSLog(@"点击取消按钮");
-        }];
-        [alertVC setRightBtnBlock:^{
-            //完善信息
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            openDepositAccountVC.title = @"完善信息";
-            openDepositAccountVC.isFromUnbundBank = YES;
-            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-        }];
-        [alertVC setCancelBtnClickBlock:^{
-            NSLog(@"点击取消按钮");
-        }];
+    if (!self.bankCardModel.enableUnbind) {
+        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
     } else {
-        if (!self.bankCardModel.enableUnbind) {
-            [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
-        } else {
-            HXBUnBindCardController *VC = [HXBUnBindCardController new];
-            VC.bankCardModel = self.bankCardModel;
-            [self.navigationController pushViewController:VC animated:YES];
-        }
+        HXBUnBindCardController *VC = [HXBUnBindCardController new];
+        VC.bankCardModel = self.bankCardModel;
+        [self.navigationController pushViewController:VC animated:YES];
     }
 }
 

@@ -126,7 +126,7 @@
             //没有开户
             self.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
             self.afterLoginView.tipString = @"立即开通存管账户";
-        } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
+        } else if (![viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             // 没有实名
             self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
             self.afterLoginView.tipString = @"完善存管信息";

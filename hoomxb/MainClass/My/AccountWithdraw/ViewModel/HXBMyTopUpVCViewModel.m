@@ -8,7 +8,28 @@
 
 #import "HXBMyTopUpVCViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+
 @implementation HXBMyTopUpVCViewModel
+
+- (void)accountQuickChargeWithAmount:(NSString *)amount resultBlock:(void (^)(BOOL))resultBlock {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBAccount_Quickcharge;
+    request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = @{@"amount" : amount};
+    kWeakSelf
+    [self showHFBankWithContent:hfContentText];
+    [request loadData:^(NYBaseRequest *request, id responseObject) {
+        [weakSelf hiddenHFBank];
+        weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+}
 
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
 {

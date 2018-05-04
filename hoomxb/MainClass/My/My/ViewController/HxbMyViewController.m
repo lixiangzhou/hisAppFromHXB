@@ -129,12 +129,7 @@
         if (isSuccess) {
             weakSelf.myView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             HXBRequestUserInfoViewModel *userInfoViewModel = weakSelf.viewModel.userInfoModel;
-            if (userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                return;
-            }
             if (!userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                
                 HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
                 alertVC.immediateOpenBlock = ^{
                     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
@@ -147,7 +142,7 @@
                 [weakSelf presentViewController:alertVC animated:NO completion:nil];
                 
                 
-            } else if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+            } else if ([userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
             {
                 //进入绑卡界面
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
@@ -155,15 +150,7 @@
                 withdrawCardViewController.type = type;
                 withdrawCardViewController.userInfoModel = userInfoViewModel.userInfoModel;
                 [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-            } else if (!([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-            {
-                //完善信息
-                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                openDepositAccountVC.title = @"完善信息";
-                openDepositAccountVC.type = type;
-                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-            } else
-            {
+            } else {
                 if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
                     HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
                     [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
