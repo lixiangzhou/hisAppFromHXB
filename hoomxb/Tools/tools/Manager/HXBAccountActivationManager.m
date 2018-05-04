@@ -36,13 +36,15 @@
 - (void)entryActiveAccountPage {
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
-    HXBAccountActivationViewController* vc = [[HXBAccountActivationViewController alloc] init];
+    HXBUserMigrationViewController* vc = [[HXBUserMigrationViewController alloc] init];
+    vc.block = ^(NSString *str) {
+        NSLog(@"name = %@", str);
+        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];
+    };
     self.accountActivationVC = vc;
     
     if(self.accountActivationVC) {
-        [topVC presentViewController:self.accountActivationVC animated:YES completion:^{
-            
-        }];
+        [topVC presentViewController:self.accountActivationVC animated:YES completion:nil];
     }
 }
 

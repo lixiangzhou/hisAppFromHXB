@@ -9,7 +9,7 @@
 #import "HXBUserMigrationViewController.h"
 #import "HXBUserMigrationViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
-
+#import "AppDelegate.h"
 @interface HXBUserMigrationViewController ()
 
 @property (nonatomic, strong) HXBUserMigrationViewModel *viewModel;
@@ -17,6 +17,13 @@
 @end
 
 @implementation HXBUserMigrationViewController
+
+- (instancetype) init {
+    if (self = [super init]) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,10 +37,10 @@
 {
     kWeakSelf
     [self.imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.view.mas_top).offset(kScrAdaptationH750(100));
-        make.left.equalTo(weakSelf.view.mas_left).offset(kScrAdaptationW750(30));
-        make.right.equalTo(weakSelf.view.mas_right).offset(kScrAdaptationW750(-30));
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(kScrAdaptationH750(-100));
+        make.top.equalTo(weakSelf.view.mas_top).offset(kScrAdaptationH750(70));
+        make.left.equalTo(weakSelf.view.mas_left).offset(kScrAdaptationW750(40));
+        make.right.equalTo(weakSelf.view.mas_right).offset(kScrAdaptationW750(-40));
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(kScrAdaptationH750(-70));
     }];
 }
 
@@ -43,12 +50,13 @@
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
             lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
-            [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
+           
+            if (self.pushBlock) {
+                self.pushBlock();
+            }
+            [weakSelf dismissViewControllerAnimated:true completion:nil];
         }
     }];
-//    [self dismissViewControllerAnimated:NO completion:^{
-//        
-//    }];
 }
 
 - (UIImageView *)imageV {
@@ -58,7 +66,7 @@
         _imageV.userInteractionEnabled = YES;
          UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageV:)];
         [_imageV addGestureRecognizer:tapRecognize];
-        _imageV.image = [UIImage imageNamed:@"Default"];
+        _imageV.image = [UIImage imageNamed:@"AppIcon"];
     }
     return _imageV;
 }

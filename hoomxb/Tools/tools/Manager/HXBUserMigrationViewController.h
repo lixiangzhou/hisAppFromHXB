@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+typedef void(^pushClick)();
 @interface HXBUserMigrationViewController : UIViewController
-
+@property (nonatomic, copy) pushClick pushBlock;
 @end
