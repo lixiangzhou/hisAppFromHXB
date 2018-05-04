@@ -19,6 +19,14 @@
 
 @implementation HXBAccountActivationViewController
 
+- (instancetype) init {
+    if (self = [super init]) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitioningDelegate = self.animatr;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -39,7 +47,7 @@
     __weak typeof (self)weakSelf = self;
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         toView.center = [UIApplication sharedApplication].keyWindow.center;
-        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(145));
+        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(445));
         weakSelf.animatr.isAccomplishAnima = YES;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
@@ -54,7 +62,7 @@
         UIButton *button = [[UIButton alloc]init];
         [containerView insertSubview:button atIndex:0];
         button.frame = containerView.bounds;
-        [button addTarget:self action:@selector(clickContainerView:) forControlEvents:UIControlEventTouchUpInside];
+//        [button addTarget:self action:@selector(clickContainerView:) forControlEvents:UIControlEventTouchUpInside];
     }];
 }
 
@@ -76,14 +84,15 @@
 
 - (void)setupUI {
     _contentView = [[UIView alloc] init];
+    _contentView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.contentView];
     
-    [self.view addSubview:self.imgButton];
+    [self.contentView addSubview:self.imgButton];
 }
 
 - (void)addConstraints {
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(300, 100, 300, 100));
+        make.edges.equalTo(self.view);
     }];
     
     [self.imgButton mas_makeConstraints:^(MASConstraintMaker *make) {

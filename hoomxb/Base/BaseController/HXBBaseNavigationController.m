@@ -77,6 +77,20 @@ static void *sObserveContext = &sObserveContext;
     [super pushViewController:viewController animated:animated];
 }
 
+- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated {
+    if (viewControllers.count >= 1)
+    {
+        //第一次push的时候， 强制手滑返回可用
+        if(1 == self.viewControllers.count) {
+            self.enableFullScreenGesture = YES;
+        }
+        viewControllers.lastObject.hidesBottomBarWhenPushed = YES;
+        self.navigationBar.hidden = NO;
+    }
+    
+    [super setViewControllers:viewControllers animated:animated];
+}
+
 #pragma mark - override pop
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
     UIViewController *popViewController = [super popViewControllerAnimated:animated];
