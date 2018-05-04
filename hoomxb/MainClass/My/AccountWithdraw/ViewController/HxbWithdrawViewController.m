@@ -206,6 +206,7 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
+    [self.view endEditing:YES];
     self.withdrawModel.bankCard.amount = self.amountTextField.text;
     if ([_amountTextField.text doubleValue] > self.withdrawModel.balanceAmount) {
         [HxbHUDProgress showTextWithMessage:@"余额不足"];

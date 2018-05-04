@@ -19,7 +19,9 @@
     request.requestArgument = @{@"amount": amount};
     
     kWeakSelf
+    [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
         weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
         if (resultBlock) {
             resultBlock(YES);

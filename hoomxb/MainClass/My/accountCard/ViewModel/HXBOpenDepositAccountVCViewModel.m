@@ -86,9 +86,10 @@
 }
 
 - (void)openDepositoryWithUsrname:(NSString *)username idNo:(NSString *)idNo bankNo:(NSString *)bankNo resultBlock:(void (^)(BOOL))resultBlock {
-    
     kWeakSelf
-    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:YES andCallBack:^(BOOL isSuccess) {
+    [self showHFBankWithContent:hfContentText];
+    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+        [weakSelf hiddenHFBank];
         if (isSuccess) {
             NSDictionary *param = @{
                                     @"name" : username,
@@ -108,6 +109,7 @@
     request.requestUrl = kHXBOpenDepository;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = param;
+    request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];

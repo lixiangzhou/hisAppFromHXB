@@ -74,6 +74,7 @@
  */
 - (void)enterRecharge
 {
+    [self.view endEditing:YES];
     kWeakSelf
     [self.viewModel accountQuickChargeWithAmount:self.myTopUpBaseView.amount resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {

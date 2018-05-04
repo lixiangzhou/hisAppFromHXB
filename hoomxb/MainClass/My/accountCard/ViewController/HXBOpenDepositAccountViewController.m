@@ -387,6 +387,8 @@
 /// 开通恒丰银行存管账户
 - (void)bottomBtnClick {
     if ([self judgeIsTure]) return;
+
+    [self.view endEditing:YES];
     
     NSString *username = [self.nameView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *idNo = [self.idView.text stringByReplacingOccurrencesOfString:@" " withString:@""];

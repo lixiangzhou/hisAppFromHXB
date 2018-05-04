@@ -88,8 +88,6 @@
 - (void)successResult {
     self.contentModel.imageName = @"shouli";
     
-    self.contentModel.firstBtnTitle = @"完成";
-    
     HXBLazyCatResultWithdrawalModel *model = (HXBLazyCatResultWithdrawalModel *)self.responseModel.data;
 
     NSString *bankInfo = [NSString stringWithFormat:@"尾号 %@", [model.cardNo substringFromIndex:model.cardNo.length - 4]];
@@ -101,18 +99,13 @@
                         @{@"title": @"提现金额", @"desc": amount},
                         @{@"title": @"预计到账时间", @"desc": date},
                         ];
-    NSLog(@"%@", self.dataSource);
     kWeakSelf
     self.configCustomView = ^(UIView *customView) {
         [weakSelf setupTableViewIn:customView];
     };
     
+    self.contentModel.firstBtnTitle = @"完成";
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [weakSelf toMine];
-    };
-    
-    self.contentModel.secondBtnTitle = @"继续充值";
-    self.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
         [weakSelf toMine];
     };
 }

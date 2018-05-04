@@ -17,7 +17,9 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"amount" : amount};
     kWeakSelf
-    [request loadData:^(NYBaseRequest *request, id responseObject) {        
+    [self showHFBankWithContent:hfContentText];
+    [request loadData:^(NYBaseRequest *request, id responseObject) {
+        [weakSelf hiddenHFBank];
         weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
         if (resultBlock) {
             resultBlock(YES);
