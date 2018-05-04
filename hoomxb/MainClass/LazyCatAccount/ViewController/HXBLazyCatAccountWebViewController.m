@@ -74,6 +74,8 @@
     self.pageClassDic[kTransfer] = NSClassFromString(@"HXBCreditorBuyResultViewController");
     //债转转让结果
     self.pageClassDic[kTransfersale] = NSClassFromString(@"HXBAccountTransferBuyViewController");
+    //账户激活结果
+    self.pageClassDic[kAccountactive] = NSClassFromString(@"HXBUserMigrationResultViewController");
 }
 
 /**
