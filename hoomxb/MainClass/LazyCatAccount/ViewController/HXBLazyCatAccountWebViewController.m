@@ -73,7 +73,7 @@
     //债转购买结果
     self.pageClassDic[kTransfer] = NSClassFromString(@"HXBCreditorBuyResultViewController");
     //债转转让结果
-    self.pageClassDic[kTransfersale] = NSClassFromString(@"HXBTransferCreditorResultViewController");
+    self.pageClassDic[kTransfersale] = NSClassFromString(@"HXBAccountTransferBuyViewController");
 }
 
 /**

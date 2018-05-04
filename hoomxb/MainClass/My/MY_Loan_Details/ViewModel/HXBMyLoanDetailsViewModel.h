@@ -7,16 +7,12 @@
 //
 
 #import "HXBBaseViewModel.h"
-#import "HXBLazyCatRequestModel.h"
-
 @class HXBTransferConfirmModel;
 
 @interface HXBMyLoanDetailsViewModel : HXBBaseViewModel
 
 @property (nonatomic, readonly, strong) HXBTransferConfirmModel *transferConfirmModel;
 @property (nonatomic, readonly, strong) NSDictionary *responseObject;
-//债转转让参数
-@property (nonatomic, readonly, strong) HXBLazyCatRequestModel *lazycatRequestModel;
 
 /**
  账户内-债权转让确认页
@@ -35,6 +31,7 @@
  @param resultBlock 返回数据
  */
 - (void)accountLoanTransferRequestResultWithTransferID: (NSString *)transferID
+                                              password:(NSString *)password
                                   currentTransferValue:(NSString *)currentTransferValue
                                            resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 

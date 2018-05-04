@@ -15,7 +15,6 @@
 #import "HXBTransferConfirmModel.h"
 #import "HXBTransactionPasswordView.h"
 #import "HXBMyLoanDetailsViewModel.h"
-#import "HXBLazyCatAccountWebViewController.h"
 
 @interface HXBTransferCreditorViewController ()
 
@@ -99,11 +98,42 @@
 - (void)sureBtnClick
 {
     kWeakSelf
-    [_viewModel accountLoanTransferRequestResultWithTransferID:self.creditorID currentTransferValue:self.transferConfirmModel.currentTransValue resultBlock:^(BOOL isSuccess) {
+    self.passwordView = [[HXBTransactionPasswordView alloc] init];
+    [self.passwordView showInView:self.view];
+    self.passwordView.getTransactionPasswordBlock = ^(NSString *password) {
+        [weakSelf checkWithdrawals:password];
+    };
+}
+
+- (void)checkWithdrawals:(NSString *)pwd {
+    kWeakSelf
+    [_viewModel accountLoanTransferRequestResultWithTransferID:self.creditorID password:pwd currentTransferValue:self.transferConfirmModel.currentTransValue resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            HXBLazyCatAccountWebViewController* vc = [[HXBLazyCatAccountWebViewController alloc] init];
-            vc.requestModel = weakSelf.viewModel.lazycatRequestModel;
-            [weakSelf.navigationController pushViewController:vc animated:YES];
+            HXBFBase_BuyResult_VC *successVC = [[HXBFBase_BuyResult_VC alloc] init];
+            successVC.isShowInviteBtn = NO;
+            successVC.imageName = @"successful";
+            successVC.buy_title = @"转让成功";
+            successVC.buy_description = @"确认成功，债权已进入转让中，具体完成时间以实际转让成功时间为准";
+            successVC.buy_ButtonTitle = @"我知道了";
+            successVC.title = @"债权转让";
+            [successVC clickButtonWithBlock:^{
+                for (UIViewController *VC in weakSelf.navigationController.viewControllers) {
+                    if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
+                        [weakSelf.navigationController popToViewController:VC animated:YES];
+                    }
+                }
+            }];
+            [weakSelf.passwordView closePasswordView];
+            [weakSelf.navigationController pushViewController:successVC animated:YES];
+        } else {
+            NSInteger errorStatus = [[weakSelf.viewModel.responseObject valueForKey:kResponseStatus] integerValue];
+            if (weakSelf.viewModel.responseObject) {
+                if (errorStatus == kHXBTransaction_Password_Error) {
+                    [weakSelf.passwordView clearUpPassword];
+                    return ;
+                }
+                [weakSelf transferFailure:weakSelf.viewModel.responseObject];
+            }
         }
     }];
 }

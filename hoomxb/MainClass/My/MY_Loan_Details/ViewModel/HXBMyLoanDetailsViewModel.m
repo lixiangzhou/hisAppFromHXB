@@ -54,23 +54,20 @@
 
 // 账户内-债权转让功能接口
 - (void)accountLoanTransferRequestResultWithTransferID: (NSString *)transferID
+                                              password:(NSString *)password
                                   currentTransferValue:(NSString *)currentTransferValue
                                            resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_TransferResultURL;
+    request.requestUrl = kHXBFin_TransferResultURL(transferID);
     currentTransferValue = currentTransferValue ? currentTransferValue : @"";
-    request.requestArgument = @{@"loanId":transferID, @"currentTransferValue" : currentTransferValue};
-    
-    [self showHFBankWithContent:hfContentText];
+    request.requestArgument = @{@"tradPassword" : password, @"currentTransferValue" : currentTransferValue};
+    request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        [weakSelf hiddenHFBank];
-        _lazycatRequestModel = [[HXBLazyCatRequestModel alloc] init];
-        [_lazycatRequestModel yy_modelSetWithJSON:[responseObject objectForKey:@"data"]];
+        weakSelf.responseObject = responseObject;
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [weakSelf hiddenHFBank];
         weakSelf.responseObject = request.responseObject;
         if (resultBlock) resultBlock(NO);
     }];
