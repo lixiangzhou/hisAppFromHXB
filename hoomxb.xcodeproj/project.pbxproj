@@ -2555,6 +2555,8 @@
 		9A36E3291FC6AB1700C318B3 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9A6227DF209AE62B006826D4 /* HXBBaseWebViewController.h */,
+				9A6227E0209AE62B006826D4 /* HXBBaseWebViewController.m */,
 				9A6227DB209ADEFA006826D4 /* HXBWebViewProgress.h */,
 				9A647E10204E968700EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.h */,
 				9A647E11204E968800EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m */,
@@ -5925,6 +5927,7 @@
 				9AE033AA2022C423006D6140 /* HXBFinanctingDetail_imageCell.m in Sources */,
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,
 				9AE032072022C317006D6140 /* HXBGesturePasswordViewController.m in Sources */,
+				9A6227E1209AE62B006826D4 /* HXBBaseWebViewController.m in Sources */,
 				9AE033622022C422006D6140 /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */,
 				E166CDBB20562D3900666749 /* HXBMyPlanDetailsExitModel.m in Sources */,
 				4EB73CC8204563E200BC2E48 /* HXBSendSmscodeVCViewModel.m in Sources */,
