@@ -11,7 +11,6 @@
 #import "TAPageControl.h"
 #import "TAExampleDotView.h"
 #import "HXBDepositoryAlertViewController.h"
-#import "HXBOpenDepositAccountViewController.h"
 #import "HXBRootVCManager.h"
 
 @interface AXHNewFeatureController ()<TAPageControlDelegate>

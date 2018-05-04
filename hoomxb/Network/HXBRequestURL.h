@@ -111,13 +111,19 @@
 #define kHXBHome_AnnounceURL @"/announce"//公告
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
+
 #define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbindcard" //@"/account/bankcard/unbind" // 解绑银行卡操作
+#define kHXBOpenDepository @"/user/escrowAcc"   // 懒猫—存管开户
+
 #define kHXBUserInfo_BankCard @"/account/bankcard"//@"/account/user/card" //用户获取绑定银行卡信息
 #define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口 短验和语音统一为一个借口
 #define kHXBAccount_Bindcard @"/account/bankcard/bindcard"//@"/account/bindcard" //绑卡
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
+
+#define kHXBAccount_Quickcharge @"/account/quickrecharge"     // 懒猫-快捷充值
+#define kHXBAccount_Withdrawal @"/account/withdrawal"     // 懒猫--提现
 
 //MARK: ======================= 协议 ==========================
 //协议或合同名    端口号后链接    状态    账户内连接

@@ -9,16 +9,16 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HXBMyTopUpBaseView.h"
-#import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
 #import "HXBMyTopUpVCViewModel.h"
 #import "HXBRootVCManager.h"
+#import "HXBLazyCatAccountWebViewController.h"
+
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
-@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 
 @property (nonatomic, strong) HXBMyTopUpVCViewModel *viewModel;
 
@@ -68,71 +68,23 @@
     self.myTopUpBaseView.amount = @"";
 }
 
-- (HXBMyTopUpBaseView *)myTopUpBaseView
-{
-    if (!_myTopUpBaseView) {
-        kWeakSelf
-        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        _myTopUpBaseView.rechargeBlock = ^{
-            //第一次短验
-            [weakSelf enterRecharge];
-        };
-        if (self.amount.floatValue) {
-            _myTopUpBaseView.amount = _amount;
-        }
-    }
-    return _myTopUpBaseView;
-}
-
+#pragma mark - Action
 /**
  快捷充值请求
  */
 - (void)enterRecharge
 {
+    [self.view endEditing:YES];
     kWeakSelf
-    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+    [self.viewModel accountQuickChargeWithAmount:self.myTopUpBaseView.amount resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-            [weakSelf requestRechargeResult];
-            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-        }
-        else {
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+            HXBLazyCatAccountWebViewController *webVC = [HXBLazyCatAccountWebViewController new];
+            webVC.requestModel = weakSelf.viewModel.lazyCatReqModel;
+            [weakSelf.navigationController pushViewController:webVC animated:YES];
         }
     }];
 }
 
-/**
- 快捷充值确认
- */
-- (void)requestRechargeResult {
-    if (!self.presentedViewController) {
-        self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
-        self.alertVC.messageTitle = @"请输入短信验证码";
-        self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-        kWeakSelf
-        self.alertVC.sureBtnClick = ^(NSString *pwd) {
-            [weakSelf.viewModel accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
-                if (isSuccess) {
-                    [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-                    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-                    rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
-                    [weakSelf.navigationController pushViewController:rechargeCompletedVC animated:YES];
-                }
-            }];
-        };
-        self.alertVC.getVerificationCodeBlock = ^{
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
-            [weakSelf enterRecharge];
-        };
-        self.alertVC.getSpeechVerificationCodeBlock = ^{
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
-            [weakSelf enterRecharge];
-        };
-        
-        [self presentViewController:self.alertVC animated:NO completion:nil];
-    }
-}
 - (void)leftBackBtnClick
 {
     NSInteger index = self.navigationController.viewControllers.count;
@@ -161,6 +113,21 @@
     return _viewModel;
 }
 
+- (HXBMyTopUpBaseView *)myTopUpBaseView
+{
+    if (!_myTopUpBaseView) {
+        kWeakSelf
+        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _myTopUpBaseView.rechargeBlock = ^{
+            //第一次短验
+            [weakSelf enterRecharge];
+        };
+        if (self.amount.floatValue) {
+            _myTopUpBaseView.amount = _amount;
+        }
+    }
+    return _myTopUpBaseView;
+}
 @end
 
 

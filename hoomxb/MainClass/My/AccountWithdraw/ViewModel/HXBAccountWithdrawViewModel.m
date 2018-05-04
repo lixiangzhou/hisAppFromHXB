@@ -9,7 +9,29 @@
 #import "HXBAccountWithdrawViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
 #import "HXBWithdrawModel.h"
+
 @implementation HXBAccountWithdrawViewModel
+
+- (void)accountWithdrawalWithAmount:(NSString *)amount resultBlock:(void (^)(BOOL))resultBlock {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBAccount_Withdrawal;
+    request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = @{@"amount": amount};
+    
+    kWeakSelf
+    [self showHFBankWithContent:hfContentText];
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
+        weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
+}
 
 - (void)accountWithdrawaWithParameter:(NSMutableDictionary *)parameter
                      andRequestMethod: (NYRequestMethod)requestMethod
