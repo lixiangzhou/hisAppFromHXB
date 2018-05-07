@@ -9,6 +9,8 @@
 #import "HXBBankCardViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
 #import "HXBCardBinModel.h"
+#import "HXBLazyCatRequestResultModel.h"
+
 @interface HXBBankCardViewModel()
 
 @property (nonatomic, strong) NYBaseRequest *cardBinrequest;
@@ -95,12 +97,21 @@
     bindAPI.requestUrl = kHXBUserInfo_UnbindBankCard;
     bindAPI.requestMethod = NYRequestMethodPost;
     bindAPI.requestArgument = param;
+    [self showHFBankWithContent:hfContentText];
     kWeakSelf
     [bindAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        
+        weakSelf.lazyCatRequestModel = [[HXBLazyCatRequestModel alloc]init];
+        weakSelf.lazyCatRequestModel.url = responseObject[@"data"][@"result"][@"gatewayUrl"];
+        HXBLazyCatRequestResultModel *lazyCatRequestResultModel = [[HXBLazyCatRequestResultModel alloc]init];
+        [lazyCatRequestResultModel yy_modelSetWithDictionary:responseObject[@"data"][@"result"]];
+        weakSelf.lazyCatRequestModel.result = lazyCatRequestResultModel;
+        [weakSelf hiddenHFBank];
         if (finishBlock) {
             finishBlock(YES, responseObject.message, YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         NSDictionary *responseObject = request.responseObject;
         if(responseObject){
             if (responseObject.statusCode == kHXBCode_UnBindCardFail) {
@@ -121,17 +132,25 @@
 
 - (void)bindBankCardRequestWithArgument:(NSDictionary *)requestArgument andFinishBlock:(void (^)(BOOL isSuccess))finishBlock
 {
+    kWeakSelf
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBAccount_Bindcard;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
-    versionUpdateAPI.showHud = YES;
+    versionUpdateAPI.showHud = NO;
+    [self showHFBankWithContent:hfContentText];
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
+        [weakSelf hiddenHFBank];
+        weakSelf.lazyCatRequestModel = [[HXBLazyCatRequestModel alloc]init];
+        weakSelf.lazyCatRequestModel.url = responseObject[@"data"][@"result"][@"gatewayUrl"];
+        HXBLazyCatRequestResultModel *lazyCatRequestResultModel = [[HXBLazyCatRequestResultModel alloc]init];
+        [lazyCatRequestResultModel yy_modelSetWithDictionary:responseObject[@"data"][@"result"]];
+        weakSelf.lazyCatRequestModel.result = lazyCatRequestResultModel;
         if (finishBlock) {
             finishBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         if (request.responseObject) {
             NSInteger status =  [request.responseObject[@"status"] integerValue];
             if (status == kHXBOpenAccount_Outnumber) {

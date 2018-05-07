@@ -85,7 +85,7 @@
 - (void)showHFBankWithContent:(NSString*)content {
     UIView *parentV = [self getHugView];
     if (!_hfBankView) {
-        _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:UIScreen.mainScreen.bounds];
         _hfBankView.hudContent = content;
     }
     [parentV addSubview:_hfBankView];

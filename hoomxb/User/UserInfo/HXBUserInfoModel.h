@@ -62,6 +62,8 @@
 
 @interface HXBRequestUserInfoAPI_UserInfo : NSObject
 
+///    bool   激活与否
+@property (nonatomic,assign) BOOL isUserActive;
 ///    int    用户id
 @property (nonatomic,copy) NSString *userId;
 ///    String    用户名称

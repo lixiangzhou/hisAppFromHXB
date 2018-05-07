@@ -64,23 +64,37 @@
 }
 // 以下代码控制跳转到账户信息，从解绑银行卡 忘记密码 进入时 有效
 - (UIViewController *)shouldPopToAccountVC {
+//    __block HxbAccountInfoViewController *accountVC = nil;
+//    __block HXBUnBindCardController *unBindVC = nil;
+//    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj isKindOfClass:[HXBUnBindCardController class]]) {
+//            unBindVC = obj;
+//        } else if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+//            accountVC = obj;
+//        }
+//        if (unBindVC != nil && accountVC != nil) {
+//            *stop = YES;
+//        }
+//    }];
+//
+//    if (unBindVC != nil && accountVC != nil) {
+//        return accountVC;
+//    }
+
     __block HxbAccountInfoViewController *accountVC = nil;
-    __block HXBUnBindCardController *unBindVC = nil;
+
     [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[HXBUnBindCardController class]]) {
-            unBindVC = obj;
-        } else if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
             accountVC = obj;
         }
-        if (unBindVC != nil && accountVC != nil) {
+        if (accountVC != nil) {
             *stop = YES;
         }
     }];
     
-    if (unBindVC != nil && accountVC != nil) {
+    if (accountVC != nil) {
         return accountVC;
     }
-    
     return nil;
 }
 
