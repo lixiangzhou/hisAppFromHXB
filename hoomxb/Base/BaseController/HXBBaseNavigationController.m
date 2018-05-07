@@ -78,6 +78,10 @@ static void *sObserveContext = &sObserveContext;
 }
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated {
+    if([viewControllers isKindOfClass:[NSMutableArray class]]) {
+        viewControllers = [NSArray arrayWithArray:viewControllers];
+    }
+    
     if (viewControllers.count >= 1)
     {
         //第一次push的时候， 强制手滑返回可用
