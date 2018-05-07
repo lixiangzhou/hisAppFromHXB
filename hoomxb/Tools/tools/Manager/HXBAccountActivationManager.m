@@ -37,9 +37,9 @@
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
     HXBUserMigrationViewController* vc = [[HXBUserMigrationViewController alloc] init];
-    vc.pushBlock = ^() {
-        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];
-    };
+//    vc.pushBlock = ^() {
+//        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];
+//    };
     self.accountActivationVC = vc;
     
     if(self.accountActivationVC) {

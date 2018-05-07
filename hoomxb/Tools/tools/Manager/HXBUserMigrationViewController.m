@@ -50,11 +50,13 @@
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
             lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
-           
-            if (self.pushBlock) {
-                self.pushBlock();
-            }
-            [weakSelf dismissViewControllerAnimated:true completion:nil];
+            HXBBaseNavigationController* navVC = [[HXBBaseNavigationController alloc] initWithRootViewController:lazyCatWebVC];
+            [weakSelf presentViewController:navVC animated:YES completion:nil];
+            
+//            if (self.pushBlock) {
+//                self.pushBlock();
+//            }
+//            [weakSelf dismissViewControllerAnimated:true completion:nil];
         }
     }];
 }

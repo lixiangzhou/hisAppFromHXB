@@ -111,12 +111,19 @@ typedef NS_ENUM(NSInteger, PopViewController) {
                 break;
             }
         }
-        if (i>0) {
+        if (i>0 && i<self.navigationController.viewControllers.count) {
             //充值 提现 我的，成功返回我的，失败和超时返回绑卡页
             if ([self.responseModel.result isEqualToString:@"success"]) {
                 [self.navigationController popToViewController:self.navigationController.viewControllers[i-1] animated:YES];
-            } else if ([self.responseModel.result isEqualToString:@"error"]||[self.responseModel.result isEqualToString:@"timeout"])
-            [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
+            } else if ([self.responseModel.result isEqualToString:@"error"]||[self.responseModel.result isEqualToString:@"timeout"]) {
+                [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
+            }
+            else {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }
 }

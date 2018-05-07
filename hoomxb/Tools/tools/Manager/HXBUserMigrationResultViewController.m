@@ -37,7 +37,9 @@
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"返回"];
     }
     
+    kWeakSelf
     commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
         [[HXBAccountActivationManager sharedInstance] exitActiveAccountPage];
         //回首页
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
@@ -54,6 +56,7 @@
 
 - (void)leftBackBtnClick
 {
+    [self dismissViewControllerAnimated:NO completion:nil];
     [[HXBAccountActivationManager sharedInstance] exitActiveAccountPage];
     //返回首页
     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];

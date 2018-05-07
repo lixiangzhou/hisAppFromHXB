@@ -39,7 +39,7 @@
     // 第一个按钮都回 账户安全列表页，提出来
     commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         __block HxbMyAccountSecurityViewController *myAccountSecurityVC = nil;
-        [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [weakSelf.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isKindOfClass:[HxbMyAccountSecurityViewController class]]) {
                 myAccountSecurityVC = obj;
             }
@@ -65,14 +65,19 @@
 - (void)leftBackBtnClick
 {
     //返回解绑卡前一个界面
-    int i = 0;
-    for (; i<self.navigationController.viewControllers.count; i++) {
+    int i;
+    for (i = 0; i<self.navigationController.viewControllers.count; i++) {
         if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HxbMyAccountSecurityViewController")]) {
             break;
         }
     }
-    if (i>0) {
+    
+    if (i>0 && i<self.navigationController.viewControllers.count) {
         [self.navigationController popToViewController:self.navigationController.viewControllers[i-1] animated:YES];
+    }
+    else{
+        //没有找到,出现异常了, 直接回到根控制器
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 @end
