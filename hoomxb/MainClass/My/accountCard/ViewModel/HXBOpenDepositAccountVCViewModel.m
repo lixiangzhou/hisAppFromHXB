@@ -97,6 +97,8 @@
                                     @"bankCode" : weakSelf.cardBinModel.bankCode,
                                     };
             [weakSelf openDepositoryWithParam:param resultBlock:resultBlock];
+        } else {
+            [weakSelf hiddenHFBank];
         }
         
     }];
