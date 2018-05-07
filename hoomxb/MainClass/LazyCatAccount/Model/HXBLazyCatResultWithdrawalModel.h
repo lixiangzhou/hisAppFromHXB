@@ -10,7 +10,7 @@
 
 @interface HXBLazyCatResultWithdrawalModel : HXBLazyCatResultPageModel
 //金额
-@property (nonatomic, assign) double amount;
+@property (nonatomic, assign) NSString *amount;
 //证件号
 @property (nonatomic, copy) NSString* cardNo;
 //时间戳

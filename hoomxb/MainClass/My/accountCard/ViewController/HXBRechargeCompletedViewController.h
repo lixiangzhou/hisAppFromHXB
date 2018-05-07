@@ -7,12 +7,8 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HXBCommonResultController.h"
 
-@interface HXBRechargeCompletedViewController : HXBBaseViewController
-
-/**
- 充值金额
- */
-@property (nonatomic, copy) NSString *amount;
+@interface HXBRechargeCompletedViewController : HXBCommonResultController
 
 @end

@@ -79,13 +79,6 @@
     openDepositAccountViewController.title = @"开通存管账户";
     openDepositAccountViewController.type = self.type;
     [self.navigationController pushViewController:openDepositAccountViewController animated:YES];
-    
-//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    //充值结果
-//    #import "HXBRechargeCompletedViewController.h"
-//    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-//    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
 }
 
 #pragma mark - 懒加载

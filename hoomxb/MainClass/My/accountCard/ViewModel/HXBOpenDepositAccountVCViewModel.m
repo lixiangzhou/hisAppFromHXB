@@ -7,9 +7,9 @@
 //
 
 #import "HXBOpenDepositAccountVCViewModel.h"
-#import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-#import "HXBBankCardModel.h"
+
+
 @interface HXBOpenDepositAccountVCViewModel()
 
 @property (nonatomic, strong) NYBaseRequest *cardBinrequest;
@@ -83,6 +83,48 @@
         }
     }];
     
+}
+
+- (void)openDepositoryWithUsrname:(NSString *)username idNo:(NSString *)idNo bankNo:(NSString *)bankNo resultBlock:(void (^)(BOOL))resultBlock {
+    kWeakSelf
+    [self showHFBankWithContent:hfContentText];
+    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+        if (isSuccess) {
+            NSDictionary *param = @{
+                                    @"name" : username,
+                                    @"idNo" : idNo,
+                                    @"cardNumber" : bankNo,
+                                    @"bankCode" : weakSelf.cardBinModel.bankCode,
+                                    };
+            [weakSelf openDepositoryWithParam:param resultBlock:resultBlock];
+        } else {
+            [weakSelf hiddenHFBank];
+        }
+        
+    }];
+    
+}
+
+- (void)openDepositoryWithParam:(NSDictionary *)param resultBlock:(void(^)(BOOL))resultBlock {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBOpenDepository;
+    request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = param;
+    request.showHud = NO;
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
+        weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
+        weakSelf.lazyCatReqModel = nil;
+        if (resultBlock) {
+            resultBlock(NO);
+        }
+    }];
 }
 
 /**

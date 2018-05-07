@@ -24,4 +24,7 @@
  立即投资
  */
 @property (nonatomic, copy) void(^immediateInvestmentBlock)();
+
+- (void)setTitle:(NSString *)title descString:(NSString *)descString;
+
 @end

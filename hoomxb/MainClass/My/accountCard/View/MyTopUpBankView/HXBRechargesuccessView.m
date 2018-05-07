@@ -100,6 +100,12 @@
     }
 }
 
+#pragma mark -
+
+- (void)setTitle:(NSString *)title descString:(NSString *)descString {
+    self.rechargesuccessLabel.text = title;
+    self.rechargeNumLabel.text = descString;
+}
 
 #pragma mark - 懒加载
 
