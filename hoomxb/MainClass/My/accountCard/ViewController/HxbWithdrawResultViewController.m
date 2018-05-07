@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"提现结果";
+    self.title = @"提现";
 }
 
 
@@ -134,11 +134,12 @@
 - (void)toMine {
     [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
     [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void)setupTableViewIn:(UIView *)view {
     UITableView *tableView = [UITableView new];
+    tableView.scrollEnabled = NO;
     tableView.dataSource = self;
     tableView.rowHeight = 30;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -147,8 +148,8 @@
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(view);
-        make.left.equalTo(@20);
-        make.right.equalTo(@-20);
+        make.left.equalTo(@5);
+        make.right.equalTo(@-5);
     }];
     
     [view mas_updateConstraints:^(MASConstraintMaker *make) {
