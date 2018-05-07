@@ -45,6 +45,9 @@
         _imageName = @"successful";
     } else if ([self.result isEqualToString:@"error"]) {
         _imageName = @"failure";
+        if ([self.data.errorType isEqualToString:@"PROCESSING"]) {
+            _imageName = @"outOffTime";
+        }
     } else if ([self.result isEqualToString:@"timeout"]) {
         _imageName = @"outOffTime";
     } else {

@@ -24,5 +24,7 @@ extern NSString* const kTransfer; //债转
 @property (nonatomic, copy) NSString* title;
 ///提示内容
 @property (nonatomic, copy) NSString* content;
+///购买错误类型
+@property (nonatomic, copy) NSString* errorType;
 
 @end

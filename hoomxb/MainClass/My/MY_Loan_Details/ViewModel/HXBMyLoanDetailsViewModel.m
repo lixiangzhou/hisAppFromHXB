@@ -39,8 +39,9 @@
 - (void)accountLoanTransferRequestWithTransferID: (NSString *)transferID
                                      resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestUrl = kHXBFin_TransferRecordURL(transferID);
+    request.requestUrl = kHXBFin_TransferRecordURL;
     request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = @{@"loanId": transferID};
     request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -57,10 +58,11 @@
                                        resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
-    request.requestUrl = kHXBFin_TransferResultURL;
     request.requestArgument = params;
+    request.requestUrl = kHXBFin_TransferResultURL;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        NSLog(@"responseObject = %@", responseObject);
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
