@@ -108,7 +108,7 @@
 }
 
 - (void)dealloc {
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [_webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)reLoadWhenViewAppear {

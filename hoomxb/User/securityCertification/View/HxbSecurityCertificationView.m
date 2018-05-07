@@ -30,26 +30,6 @@ UITextFieldDelegate
 @implementation HxbSecurityCertificationView
 
 
-
-//- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
-//{
-//    _userInfoViewModel = userInfoViewModel;
-//    if ([userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-//        self.nameTextField.text = [userInfoViewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:userInfoViewModel.userInfoModel.userInfo.realName.length - 1];
-//        
-//        self.identityCardNumTextField.text =  [userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:userInfoViewModel.userInfoModel.userInfo.idNo.length - 3];
-//    }
-//    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-//        self.payPasswordTextField.secureTextEntry = NO;
-//        self.payPasswordTextField.text = @"已设置";
-//        self.hidePwdBtn.hidden = YES;
-//    }
-//    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-//        self.securityCertificationButton.hidden = YES;
-//    }
-//}
-
-
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -79,13 +59,8 @@ UITextFieldDelegate
                 weakSelf.nameTextField.enabled = NO;
                 weakSelf.identityCardNumTextField.enabled = NO;
             }
-            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                weakSelf.payPasswordTextField.secureTextEntry = NO;
-                weakSelf.payPasswordTextField.text = @"已设置";
-                weakSelf.payPasswordTextField.enabled = NO;
-                weakSelf.hidePwdBtn.hidden = YES;
-            }
-            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+
+            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
                 weakSelf.securityCertificationButton.hidden = YES;
             }
             [weakSelf judgeURL];
@@ -97,18 +72,7 @@ UITextFieldDelegate
 {
     ///    是否实名
     BOOL isIdPassed = [self.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"];
-    ///    是否有交易密码
-    BOOL isCashPasswordPassed = [self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"];
-    if (isIdPassed && (!isCashPasswordPassed)) {
-        self.url = @"/account/tradCashPwd";
-    }else if ((!isIdPassed) && isCashPasswordPassed){
-        self.url =  @"/account/authentication";
-    }else if ((!isIdPassed) && (!isCashPasswordPassed)){
-        self.url = @"/user/realname";
-    }else
-    {
-        self.url = @"/user/realname";
-    }
+    self.url = @"/user/realname";
 }
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{

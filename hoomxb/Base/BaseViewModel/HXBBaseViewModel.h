@@ -21,7 +21,6 @@ static NSString *const hfContentText = @"正在跳转至恒丰银行";
 
 /**
  是否展示恒丰银行HUD
-
  @param content 展示文案
  */
 - (void)showHFBankWithContent:(NSString *)content;

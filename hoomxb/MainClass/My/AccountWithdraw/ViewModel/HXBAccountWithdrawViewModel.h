@@ -7,11 +7,17 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBLazyCatRequestModel.h"
 
 @class HXBWithdrawModel;
 @interface HXBAccountWithdrawViewModel : HXBBaseViewModel
 
+@property (nonatomic, strong) HXBLazyCatRequestModel *lazyCatReqModel;
+
 @property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
+
+- (void)accountWithdrawalWithAmount:(NSString *)amount resultBlock:(void(^)(BOOL isSuccess))resultBlock;
+
 /**
  账户提现
 

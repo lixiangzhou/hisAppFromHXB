@@ -12,11 +12,13 @@ NSString* const kPasswordedit = @"passwordedit";
 NSString* const kEscrow = @"escrow";
 NSString* const kBindcard = @"bindcard";
 NSString* const kUnbindcard = @"unbindcard";
-NSString* const kWithdrawal = @"withdrawal";
-NSString* const kQuickrecharge = @"quickrecharge";
+NSString* const kWithdrawal = @"withdraw";
+NSString* const kQuickrecharge = @"quickpay";
 NSString* const kLoan = @"loan";
 NSString* const kPlan = @"plan";
 NSString* const kTransfer = @"transfer";
+NSString* const kTransfersale = @"transfersale";
+NSString* const kAccountactive = @"accountactive";
 
 @implementation HXBLazyCatResultPageModel
 

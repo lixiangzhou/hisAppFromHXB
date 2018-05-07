@@ -113,9 +113,10 @@
 }
 
 - (void)dealloc {
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.webView removeObserver:self forKeyPath:@"title"];
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [_webView removeObserver:self forKeyPath:@"title"];
+    [_webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)reLoadWhenViewAppear {

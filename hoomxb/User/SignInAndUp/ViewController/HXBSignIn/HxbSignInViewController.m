@@ -15,6 +15,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBSignInViewModel.h"
 
+#import "HXBUserMigrationViewController.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
 static NSString *const kMobile_NotExis = @"手机号尚未注册";

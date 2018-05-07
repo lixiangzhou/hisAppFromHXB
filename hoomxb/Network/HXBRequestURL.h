@@ -79,13 +79,14 @@
 
 //MARK: ======================= 账户设置 =======================
 #define kHXBSetUPAccount_MobifyPassword_LoginRequestURL @"/account/password"//修改登录密码
-#define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口
+#define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/account/tradCashPwdEdit"//@"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口
 #define kHXBSetTransaction_MobifyPassword_SendSmscodeURL @"/send/smscode/base"//修改交易密码--发送验证码
 #define kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL @"/account/checkIdentitySms"//修改交易密码--校验身份证和短信接口
 
 #define kHXBSetGesturePasswordRequest_CheckLoginPasswordURL @"/user/checkLoginPassword"//校验登录密码
 #define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"//修改交易密码--修改交易密码接口
 #define kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL @"/account/mobile"//修改手机号--修改手机号接口
+#define kHXBLazyCat_UserMigration    @"/account/active" //懒猫-用户账户激活
 
 #define kHXBMY_VersionUpdateURL @"/update"//版本更新
 
@@ -110,13 +111,19 @@
 #define kHXBHome_AnnounceURL @"/announce"//公告
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
-#define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbind" // 解绑银行卡操作
+
+#define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbindcard" //@"/account/bankcard/unbind" // 解绑银行卡操作
+#define kHXBOpenDepository @"/user/escrowAcc"   // 懒猫—存管开户
+
 #define kHXBUserInfo_BankCard @"/account/bankcard"//@"/account/user/card" //用户获取绑定银行卡信息
 #define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口 短验和语音统一为一个借口
-#define kHXBAccount_Bindcard @"/account/bindcard" //绑卡
+#define kHXBAccount_Bindcard @"/account/bankcard/bindcard"//@"/account/bindcard" //绑卡
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
+
+#define kHXBAccount_Quickcharge @"/account/quickrecharge"     // 懒猫-快捷充值
+#define kHXBAccount_Withdrawal @"/account/withdrawal"     // 懒猫--提现
 
 //MARK: ======================= 协议 ==========================
 //协议或合同名    端口号后链接    状态    账户内连接
