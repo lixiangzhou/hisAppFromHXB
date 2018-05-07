@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"提现结果";
+    self.title = @"提现";
 }
 
 

@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"恒丰银行存管开户";
+    self.title = @"开通恒丰银行资金存管";
 }
 
 #pragma mark - HXBLazyCatResponseDelegate

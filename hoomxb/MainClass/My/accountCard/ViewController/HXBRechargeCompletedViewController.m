@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"充值成功";
+    self.title = @"充值";
 }
 
 #pragma mark - HXBLazyCatResponseDelegate

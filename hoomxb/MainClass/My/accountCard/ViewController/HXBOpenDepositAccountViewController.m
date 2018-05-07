@@ -52,6 +52,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"开通存管账户";
+    
     kWeakSelf
     self.viewModel = [[HXBOpenDepositAccountVCViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
