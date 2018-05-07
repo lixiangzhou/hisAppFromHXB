@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"恒丰银行存管开户";
+    self.title = @"开通恒丰银行资金存管";
 }
 
 #pragma mark - HXBLazyCatResponseDelegate
@@ -92,19 +92,30 @@
 }
 
 - (void)popToHomeVC {
-    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
     if (self.openDepositoryTipVC) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
+    // 当前控制器 pop 到栈顶
+    UINavigationController *currentNavVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
+    [currentNavVC popToRootViewControllerAnimated:NO];
     
+    // 跳转到首页
+    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
     [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
+    
 }
 
 - (void)popToMine {
-    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
     if (self.openDepositoryTipVC) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
+    // 当前控制器 pop 到栈顶
+    UINavigationController *currentNavVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
+    [currentNavVC popToRootViewControllerAnimated:NO];
+    
+    // 跳转到我的
+    [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+    [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - Action

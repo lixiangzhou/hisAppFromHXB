@@ -89,7 +89,6 @@
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:NO andCallBack:^(BOOL isSuccess) {
-        [weakSelf hiddenHFBank];
         if (isSuccess) {
             NSDictionary *param = @{
                                     @"name" : username,
@@ -98,6 +97,8 @@
                                     @"bankCode" : weakSelf.cardBinModel.bankCode,
                                     };
             [weakSelf openDepositoryWithParam:param resultBlock:resultBlock];
+        } else {
+            [weakSelf hiddenHFBank];
         }
         
     }];
@@ -112,11 +113,13 @@
     request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
         weakSelf.lazyCatReqModel = [HXBLazyCatRequestModel yy_modelWithDictionary: responseObject[@"data"]];
         if (resultBlock) {
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         weakSelf.lazyCatReqModel = nil;
         if (resultBlock) {
             resultBlock(NO);

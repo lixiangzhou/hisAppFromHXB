@@ -27,6 +27,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         if (resultBlock) {
             resultBlock(NO);
         }
