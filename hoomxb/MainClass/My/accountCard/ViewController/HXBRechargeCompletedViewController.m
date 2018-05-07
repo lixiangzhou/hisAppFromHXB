@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"充值成功";
+    self.title = @"充值";
 }
 
 #pragma mark - HXBLazyCatResponseDelegate
@@ -61,7 +61,7 @@
         [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
         [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
         
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
     };
     
     self.contentModel.secondBtnTitle = @"继续充值";
@@ -94,7 +94,7 @@
 - (void)toMine {
     [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
     [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - Action

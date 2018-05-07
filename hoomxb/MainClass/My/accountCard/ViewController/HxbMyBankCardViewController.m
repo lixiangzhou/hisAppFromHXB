@@ -15,6 +15,9 @@
 #import "HXBGeneralAlertVC.h"
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBBankCardViewModel.h"
+
+#import "HXBLazyCatAccountWebViewController.h"
+
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -71,6 +74,10 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
 - (void)setupRightBarBtn {
     UIButton *unbundBankBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(31), kScrAdaptationH(19))];
     [unbundBankBtn setTitle:@"解绑" forState:UIControlStateNormal];
@@ -82,12 +89,23 @@
 }
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
+
+    kWeakSelf
     if (!self.bankCardModel.enableUnbind) {
         [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
     } else {
-        HXBUnBindCardController *VC = [HXBUnBindCardController new];
-        VC.bankCardModel = self.bankCardModel;
-        [self.navigationController pushViewController:VC animated:YES];
+        //            HXBUnBindCardController *VC = [HXBUnBindCardController new];
+        //            VC.bankCardModel = self.bankCardModel;
+        //            [self.navigationController pushViewController:VC animated:YES];
+        
+        [self.viewModel requestUnBindWithParam:nil finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
+            
+            if (canPush) {
+                HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+                lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
+                [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
+            }
+        }];
     }
 }
 

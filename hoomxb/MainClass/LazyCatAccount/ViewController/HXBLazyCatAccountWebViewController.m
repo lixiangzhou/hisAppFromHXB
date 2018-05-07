@@ -31,6 +31,15 @@
     [self findPopVC];
 }
 
+-(void)leftBackBtnClick {
+    if(self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [super leftBackBtnClick];
+    }
+}
+
 - (void)findPopVC {
     _popViewControllers = [[NSMutableArray alloc] init];
     
