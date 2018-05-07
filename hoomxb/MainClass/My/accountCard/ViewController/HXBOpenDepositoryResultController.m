@@ -92,19 +92,23 @@
 }
 
 - (void)popToHomeVC {
+    UINavigationController *preNavVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
     [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 0;
     if (self.openDepositoryTipVC) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     
     [[HXBRootVCManager manager].mainTabbarVC.selectedViewController popToRootViewControllerAnimated:NO];
+    [preNavVC popToRootViewControllerAnimated:NO];
 }
 
 - (void)popToMine {
+    UINavigationController *preNavVC = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
     [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
     if (self.openDepositoryTipVC) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
+    [preNavVC popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - Action
