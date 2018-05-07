@@ -20,6 +20,8 @@
 #import "HXBAccountSecureCell.h"
 #import "HXBMyAccountSecurityViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
+#import "HXBOpenDepositAccountViewController.h"
+
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -143,6 +145,24 @@ UITableViewDataSource,UITableViewDelegate
 - (void)modifyTransactionPwd {
 
     // TODO: 跳转到恒丰存管修改交易密码
+    kWeakSelf
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+                HXBOpenDepositAccountViewController* vc = [[HXBOpenDepositAccountViewController alloc] init];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }
+            else{
+                [self.viewModel modifyTransactionPasswordResultBlock:^(BOOL isSuccess) {
+                    if(isSuccess) {
+                        HXBLazyCatAccountWebViewController* vc = [[HXBLazyCatAccountWebViewController alloc] init];
+                        vc.requestModel = weakSelf.viewModel.lazyCatRequestModel;
+                        [weakSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                }];
+            }
+        }
+    }];
 }
 
 - (void)modifyPhone
