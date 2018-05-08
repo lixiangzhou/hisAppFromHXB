@@ -50,6 +50,7 @@
     NYBaseRequest *signUPAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     signUPAPI.requestMethod = NYRequestMethodPost;
     signUPAPI.requestUrl = kHXBUser_SignUPURL;
+    signUPAPI.showHud = YES;
 
     inviteCode = inviteCode ? inviteCode : @"";
     signUPAPI.requestArgument = @{
