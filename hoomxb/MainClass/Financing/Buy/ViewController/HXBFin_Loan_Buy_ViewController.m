@@ -276,10 +276,9 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)buyLoanWithDic:(NSDictionary *)dic {
-    [_viewModel showHFBankWithContent:hfContentText];
+    
     kWeakSelf
     [_viewModel loanBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;

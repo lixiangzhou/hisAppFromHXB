@@ -52,13 +52,16 @@
     request.requestArgument = params;
     request.requestUrl = kHXBFin_TransferResultURL;
     kWeakSelf
+    [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
         NSLog(@"responseObject = %@", responseObject);
         weakSelf.resultModel = [[HXBLazyCatRequestModel alloc] init];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         if (resultBlock) resultBlock(NO);
     }];
 }

@@ -169,8 +169,8 @@
 }
 
 - (void)setData {
+    self.title = _model.data.title;
     if ([_model.result isEqualToString:@"success"]) {
-        self.title = @"购买成功";
         HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)_model.data;
         self.secondBtn.hidden = NO;
         self.iconView.image = [UIImage imageNamed:_model.imageName];
@@ -195,7 +195,7 @@
             return viewManager;
         }];
     } else {
-        self.title = _model.data.title;
+        
         self.secondBtn.hidden = YES;
         self.iconView.image = [UIImage imageNamed:_model.imageName];
         self.titleLabel.text = _model.data.title;

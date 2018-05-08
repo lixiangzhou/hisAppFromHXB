@@ -53,27 +53,14 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBFin_Transfer_ConfirmBuyReslut;
     request.requestArgument = parameter;
+    [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
-//        if (request.responseObject) {
-//            NSInteger status = [request.responseObject[kResponseStatus] integerValue];
-//            weakSelf.errorMessage = request.responseObject[kResponseMessage];
-//            NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
-//            if (status) {
-//                if ([errorType isEqualToString:@"TOAST"]) {
-//                    [HxbHUDProgress showTextWithMessage:request.responseObject[@"message"]];
-//                    status = kBuy_Toast;
-//                } else if ([errorType isEqualToString:@"RESULT"]) {
-//                    status = kBuy_Result;
-//                } else if ([errorType isEqualToString:@"PROCESSING"]) {
-//                    status = kBuy_Processing;
-//                }
-//                weakSelf.errorCode = status;
-//            }
-//        }
+        [weakSelf hiddenHFBank];
         if (resultBlock) resultBlock(NO);
     }];
 }

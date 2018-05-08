@@ -308,59 +308,13 @@ static NSString *const bankString = @"绑定银行卡";
 // 购买债权
 - (void)buyCreditorWithDic:(NSDictionary *)dic {
     kWeakSelf
-    [_viewModel showHFBankWithContent:hfContentText];
     [_viewModel loanTransformBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc] init];
-    //            loanBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            loanBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            loanBuySuccessVC.title = @"购买成功";
-    //            loanBuySuccessVC.buy_title = @"购买成功";
-    //            loanBuySuccessVC.imageName = @"successful";
-    //            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            loanBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.isRepayed ? @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回" : @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入出借本金";
-    //            loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-//                loanBuySuccessVC.massage_Right_StrArray = @[weakSelf.viewModel.resultModel.nextRepayDate_new, weakSelf.viewModel.resultModel.buyAmount_new, weakSelf.viewModel.resultModel.principal_new, weakSelf.viewModel.resultModel.interest_new];
-    //            [loanBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-    //            failViewController.title = @"出借失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"出借失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
 }
 
 

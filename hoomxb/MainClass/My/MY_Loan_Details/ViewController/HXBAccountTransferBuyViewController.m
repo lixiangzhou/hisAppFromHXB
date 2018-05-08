@@ -15,7 +15,6 @@
 @interface HXBAccountTransferBuyViewController ()<HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBCommonResultController *commenResultVC;
-@property (nonatomic, strong) NSArray *vcArray;
 
 @end
 
@@ -86,13 +85,6 @@
 
 - (void)dealloc {
     [self.commenResultVC removeFromParentViewController];
-}
-
-- (NSArray *)vcArray {
-    if (!_vcArray) {
-        _vcArray = [NSArray array];
-    }
-    return _vcArray;
 }
 
 @end

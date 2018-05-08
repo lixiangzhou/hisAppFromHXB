@@ -102,9 +102,7 @@
                                @"loanId": self.creditorID,
                                @"currentTransferValue": self.transferConfirmModel.currentTransValue
                                };
-    [self.viewModel showHFBankWithContent:hfContentText];
     [_viewModel accountLoanTransferRequestResultWithParams:dic_post resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;

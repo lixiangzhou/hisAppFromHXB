@@ -16,7 +16,6 @@
 @interface HXBPlanBuyResultViewController ()<HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBCommonResultController *commenResultVC;
-@property (nonatomic, strong) NSArray *vcArray;
 
 @end
 
@@ -98,10 +97,4 @@
     [self.commenResultVC removeFromParentViewController];
 }
 
-- (NSArray *)vcArray {
-    if (!_vcArray) {
-        _vcArray = [NSArray array];
-    }
-    return _vcArray;
-}
 @end

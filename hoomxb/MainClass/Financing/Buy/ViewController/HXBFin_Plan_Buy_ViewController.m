@@ -383,10 +383,8 @@
 
 // 购买计划
 - (void)buyPlanWithDic:(NSDictionary *)dic {
-    [self.viewModel showHFBankWithContent:hfContentText];
     kWeakSelf
     [_viewModel planBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) { /// 跳转恒丰webView
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;

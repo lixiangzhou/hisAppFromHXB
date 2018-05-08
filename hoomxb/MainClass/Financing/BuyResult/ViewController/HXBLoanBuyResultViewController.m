@@ -41,9 +41,8 @@
 
 #pragma mark - Action
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    
+    self.title = model.data.title;
     if ([model.result isEqualToString:@"success"]) {
-        self.title = @"购买成功";
         HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
         
         self.commenResultVC.contentModel = [HXBCommonResultContentModel new];
@@ -68,7 +67,7 @@
             };
         }
     } else {
-        self.title = model.data.title;
+        
         self.commenResultVC.contentModel.imageName = model.imageName;
         self.commenResultVC.contentModel.titleString = model.data.title;
         self.commenResultVC.contentModel.descString = model.data.content;
