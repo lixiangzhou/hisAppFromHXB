@@ -127,4 +127,10 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
  */
 - (void)cancelRequest;
 
+/**
+ 当网络结果需要延时回调时,使用该方法计算剩余秒数
+
+ @return 剩余秒数
+ */
+- (NSTimeInterval)leftDelayInterval;
 @end
