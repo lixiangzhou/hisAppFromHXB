@@ -8,16 +8,16 @@
 
 #import "HXBFincreditorChangebuyViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-//#import "HXBBaseRequestManager.h"
+#import "HXBBaseRequestManager.h"
 
 @implementation HXBFincreditorChangebuyViewModel
 
 /// 添加load框，知道所有请求结束再消失
-//- (void)hideProgress:(NYBaseRequest *)request {
-//    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
-//        [super hideProgress:request];
-//    }
-//}
+- (void)hideProgress:(NYBaseRequest *)request {
+    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
+        [super hideProgress:request];
+    }
+}
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
@@ -39,11 +39,15 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = @"/account/quickrecharge";
     request.requestArgument = parameter;
+    request.delayInterval = RequestDelayInterval;
+    [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        [weakSelf hiddenHFBank];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf hiddenHFBank];
         if (resultBlock) resultBlock(NO);
     }];
 }
