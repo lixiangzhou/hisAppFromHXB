@@ -205,7 +205,7 @@
                     self.addButtonStr = @"追加";
                     self.isAddButtonInteraction = YES;
                 } else {
-                    self.addButtonStr = @"不支持重复购买";
+                    self.addButtonStr = @"暂不支持重复购买";
                     [self setUPAddButtonColorWithType:YES];
                     self.isAddButtonInteraction = NO;
                 }
