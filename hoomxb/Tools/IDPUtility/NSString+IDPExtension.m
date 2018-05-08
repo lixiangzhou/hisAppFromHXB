@@ -81,6 +81,7 @@
     if(err)
     {
         NSLog(@"json解析失败：%@",err);
+        dic = nil;
     }
     return dic;
 }

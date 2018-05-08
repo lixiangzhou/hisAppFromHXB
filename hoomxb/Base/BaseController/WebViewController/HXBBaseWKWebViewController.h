@@ -43,8 +43,9 @@ form.submit();\
 //重新获取焦点时，是否需要重新加载, 默认值是YES
 @property (nonatomic, assign) BOOL pageReload;
 
-//是否需要显示关闭按钮
-@property (nonatomic, assign) BOOL showCloseButton;
+//返回按钮的隐藏控制
+@property (nonatomic, assign) BOOL hiddenReturnButton;
+
 /**
  注册js回调
  

@@ -16,8 +16,7 @@
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
-//@property (nonatomic, strong) UIWebView* webView;
-//@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
+@property (nonatomic, copy) NSString* redirectUrl;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -50,6 +49,21 @@
     }
     else {
         [super leftBackBtnClick];
+    }
+}
+
+- (void)setRequestModel:(HXBLazyCatRequestModel *)requestModel {
+    _requestModel = requestModel;
+    
+    NSDictionary* dic = [requestModel.result.reqData toDictionary];
+    self.redirectUrl = [dic stringAtPath:@"redirectUrl"];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    
+    if([webView.request.URL.absoluteString isEqualToString:self.redirectUrl]) {
+        self.hiddenReturnButton = YES;
     }
 }
 

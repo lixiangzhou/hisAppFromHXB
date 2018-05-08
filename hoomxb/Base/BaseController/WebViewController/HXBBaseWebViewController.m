@@ -12,7 +12,7 @@
 #import <WebViewJavascriptBridge.h>
 #import "HXBWebViewProgress.h"
 
-@interface HXBBaseWebViewController ()<UIWebViewDelegate, HXBWebViewProgressDelegate> {
+@interface HXBBaseWebViewController ()<HXBWebViewProgressDelegate> {
     //进度视图的高度
     NSInteger _progressViewHeight;
     //判断是否时首次加载页面
@@ -29,6 +29,10 @@
 @property (nonatomic, assign) BOOL loadResult;
 
 @property (nonatomic, strong) UIButton *closeBtn;
+
+//是否需要显示关闭按钮
+@property (nonatomic, assign) BOOL showCloseButton;
+
 
 @end
 
@@ -89,6 +93,19 @@
     self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn], [[UIBarButtonItem alloc] initWithCustomView:closeBtn]];
 }
 
+- (void)setHiddenReturnButton:(BOOL)hiddenReturnButton {
+    _hiddenReturnButton = hiddenReturnButton;
+    
+    if(hiddenReturnButton) {
+        self.leftBackBtn.hidden = YES;
+        self.closeBtn.hidden = YES;
+    }
+    else{
+        self.leftBackBtn.hidden = NO;
+        self.closeBtn.hidden = NO;
+    }
+}
+
 - (void)leftBackBtnClick {
     if(self.showCloseButton) {
         if(self.webView.canGoBack) {
@@ -130,7 +147,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentSize"]) {
-        self.showCloseButton = self.webView.canGoBack;
+        if(!self.hiddenReturnButton){
+            self.showCloseButton = self.webView.canGoBack;
+        }
     }
 }
 
@@ -232,6 +251,11 @@
 }
 
 #pragma mark webview协议
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [self loadProgress:YES];
 }
