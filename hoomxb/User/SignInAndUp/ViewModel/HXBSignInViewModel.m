@@ -24,6 +24,8 @@
     NYBaseRequest *loginAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     loginAPI.requestMethod = NYRequestMethodPost;
     loginAPI.requestUrl = kHXBUser_LoginURL;
+    loginAPI.showHud = YES;
+    
     if (!captcha) captcha = @"";
     loginAPI.requestArgument = @{
                                  @"mobile" : mobile,///         是    string    用户名

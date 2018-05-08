@@ -22,6 +22,7 @@
 ///结果页需要的具体参数
 @property (nonatomic, strong) HXBLazyCatResultPageModel* data;
 
+@property (nonatomic, copy) NSString* imageName;
 /**
  根据动作指定data的具体类型
 

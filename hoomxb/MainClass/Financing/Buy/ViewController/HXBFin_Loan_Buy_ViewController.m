@@ -211,6 +211,7 @@ static NSString *const bankString = @"绑定银行卡";
     if (_availablePoint.integerValue == 0) {
         self.topView.totalMoney = @"";
         _inputMoneyStr = @"";
+        _curruntInvestMoney = 0;
         [self setUpArray];
         if (self.isExceedLimitInvest && !_isSelectLimit) {
             [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
@@ -224,12 +225,14 @@ static NSString *const bankString = @"绑定银行卡";
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+        _curruntInvestMoney = _inputMoneyStr.doubleValue;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
+        _curruntInvestMoney = _inputMoneyStr.doubleValue;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
@@ -273,59 +276,15 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)buyLoanWithDic:(NSDictionary *)dic {
-    [_viewModel showHFBankWithContent:hfContentText];
+    
     kWeakSelf
     [_viewModel loanBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-    //            loanBuySuccessVC.title = @"购买成功";
-    //            loanBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            loanBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            loanBuySuccessVC.imageName = @"successful";
-    //            loanBuySuccessVC.buy_title = @"投标成功";
-    //            loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
-    //            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            [loanBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-    //            failViewController.title = @"出借失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"出借失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    [weakSelf.passwordView clearUpPassword];
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
 }
 
 // 获取用户信息
@@ -336,8 +295,12 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-            [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
+            [weakSelf hasBuyType];
+            [weakSelf.tableView reloadData];
         }
         else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
@@ -359,11 +322,12 @@ static NSString *const bankString = @"绑定银行卡";
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
                 [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-                [weakSelf setUpArray];
+                weakSelf.tableView.hidden = NO;
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf hasBuyType];
+                [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
-                weakSelf.tableView.hidden = NO;
             }
         }];
     } else {
@@ -483,7 +447,6 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)updateNetWorkData {
     [self getNewUserInfo];
-    [self.tableView reloadData];
 }
 
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
