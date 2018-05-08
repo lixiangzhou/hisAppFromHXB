@@ -11,8 +11,8 @@
 #import "HXBVersionUpdateManager.h"
 #import "HXBHomePopViewManager.h"
 
-#import "HXBAccountActivationViewController.h"
 #import "HXBUserMigrationViewController.h"
+
 @interface HXBAccountActivationManager()
 @property (nonatomic, strong) HXBUserMigrationViewController* accountActivationVC;
 @end

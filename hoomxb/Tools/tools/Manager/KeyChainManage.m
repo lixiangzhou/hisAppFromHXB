@@ -212,7 +212,7 @@ static NSString *const hostH5 = @"hostH5";
             
 
             BOOL isAccountActivation = viewModel.userInfoModel.userInfo.isUserActive;
-            if(!isAccountActivation) {//账户需要激活
+            if(!isAccountActivation && viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {//账户需要激活
                 [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
                 
                 if (resultBlock) {

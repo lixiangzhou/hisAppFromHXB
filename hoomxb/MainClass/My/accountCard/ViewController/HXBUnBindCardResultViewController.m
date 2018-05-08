@@ -36,13 +36,12 @@
                         //重新绑卡 进入绑卡界面
             //设置新的栈
             NSMutableArray *controllers = [NSMutableArray arrayWithArray:[weakSelf.navigationController.viewControllers subarrayWithRange:NSMakeRange(0, 2)]];
-            weakSelf.navigationController.viewControllers = controllers;
-            
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
             withdrawCardViewController.title = @"绑卡";
             withdrawCardViewController.className = @"HxbAccountInfoViewController";
             withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            [controllers addObject:withdrawCardViewController];
+            [weakSelf.navigationController setViewControllers:controllers animated:YES];
             //返回 账户信息列表页
 //            __block HxbAccountInfoViewController *accountVC = nil;
 //            [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -29,7 +29,9 @@
     self.commonResultVC = [HXBCommonResultController new];
     HXBCommonResultContentModel *commonResultModel = nil;
     
+    BOOL isSuccess = NO;
     if ([self.responseModel.result isEqualToString:@"success"]) { //成功
+        isSuccess = YES;
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"完成"];
     } else if ([self.responseModel.result isEqualToString:@"error"]){ //失败
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"重新升级"];
@@ -40,9 +42,11 @@
     kWeakSelf
     commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        [[HXBAccountActivationManager sharedInstance] exitActiveAccountPage];
-        //回首页
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+        if(isSuccess) {
+            [[HXBAccountActivationManager sharedInstance] exitActiveAccountPage];
+            //回首页
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+        }
     };
     
     self.commonResultVC.contentModel = commonResultModel;
