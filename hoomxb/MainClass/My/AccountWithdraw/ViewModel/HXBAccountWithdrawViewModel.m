@@ -17,7 +17,7 @@
     request.requestUrl = kHXBAccount_Withdrawal;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"amount": amount};
-    
+    request.delayInterval = RequestDelayInterval;
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {

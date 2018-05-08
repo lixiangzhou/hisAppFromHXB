@@ -110,6 +110,7 @@
     request.requestUrl = kHXBOpenDepository;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = param;
+    request.delayInterval = RequestDelayInterval;
     request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
