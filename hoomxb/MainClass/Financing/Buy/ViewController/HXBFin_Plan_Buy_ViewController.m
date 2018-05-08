@@ -70,8 +70,6 @@
 @property (nonatomic, assign) double curruntInvestMoney;
 // 实际支付金额
 @property (nonatomic, assign) double afterDiscountMoney;
-// 展示HUD
-@property (nonatomic, strong) HxbHUDProgress *hud;
 // 是否超出投资限制
 @property (nonatomic, assign) BOOL isExceedLimitInvest;
 // 是否选中同意选项
@@ -101,7 +99,6 @@
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
-    _hud = [[HxbHUDProgress alloc] init];
     
     kWeakSelf
     _viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
