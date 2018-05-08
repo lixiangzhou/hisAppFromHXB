@@ -97,6 +97,7 @@
     bindAPI.requestUrl = kHXBUserInfo_UnbindBankCard;
     bindAPI.requestMethod = NYRequestMethodPost;
     bindAPI.requestArgument = param;
+    bindAPI.delayInterval = RequestDelayInterval;
     [self showHFBankWithContent:hfContentText];
     kWeakSelf
     [bindAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -138,6 +139,7 @@
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
     versionUpdateAPI.showHud = NO;
+    versionUpdateAPI.delayInterval = RequestDelayInterval;
     [self showHFBankWithContent:hfContentText];
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         [weakSelf hiddenHFBank];

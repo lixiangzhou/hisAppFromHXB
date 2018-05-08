@@ -19,6 +19,7 @@
     request.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
     request.requestMethod = NYRequestMethodPost;
     request.showHud = NO;
+    request.delayInterval = RequestDelayInterval;
     [weakSelf showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf hiddenHFBank];

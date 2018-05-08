@@ -16,6 +16,7 @@
     requestAPI.requestUrl = kHXBLazyCat_UserMigration;
     requestAPI.requestMethod = NYRequestMethodPost;
     requestAPI.showHud = NO;
+    requestAPI.delayInterval = RequestDelayInterval;
     [self showHFBankWithContent:hfContentText];
     [requestAPI loadData:^(NYBaseRequest *request, id responseObject) {
         [weakSelf hiddenHFBank];
