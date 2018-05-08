@@ -10,6 +10,7 @@
 #import "HXBLazyCatResponseDelegate.h"
 #import "HXBLazyCatResponseModel.h"
 #import "HXBBaseView_MoreTopBottomView.h"
+#import "HXBUMengShareManager.h"
 
 @interface HXBCreditorBuyResultViewController ()<HXBLazyCatResponseDelegate>
 
@@ -30,6 +31,8 @@
 /// 中间的label数组
 @property (nonatomic, strong) HXBBaseView_MoreTopBottomView *buy_massageLabel;
 
+@property (nonatomic, strong) HXBLazyCatResponseModel *model;
+
 @end
 
 @implementation HXBCreditorBuyResultViewController
@@ -38,14 +41,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setUI];
+    [self setData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [self setUI];  
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 #pragma mark - UI
 
 - (void)setUI {
-    self.title = @"购买成功";
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.isRedColorWithNavigationBar = YES;
@@ -63,6 +78,7 @@
     titleLabel.font = kHXBFont_38;
     [self.view addSubview:titleLabel];
     self.titleLabel = titleLabel;
+    
     /// 添加中间的label
     [self.view addSubview:self.buy_massageLabel];
     
@@ -97,6 +113,7 @@
     UIButton *secondBtn = [UIButton new];
     secondBtn.layer.cornerRadius = 4;
     secondBtn.layer.masksToBounds = YES;
+    secondBtn.hidden = YES;
     [secondBtn setTitleColor:kHXBColor_F55151_100 forState:UIControlStateNormal];
     secondBtn.backgroundColor = [UIColor whiteColor];
     secondBtn.layer.borderColor = kHXBColor_F55151_100.CGColor;
@@ -105,9 +122,7 @@
     [self.view addSubview:secondBtn];
     self.secondBtn = secondBtn;
     
-    
-
-    
+    [self setConstraints];
 }
 
 - (void)setConstraints {
@@ -165,39 +180,61 @@
     
 }
 
+- (void)setData {
+    self.title = _model.data.title;
+    if ([_model.result isEqualToString:@"success"]) {
+        HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)_model.data;
+        self.secondBtn.hidden = NO;
+        self.iconView.image = [UIImage imageNamed:_model.imageName];
+        self.titleLabel.text = resultModel.title;
+        self.descLabel.text = resultModel.tips;
+        
+        [self.firstBtn setTitle:@"查看我的出借" forState:UIControlStateNormal];
+        
+        if (resultModel.isInviteActivityShow) {
+            [self.secondBtn setTitle:resultModel.inviteActivityDesc forState:UIControlStateNormal];
+        }
+        
+        [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+            viewManager.leftStrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
+            viewManager.rightStrArray = @[resultModel.nextRepayDate_new, resultModel.buyAmount_new, resultModel.principal_new, resultModel.interest_new];
+            viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+            viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+            viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
+            viewManager.rightTextColor = kHXBColor_Font0_6;
+            viewManager.leftLabelAlignment = NSTextAlignmentLeft;
+            viewManager.rightLabelAlignment = NSTextAlignmentRight;
+            return viewManager;
+        }];
+    } else {
+        
+        self.secondBtn.hidden = YES;
+        self.iconView.image = [UIImage imageNamed:_model.imageName];
+        self.titleLabel.text = _model.data.title;
+        self.descLabel.text = _model.data.content;
+        [self.firstBtn setTitle:@"重新出借" forState:UIControlStateNormal];
+    }
+}
 
 #pragma mark - setData
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.iconView.image = [UIImage imageNamed:@""];
-    self.titleLabel.text = model.data.title;
-    self.descLabel.text = model.data.content;
-    
-    [self.firstBtn setTitle:@"查看我的出借" forState:UIControlStateNormal];
-    [self.secondBtn setTitle:@""forState:UIControlStateNormal];
-    
-    [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-        viewManager.leftStrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-        viewManager.rightStrArray = @[model, @"", @"", @""];
-        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
-        viewManager.rightTextColor = kHXBColor_Font0_6;
-        viewManager.leftLabelAlignment = NSTextAlignmentLeft;
-        viewManager.rightLabelAlignment = NSTextAlignmentRight;
-        return viewManager;
-    }];
-
+    _model = model;
 }
 
 
 #pragma mark - Action
 - (void)firstBtnClick:(UIButton *)btn {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([btn.titleLabel.text isEqualToString:@"查看我的出借"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else  {
+        [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+    }
 }
 
 - (void)secondBtnClick:(UIButton *)btn {
-    
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 - (void)leftBackBtnClick {

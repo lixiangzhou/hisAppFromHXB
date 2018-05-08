@@ -219,11 +219,10 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     
     //加入button设置 数据
     self.addButton.userInteractionEnabled = self.viewModel.planDetailModel.isAddButtonInteraction;
-        [self.addButton setTitleColor:self.viewModel.planDetailModel.addButtonTitleColor forState:UIControlStateNormal];
+    [self.addButton setTitleColor:self.viewModel.planDetailModel.addButtonTitleColor forState:UIControlStateNormal];
     if (self.viewModel.statusCanJoinIn) {//等待加入
         [self.addButton setTitle:self.viewModel.planDetailModel.remainTimeString forState:UIControlStateNormal];
-    }else
-    {
+    } else {
         [self.addButton setTitle:self.viewModel.planDetailModel.addButtonStr forState:UIControlStateNormal];
     }
     self.addButton.backgroundColor = self.viewModel.planDetailModel.addButtonBackgroundColor;

@@ -26,5 +26,7 @@ extern NSString* const kAccountactive; //账户激活
 @property (nonatomic, copy) NSString* title;
 ///提示内容
 @property (nonatomic, copy) NSString* content;
+///购买错误类型
+@property (nonatomic, copy) NSString* errorType;
 
 @end

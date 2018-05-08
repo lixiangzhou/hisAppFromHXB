@@ -72,9 +72,9 @@
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
-#define kHXBFin_TransferRecordURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/confirm",(planID)]
+#define kHXBFin_TransferRecordURL @"/account/transfer/transferconfirm"
 //债权转让功能接口
-#define kHXBFin_TransferResultURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/result",(planID)]
+#define kHXBFin_TransferResultURL @"/account/transfer/transfersale"
 
 
 //MARK: ======================= 账户设置 =======================
