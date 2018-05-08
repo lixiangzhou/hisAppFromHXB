@@ -28,6 +28,19 @@
     self.title = @"开通恒丰银行资金存管";
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     self.contentModel = [HXBCommonResultContentModel new];

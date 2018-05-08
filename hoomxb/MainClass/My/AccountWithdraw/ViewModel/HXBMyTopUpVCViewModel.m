@@ -16,6 +16,7 @@
     request.requestUrl = kHXBAccount_Quickcharge;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"amount" : amount};
+    request.delayInterval = RequestDelayInterval;
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, id responseObject) {
