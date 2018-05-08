@@ -23,6 +23,7 @@
         if([action isEqualToString:kTransfer] || [action isEqualToString:kPlan] || [action isEqualToString:kLoan]) {
             //购买
             _data = [[HXBLazyCatResultBuyModel alloc] init];
+            
         }
         else if([action isEqualToString:kQuickrecharge]) {
             //快捷充值

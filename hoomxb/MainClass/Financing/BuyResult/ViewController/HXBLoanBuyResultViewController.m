@@ -15,6 +15,7 @@
 @interface HXBLoanBuyResultViewController() <HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBCommonResultController *commenResultVC;
+@property (nonatomic, strong) HXBLazyCatResponseModel *model;
 
 @end
 
@@ -24,8 +25,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    [self setData];
     [self setUI];  
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 #pragma mark - UI
@@ -39,16 +53,13 @@
     [self.view addSubview:self.commenResultVC.view];
 }
 
-#pragma mark - Action
-- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.title = model.data.title;
-    if ([model.result isEqualToString:@"success"]) {
-        HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)model.data;
+- (void)setData {
+    self.title = _model.data.title;
+    
+    if ([_model.result isEqualToString:@"success"]) {
+        HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)_model.data;
         
-        self.commenResultVC.contentModel = [HXBCommonResultContentModel new];
-        self.commenResultVC.contentModel.descHasMark = YES;
-        self.commenResultVC.contentModel.descAlignment = NSTextAlignmentLeft;
-        self.commenResultVC.contentModel.imageName = model.imageName;
+        self.commenResultVC.contentModel.imageName = _model.imageName;
         self.commenResultVC.contentModel.titleString = resultModel.title;
         self.commenResultVC.contentModel.descString = resultModel.content;
         self.commenResultVC.contentModel.firstBtnTitle = @"查看我的出借";
@@ -68,21 +79,28 @@
         }
     } else {
         
-        self.commenResultVC.contentModel.imageName = model.imageName;
-        self.commenResultVC.contentModel.titleString = model.data.title;
-        self.commenResultVC.contentModel.descString = model.data.content;
+        self.commenResultVC.contentModel.imageName = _model.imageName;
+        self.commenResultVC.contentModel.titleString = _model.data.title;
+        self.commenResultVC.contentModel.descString = _model.data.content;
         self.commenResultVC.contentModel.firstBtnTitle = @"重新出借";
         kWeakSelf
         self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         };
     }
-    
+}
+
+#pragma mark - Action
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    _model = model;
 }
 
 - (HXBCommonResultController *)commenResultVC {
     if (!_commenResultVC) {
         _commenResultVC = [[HXBCommonResultController alloc] init];
+        _commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] init];
+        _commenResultVC.contentModel.descHasMark = YES;
+        _commenResultVC.contentModel.descAlignment = NSTextAlignmentLeft;
     }
     return _commenResultVC;
 }
@@ -92,8 +110,5 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)dealloc {
-    [self.commenResultVC removeFromParentViewController];
-}
 @end
 

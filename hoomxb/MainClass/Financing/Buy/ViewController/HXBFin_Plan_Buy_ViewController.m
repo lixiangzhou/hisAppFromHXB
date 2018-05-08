@@ -509,7 +509,6 @@
 
 - (void)updateNetWorkData {
     [self getNewUserInfo];
-    [self getBankCardLimit];
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {

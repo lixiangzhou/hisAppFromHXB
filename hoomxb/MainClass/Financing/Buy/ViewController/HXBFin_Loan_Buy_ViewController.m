@@ -296,6 +296,9 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
             [weakSelf hasBuyType];
             [weakSelf.tableView reloadData];
         }
@@ -319,11 +322,12 @@ static NSString *const bankString = @"绑定银行卡";
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
                 [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-                [weakSelf setUpArray];
+                weakSelf.tableView.hidden = NO;
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf hasBuyType];
+                [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
-                weakSelf.tableView.hidden = NO;
             }
         }];
     } else {

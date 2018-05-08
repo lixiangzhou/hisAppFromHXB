@@ -15,6 +15,7 @@
 @interface HXBAccountTransferBuyViewController ()<HXBLazyCatResponseDelegate>
 
 @property (nonatomic, strong) HXBCommonResultController *commenResultVC;
+@property (nonatomic, strong) HXBLazyCatResponseModel *model;
 
 @end
 
@@ -25,8 +26,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setData];
     [self setUI];  
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 
 #pragma mark - UI
 
@@ -39,21 +54,18 @@
     [self.view addSubview:self.commenResultVC.view];
 }
 
-#pragma mark - Action
-- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    
-    self.commenResultVC.contentModel = [HXBCommonResultContentModel new];
+- (void)setData {
     self.commenResultVC.contentModel.descHasMark = NO;
     self.commenResultVC.contentModel.descAlignment = NSTextAlignmentCenter;
-    self.commenResultVC.contentModel.imageName = model.imageName;
-    self.commenResultVC.contentModel.titleString = model.data.title;
-    self.commenResultVC.contentModel.descString = model.data.content;
+    self.commenResultVC.contentModel.imageName = _model.imageName;
+    self.commenResultVC.contentModel.titleString = _model.data.title;
+    self.commenResultVC.contentModel.descString = _model.data.content;
     NSString *firstBtnTitle;
-    if ([model.result isEqualToString:@"success"]) {
+    if ([_model.result isEqualToString:@"success"]) {
         firstBtnTitle = @"完成";
-    } else if ([model.result isEqualToString:@"error"]) {
+    } else if ([_model.result isEqualToString:@"error"]) {
         firstBtnTitle = @"重新转让";
-    } else if ([model.result isEqualToString:@"timeout"]) {
+    } else if ([_model.result isEqualToString:@"timeout"]) {
         firstBtnTitle = @"返回";
     }
     self.commenResultVC.contentModel.firstBtnTitle = firstBtnTitle;
@@ -67,13 +79,18 @@
             }
         }
     };
-    
+}
 
+#pragma mark - Action
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    
+    _model = model;
 }
 
 - (HXBCommonResultController *)commenResultVC {
     if (!_commenResultVC) {
         _commenResultVC = [[HXBCommonResultController alloc] init];
+        _commenResultVC.contentModel = [[HXBCommonResultContentModel alloc] init];
     }
     return _commenResultVC;
 }

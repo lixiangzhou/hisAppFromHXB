@@ -19,29 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/MainClass/LazyCatAccount/ViewController/HXBLazyCatAccountWebViewController.m"
-            timestampString = "547011491.379575"
+            filePath = "hoomxb/MainClass/Financing/BuyResult/ViewController/HXBLoanBuyResultViewController.m"
+            timestampString = "547457696.376021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-setupUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/MainClass/LazyCatAccount/ViewController/HXBLazyCatAccountWebViewController.m"
-            timestampString = "547018461.569078"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-jumpToResultPageWithData:"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-setData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

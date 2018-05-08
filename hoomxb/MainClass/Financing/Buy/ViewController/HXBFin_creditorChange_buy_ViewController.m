@@ -317,10 +317,6 @@ static NSString *const bankString = @"绑定银行卡";
     }];
 }
 
-
-
-
-
 // 获取银行限额
 - (void)getBankCardLimit {
     if ([self.hasBindCard isEqualToString:@"1"]) {
@@ -334,12 +330,14 @@ static NSString *const bankString = @"绑定银行卡";
                 } else {
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
-                [weakSelf setUpArray];
+                weakSelf.tableView.hidden = NO;
                 [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf hasBuyType];
+                [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
-                weakSelf.tableView.hidden = NO;
+                
             }
         }];
     } else {
@@ -362,6 +360,9 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
             [weakSelf hasBuyType];
             [weakSelf.tableView reloadData];
         } else {
