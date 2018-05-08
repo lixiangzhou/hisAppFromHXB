@@ -26,6 +26,7 @@
     [super viewDidLoad];
     
     self.title = @"开通恒丰银行资金存管";
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
 
 #pragma mark - HXBLazyCatResponseDelegate

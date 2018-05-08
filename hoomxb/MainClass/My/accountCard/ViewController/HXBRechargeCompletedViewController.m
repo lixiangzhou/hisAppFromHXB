@@ -29,6 +29,7 @@
     [super viewDidLoad];
     
     self.title = @"充值";
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
 
 #pragma mark - HXBLazyCatResponseDelegate

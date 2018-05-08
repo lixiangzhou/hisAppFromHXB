@@ -31,7 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"提现";
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
 
 
