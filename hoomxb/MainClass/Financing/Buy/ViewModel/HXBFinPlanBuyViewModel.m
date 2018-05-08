@@ -8,8 +8,16 @@
 
 #import "HXBFinPlanBuyViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+#import "HXBBaseRequestManager.h"
 
 @implementation HXBFinPlanBuyViewModel
+
+/// 添加load框，知道所有请求结束再消失
+- (void)hideProgress:(NYBaseRequest *)request {
+    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
+        [super hideProgress:request];
+    }
+}
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {

@@ -211,6 +211,7 @@ static NSString *const bankString = @"绑定银行卡";
     if (_availablePoint.integerValue == 0) {
         self.topView.totalMoney = @"";
         _inputMoneyStr = @"";
+        _curruntInvestMoney = 0;
         [self setUpArray];
         if (self.isExceedLimitInvest && !_isSelectLimit) {
             [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
@@ -224,12 +225,14 @@ static NSString *const bankString = @"绑定银行卡";
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+        _curruntInvestMoney = _inputMoneyStr.doubleValue;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
+        _curruntInvestMoney = _inputMoneyStr.doubleValue;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];

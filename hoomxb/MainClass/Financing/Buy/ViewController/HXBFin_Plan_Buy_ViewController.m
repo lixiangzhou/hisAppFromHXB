@@ -418,11 +418,9 @@
 }
 
 // 获取银行限额
-static const NSInteger topView_bank_high = 370;
-static const NSInteger topView_high = 300;
 - (void)getBankCardLimit {
     if ([self.hasBindCard isEqualToString:@"1"]) {
-        self.topView.height = kScrAdaptationH750(topView_bank_high) + self.topQuitWayAdditionalHeight;
+        self.topView.height = kScrAdaptationH750(370) + self.topQuitWayAdditionalHeight;
         kWeakSelf
         [_viewModel getBankCardWithHud:YES resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -436,13 +434,14 @@ static const NSInteger topView_high = 300;
                 weakSelf.tableView.hidden = NO;
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf hasBuyType];
                 [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
             }
         }];
         
     } else {
-        self.topView.height = kScrAdaptationH750(topView_high) + self.topQuitWayAdditionalHeight;
+        self.topView.height = kScrAdaptationH750(300) + self.topQuitWayAdditionalHeight;
         self.topView.hasBank = NO;
         self.tableView.tableHeaderView = self.topView;
         [self changeItemWithInvestMoney:_inputMoneyStr];
@@ -487,6 +486,9 @@ static const NSInteger topView_high = 300;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
             [weakSelf hasBuyType];
             [weakSelf.tableView reloadData];
         }
@@ -509,6 +511,7 @@ static const NSInteger topView_high = 300;
 
 - (void)updateNetWorkData {
     [self getNewUserInfo];
+    [self getBankCardLimit];
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {
