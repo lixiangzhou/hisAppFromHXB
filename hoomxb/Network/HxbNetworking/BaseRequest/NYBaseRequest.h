@@ -11,6 +11,8 @@
 #import "HXBRequestHudDelegate.h"
 #import "NSDictionary+HXBResponse.h"
 
+#define RequestDelayInterval 2
+
 @class NYBaseRequest;
 @class NYHTTPConnection;
 
@@ -58,6 +60,8 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, assign) BOOL showHud;
 /// 加载框上显示的文本
 @property (nonatomic, copy) NSString* hudShowContent;
+/// 网络延时时间(s), 如果不需要延时处理, 则不需要传递该参数
+@property (nonatomic, assign) NSTimeInterval delayInterval;
 
 //================================== 发送者代理 ==================================
 /// 委托
