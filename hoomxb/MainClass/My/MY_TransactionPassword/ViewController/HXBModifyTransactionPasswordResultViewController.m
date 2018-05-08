@@ -80,7 +80,7 @@
 
 - (void)leftBackBtnClick
 {
-    //返回解绑卡前一个界面
+    //返回前一个界面
     int i;
     for (i = 0; i<self.navigationController.viewControllers.count; i++) {
         if ([self.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HxbMyAccountSecurityViewController")]) {
@@ -89,7 +89,7 @@
     }
     
     if (i>0 && i<self.navigationController.viewControllers.count) {
-        [self.navigationController popToViewController:self.navigationController.viewControllers[i-1] animated:YES];
+        [self.navigationController popToViewController:self.navigationController.viewControllers[i] animated:YES];
     }
     else{
         //没有找到,出现异常了, 直接回到根控制器

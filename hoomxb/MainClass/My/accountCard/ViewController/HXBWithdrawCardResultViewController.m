@@ -78,7 +78,7 @@ typedef NS_ENUM(NSInteger, PopViewController) {
             }
             if (i>0) {
                 [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i-1] animated:YES];
-            } //
+            }
         };
     } else if ([self.responseModel.result isEqualToString:@"error"]){ //失败
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"failure" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"重新绑卡"];
@@ -97,8 +97,16 @@ typedef NS_ENUM(NSInteger, PopViewController) {
     }else if ([self.responseModel.result isEqualToString:@"timeout"]) { //超时
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"outOffTime" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"返回"];
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-            //无论从购买 充值 提现 我的，都返回到第0个
-            [weakSelf.navigationController popToViewController:weakSelf.popViewControllersArray[0] animated:YES];
+
+            int i = 0;
+            for (; i<weakSelf.navigationController.viewControllers.count; i++) {
+                if ([weakSelf.navigationController.viewControllers[i] isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+                    break;
+                }
+            }
+            if (i>0) {
+                [weakSelf.navigationController popToViewController:weakSelf.navigationController.viewControllers[i-1] animated:YES];
+            }
         };
     }
     
@@ -128,11 +136,9 @@ typedef NS_ENUM(NSInteger, PopViewController) {
             }
         }
         if (i>0 && i<self.navigationController.viewControllers.count) {
-            //充值 提现 我的，成功返回我的，失败和超时返回绑卡页
-            if ([self.responseModel.result isEqualToString:@"success"]) {
+            
+            if ([self.responseModel.result isEqualToString:@"success"]||[self.responseModel.result isEqualToString:@"error"]||[self.responseModel.result isEqualToString:@"timeout"]) {
                 [self.navigationController popToViewController:self.navigationController.viewControllers[i-1] animated:YES];
-            } else if ([self.responseModel.result isEqualToString:@"error"]||[self.responseModel.result isEqualToString:@"timeout"]) {
-                [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
             }
             else {
                 [self.navigationController popToRootViewControllerAnimated:YES];

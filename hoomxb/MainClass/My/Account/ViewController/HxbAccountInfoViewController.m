@@ -248,6 +248,7 @@ UITableViewDataSource
                 cell.detailTextLabel.textColor = COR30;
             }else{
                 cell.detailTextLabel.text = @"未绑定";
+                cell.detailTextLabel.textColor = COR29;
             }
         }else{
             cell.textLabel.text = @"风险评测";
