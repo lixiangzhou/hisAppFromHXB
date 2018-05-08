@@ -28,12 +28,14 @@
 /// 第一个按钮的回调
 @property (nonatomic, copy) void (^firstBtnBlock)(HXBCommonResultController *resultController);
 
+
 /// note: 第二个按钮若设置了Title就显示，否则不显示
 
 /// 第二个按钮的Title
 @property (nonatomic, copy) NSString *secondBtnTitle;
 /// 第二个按钮的回调
 @property (nonatomic, copy) void (^secondBtnBlock)(HXBCommonResultController *resultController);
+
 
 /// 导航栏返回的回调，按照需要提供，提供就执行
 @property (nonatomic, copy) void (^navBackBlock)(HXBCommonResultController *resultController);

@@ -113,6 +113,7 @@
 }
 
 - (void)dealloc {
+
     [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [_webView removeObserver:self forKeyPath:@"title"];
     [_webView.scrollView removeObserver:self forKeyPath:@"contentSize"];

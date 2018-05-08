@@ -15,6 +15,9 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBBankCardViewModel.h"
+
+#import "HXBLazyCatAccountWebViewController.h"
+#import "HXBLazyCatRequestModel.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -88,6 +91,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+    
+    [self.bindBankCardVM hiddenHFBank];
 }
 
 //卡bin校验
@@ -129,10 +134,15 @@
  开通存管账户
  */
 - (void)openStorageWithArgument:(NSDictionary *)dic{
+    
     kWeakSelf
     [self.bindBankCardVM bindBankCardRequestWithArgument:dic andFinishBlock:^(BOOL isSuccess)  {
         if (isSuccess) {
-            [weakSelf bindBankCardRequest];
+//            [weakSelf bindBankCardRequest];
+            
+            HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
+            lazyCatWebVC.requestModel = weakSelf.bindBankCardVM.lazyCatRequestModel;
+            [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
         }
     }];
 }

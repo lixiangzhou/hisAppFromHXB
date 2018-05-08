@@ -9,10 +9,11 @@
 #import "HXBBaseViewModel.h"
 #import "HXBBankCardModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBLazyCatRequestModel.h"
 @class HXBCardBinModel;
 @interface HXBBankCardViewModel : HXBBaseViewModel
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
-
+@property (nonatomic, strong) HXBLazyCatRequestModel *lazyCatRequestModel;
 @property (nonatomic, strong) HXBCardBinModel *cardBinModel;
 /// 银行图片
 @property (nonatomic, copy, readonly) NSString *bankImageString;

@@ -14,16 +14,11 @@
 #import "HXBWithdrawCardViewModel.h"
 #import "HXBBankCardViewModel.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
-//@property (nonatomic, strong) UITextField *bankCardTextField;
-//@property (nonatomic, strong) UIButton *bankNameBtn;
-//@property (nonatomic, strong) UITextField *phoneNumberTextField;
 @property (nonatomic, strong) UIButton *nextButton;
-//@property (nonatomic, strong) UILabel *cardholderTipLabel;
-//@property (nonatomic, strong) UILabel *cardholderLabel;
 @property (nonatomic, strong) HXBBaseView_TwoLable_View *cardholderLabel;
 @property (nonatomic, strong) HXBCustomTextField *bankNameTextField;
 @property (nonatomic, strong) HXBCustomTextField *bankCardTextField;
-@property (nonatomic, strong) HXBCustomTextField *phoneNumberTextField;
+//@property (nonatomic, strong) HXBCustomTextField *phoneNumberTextField;
 @property (nonatomic, strong) UIButton *seeLimitBtn;
 /** bankCardID */
 @property (nonatomic, copy) NSString *bankCardID;
@@ -47,7 +42,7 @@
         [self addSubview:self.bankCardTextField];
         [self addSubview:self.bankNameTextField];
         [self addSubview:self.seeLimitBtn];
-        [self addSubview:self.phoneNumberTextField];
+//        [self addSubview:self.phoneNumberTextField];
         [self addSubview:self.nextButton];
         [self addSubview:self.cardholderLabel];
         [self addSubview:self.line];
@@ -128,7 +123,7 @@
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.height.offset(kScrAdaptationH750(82));
-        make.top.equalTo(self.phoneNumberTextField.mas_bottom).offset(kScrAdaptationH750(123));
+        make.top.equalTo(self.bankNameTextField.mas_bottom).offset(kScrAdaptationH750(223));
     }];
     
 }
@@ -137,8 +132,8 @@
 {
     [super layoutSubviews];
     if (self.bankNameTextField.hidden){
-        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
-        self.nextButton.frame = CGRectMake(20, CGRectGetMaxY(_phoneNumberTextField.frame) + kScrAdaptationH750(123), SCREEN_WIDTH - 40, 44);
+//        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+        self.nextButton.frame = CGRectMake(20, CGRectGetMaxY(_bankNameTextField.frame) + kScrAdaptationH750(223), SCREEN_WIDTH - 40, 44);
     }
 }
 
@@ -148,12 +143,12 @@
     if (self.nextButtonClickBlock) {
         kWeakSelf
         if ([self judgeIsNull]) return;
-        [self.bindBankCardVM checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:YES andCallBack:^(BOOL isSuccess) {
+        [self.bindBankCardVM checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:NO andCallBack:^(BOOL isSuccess) {
             if (isSuccess) {
                 weakSelf.cardBinModel = weakSelf.bindBankCardVM.cardBinModel;
                 NSDictionary *dic = @{
-                                      @"bankCard" : weakSelf.bankCardID,
-                                      @"bankReservedMobile" : weakSelf.phoneNumberTextField.text,
+                                      @"bankNum" : weakSelf.bankCardID,
+//                                      @"bankReservedMobile" : weakSelf.phoneNumberTextField.text,
                                       @"bankCode" : weakSelf.cardBinModel.bankCode
                                       };
                 weakSelf.nextButtonClickBlock(dic);
@@ -193,16 +188,17 @@
 //        isNull = YES;
 //        return isNull;
 //    }
-    if (!(self.phoneNumberTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (self.phoneNumberTextField.text.length != 11) {
-        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+    
+//    if (!(self.phoneNumberTextField.text.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
+//    if (self.phoneNumberTextField.text.length != 11) {
+//        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     
     
 //    if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 31)) {
@@ -283,7 +279,9 @@
     self.bankNameTextField.hidden = NO;
     self.line.hidden = NO;
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
-        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+        
+//        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+        self.nextButton.frame = CGRectMake(20, CGRectGetMaxY(_bankNameTextField.frame) + kScrAdaptationH750(223), SCREEN_WIDTH - 40, 44);
         [self layoutIfNeeded];
     }];
     
@@ -306,7 +304,8 @@
         self.line.hidden = YES;
         self.bankNameTextField.hidden = YES;
         [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
-            self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+//            self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+            self.nextButton.frame = CGRectMake(20, CGRectGetMaxY(_bankNameTextField.frame) + kScrAdaptationH750(223), SCREEN_WIDTH - 40, 44);
             [self layoutIfNeeded];
         }];
     }
@@ -351,43 +350,47 @@
 }
 
 
-- (HXBCustomTextField *)phoneNumberTextField{
-    if (!_phoneNumberTextField) {
-        _phoneNumberTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
-        _phoneNumberTextField.placeholder = @"预留手机号";
-        _phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
-        _phoneNumberTextField.delegate = self;
-        _phoneNumberTextField.limitStringLength = 11;
-        _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
-        _phoneNumberTextField.isHidenLine = YES;
-    }
-    return _phoneNumberTextField;
-}
+//- (HXBCustomTextField *)phoneNumberTextField{
+//    if (!_phoneNumberTextField) {
+//        _phoneNumberTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
+//        _phoneNumberTextField.placeholder = @"预留手机号";
+//        _phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+//        _phoneNumberTextField.delegate = self;
+//        _phoneNumberTextField.limitStringLength = 11;
+//        _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
+//        _phoneNumberTextField.isHidenLine = YES;
+//    }
+//    return _phoneNumberTextField;
+//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField.superview == _phoneNumberTextField) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else {
-            NSMutableString *strM = self.phoneNumberTextField.text.mutableCopy;
-            NSInteger length = strM.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            
-            if (range.location >= 0) {
-                [strM deleteCharactersInRange:range];
-            }
-            str = strM.copy;
-        }
-        if (str.length > 11) {
-            return NO;
-        }
-    } else if (textField.superview == _bankCardTextField) {
+//    if (textField.superview == _phoneNumberTextField) {
+//        NSString *str = nil;
+//        if (string.length) {
+//            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+//        } else {
+//            NSMutableString *strM = self.phoneNumberTextField.text.mutableCopy;
+//            NSInteger length = strM.length;
+//            NSRange range = NSMakeRange(length - 1, 1);
+//
+//            if (range.location >= 0) {
+//                [strM deleteCharactersInRange:range];
+//            }
+//            str = strM.copy;
+//        }
+//        if (str.length > 11) {
+//            return NO;
+//        }
+//    } else if (textField.superview == _bankCardTextField) {
+//
+//         return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
+//
+//    }
+    if (textField.superview == _bankCardTextField) {
         
-         return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
+        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
         
     }
-    
     return YES;
 }
 
@@ -411,7 +414,7 @@
 
 - (UIButton *)nextButton{
     if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"绑卡" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_phoneNumberTextField.frame) + kScrAdaptationH750(123), SCREEN_WIDTH - 40, 44)];
+        _nextButton = [UIButton btnwithTitle:@"绑卡" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_bankNameTextField.frame) + kScrAdaptationH750(123), SCREEN_WIDTH - 40, 44)];
         _nextButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.backgroundColor = RGB(245, 81, 81);
