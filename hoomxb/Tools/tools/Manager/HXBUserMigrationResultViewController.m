@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"存管升级";
     [self setAction];
 }
 
