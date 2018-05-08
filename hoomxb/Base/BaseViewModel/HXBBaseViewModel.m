@@ -71,8 +71,8 @@
         _mbpView.label.textColor = [UIColor whiteColor];
     }
     _mbpView.label.text = hudContent;
-    [parentV addSubview:self.mbpView];
     if(isShow){
+        [parentV addSubview:self.mbpView];
         [parentV bringSubviewToFront:self.mbpView];
         [self.mbpView showAnimated:NO];
     }

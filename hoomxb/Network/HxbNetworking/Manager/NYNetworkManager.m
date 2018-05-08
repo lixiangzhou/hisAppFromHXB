@@ -61,9 +61,10 @@
 {
     if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
         // 适配重构前的HUD
-        if(request.showHud) {
-            [request hideLoading];
-        }
+        [request hideLoading];
+//        if(request.showHud) {
+//            [request hideLoading];
+//        }
         
         request.responseObject = responseJsonObject;
         [self callBackRequestSuccess:request];
@@ -74,9 +75,10 @@
 {
     if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
         // 适配重构前的HUD
-        if(request.showHud) {
-            [request hideLoading];
-        }
+        [request hideLoading];
+//        if(request.showHud) {
+//            [request hideLoading];
+//        }
         
         request.error = error;
         [self callBackRequestFailure:request];
