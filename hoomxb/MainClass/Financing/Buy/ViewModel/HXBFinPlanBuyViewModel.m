@@ -61,6 +61,7 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBFin_Plan_ConfirmBuyReslut;
     request.requestArgument = parameter;
+    request.delayInterval = RequestDelayInterval;
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {

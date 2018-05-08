@@ -53,6 +53,7 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBFin_Transfer_ConfirmBuyReslut;
     request.requestArgument = parameter;
+    request.delayInterval = RequestDelayInterval;
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf hiddenHFBank];
