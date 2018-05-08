@@ -24,11 +24,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 禁用全屏滑动手势
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    
     [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 -(void)leftBackBtnClick {
