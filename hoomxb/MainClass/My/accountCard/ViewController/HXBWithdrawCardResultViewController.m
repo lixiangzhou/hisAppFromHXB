@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, PopViewController) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"绑定银行卡";
     [self setPopControllerType];
     [self setAction];
 }
