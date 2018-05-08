@@ -200,9 +200,9 @@ static NSString *const bankString = @"绑定银行卡";
         _bankImageName = @"";
         _bottomView.clickBtnStr = @"立即绑卡";
     } else if (buyType == HXBBuyTypeBankBuy) {
-        _balanceTitle = [NSString stringWithFormat:@"%@（%@）", self.cardModel.bankType, [NSString getHiddenBankNum:self.cardModel.cardId]];
-        _bankImageName = self.cardModel.bankCode;
-        _bottomView.clickBtnStr = @"立即出借";
+        _balanceTitle = [NSString stringWithFormat:@"账户余额（%@）", [NSString hxb_getPerMilWithDouble: self.balanceMoneyStr.doubleValue]];
+        _bankImageName = @"";
+        _bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%@", [NSString hxb_getPerMilWithDouble: self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]];
     }
     [self setUpArray];
 }
