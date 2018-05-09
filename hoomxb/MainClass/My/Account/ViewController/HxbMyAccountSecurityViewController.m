@@ -43,7 +43,7 @@ UITableViewDataSource,UITableViewDelegate
         return weakSelf.view;
     }];
     self.title = @"账户安全";
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.tableView];   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,7 +58,6 @@ UITableViewDataSource,UITableViewDelegate
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.viewModel hiddenHFBank];
 }
 
 #pragma mark - UITableViewDelegate
