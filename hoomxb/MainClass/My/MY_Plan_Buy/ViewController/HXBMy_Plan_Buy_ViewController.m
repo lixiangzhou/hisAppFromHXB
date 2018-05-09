@@ -298,7 +298,7 @@
         ///预计收益Const
         model.profitLabel_consttStr = @"预期收益";
         ///服务协议
-        model.negotiateLabelStr = @"红利计划服务协议";
+        model.negotiateLabelStr = @"红利智投服务协议";
         ///余额 title
         model.balanceLabel_constStr = @"可用余额";
         ///充值的button str

@@ -28,7 +28,7 @@
 static NSString* const kTitlePlanDetail = @"红利智投资详情";
 static NSString* const kTitleInvestmentProjects = @"待成交散标";
 static NSString* const kTitleJoinRecord = @"加入记录";
-static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
+static NSString* const kTitlePlanServiceAgreement = @"红利智投服务协议";
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,weak) HXBFin_PlanDetailView_ViewModelVM *planDetailVM;
