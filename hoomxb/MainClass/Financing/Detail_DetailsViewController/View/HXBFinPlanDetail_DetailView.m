@@ -45,7 +45,7 @@
  */
 @property (nonatomic, strong) HXBFinPlanDetailExitView *exitView;
 
-///点击了红利计划服务协议
+///点击了红利智投服务协议
 @property (nonatomic,copy) void(^clickServerButtonBlock)(UILabel *button);
 @end
 

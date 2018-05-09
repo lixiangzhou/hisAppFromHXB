@@ -129,7 +129,7 @@
 //协议或合同名    端口号后链接    状态    账户内连接
 #define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
 #define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
-#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
+#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利智投服务协议书》
 #define kHXB_Negotiate_ServePlanMonthURL @"/agreement/planMonth"///《按月付息服务协议书》
 #define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
 #define kHXB_Negotiate_ServeMonthPlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/planMonth/%@/agreement",(productID)]///账户内按月付息服务协议

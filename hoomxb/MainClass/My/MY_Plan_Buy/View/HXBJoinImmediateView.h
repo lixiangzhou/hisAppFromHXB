@@ -31,7 +31,7 @@
 @end
 
 
-static NSString *const planNegotiateStr = @"《红利计划服务协议》";
+static NSString *const planNegotiateStr = @"《红利智投服务协议》";
 static NSString *const loanNegotiateStr = @"《散标合同》";
 static NSString *const planAddButtonStr = @"确认加入";
 static NSString *const loanAddButtonStr = @"确认投标";
