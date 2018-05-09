@@ -46,9 +46,11 @@
 
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    HXBLazyCatResultQuickrechargeModel *rechargeModel = (HXBLazyCatResultQuickrechargeModel *)model.data;
+    
     self.contentModel = [HXBCommonResultContentModel new];
-    self.contentModel.titleString = model.data.title;
-    self.contentModel.descString = model.data.content;
+    self.contentModel.titleString = rechargeModel.title;
+    self.contentModel.descString = [NSString stringWithFormat:@"充值金额%@", [NSString hxb_getPerMilWithDouble:rechargeModel.rechargeAmt]];
     
     if ([model.result isEqualToString:@"success"]) {
         [self successResult];
