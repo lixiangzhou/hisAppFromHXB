@@ -137,10 +137,21 @@
     self.addButton.backgroundColor = self.viewModelVM.addButtonBackgroundColor;
     [self.addButton setTitleColor:self.viewModelVM.addButtonTitleColor forState:UIControlStateNormal];
     
+    BOOL showInterest = [viewModelVM.status isEqualToString:@"IN_PROGRESS"];
+    
+    [self updateLoanTypeView:showInterest];
+
     [self.loanTypeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         NSString *interestDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:viewModelVM.interestDate andDateFormat:@"yyyy-MM-dd"];
+
         viewManager.leftStrArray = @[@"起息日", @"还款方式"];
         viewManager.rightStrArray = @[interestDate, @"按月等额本息"];
+        
+        if (showInterest == NO) {
+            viewManager.leftStrArray = @[@"还款方式"];
+            viewManager.rightStrArray = @[@"按月等额本息"];
+        }
+
         viewManager.leftLabelAlignment = NSTextAlignmentLeft;
         viewManager.rightLabelAlignment = NSTextAlignmentRight;
         viewManager.leftTextColor = kHXBColor_RGB(0.2, 0.2, 0.2,1);
@@ -163,6 +174,43 @@
         return manager;
     }];
     
+}
+
+- (void)updateLoanTypeView:(BOOL)showInterest {
+    [self.loanTypeView removeFromSuperview];
+    /// 只有收益中才有起息日
+    
+    if (showInterest) {
+        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:20 andLeftRightLeftProportion:0.5];
+        [self.loanTypeViewContentView addSubview:self.loanTypeView];
+        
+        [self.loanTypeViewContentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(kScrAdaptationH(80)));
+        }];
+        
+        [self.loanTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(15));
+            make.right.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(-15));
+            make.centerY.equalTo(self.loanTypeViewContentView);
+            make.height.equalTo(@(kScrAdaptationH(50)));
+        }];
+    } else {
+        _loanTypeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+        [self.loanTypeViewContentView addSubview:self.loanTypeView];
+        
+        [self.loanTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(15));
+            make.right.equalTo(self.loanTypeViewContentView).offset(kScrAdaptationW(-15));
+            make.centerY.equalTo(self.loanTypeViewContentView);
+            make.height.equalTo(@(kScrAdaptationH(15)));
+        }];
+        
+        [self.loanTypeViewContentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(kScrAdaptationH(45)));
+        }];
+        
+    }
+    _loanTypeView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void) setAddButtonStr:(NSString *)addButtonStr {
