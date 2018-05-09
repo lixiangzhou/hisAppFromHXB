@@ -59,7 +59,7 @@
     viewModelVM.addButtonBackgroundColor   = self.loanDetailModel.addButtonBackgroundColor;
     viewModelVM.title                      = @"散标出借";
     viewModelVM.interestDate = self.loanDetailModel.loanDetailModel.interestDate;
-    
+    viewModelVM.status = self.loanDetailModel.loanDetailModel.loanVo.status;
 }
 
 - (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard userInfoViewModel:(HXBRequestUserInfoViewModel*)model{
