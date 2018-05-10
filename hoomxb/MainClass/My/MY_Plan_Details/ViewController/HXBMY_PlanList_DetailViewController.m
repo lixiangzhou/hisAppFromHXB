@@ -279,7 +279,7 @@
                                                       viewModel.endLockingTime
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
-            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || ([viewModel.planDetailModel.financePlanStatus isEqualToString:@"NEW"] && viewModel.planDetailModel.inCoolingOffPeriod));
             self.buttonDescLabel.hidden = self.addButton.hidden;
             manager.topViewStatusStr = viewModel.leaveStatus;
             break;
