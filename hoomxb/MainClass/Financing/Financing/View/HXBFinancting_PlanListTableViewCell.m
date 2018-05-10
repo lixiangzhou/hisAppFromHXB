@@ -357,7 +357,7 @@
 - (UILabel *)lockPeriodLabel {
     if (!_lockPeriodLabel) {
         _lockPeriodLabel = [[UILabel alloc]init];
-        _lockPeriodLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
+        _lockPeriodLabel.font = kHXBFont_PINGFANGSC_REGULAR(18);
         _lockPeriodLabel.textColor = kHXBColor_Grey_Font0_3;
         _lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
         _lockPeriodLabel_Const.textColor = kHXBColor_Font0_6;

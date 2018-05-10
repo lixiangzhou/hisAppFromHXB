@@ -74,7 +74,7 @@
 - (void)setupView {
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"红利计划退出";
+    self.title = @"红利智投退出";
     
     [self.view addSubview:self.inCoolingOffPeriod?self.cancelExitMainView:self.mainView];
 }
@@ -123,7 +123,7 @@
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.desc;
                     } else {
                         exitResultVC.exitType = HXBMyPlanExitTypeNormal;
-                        exitResultVC.titleString = @"红利计划已退出";
+                        exitResultVC.titleString = @"红利智投已退出";
                         exitResultVC.descString = weakSelf.viewModel.myPlanDetailsExitResultModel.quitDesc;
                     }
                     [weakSelf.navigationController pushViewController:exitResultVC animated:YES];
