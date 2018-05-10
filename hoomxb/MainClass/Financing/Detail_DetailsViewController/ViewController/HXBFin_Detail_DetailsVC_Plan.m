@@ -99,7 +99,7 @@
         }
 
         manager.addViewManager.leftStrArray = @[
-                                                @"智投金额",
+                                                @"总金额",
                                                 @"加入条件",
                                                 @"加入上限",
                                                 ];

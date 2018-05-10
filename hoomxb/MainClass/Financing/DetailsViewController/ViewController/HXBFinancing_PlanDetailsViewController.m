@@ -208,7 +208,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利智投服务协议";
         manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.viewModel.planDetailModel.minRegisterAmount doubleValue]];//起投
         manager.rightViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
-        manager.leftViewManager.rightLabelStr = @"锁定期限";
+        manager.leftViewManager.rightLabelStr = @"适用期限";
         manager.midViewManager.rightLabelStr = @"起投金额";
         manager.rightViewManager.rightLabelStr = weakSelf.viewModel.planDetailModel.remainAmount_constStr;
         

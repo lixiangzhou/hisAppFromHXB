@@ -175,7 +175,7 @@
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
-        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
+        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(18);
         viewModelVM.leftViewColor = kHXBColor_Grey_Font0_3;
         viewModelVM.rightViewColor = kHXBColor_Font0_6;
         return viewModelVM;

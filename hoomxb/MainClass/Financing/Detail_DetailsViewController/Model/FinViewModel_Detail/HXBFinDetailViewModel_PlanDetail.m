@@ -176,7 +176,7 @@
 //        self.hxb_singleMaxRegisterAmount = @"本期计划加入上限20,000元";
 //    }
     NSString *str = [NSString hxb_getPerMilWithDouble:self.singleMaxRegisterAmount.doubleValue];
-    self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期计划加入上限%@元",str];
+    self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期加入上限%@元",str];
 }
 
 - (void)setAddButtonStrValue {
@@ -254,7 +254,7 @@
         case 5:
             if (self.planDetailModel.remainAmount.doubleValue <= 0) {
                 _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.amount];
-                _remainAmount_constStr = @"计划总金额";
+                _remainAmount_constStr = @"总金额";
             } else {
                 _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.remainAmount.doubleValue];
                 _remainAmount_constStr = @"剩余金额";
@@ -263,7 +263,7 @@
             
         default:
             _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.amount];
-            _remainAmount_constStr = @"计划总金额";
+            _remainAmount_constStr = @"总金额";
             break;
     }
 }
