@@ -73,6 +73,27 @@ DEPENDENCIES:
   - WebViewJavascriptBridge (~> 4.1.3)
   - YYModel
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - AvoidCrash
+    - CJLabel
+    - CocoaLumberjack
+    - Crashlytics
+    - Fabric
+    - IQKeyboardManager
+    - Masonry
+    - MBProgressHUD
+    - MJRefresh
+    - ReactiveObjC
+    - SDCycleScrollView
+    - SDWebImage
+    - UICKeyChainStore
+    - UMengAnalytics-NO-IDFA
+    - UMengUShare
+    - WebViewJavascriptBridge
+    - YYModel
+
 EXTERNAL SOURCES:
   SVGKit:
     :branch: 2.x
@@ -106,4 +127,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8cc36223266578991049ca2ac6bc23a9b41c95c5
 
-COCOAPODS: 1.4.0.rc.1
+COCOAPODS: 1.5.0
