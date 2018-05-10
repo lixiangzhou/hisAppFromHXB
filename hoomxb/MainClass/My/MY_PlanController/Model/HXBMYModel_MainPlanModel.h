@@ -67,7 +67,6 @@ redProgressLeft:待转让金额
 @property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;/// 贴息预期收益
 @property (nonatomic,copy) NSString *novice;/// 新手标志(1:是 0:否)
 @property (nonatomic,copy) NSString *lockDays;/// 新手计划锁定期/天
-@property (nonatomic, copy) NSString* financePlanStatus; //新旧计划标示，‘NEW’新计划（计划ID大于670）,‘OLD’旧计划
 
 /**
  2.6.0计划退出参数说明
