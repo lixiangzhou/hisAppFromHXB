@@ -207,12 +207,11 @@
             return viewManager;
         }];
     } else {
-        
         self.secondBtn.hidden = YES;
         self.iconView.image = [UIImage imageNamed:_model.imageName];
         self.titleLabel.text = _model.data.title;
         self.descLabel.text = _model.data.content;
-        [self.firstBtn setTitle:@"重新出借" forState:UIControlStateNormal];
+        [self.firstBtn setTitle:[self.model.result isEqualToString:@"timeout"] ? @"查看账户" : @"重新出借" forState:UIControlStateNormal];
     }
 }
 
@@ -227,7 +226,9 @@
     if ([btn.titleLabel.text isEqualToString:@"查看我的出借"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];
-    } else  {
+    } else if ([btn.titleLabel.text isEqualToString:@"查看账户"]) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMyVC object:nil];  //跳回我的页面
+    } else {
         [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
     }
 }

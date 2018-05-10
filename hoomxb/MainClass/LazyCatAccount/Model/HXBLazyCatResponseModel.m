@@ -41,6 +41,15 @@
     return self;
 }
 
+- (NSString *)result {
+    if ([_result isEqualToString:@"error"]) {
+        if ([self.data.errorType isEqualToString:@"PROCESSING"]) {
+            _result = @"timeout";
+        }
+    }
+    return _result;
+}
+
 - (NSString *)imageName {
     if ([self.result isEqualToString:@"success"]) {
         _imageName = @"successful";

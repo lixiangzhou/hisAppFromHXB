@@ -260,8 +260,9 @@ static NSString *const bankString = @"绑定银行卡";
         return;
     }
     
+    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? YES:NO;  //YES:含非零小数
     BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
-    if (!isFitToBuy) {
+    if (isHasContainsNonzeroDecimals) {
         if (_inputMoneyStr.doubleValue == _availablePoint.doubleValue) {
             if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
@@ -272,11 +273,15 @@ static NSString *const bankString = @"绑定银行卡";
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
     } else {
-        if (self.isExceedLimitInvest && !_isSelectLimit) {
-            [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-            return;
+        if (isFitToBuy) {
+            if (self.isExceedLimitInvest && !_isSelectLimit) {
+                [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
+                return;
+            }
+            [self chooseBuyTypeWithbuyType:_hxbBuyType];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
-        [self chooseBuyTypeWithbuyType:_hxbBuyType];
     }
 }
 

@@ -80,14 +80,17 @@
             };
         }
     } else {
-        
         self.commenResultVC.contentModel.imageName = self.model.imageName;
         self.commenResultVC.contentModel.titleString = self.model.data.title;
         self.commenResultVC.contentModel.descString = self.model.data.content;
-        self.commenResultVC.contentModel.firstBtnTitle = @"重新出借";
+        self.commenResultVC.contentModel.firstBtnTitle = [self.model.result isEqualToString:@"timeout"] ? @"查看账户" : @"重新出借";
         kWeakSelf
         self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            if ([weakSelf.model.result isEqualToString:@"timeout"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMyVC object:nil];  //跳回我的页面
+            } else {
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
         };
     }
 }
