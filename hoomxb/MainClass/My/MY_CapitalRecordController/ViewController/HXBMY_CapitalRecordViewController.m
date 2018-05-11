@@ -25,7 +25,7 @@ static NSString *const kScreen_Recharge = @"RECHARGE";
 static NSString *const kScreen_Withdrawals_UI = @"提现";
 static NSString *const kScreen_Withdrawals = @"CASH_DRAW";
 
-static NSString *const kScreen_Plan_UI = @"红利计划";
+static NSString *const kScreen_Plan_UI = @"红利智投";
 static NSString *const kScreen_Plan = @"FINANCEPLAN";
 
 static NSString *const kScreen_Loan_UI = @"散标";

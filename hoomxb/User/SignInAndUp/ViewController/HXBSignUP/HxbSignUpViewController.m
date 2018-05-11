@@ -34,6 +34,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [super viewDidLoad];
     self.isTransparentNavigationBar = YES;
     [self.view addSubview:self.signUPView];
+    self.signUPView.type = self.type;
     [self registerEvent];
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
         _signUPView.isHiddenLoginBtn = YES;

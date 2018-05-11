@@ -151,7 +151,7 @@
             viewManager.leftStrArray = @[@"还款方式"];
             viewManager.rightStrArray = @[@"按月等额本息"];
         }
-        
+
         viewManager.leftLabelAlignment = NSTextAlignmentLeft;
         viewManager.rightLabelAlignment = NSTextAlignmentRight;
         viewManager.leftTextColor = kHXBColor_RGB(0.2, 0.2, 0.2,1);

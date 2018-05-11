@@ -86,7 +86,7 @@
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
     self.planDetailView.tipNoviceClickBlock = ^{
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"计划按照%.1lf%%计息，加息收益%.2lf元将在计划退出时发放至您的账户",weakSelf.planViewModel.planModelDataList.expectedRate.floatValue,weakSelf.planViewModel.planModelDataList.expectedSubsidyInterestAmount.floatValue] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"红利智投按照%.1lf%%计息，加息收益%.2lf元将在退出时发放至您的账户",weakSelf.planViewModel.planModelDataList.expectedRate.floatValue,weakSelf.planViewModel.planModelDataList.expectedSubsidyInterestAmount.floatValue] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
@@ -211,7 +211,7 @@
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"出借记录", @"红利智投服务协议"];
+        manager.strArray = @[@"出借记录", @"服务协议"];
         return manager;
     }];
     weakSelf.tabelView.hidden = NO;
