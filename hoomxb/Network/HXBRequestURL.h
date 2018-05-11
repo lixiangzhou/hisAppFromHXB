@@ -41,7 +41,7 @@
 #define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 #define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL @"/user/realname"///实名认证
-#define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
+#define kHXBUser_riskModifyScoreURL @"/account/riskscore"///风险评测
 #define kHXBUser_financialAdvisorURL @"/account/advisor" //获取理财顾问信息
 #define kHXBUser_AccountInfoURL @"/account"///账户内数据总览
 
@@ -72,9 +72,9 @@
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
-#define kHXBFin_TransferRecordURL @"/account/transfer/transferconfirm"
+#define kHXBFin_TransferRecordURL @"/account/transfer/confirm"
 //债权转让功能接口
-#define kHXBFin_TransferResultURL @"/account/transfer/transfersale"
+#define kHXBFin_TransferResultURL @"/account/transfer/sale"
 
 
 //MARK: ======================= 账户设置 =======================
@@ -113,14 +113,14 @@
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
 
 #define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbindcard" //@"/account/bankcard/unbind" // 解绑银行卡操作
-#define kHXBOpenDepository @"/user/escrowAcc"   // 懒猫—存管开户
+#define kHXBOpenDepository @"/account/escrow"   // 懒猫—存管开户
 
 #define kHXBUserInfo_BankCard @"/account/bankcard"//@"/account/user/card" //用户获取绑定银行卡信息
 #define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口 短验和语音统一为一个借口
 #define kHXBAccount_Bindcard @"/account/bankcard/bindcard"//@"/account/bindcard" //绑卡
-#define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
+#define kHXBUser_checkCardBin @"/account/cardbin" //卡bin校验
 
 #define kHXBAccount_Quickcharge @"/account/quickrecharge"     // 懒猫-快捷充值
 #define kHXBAccount_Withdrawal @"/account/withdrawal"     // 懒猫--提现
