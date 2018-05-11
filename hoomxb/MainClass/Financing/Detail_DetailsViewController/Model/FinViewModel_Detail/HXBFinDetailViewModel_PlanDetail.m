@@ -17,6 +17,12 @@
     [self setUPhxb_SingleMaxRegisterAmount];///本期计划加入上限
     [self setAddButtonStrValue];
 }
+-(NSString *)extendLockPeriod {
+    if (self.planDetailModel.extendLockPeriod) {
+        return [NSString stringWithFormat:@"%@个月",self.planDetailModel.extendLockPeriod];
+    }
+    return @"--";
+}
 ///**
 // 用户余额
 // */
