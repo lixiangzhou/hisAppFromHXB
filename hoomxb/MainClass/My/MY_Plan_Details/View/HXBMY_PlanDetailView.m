@@ -75,11 +75,11 @@ UITableViewDataSource
 
 /**
  投资记录
- 红利计划服务协议
+ 红利智投服务协议
  */
 @property (nonatomic,strong) HXBFinDetail_TableView *tableView;
 /**
- 红利计划服务协议 投资记录的点击事件
+ 红利智投服务协议 投资记录的点击事件
  */
 @property (nonatomic,strong) void(^clickBottomTableViewCell) (NSInteger index);
 

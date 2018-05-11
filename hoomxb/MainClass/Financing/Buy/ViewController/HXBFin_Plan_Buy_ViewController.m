@@ -205,7 +205,7 @@
 /// 判断购买类型
 - (void)hasBuyType {
     /// 进入界面判断是否绑卡及账户余额是否比起投金额高
-    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= self.curruntInvestMoney) { // 余额够
+    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= self.afterDiscountMoney) { // 余额够
         [self changeCellWithBuyType:HXBBuyTypeBalance];
         _hxbBuyType = HXBBuyTypeBalance;
     } else {
@@ -244,7 +244,7 @@
     [self isMatchToBuyWithMoney:investMoney];
     self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
     [self checkIfNeedNewPlanDatas:investMoney];
-    [self setUpArray];
+    [self hasBuyType];
 }
 
 - (void)hasBestCouponRequest {
@@ -403,13 +403,13 @@
     } else {
         _discountMoney = 0.0;
         _hasBestCoupon = NO;
+        _afterDiscountMoney = _inputMoneyStr.doubleValue;
         _couponTitle = @"优惠券";
         _discountTitle = @"不使用优惠券";
         _couponid = @"";
     }
     self.bottomView.addBtnIsUseable = YES;
     [self changeItemWithInvestMoney:_inputMoneyStr];
-    [self setUpArray];
 }
 
 // 获取银行限额
@@ -430,7 +430,6 @@
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
                 [weakSelf hasBuyType];
-                [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
             }
         }];
@@ -486,8 +485,7 @@
             }
             [weakSelf hasBuyType];
             [weakSelf.tableView reloadData];
-        }
-        else {
+        } else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         }
     }];
@@ -531,7 +529,6 @@
             _discountTitle = @"暂无可用优惠券";
         }
     }
-    [self setUpArray];
     [self changeItemWithInvestMoney:money];
 }
 
@@ -647,7 +644,7 @@
     } else {
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
-    [self hasBuyType];
+    
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         // 判断是否超出风险
@@ -660,8 +657,8 @@
         self.couponTitle = @"优惠券";
         self.afterDiscountMoney = text.doubleValue;
         [self changeItemWithInvestMoney:text];
-        [self setUpArray];
     }
+    
 }
 
 // 根据金额匹配是否展示风险协议
@@ -674,7 +671,7 @@
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
-    _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
+    _bottomView.delegateLabelText = @"红利智投服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
             NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanMonthURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];

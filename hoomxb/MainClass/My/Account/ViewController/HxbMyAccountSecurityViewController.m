@@ -145,11 +145,17 @@ UITableViewDataSource,UITableViewDelegate
 
     // TODO: 跳转到恒丰存管修改交易密码
     kWeakSelf
-    [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                HXBOpenDepositAccountViewController* vc = [[HXBOpenDepositAccountViewController alloc] init];
-                [weakSelf.navigationController pushViewController:vc animated:YES];
+                HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+                alertVC.immediateOpenBlock = ^{
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    openDepositAccountVC.title = @"开通存管账户";
+                    openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                };
+                [self presentViewController:alertVC animated:NO completion:nil];
             }
             else{
                 [self.viewModel modifyTransactionPasswordResultBlock:^(BOOL isSuccess) {

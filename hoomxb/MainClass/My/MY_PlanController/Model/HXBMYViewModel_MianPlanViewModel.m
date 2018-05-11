@@ -132,7 +132,7 @@
 - (NSString *) contractName {
     if (!_contractName) {
 
-        _contractName = @"《红利计划服务协议》";
+        _contractName = @"《红利智投服务协议》";
     }
     return _contractName;
 }
