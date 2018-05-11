@@ -211,7 +211,7 @@
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"出借记录", @"红利智投服务协议"];
+        manager.strArray = @[@"出借记录", @"服务协议"];
         return manager;
     }];
     weakSelf.tabelView.hidden = NO;
