@@ -81,14 +81,14 @@
     
     HXBCustomTextField *nameView = [[HXBCustomTextField alloc] init];
     nameView.leftImage = [SVGKImage imageNamed:@"name.svg"].UIImage;
-    nameView.placeholder = @"真实姓名";
+    nameView.placeholder = @"请输入真实姓名";
     nameView.delegate = self;
     [self.scrollView addSubview:nameView];
     self.nameView = nameView;
 
     HXBCustomTextField *idView = [[HXBCustomTextField alloc] init];
     idView.leftImage = [SVGKImage imageNamed:@"id_number.svg"].UIImage;
-    idView.placeholder = @"身份证号";
+    idView.placeholder = @"请输入身份证号码";
     idView.delegate = self;
     idView.isIDCardTextField = YES;
     [self.scrollView addSubview:idView];
