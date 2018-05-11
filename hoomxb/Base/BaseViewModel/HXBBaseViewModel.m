@@ -85,9 +85,9 @@
 }
 
 - (void)showToast:(NSString *)toast {
-    if([toast containsString:@"failure"]) {
-        return;
-    }
+//    if([toast containsString:@"failure"]) {
+//        return;
+//    }
     
     UIView* parentView = [self getHugView];
     if(parentView) {
