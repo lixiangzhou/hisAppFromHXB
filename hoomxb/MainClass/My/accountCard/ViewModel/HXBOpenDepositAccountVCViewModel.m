@@ -39,7 +39,7 @@
     } else if ([request.requestUrl isEqualToString:kHXBUserInfo_BankCard]) {
         return NO;
     }
-    return [super erroStateCodeDeal:request];
+    return [super erroResponseCodeDeal:request];
 }
 
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock

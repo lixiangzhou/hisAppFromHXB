@@ -103,7 +103,7 @@
     
     HXBLazyCatResultWithdrawalModel *model = (HXBLazyCatResultWithdrawalModel *)self.responseModel.data;
 
-    NSString *bankInfo = [NSString stringWithFormat:@"尾号 %@", [model.cardNo substringFromIndex:model.cardNo.length - 4]];
+    NSString *bankInfo = [NSString stringWithFormat:@"%@ 尾号 %@",model.bankType, [model.cardNo substringFromIndex:model.cardNo.length - 4]];
     NSString *amount = [NSString stringWithFormat:@"%@",[NSString hxb_getPerMilWithDouble:[model.amount doubleValue]]];
     NSString *date = [[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.arrivalTime.doubleValue / 1000] andDateFormat:@"yyyy-MM-dd"];
 

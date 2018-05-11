@@ -17,5 +17,6 @@
 @property (nonatomic, copy) NSString* arrivalTime;
 //类型， WITHDRAW
 @property (nonatomic, copy) NSString* businessType;
-
+/// 银行类型
+@property (nonatomic, copy) NSString *bankType;
 @end
