@@ -12,7 +12,7 @@
 #import "HXBSignInWaterView.h"//波浪式图
 static NSString *const kNextButtonTitle = @"下一步";
 static NSString *const kHavedAccountTitle = @"我有账户，去登录";
-static NSString *const kPhoneTitle = @"请输入您登录的手机号";
+static NSString *const kPhoneTitle = @"请输入您常用的手机号";
 @interface HXBSignUPView()  <
 UITextFieldDelegate
 >
@@ -61,6 +61,12 @@ UITextFieldDelegate
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.delegate = self;
         _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
+//        NSString *str = @"";
+//        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {
+//            str = @"请输入您常用的手机号";
+//        } else if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+//            str = @"请输入您登录的手机号";
+//        }
         NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];
         [phoneAttrStr addAttribute:NSForegroundColorAttributeName
                              value:COR10
@@ -120,6 +126,21 @@ UITextFieldDelegate
         [self setUP];
     }
     return self;
+}
+
+- (void)setType:(HXBSignUPAndLoginRequest_sendSmscodeType)type {
+    NSString *str = @"";
+    
+    if (type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+        str = @"请输入您登录的手机号";
+    }else if (type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {
+        str = @"请输入您常用的手机号";
+    }
+    NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:str];
+    [phoneAttrStr addAttribute:NSForegroundColorAttributeName
+                         value:COR10
+                         range:NSMakeRange(0, str.length)];
+    _phoneTextField.attributedPlaceholder = phoneAttrStr;
 }
 
 - (void)setUP {
