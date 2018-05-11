@@ -18,12 +18,6 @@
     return self.planDetailModel.planDetailModel.unifyStatus.integerValue <= 5;
 }
 
-- (NSArray<NSString *> *)tableViewTitleArray {
-    return @[@"计划详情",
-             @"加入记录",
-             @"红利智投服务协议"];
-}
-
 - (NSString *)profitString {
     return [self.planDetailModel.planDetailModel.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && self.planDetailModel.planDetailModel.interestDate ? self.planDetailModel.planDetailModel.interestDate : @"收益复投";
 }

@@ -129,7 +129,7 @@ static NSString *const kHXBString_MY_CapitalRecord_Type_topUP = @"充值";
 ///提现
 static NSString *const kHXBString_MY_CapitalRecord_Type_withdraw = @"提现";
 ///红利计划
-static NSString *const kHXBString_MY_CapitalRecord_Type_Plan = @"红利计划";
+static NSString *const kHXBString_MY_CapitalRecord_Type_Plan = @"红利智投";
 ///散标债权
 static NSString *const kHXBString_MY_CapitalRecord_Type_Loan = @"散标债权";
 

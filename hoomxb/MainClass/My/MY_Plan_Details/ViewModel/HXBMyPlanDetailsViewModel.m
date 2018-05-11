@@ -53,6 +53,7 @@
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBMY_PlanQuitURL(planID);
     request.requestMethod = NYRequestMethodPost;
+    request.requestArgument = @{@"action":@"cancel"};
     request.showHud = YES;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         if (resultBlock) resultBlock(YES);
@@ -67,6 +68,7 @@
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBMY_PlanCancelBuyURL(planID);
+    request.requestArgument = @{@"action":@"confirm"};
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {

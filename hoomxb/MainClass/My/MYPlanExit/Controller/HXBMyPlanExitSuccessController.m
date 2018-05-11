@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"红利计划退出";
+    self.title = @"红利智投退出";
     [self setUI];  
 }
 
