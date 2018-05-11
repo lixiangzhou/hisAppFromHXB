@@ -71,8 +71,8 @@
         _mbpView.label.textColor = [UIColor whiteColor];
     }
     _mbpView.label.text = hudContent;
-    [parentV addSubview:self.mbpView];
     if(isShow){
+        [parentV addSubview:self.mbpView];
         [parentV bringSubviewToFront:self.mbpView];
         [self.mbpView showAnimated:NO];
     }
@@ -85,7 +85,7 @@
 - (void)showHFBankWithContent:(NSString*)content {
     UIView *parentV = [self getHugView];
     if (!_hfBankView) {
-        _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        _hfBankView = [[HXBHFBankHudView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _hfBankView.hudContent = content;
     }
     [parentV addSubview:_hfBankView];

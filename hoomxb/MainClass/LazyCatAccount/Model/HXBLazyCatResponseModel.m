@@ -23,6 +23,7 @@
         if([action isEqualToString:kTransfer] || [action isEqualToString:kPlan] || [action isEqualToString:kLoan]) {
             //购买
             _data = [[HXBLazyCatResultBuyModel alloc] init];
+            
         }
         else if([action isEqualToString:kQuickrecharge]) {
             //快捷充值
@@ -38,6 +39,31 @@
         }
     }
     return self;
+}
+
+- (NSString *)result {
+    if ([_result isEqualToString:@"error"]) {
+        if ([self.data.errorType isEqualToString:@"PROCESSING"]) {
+            _result = @"timeout";
+        }
+    }
+    return _result;
+}
+
+- (NSString *)imageName {
+    if ([self.result isEqualToString:@"success"]) {
+        _imageName = @"successful";
+    } else if ([self.result isEqualToString:@"error"]) {
+        _imageName = @"failure";
+        if ([self.data.errorType isEqualToString:@"PROCESSING"]) {
+            _imageName = @"outOffTime";
+        }
+    } else if ([self.result isEqualToString:@"timeout"]) {
+        _imageName = @"outOffTime";
+    } else {
+        _imageName = @"--";
+    }
+    return _imageName;
 }
 
 @end

@@ -16,7 +16,7 @@
 
 - (void)setValueManager_PlanDetail_Detail: (HXBFinPlanDetail_DetailViewManager *(^)(HXBFinPlanDetail_DetailViewManager *manager))planDDetailManagerBlock;
 
-///点击了红利计划服务协议
+///点击了红利智投服务协议
 - (void)clickServerButtonWithBlock: (void(^)(UILabel *button))clickServerButtonBlock;
 
 

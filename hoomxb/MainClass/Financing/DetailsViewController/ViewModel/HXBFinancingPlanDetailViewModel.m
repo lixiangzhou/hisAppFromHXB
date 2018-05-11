@@ -21,7 +21,7 @@
 - (NSArray<NSString *> *)tableViewTitleArray {
     return @[@"计划详情",
              @"加入记录",
-             @"红利计划服务协议"];
+             @"红利智投服务协议"];
 }
 
 - (NSString *)profitString {
@@ -67,7 +67,7 @@
     planJoinVC.NewPlanJoinLimit = self.planDetailModel.planDetailModel.newbiePlanAmount;
     planJoinVC.expectedSubsidyInterestAmount = self.planDetailModel.planDetailModel.expectedSubsidyInterestAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
-    planJoinVC.title = @"加入计划";
+    planJoinVC.title = @"加入红利智投";
     planJoinVC.isFirstBuy               = [self.planDetailModel.planDetailModel.isFirst boolValue];
     planJoinVC.totalInterest            = self.planDetailModel.totalInterest;
     planJoinVC.loanId                   = self.planDetailModel.ID;

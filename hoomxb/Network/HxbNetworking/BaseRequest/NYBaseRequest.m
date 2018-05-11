@@ -12,6 +12,10 @@
 #import "HxbHUDProgress.h"
 #import "SGInfoAlert.h"
 
+@interface NYBaseRequest()
+@property (nonatomic, assign) NSTimeInterval requestStartInterval;
+@end
+
 @implementation NYBaseRequest
 
 - (void)dealloc
@@ -115,6 +119,7 @@
 //#endif
     self.success = success;
     self.failure = failure;
+    self.requestStartInterval = [NSDate timeIntervalSinceReferenceDate];
     [[NYNetworkManager sharedManager] addRequest:self];
 }
 
@@ -124,5 +129,20 @@
 - (void)cancelRequest
 {
     [self.connection.task cancel];
+}
+
+/**
+ 当网络结果需要延时回调时,使用该方法计算剩余秒数
+ 
+ @return 剩余秒数
+ */
+- (NSTimeInterval)leftDelayInterval {
+    if(0 == self.delayInterval) {
+        return 0;
+    }
+    NSTimeInterval curInterval = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval midInterval = curInterval-self.requestStartInterval;
+    NSTimeInterval leftInterval = self.delayInterval-midInterval;
+    return leftInterval>0 ? leftInterval:0;
 }
 @end

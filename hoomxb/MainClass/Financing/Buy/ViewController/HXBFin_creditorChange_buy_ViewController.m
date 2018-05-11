@@ -200,9 +200,9 @@ static NSString *const bankString = @"绑定银行卡";
         _bankImageName = @"";
         _bottomView.clickBtnStr = @"立即绑卡";
     } else if (buyType == HXBBuyTypeBankBuy) {
-        _balanceTitle = [NSString stringWithFormat:@"%@（%@）", self.cardModel.bankType, [NSString getHiddenBankNum:self.cardModel.cardId]];
-        _bankImageName = self.cardModel.bankCode;
-        _bottomView.clickBtnStr = @"立即出借";
+        _balanceTitle = [NSString stringWithFormat:@"账户余额（%@）", [NSString hxb_getPerMilWithDouble: self.balanceMoneyStr.doubleValue]];
+        _bankImageName = @"";
+        _bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%@", [NSString hxb_getPerMilWithDouble: self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]];
     }
     [self setUpArray];
 }
@@ -237,6 +237,15 @@ static NSString *const bankString = @"绑定银行卡";
         return;
     }
     
+    if (_inputMoneyStr.doubleValue == _availablePoint.doubleValue) {
+        if (self.isExceedLimitInvest && !_isSelectLimit) {
+            [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
+            return;
+        }
+        [self chooseBuyTypeWithbuyType:_hxbBuyType];
+        return;
+    }
+    
     if ([_inputMoneyStr doubleValue] < [_minRegisterAmount doubleValue]) {
         _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
         _inputMoneyStr = _minRegisterAmount;
@@ -260,9 +269,12 @@ static NSString *const bankString = @"绑定银行卡";
         return;
     }
     
+    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? YES:NO;  //YES:含非零小数
     BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
-    if (!isFitToBuy) {
-        if (_inputMoneyStr.doubleValue == _availablePoint.doubleValue) {
+    if (isHasContainsNonzeroDecimals) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+    } else {
+        if (isFitToBuy) {
             if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
@@ -271,12 +283,6 @@ static NSString *const bankString = @"绑定银行卡";
         } else {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
-    } else {
-        if (self.isExceedLimitInvest && !_isSelectLimit) {
-            [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-            return;
-        }
-        [self chooseBuyTypeWithbuyType:_hxbBuyType];
     }
 }
 
@@ -290,7 +296,7 @@ static NSString *const bankString = @"绑定银行卡";
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值的金额为投资的钱减去账户余额
-        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceTitle.doubleValue]};
+        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]};
         [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
@@ -298,7 +304,7 @@ static NSString *const bankString = @"绑定银行卡";
         }];
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
-                @"buyAmount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
+                @"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
                 @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit]
                 };
         [self buyCreditorWithDic:dic];
@@ -308,64 +314,14 @@ static NSString *const bankString = @"绑定银行卡";
 // 购买债权
 - (void)buyCreditorWithDic:(NSDictionary *)dic {
     kWeakSelf
-    [_viewModel showHFBankWithContent:hfContentText];
     [_viewModel loanTransformBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) {
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc] init];
-    //            loanBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            loanBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            loanBuySuccessVC.title = @"购买成功";
-    //            loanBuySuccessVC.buy_title = @"购买成功";
-    //            loanBuySuccessVC.imageName = @"successful";
-    //            loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            loanBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.isRepayed ? @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回" : @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入出借本金";
-    //            loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
-    //            loanBuySuccessVC.massage_Right_StrArray = @[weakSelf.viewModel.resultModel.nextRepayDate_new, weakSelf.viewModel.resultModel.buyAmount_new, weakSelf.viewModel.resultModel.principal_new, weakSelf.viewModel.resultModel.interest_new];
-    //            [loanBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-    //            failViewController.title = @"出借失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"出借失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
 }
-
-
-
-
 
 // 获取银行限额
 - (void)getBankCardLimit {
@@ -380,12 +336,14 @@ static NSString *const bankString = @"绑定银行卡";
                 } else {
                     weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
                 }
-                [weakSelf setUpArray];
+                weakSelf.tableView.hidden = NO;
                 [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
+                [weakSelf hasBuyType];
+                [weakSelf setUpArray];
                 [weakSelf.tableView reloadData];
-                weakSelf.tableView.hidden = NO;
+                
             }
         }];
     } else {
@@ -407,10 +365,13 @@ static NSString *const bankString = @"绑定银行卡";
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-            [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-        }
-        else {
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
+            [weakSelf hasBuyType];
+            [weakSelf.tableView reloadData];
+        } else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         }
     }];
@@ -531,7 +492,6 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)updateNetWorkData {
     [self getNewUserInfo];
-    [self.tableView reloadData];
 }
 
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {

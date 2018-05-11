@@ -16,19 +16,31 @@
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
-//@property (nonatomic, strong) UIWebView* webView;
-//@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
+@property (nonatomic, copy) NSString* redirectUrl;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 禁用全屏滑动手势
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    
     [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 -(void)leftBackBtnClick {
@@ -37,6 +49,21 @@
     }
     else {
         [super leftBackBtnClick];
+    }
+}
+
+- (void)setRequestModel:(HXBLazyCatRequestModel *)requestModel {
+    _requestModel = requestModel;
+    
+    NSDictionary* dic = [requestModel.result.reqData toDictionary];
+    self.redirectUrl = [dic stringAtPath:@"redirectUrl"];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    
+    if([webView.request.URL.absoluteString isEqualToString:self.redirectUrl]) {
+        self.hiddenReturnButton = YES;
     }
 }
 

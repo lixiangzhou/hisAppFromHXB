@@ -22,7 +22,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"解绑银行卡";
     [self setAction];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // 恢复全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 - (void)setAction {
@@ -33,7 +50,7 @@
         commonResultModel = [[HXBCommonResultContentModel alloc]initWithImageName:@"successful" titleString:self.responseModel.data.title descString:self.responseModel.data.content firstBtnTitle: @"绑定新银行卡"];
         
         commonResultModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-                        //重新绑卡 进入绑卡界面
+            //重新绑卡 进入绑卡界面
             //设置新的栈
             NSMutableArray *controllers = [NSMutableArray arrayWithArray:[weakSelf.navigationController.viewControllers subarrayWithRange:NSMakeRange(0, 2)]];
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
@@ -42,20 +59,6 @@
             withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [controllers addObject:withdrawCardViewController];
             [weakSelf.navigationController setViewControllers:controllers animated:YES];
-            //返回 账户信息列表页
-//            __block HxbAccountInfoViewController *accountVC = nil;
-//            [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
-//                    accountVC = obj;
-//                }
-//                if (accountVC) {
-//                    *stop = YES;
-//                }
-//            }];
-//
-//            if (accountVC) {
-//                [weakSelf.navigationController popToViewController:accountVC animated:YES];
-//            }
         };
         commonResultModel.secondBtnTitle = @"完成";
         commonResultModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
@@ -130,9 +133,7 @@
             break;
         }
     }
-    if (i>0) {
-        [self.navigationController popToViewController:self.navigationController.viewControllers[i-1] animated:YES];
-    }
+    [self.navigationController popToViewController:self.navigationController.viewControllers[i] animated:YES];
 }
 
 @end

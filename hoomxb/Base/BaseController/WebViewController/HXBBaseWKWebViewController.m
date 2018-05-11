@@ -31,6 +31,9 @@
 
 @property (nonatomic, assign) BOOL loadResult;
 
+//是否需要显示关闭按钮
+@property (nonatomic, assign) BOOL showCloseButton;
+
 @property (nonatomic, strong) UIButton *closeBtn;
 
 @end
@@ -94,6 +97,19 @@
     self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn], [[UIBarButtonItem alloc] initWithCustomView:closeBtn]];
 }
 
+- (void)setHiddenReturnButton:(BOOL)hiddenReturnButton {
+    _hiddenReturnButton = hiddenReturnButton;
+    
+    if(hiddenReturnButton) {
+        self.leftBackBtn.hidden = YES;
+        self.closeBtn.hidden = YES;
+    }
+    else{
+        self.leftBackBtn.hidden = NO;
+        self.closeBtn.hidden = NO;
+    }
+}
+
 - (void)leftBackBtnClick {
     if(self.showCloseButton) {
         if(self.webView.canGoBack) {
@@ -142,7 +158,9 @@
     } else if ([keyPath isEqualToString:@"title"]) {
         self.title = [NSString H5Title:self.webView.title];
     } else if ([keyPath isEqualToString:@"contentSize"]) {
-        self.showCloseButton = self.webView.canGoBack;
+        if(!self.hiddenReturnButton){
+            self.showCloseButton = self.webView.canGoBack;
+        }
     }
 }
 

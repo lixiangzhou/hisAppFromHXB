@@ -7,12 +7,18 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBLazyCatRequestModel.h"
+
 @class HXBTransferConfirmModel;
 
 @interface HXBMyLoanDetailsViewModel : HXBBaseViewModel
 
 @property (nonatomic, readonly, strong) HXBTransferConfirmModel *transferConfirmModel;
 @property (nonatomic, readonly, strong) NSDictionary *responseObject;
+/**
+ 计划购买跳转恒丰银行的model
+ */
+@property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
 
 /**
  账户内-债权转让确认页
@@ -25,14 +31,11 @@
 /**
  账户内-债权转让功能接口
 
- @param transferID 标的id号
- @param password 交易密码
- @param currentTransferValue 债转金额
+ @param params 请求字典
  @param resultBlock 返回数据
  */
-- (void)accountLoanTransferRequestResultWithTransferID: (NSString *)transferID
-                                              password:(NSString *)password
-                                  currentTransferValue:(NSString *)currentTransferValue
-                                           resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+- (void)accountLoanTransferRequestResultWithParams:(NSDictionary *)params
+                                       resultBlock: (void(^)(BOOL isSuccess))resultBlock;
+
 
 @end

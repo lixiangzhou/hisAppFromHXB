@@ -70,8 +70,6 @@
 @property (nonatomic, assign) double curruntInvestMoney;
 // 实际支付金额
 @property (nonatomic, assign) double afterDiscountMoney;
-// 展示HUD
-@property (nonatomic, strong) HxbHUDProgress *hud;
 // 是否超出投资限制
 @property (nonatomic, assign) BOOL isExceedLimitInvest;
 // 是否选中同意选项
@@ -101,7 +99,6 @@
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
-    _hud = [[HxbHUDProgress alloc] init];
     
     kWeakSelf
     _viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
@@ -208,7 +205,7 @@
 /// 判断购买类型
 - (void)hasBuyType {
     /// 进入界面判断是否绑卡及账户余额是否比起投金额高
-    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= self.curruntInvestMoney) { // 余额够
+    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= self.afterDiscountMoney) { // 余额够
         [self changeCellWithBuyType:HXBBuyTypeBalance];
         _hxbBuyType = HXBBuyTypeBalance;
     } else {
@@ -247,7 +244,7 @@
     [self isMatchToBuyWithMoney:investMoney];
     self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
     [self checkIfNeedNewPlanDatas:investMoney];
-    [self setUpArray];
+    [self hasBuyType];
 }
 
 - (void)hasBestCouponRequest {
@@ -383,57 +380,14 @@
 
 // 购买计划
 - (void)buyPlanWithDic:(NSDictionary *)dic {
-    [self.viewModel showHFBankWithContent:hfContentText];
     kWeakSelf
     [_viewModel planBuyReslutWithParameter:dic resultBlock:^(BOOL isSuccess) {
-        [weakSelf.viewModel hiddenHFBank];
         if (isSuccess) { /// 跳转恒丰webView
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
         }
     }];
-    //        if (isSuccess) {
-    //            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-    //            planBuySuccessVC.title = @"加入成功";
-    //            planBuySuccessVC.imageName = @"successful";
-    //            planBuySuccessVC.buy_title = @"加入成功";
-    //            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-    //            planBuySuccessVC.inviteButtonTitle = weakSelf.viewModel.resultModel.inviteActivityDesc;
-    //            planBuySuccessVC.isShowInviteBtn = weakSelf.viewModel.resultModel.isInviteActivityShow;
-    //            planBuySuccessVC.buy_description = weakSelf.viewModel.resultModel.lockStart;
-    //            [planBuySuccessVC clickButtonWithBlock:^{
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    //            }];
-    //            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-    //        } else {
-    //            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-    //            failViewController.title = @"加入失败";
-    //            switch (weakSelf.viewModel.errorCode) {
-    //                case kBuy_Result:
-    //                    failViewController.imageName = @"failure";
-    //                    failViewController.buy_title = @"加入失败";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                case kBuy_Processing:
-    //                    failViewController.imageName = @"outOffTime";
-    //                    failViewController.buy_title = @"处理中";
-    //                    failViewController.buy_description = weakSelf.viewModel.errorMessage;
-    //                    failViewController.buy_ButtonTitle = @"重新出借";
-    //                    break;
-    //
-    //                default:
-    //                    [weakSelf.passwordView clearUpPassword];
-    //                    return;
-    //            }
-    //            [failViewController clickButtonWithBlock:^{
-    //                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-    //            }];
-    //            [weakSelf.navigationController pushViewController:failViewController animated:YES];
-    //        }
     
 }
 
@@ -449,21 +403,19 @@
     } else {
         _discountMoney = 0.0;
         _hasBestCoupon = NO;
+        _afterDiscountMoney = _inputMoneyStr.doubleValue;
         _couponTitle = @"优惠券";
         _discountTitle = @"不使用优惠券";
         _couponid = @"";
     }
     self.bottomView.addBtnIsUseable = YES;
     [self changeItemWithInvestMoney:_inputMoneyStr];
-    [self setUpArray];
 }
 
 // 获取银行限额
-static const NSInteger topView_bank_high = 370;
-static const NSInteger topView_high = 300;
 - (void)getBankCardLimit {
     if ([self.hasBindCard isEqualToString:@"1"]) {
-        self.topView.height = kScrAdaptationH750(topView_bank_high) + self.topQuitWayAdditionalHeight;
+        self.topView.height = kScrAdaptationH750(370) + self.topQuitWayAdditionalHeight;
         kWeakSelf
         [_viewModel getBankCardWithHud:YES resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -477,13 +429,13 @@ static const NSInteger topView_high = 300;
                 weakSelf.tableView.hidden = NO;
                 weakSelf.topView.hasBank = YES;
                 weakSelf.tableView.tableHeaderView = weakSelf.topView;
-                [weakSelf setUpArray];
+                [weakSelf hasBuyType];
                 [weakSelf.tableView reloadData];
             }
         }];
         
     } else {
-        self.topView.height = kScrAdaptationH750(topView_high) + self.topQuitWayAdditionalHeight;
+        self.topView.height = kScrAdaptationH750(300) + self.topQuitWayAdditionalHeight;
         self.topView.hasBank = NO;
         self.tableView.tableHeaderView = self.topView;
         [self changeItemWithInvestMoney:_inputMoneyStr];
@@ -527,10 +479,13 @@ static const NSInteger topView_high = 300;
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
             weakSelf.hasBindCard = weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard;
-            [weakSelf.tableView reloadData];
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-        }
-        else {
+            if (!weakSelf.cardModel.bankCode) {
+                [weakSelf getBankCardLimit];
+            }
+            [weakSelf hasBuyType];
+            [weakSelf.tableView reloadData];
+        } else {
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         }
     }];
@@ -545,6 +500,10 @@ static const NSInteger topView_high = 300;
     self.couponTitle = @"优惠券";
     self.discountMoney = 0;
     self.afterDiscountMoney = money.floatValue;
+}
+
+- (void)updateNetWorkData {
+    [self getNewUserInfo];
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {
@@ -570,13 +529,7 @@ static const NSInteger topView_high = 300;
             _discountTitle = @"暂无可用优惠券";
         }
     }
-    [self setUpArray];
     [self changeItemWithInvestMoney:money];
-}
-
-- (void)updateNetWorkData {
-    [self getNewUserInfo];
-    [self.tableView reloadData];
 }
 
 - (void)unavailableMoney {
@@ -691,7 +644,7 @@ static const NSInteger topView_high = 300;
     } else {
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
-    [self hasBuyType];
+    
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         // 判断是否超出风险
@@ -704,8 +657,8 @@ static const NSInteger topView_high = 300;
         self.couponTitle = @"优惠券";
         self.afterDiscountMoney = text.doubleValue;
         [self changeItemWithInvestMoney:text];
-        [self setUpArray];
     }
+    
 }
 
 // 根据金额匹配是否展示风险协议
@@ -718,7 +671,7 @@ static const NSInteger topView_high = 300;
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
-    _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
+    _bottomView.delegateLabelText = @"红利智投服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
             NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanMonthURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];

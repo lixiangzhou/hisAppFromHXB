@@ -211,7 +211,7 @@
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"出借记录", @"红利计划服务协议"];
+        manager.strArray = @[@"出借记录", @"红利智投服务协议"];
         return manager;
     }];
     weakSelf.tabelView.hidden = NO;
@@ -279,7 +279,7 @@
                                                       viewModel.endLockingTime
                                                       ];
             manager.typeImageName = viewModel.statusImageName;
-            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || viewModel.planDetailModel.inCoolingOffPeriod);
+            self.addButton.hidden = !([viewModel.quitStatus isEqualToString:@"可退出"] || [viewModel.quitStatus isEqualToString:@"撤销退出"] || ([viewModel.planDetailModel.financePlanStatus isEqualToString:@"NEW"] && viewModel.planDetailModel.inCoolingOffPeriod));
             self.buttonDescLabel.hidden = self.addButton.hidden;
             manager.topViewStatusStr = viewModel.leaveStatus;
             break;

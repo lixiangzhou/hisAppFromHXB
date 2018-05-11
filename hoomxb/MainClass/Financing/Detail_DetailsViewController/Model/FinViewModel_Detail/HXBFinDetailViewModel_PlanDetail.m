@@ -127,7 +127,7 @@
  */
 - (NSString *) contractName {
     if (!_contractName) {
-        _contractName = @"《红利计划服务协议》";
+        _contractName = @"《红利智投服务协议》";
     }
     return _contractName;
 }
@@ -184,31 +184,15 @@
     [self setUPAddButtonColorWithType:YES];
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
-//            self.addButtonStr = @"等待预售开始超过30分";
-//            self.isAddButtonInteraction = NO;
-//            break;
         case 1:
-//            self.addButtonStr = @"等待预售开始小于30分钟";
-//            self.isAddButtonInteraction = NO;
-//            break;
         case 2:
-//            self.addButtonStr = @"预定";
-//            self.isAddButtonInteraction = NO;
-//            break;
         case 3:
-//            self.addButtonStr = @"预定满额";
-//            self.isAddButtonInteraction = NO;
-//            break;
         case 4:
-//            self.addButtonStr = @"等待开放购买大于30分钟";
-//            self.isAddButtonInteraction = NO;
-//            break;
         case 5:
-//            self.addButtonStr = @"等待开放购买小于30分钟";
             self.isAddButtonInteraction = NO;
-//            self.isContDown = YES;
             self.addButtonStr = @"等待加入";
             break;
+            
         case 6:
             [self setUPAddButtonColorWithType:NO];
             self.addButtonStr = @"立即加入";
@@ -216,11 +200,18 @@
             if (self.planDetailModel.isFirst.integerValue) {
                 self.addButtonStr = @"立即加入";
                 self.isAddButtonInteraction = YES;
-            }else {
-                self.addButtonStr = @"追加";
-                self.isAddButtonInteraction = YES;
+            } else {
+                if (self.planDetailModel.isAllowedRepeatPurchase) {
+                    self.addButtonStr = @"追加";
+                    self.isAddButtonInteraction = YES;
+                } else {
+                    self.addButtonStr = @"暂不支持重复购买";
+                    [self setUPAddButtonColorWithType:YES];
+                    self.isAddButtonInteraction = NO;
+                }
             }
             break;
+            
         case 7:{
             /*
              账户外：

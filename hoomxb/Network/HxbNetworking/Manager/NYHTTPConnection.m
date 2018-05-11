@@ -96,8 +96,19 @@
 
 - (void)requestHandleSuccess:(NYBaseRequest *)request responseObject:(id)object
 {
-    if (self.success) {
-        self.success(self, object);
+    //判断是否需要延时处理
+    NSTimeInterval interval = [request leftDelayInterval];
+    if (interval > 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.success) {
+                self.success(self, object);
+            }
+        });
+    }
+    else{
+        if (self.success) {
+            self.success(self, object);
+        }
     }
 }
 

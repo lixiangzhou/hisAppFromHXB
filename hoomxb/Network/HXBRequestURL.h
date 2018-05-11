@@ -72,9 +72,9 @@
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
-#define kHXBFin_TransferRecordURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/confirm",(planID)]
+#define kHXBFin_TransferRecordURL @"/account/transfer/transferconfirm"
 //债权转让功能接口
-#define kHXBFin_TransferResultURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/result",(planID)]
+#define kHXBFin_TransferResultURL @"/account/transfer/transfersale"
 
 
 //MARK: ======================= 账户设置 =======================
@@ -129,7 +129,7 @@
 //协议或合同名    端口号后链接    状态    账户内连接
 #define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
 #define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
-#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
+#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利智投服务协议书》
 #define kHXB_Negotiate_ServePlanMonthURL @"/agreement/planMonth"///《按月付息服务协议书》
 #define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
 #define kHXB_Negotiate_ServeMonthPlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/planMonth/%@/agreement",(productID)]///账户内按月付息服务协议
