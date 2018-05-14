@@ -129,11 +129,6 @@
         if (isSuccess) {
             weakSelf.myView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
             HXBRequestUserInfoViewModel *userInfoViewModel = weakSelf.viewModel.userInfoModel;
-            if (userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                return;
-            }
-            
             if (!userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
                 alertVC.immediateOpenBlock = ^{
