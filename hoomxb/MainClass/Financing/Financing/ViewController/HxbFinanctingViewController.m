@@ -144,7 +144,7 @@
     kWeakSelf
     [self.homePageView setSwitchBottomScrollViewBlock:^(NSInteger index, NSString *title, UIButton *button) {
         //网络数据请求
-        if ([title isEqualToString:@"红利计划"] && weakSelf.isFirstLoadNetDataPlan) {
+        if ([title isEqualToString:@"红利智投"] && weakSelf.isFirstLoadNetDataPlan) {
             [weakSelf planLoadDateWithIsUpData:YES];
         }else if ([title isEqualToString:@"散标"] && weakSelf.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:YES];
@@ -170,7 +170,7 @@
 - (void)pushPlanDetailsViewControllerWithModel: (HXBFinHomePageViewModel_PlanList *)model {
     HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
     planDetailsVC.title = model.planListModel.name;
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利智投##" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = leftBarButtonItem;
     planDetailsVC.planID = model.planListModel.ID;
     planDetailsVC.isPlan = YES;

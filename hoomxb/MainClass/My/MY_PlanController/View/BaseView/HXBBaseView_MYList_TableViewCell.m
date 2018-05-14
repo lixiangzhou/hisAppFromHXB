@@ -92,7 +92,6 @@
 - (void) setup {
     //创建UI 并布局
     [self setUPSubView];
-//    [self temp];//测试
 }
 
     //创建布局子控件
@@ -185,21 +184,6 @@
         make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
     }];
-}
-
-
-- (void)temp {
-    self.nameLable.text = @"红利计划";
-    self.investmentAmountLable.text = @"24000";
-    
-    self.toBeReceived.text = @"0.00";
-    
-    self.nextRepaymentDay.text = @"12.80%";
-  
-    self.theNumberOfPeriods.text = @"12.08%";
-    self.investmentAmountLable_const.text = @"加入金额(元)";
-    self.toBeReceived_const.text = @"已获收益（元）";
-//    self.theNumberOfPeriods_const.text = @"退出";
 }
 
 

@@ -38,7 +38,7 @@
                               @"充值",
                               @"提现",
                               @"散标债权",
-                              @"红利计划",
+                              @"红利智投",
                               ];
     UIView *view = [[UIView alloc]init];
     [self.view addSubview:view];

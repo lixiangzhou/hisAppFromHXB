@@ -99,7 +99,7 @@
         }
 
         manager.addViewManager.leftStrArray = @[
-                                                @"智投金额",
+                                                @"总金额",
                                                 @"加入条件",
                                                 @"加入上限",
                                                 ];
@@ -116,7 +116,7 @@
         manager.dateViewManager.rightStrArray = @[
                                                  weakSelf.planDetailModel.beginSellingTime,//开始时间
                                                  weakSelf.planDetailModel.financeEndTime,//结束时间
-                                                 weakSelf.planDetailModel.lockPeriod//期限
+                                                 weakSelf.planDetailModel.extendLockPeriod//期限
                                                 ];
         if ([detailData.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
             manager.typeViewManager.leftStrArray = @[

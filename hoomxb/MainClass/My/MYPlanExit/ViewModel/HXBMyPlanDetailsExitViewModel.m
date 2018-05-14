@@ -18,6 +18,7 @@
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXBMY_PlanBeforeQuitURL(planID);
+    request.requestArgument = @{@"action":@"confirm"};
     request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -51,8 +52,10 @@
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = inCoolingOffPeriod?kHXBMY_PlanCancelBuyResultURL(planID):kHXBMY_PlanQuitResultURL(planID);
+    
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
+                                         @"action":@"result",
                                          @"smscode" : smscode,
                                          };
     versionUpdateAPI.showHud = YES;
