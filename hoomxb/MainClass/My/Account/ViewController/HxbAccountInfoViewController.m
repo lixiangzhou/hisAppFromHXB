@@ -116,6 +116,11 @@ UITableViewDataSource
 //进入绑卡界面
 - (void)bindBankCardClick
 {
+    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+        [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+        return;
+    }
+    
     HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
     withdrawCardViewController.title = @"绑卡";
     withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
@@ -127,6 +132,11 @@ UITableViewDataSource
  */
 - (void)entryDepositoryAccount:(BOOL)isbankView
 {
+    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+        [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+        return;
+    }
+    
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
         alertVC.immediateOpenBlock = ^{
