@@ -228,6 +228,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else if ([btn.titleLabel.text isEqualToString:@"查看账户"]) {
          [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMyVC object:nil];  //跳回我的页面
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
     }
