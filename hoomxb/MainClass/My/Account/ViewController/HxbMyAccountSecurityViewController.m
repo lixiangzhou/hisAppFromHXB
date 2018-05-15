@@ -182,33 +182,8 @@ UITableViewDataSource,UITableViewDelegate
     [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
-            if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
-                    [weakSelf getintoModifyPhone];
-                }
-            } else {
-                if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isUnbundling) {
-                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                    return;
-                }
-                
-                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                    if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
-                        [weakSelf getintoModifyPhone];
-                    }
-                } else {
-                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"由于银行限制，您需要绑定银行卡后方可修改手机号" andLeftBtnName:@"暂不绑定" andRightBtnName:@"立即绑定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-                    alertVC.isCenterShow = YES;
-                    [alertVC setRightBtnBlock:^{
-                        //进入绑卡界面
-                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                        withdrawCardViewController.title = @"绑卡";
-                        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-                    }];
-                    
-                    [self presentViewController:alertVC animated:NO completion:nil];
-                }
+            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
+                [weakSelf getintoModifyPhone];
             }
         }
     }];
