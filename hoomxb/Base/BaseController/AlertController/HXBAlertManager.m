@@ -82,6 +82,11 @@
         request.hudDelegate = weakSelf;
      } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if(viewModel) {
+            //没有实名认证
+            if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                [[weakSelf class] callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+                return;
+            }
             //开通存管银行账户
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
