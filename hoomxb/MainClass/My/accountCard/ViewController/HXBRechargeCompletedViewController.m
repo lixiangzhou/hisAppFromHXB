@@ -50,9 +50,10 @@
     
     self.contentModel = [HXBCommonResultContentModel new];
     self.contentModel.titleString = rechargeModel.title;
-    self.contentModel.descString = [NSString stringWithFormat:@"充值金额%@", [NSString hxb_getPerMilWithDouble:rechargeModel.rechargeAmt]];
+    self.contentModel.descString = model.data.content;
     
     if ([model.result isEqualToString:@"success"]) {
+        self.contentModel.descString = [NSString stringWithFormat:@"充值金额%@", [NSString hxb_getPerMilWithDouble:rechargeModel.rechargeAmt]];
         [self successResult];
     } else if ([model.result isEqualToString:@"error"]) {
         [self errorResult];
