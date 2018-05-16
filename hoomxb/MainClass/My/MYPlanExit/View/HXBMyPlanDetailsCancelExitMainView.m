@@ -106,7 +106,6 @@
     }];
     [self.ticketImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.exitAmountRightLab.mas_bottom).offset(kScrAdaptationH750(16));
-        make.left.equalTo(@kScrAdaptationW750(314));
         make.width.height.equalTo(@(kScrAdaptationH750(24)));
     }];
     [self.ticketLab mas_makeConstraints:^(MASConstraintMaker *make) {
