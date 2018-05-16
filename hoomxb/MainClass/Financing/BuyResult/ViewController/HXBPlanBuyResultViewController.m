@@ -88,6 +88,7 @@
         self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
             if ([weakSelf.model.result isEqualToString:@"timeout"]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMyVC object:nil];  //跳回我的页面
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             } else {
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             }
