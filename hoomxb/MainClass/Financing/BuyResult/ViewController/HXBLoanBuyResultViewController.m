@@ -63,7 +63,7 @@
         self.commenResultVC.contentModel.titleString = resultModel.title;
         self.commenResultVC.contentModel.descString = resultModel.content;
         self.commenResultVC.contentModel.firstBtnTitle = @"查看我的出借";
-        self.commenResultVC.contentModel.secondBtnTitle = resultModel.isInviteActivityShow ? resultModel.inviteActivityDesc : @"";
+        self.commenResultVC.contentModel.secondBtnTitle = resultModel.isInviteActivityShow ? resultModel.inviteActivityDesc : nil;
         
         kWeakSelf
         self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
@@ -71,7 +71,7 @@
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         };
         
-        if (self.commenResultVC.contentModel.secondBtnTitle) {
+        if (resultModel.isInviteActivityShow) {
             self.commenResultVC.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
                 [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
                 [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
