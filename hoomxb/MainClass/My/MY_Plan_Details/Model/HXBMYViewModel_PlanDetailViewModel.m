@@ -233,7 +233,11 @@
     if (self.planDetailModel.quitDate) {
         _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.quitDate andDateFormat:@"yyyy-MM-dd"];
     } else {
-        _quitDate = @"--";
+        if (self.planDetailModel.registerTime) {
+            _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.registerTime andDateFormat:@"yyyy-MM-dd"];
+        } else {
+            _quitDate = @"--";
+        }
     }
     return _quitDate;
 }

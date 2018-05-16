@@ -76,6 +76,9 @@
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
         [weakSelf popToMine];
+        
+        HXBBaseNavigationController *mineNavVc = [HXBRootVCManager manager].mainTabbarVC.selectedViewController;
+        [mineNavVc pushViewController:[HxbMyTopUpViewController new] animated:NO];
     };
     
     self.contentModel.secondBtnTitle = @"先逛逛";

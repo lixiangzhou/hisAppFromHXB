@@ -66,7 +66,7 @@
 }
 
 - (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
-    self.popVC = vcArray.lastObject;
+    self.popVC = vcArray.firstObject;
 }
 
 #pragma mark - UITableViewDataSource
@@ -129,7 +129,7 @@
     self.contentModel.firstBtnTitle = @"重新提现";
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [weakSelf toMine];
+        [weakSelf.navigationController popToViewController:weakSelf.popVC animated:YES];
     };
 }
 
