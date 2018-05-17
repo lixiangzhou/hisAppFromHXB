@@ -262,7 +262,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.loadResult = YES;
-    self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
+    if(!self.pageTitle) {
+        self.title = [NSString H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
