@@ -62,7 +62,7 @@
         self.commenResultVC.contentModel.imageName = _model.imageName;
         self.commenResultVC.contentModel.titleString = resultModel.title;
         self.commenResultVC.contentModel.descString = resultModel.content;
-        self.commenResultVC.contentModel.firstBtnTitle = @"查看我的出借";
+        self.commenResultVC.contentModel.firstBtnTitle = @"完成";
         self.commenResultVC.contentModel.secondBtnTitle = resultModel.isInviteActivityShow ? resultModel.inviteActivityDesc : nil;
         
         kWeakSelf
