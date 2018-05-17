@@ -175,16 +175,16 @@ static NSString *const bankString = @"绑定银行卡";
 /// 判断购买类型
 - (void)hasBuyType {
     /// 进入界面判断是否绑卡及账户余额是否比起投金额高
-    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= _inputMoneyStr.doubleValue) { // 余额够
-        [self changeCellWithBuyType:HXBBuyTypeBalance];
+    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.doubleValue >= _inputMoneyStr.doubleValue) { // 余额够
         _hxbBuyType = HXBBuyTypeBalance;
+        [self changeCellWithBuyType:HXBBuyTypeBalance];
     } else {
         if ([self.hasBindCard isEqualToString:@"1"]) {
-            [self changeCellWithBuyType:HXBBuyTypeBankBuy];
             _hxbBuyType = HXBBuyTypeBankBuy;
+            [self changeCellWithBuyType:HXBBuyTypeBankBuy];
         } else {
-            [self changeCellWithBuyType:HXBBuyTypeNoBankCard];
             _hxbBuyType = HXBBuyTypeNoBankCard;
+            [self changeCellWithBuyType:HXBBuyTypeNoBankCard];
         }
     }
 }
