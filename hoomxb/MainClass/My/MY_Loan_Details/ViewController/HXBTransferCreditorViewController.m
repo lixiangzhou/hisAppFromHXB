@@ -100,7 +100,7 @@
     kWeakSelf
     NSDictionary *dic_post = @{
                                @"loanId": self.creditorID,
-                               @"currentTransferValue": self.transferConfirmModel.currentTransValue
+                               @"currentTransferValue": self.transferConfirmModel.currentTransValue?:@""
                                };
     [_viewModel accountLoanTransferRequestResultWithParams:dic_post resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
