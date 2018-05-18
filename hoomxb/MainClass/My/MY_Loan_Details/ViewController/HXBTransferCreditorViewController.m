@@ -49,6 +49,7 @@
     self.viewModel = [[HXBMyLoanDetailsViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
+    [self loadAccountLoanTransferInfo];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.agreementView];
@@ -84,6 +85,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)loadAccountLoanTransferInfo {
     kWeakSelf
     [_viewModel accountLoanTransferRequestWithTransferID:self.creditorID resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
@@ -93,7 +97,6 @@
         }
     }];
 }
-
 
 #pragma mark - Event事件
 - (void)sureBtnClick {
