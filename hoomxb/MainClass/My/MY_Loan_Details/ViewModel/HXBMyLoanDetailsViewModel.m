@@ -33,7 +33,7 @@
     request.requestUrl = kHXBFin_TransferRecordURL;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"loanId": transferID};
-    request.showHud = NO;
+    request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *dataDic = responseObject[kResponseData];
