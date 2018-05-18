@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"结果";
     [self setData];
     [self setUI];
 }
@@ -53,8 +53,6 @@
 }
 
 - (void)setData {
-    
-    self.title = self.model.data.title;
     
     if ([_model.result isEqualToString:@"success"]) {
         

@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.title = @"结果";
     [self setUI];
     [self setData];
 }
@@ -181,7 +181,6 @@
 }
 
 - (void)setData {
-    self.title = _model.data.title;
     if ([_model.result isEqualToString:@"success"]) {
         HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)_model.data;
         self.secondBtn.hidden = !resultModel.isInviteActivityShow;
