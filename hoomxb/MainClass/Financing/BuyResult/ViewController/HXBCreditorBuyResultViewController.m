@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.title = @"结果";
     [self setUI];
     [self setData];
 }
@@ -181,10 +181,9 @@
 }
 
 - (void)setData {
-    self.title = _model.data.title;
     if ([_model.result isEqualToString:@"success"]) {
         HXBLazyCatResultBuyModel *resultModel = (HXBLazyCatResultBuyModel *)_model.data;
-        self.secondBtn.hidden = NO;
+        self.secondBtn.hidden = !resultModel.isInviteActivityShow;
         self.iconView.image = [UIImage imageNamed:_model.imageName];
         self.titleLabel.text = resultModel.title;
         self.descLabel.text = resultModel.tips;

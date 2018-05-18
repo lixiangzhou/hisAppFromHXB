@@ -16,8 +16,6 @@
 @property (nonatomic, strong) HXBBaseTableView *tableView;
 // 提示Label
 @property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
-// 无数据
-@property (nonatomic, strong) HXBNoDataView *nodataView;
 // 是否选中
 @property (nonatomic, assign) BOOL hasSelect;
 //判断第几个是选择的优惠券
@@ -53,6 +51,20 @@
     [self.view addSubview:_tableView];
     [self.view addSubview:self.notifitionView];
     
+    kWeakSelf
+    self.noDataView.imageName = @"noCoupons";
+    self.noDataView.noDataMassage = @"暂无优惠券";
+    [self.view addSubview:self.noDataView];
+    
+    self.noDataView.hidden = YES;
+    [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH(140));
+        make.height.width.equalTo(@(kScrAdaptationH(184)));
+        make.centerX.equalTo(weakSelf.view);
+    }];
+    
+    
+    
     if (_investMoney.floatValue > 0) {
         _notifitionView.hidden = YES;
         _tableView.tableHeaderView = [self tableViewHeadView];
@@ -78,11 +90,7 @@
     UIImageView *selectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(34), kScrAdaptationW750(32), kScrAdaptationH750(32))];
     [selectView addSubview:selectImageView];
     
-    if ([_couponid isEqualToString:@"不使用优惠券"]) {
-        selectImageView.image = [UIImage imageNamed:@"chooseCoupon"];
-    } else {
-        selectImageView.image = [UIImage imageNamed:@"unselectCoupon"];
-    }
+    selectImageView.image = _couponid.length ? [UIImage imageNamed:@"unselectCoupon"] : [UIImage imageNamed:@"chooseCoupon"];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW750(92), 0, kScreenWidth, kScrAdaptationH750(100))];
     label.text = @"不使用优惠券";
@@ -214,19 +222,26 @@
 }
 
 - (void)setUpDate {
-    NSDictionary *dic_post = @{
-                          @"id": _planid,
-                          @"amount": _investMoney,
-                          @"type": _type
-                          };
-    kWeakSelf
-    [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            [weakSelf displaySuccessData];
-        } else {
-            weakSelf.noDataView.hidden = NO;
-        }
-    }];
+    if (!_planid.length) {
+        self.noDataView.hidden = NO;
+        self.tableView.hidden = YES;
+        self.notifitionView.hidden = YES;
+    } else {
+        NSDictionary *dic_post = @{
+                                   @"id": _planid,
+                                   @"amount": _investMoney,
+                                   @"type": _type
+                                   };
+        kWeakSelf
+        [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [weakSelf displaySuccessData];
+                weakSelf.noDataView.hidden = YES;
+            } else {
+                weakSelf.noDataView.hidden = NO;
+            }
+        }];
+    }
 }
 
 - (void)displaySuccessData {
@@ -238,30 +253,16 @@
         }
     }
     if (self.viewModel.chooseCouponModel.dataList.count == 0 && self.viewModel.chooseCouponModel.unusableList.count == 0) {
-        self.nodataView.hidden = NO;
+        self.noDataView.hidden = NO;
+        self.tableView.hidden = YES;
         self.notifitionView.hidden = YES;
     } else {
         self.tableView.hidden = NO;
-        self.nodataView.hidden = YES;
+        self.noDataView.hidden = YES;
     }
     [self.tableView reloadData];
 }
 
-- (HXBNoDataView *)nodataView {
-    if (!_nodataView) {
-        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
-        _nodataView.imageName = @"noCoupons";
-        _nodataView.noDataMassage = @"暂无优惠券";
-        [self.view addSubview:_nodataView];
-        _nodataView.hidden = YES;
-        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kScrAdaptationH(140));
-            make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self.view);
-        }];
-    }
-    return _nodataView;
-}
 
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     if (!_notifitionView) {

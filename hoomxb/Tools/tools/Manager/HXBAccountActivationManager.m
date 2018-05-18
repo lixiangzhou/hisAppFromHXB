@@ -36,6 +36,9 @@
 - (void)entryActiveAccountPage {
     self.isPoped = YES;
     UIViewController* topVC = [HXBRootVCManager manager].topVC;
+    if([topVC isKindOfClass:NSClassFromString(@"HxbSignInViewController")]) {
+        topVC = ((UINavigationController*)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+    }
     HXBUserMigrationViewController* vc = [[HXBUserMigrationViewController alloc] init];
 //    vc.pushBlock = ^() {
 //        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];

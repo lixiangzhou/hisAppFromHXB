@@ -156,7 +156,9 @@
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
     } else if ([keyPath isEqualToString:@"title"]) {
-        self.title = [NSString H5Title:self.webView.title];
+        if(!self.pageTitle) {
+            self.title = [NSString H5Title:self.webView.title];
+        }
     } else if ([keyPath isEqualToString:@"contentSize"]) {
         if(!self.hiddenReturnButton){
             self.showCloseButton = self.webView.canGoBack;

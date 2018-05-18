@@ -175,7 +175,7 @@ static NSString *const bankString = @"绑定银行卡";
 /// 判断购买类型
 - (void)hasBuyType {
     /// 进入界面判断是否绑卡及账户余额是否比起投金额高
-    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.floatValue >= _inputMoneyStr.doubleValue) { // 余额够
+    if ((_balanceMoneyStr.floatValue > self.minRegisterAmount.floatValue ?: self.registerMultipleAmount.floatValue) && _balanceMoneyStr.doubleValue >= _inputMoneyStr.doubleValue) { // 余额够
         [self changeCellWithBuyType:HXBBuyTypeBalance];
         _hxbBuyType = HXBBuyTypeBalance;
     } else {

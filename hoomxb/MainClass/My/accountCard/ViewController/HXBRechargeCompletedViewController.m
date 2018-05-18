@@ -63,7 +63,7 @@
 }
 
 - (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
-    self.popVC = vcArray.lastObject;
+    self.popVC = vcArray.firstObject;
 }
 
 #pragma mark - Helper
@@ -82,7 +82,7 @@
     
     self.contentModel.secondBtnTitle = @"继续充值";
     self.contentModel.secondBtnBlock = ^(HXBCommonResultController *resultController) {
-        [weakSelf toMine];
+        [weakSelf.navigationController popToViewController:weakSelf.popVC animated:YES];
     };
 }
 
@@ -92,7 +92,7 @@
     self.contentModel.firstBtnTitle = @"重新充值";
     kWeakSelf
     self.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
-        [weakSelf toMine];
+        [weakSelf.navigationController popToViewController:weakSelf.popVC animated:YES];
     };
 }
 
