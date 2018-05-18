@@ -236,6 +236,7 @@
         [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf displaySuccessData];
+                weakSelf.noDataView.hidden = YES;
             } else {
                 weakSelf.noDataView.hidden = NO;
             }
