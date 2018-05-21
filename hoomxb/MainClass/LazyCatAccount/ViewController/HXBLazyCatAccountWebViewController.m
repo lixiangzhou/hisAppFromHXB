@@ -59,11 +59,27 @@
     self.redirectUrl = [dic stringAtPath:@"redirectUrl"];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString* url = request.URL.absoluteString;
+    if([url containsString:@"objc://"]) {
+        self.hiddenReturnButton = YES;
+        return NO;
+    }
+    return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [super webViewDidFinishLoad:webView];
     
     if([webView.request.URL.absoluteString isEqualToString:self.redirectUrl]) {
-        self.hiddenReturnButton = YES;
+        NSString *readyState = [webView stringByEvaluatingJavaScriptFromString:@"document.readyState"];
+        BOOL interactive = [readyState isEqualToString:@"interactive"];
+        if (interactive) {
+            [self.webView stringByEvaluatingJavaScriptFromString:HXB_LOAD_LISTEN];
+        }
+        else{
+            self.hiddenReturnButton = YES;
+        }
     }
 }
 
@@ -129,7 +145,7 @@
 //    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable element, NSError * _Nullable error) {
 //
 //    }];
-
+    
     NSString* serviceName = self.requestModel.result.serviceName;
     NSString* platformNo = self.requestModel.result.platformNo;
     NSString* userDevice = @"MOBILE";
