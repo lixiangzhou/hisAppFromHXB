@@ -15,6 +15,9 @@ static NSString *const hfContentText = @"正在跳转至恒丰银行";
 
 @interface HXBBaseViewModel : HXBBaseModel <HXBRequestHudDelegate>
 
+//是否在hug隐藏的方法中进行过滤
+@property (nonatomic, assign) BOOL isFilterHugHidden;
+//
 @property (nonatomic, strong) HugViewBlock hugViewBlock;
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock;

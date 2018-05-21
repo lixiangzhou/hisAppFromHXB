@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         _requestList = [NSMutableArray array];
+        _isFilterHugHidden = YES;
     }
     return self;
 }
@@ -114,7 +115,14 @@
 }
 
 - (void)hideProgress:(NYBaseRequest *)request {
-    [self showMBP:NO withHudContent:nil];
+    if(self.isFilterHugHidden) {
+        if(request.showHud){
+            [self showMBP:NO withHudContent:nil];
+        }
+    }
+    else {
+        [self showMBP:NO withHudContent:nil];
+    }
 }
 
 #pragma mark在委托者中操作请求对象
