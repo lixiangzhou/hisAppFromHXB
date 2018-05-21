@@ -20,6 +20,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBFincreditorChangebuyViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
+#import "HXBCreditorBuyResultViewController.h"
 
 static NSString *const bankString = @"绑定银行卡";
 
@@ -319,6 +320,18 @@ static NSString *const bankString = @"绑定银行卡";
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
+        } else {
+            HXBCreditorBuyResultViewController *failViewController = [[HXBCreditorBuyResultViewController alloc]init];
+            switch (weakSelf.viewModel.errorCode) {
+                case kBuy_Result:
+                    failViewController.errorMessage = weakSelf.viewModel.errorMessage;
+                    break;
+                    
+                default:
+                    return;
+            }
+            
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
         }
     }];
 }

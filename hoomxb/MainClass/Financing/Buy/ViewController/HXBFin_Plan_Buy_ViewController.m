@@ -19,6 +19,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBFinPlanBuyViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
+#import "HXBPlanBuyResultViewController.h"
 
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate, HXBRemoteUpdateInterface>
@@ -386,6 +387,19 @@
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
+        } else {
+            HXBPlanBuyResultViewController *failViewController = [[HXBPlanBuyResultViewController alloc]init];
+            switch (weakSelf.viewModel.errorCode) {
+                case kBuy_Result:
+                    failViewController.errorMessage = weakSelf.viewModel.errorMessage;
+                    break;
+                    
+                default:
+                    return;
+            }
+
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
+        
         }
     }];
     
