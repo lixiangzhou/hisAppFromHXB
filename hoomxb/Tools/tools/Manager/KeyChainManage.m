@@ -12,6 +12,7 @@
 #import <Security/Security.h>
 #import "HXBRequestUserInfoAgent.h"
 #import "HXBAccountActivationManager.h"
+#import "HXBHomePopViewManager.h"
 
 #define kGesturePwd self.keychain[kMobile]
 #define kSiginPwd @"HXBSinInCount"
@@ -212,12 +213,11 @@ static NSString *const hostH5 = @"hostH5";
             
             BOOL isAccountActivation = viewModel.userInfoModel.userInfo.isUserActive;
             if(!isAccountActivation && viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {//账户需要激活
-                if(viewModel.userInfoModel.userInfo.isUnbundling) {
-                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                }
-                else{
-                    [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
-                }
+                
+                [HXBAccountActivationManager sharedInstance].isPoped = YES;
+                
+                [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
+                
                 
                 if (resultBlock) {
                     resultBlock(nil, [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil]);

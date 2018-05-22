@@ -30,23 +30,40 @@
     return sharedInstance;
 }
 
+- (void)popActiveAccountPage {
+    
+    if (!self.accountActivationVC) {
+        UIViewController* topVC = [HXBRootVCManager manager].topVC;
+        if([topVC isKindOfClass:NSClassFromString(@"HxbSignInViewController")]) {
+            topVC = ((UINavigationController*)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+        }
+        HXBUserMigrationViewController* vc = [[HXBUserMigrationViewController alloc] init];
+        //    vc.pushBlock = ^() {
+        //        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];
+        //    };
+        
+        self.accountActivationVC = vc;
+        
+        if(self.accountActivationVC) {
+            [topVC presentViewController:self.accountActivationVC animated:YES completion:nil];
+        }
+    }
+}
 /**
  激活账户
  */
 - (void)entryActiveAccountPage {
-    self.isPoped = YES;
-    UIViewController* topVC = [HXBRootVCManager manager].topVC;
-    if([topVC isKindOfClass:NSClassFromString(@"HxbSignInViewController")]) {
-        topVC = ((UINavigationController*)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
-    }
-    HXBUserMigrationViewController* vc = [[HXBUserMigrationViewController alloc] init];
-//    vc.pushBlock = ^() {
-//        [topVC.navigationController pushViewController:[NSClassFromString(@"HXBUserMigrationResultViewController") new] animated:true];
-//    };
-    self.accountActivationVC = vc;
     
-    if(self.accountActivationVC) {
-        [topVC presentViewController:self.accountActivationVC animated:YES completion:nil];
+    if (self.isPoped) {
+        if (![HXBHomePopViewManager sharedInstance].isClosed)
+        {
+            UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+            if (![topVC isKindOfClass:NSClassFromString(@"HxbHomeViewController")]) {
+                [self popActiveAccountPage];
+            }
+        } else {
+            [self popActiveAccountPage];
+        }
     }
 }
 
@@ -55,6 +72,7 @@
  */
 - (void)exitActiveAccountPage {
     if(self.accountActivationVC.presentingViewController) {
+        self.isPoped = NO;
         [self.accountActivationVC dismissViewControllerAnimated:NO completion:nil];
     }
     

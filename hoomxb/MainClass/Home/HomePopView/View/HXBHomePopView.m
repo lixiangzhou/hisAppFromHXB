@@ -7,7 +7,7 @@
 //
 
 #import "HXBHomePopView.h"
-
+#import "HXBAccountActivationManager.h"
 // 角度转弧度
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
@@ -154,6 +154,25 @@
             }
             
             ws.popCompleteBlock();
+        }
+    });
+}
+
+- (void)dismiss: (NSString *)fromAction {
+    
+    __weak typeof(self) ws = self;
+    NSTimeInterval duration = 0.2;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (ws.dismissCompleteBlock) {
+            ws.alpha = 0.0;
+            ws.backgroundView.alpha = 0.0;
+            
+            ws.dismissCompleteBlock();
+        }
+        [ws removeFromSuperview];
+        if ([fromAction isEqualToString:@"closeAction"] || [fromAction isEqualToString:@"BgmDismiss"]) {
+            [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
         }
     });
 }
