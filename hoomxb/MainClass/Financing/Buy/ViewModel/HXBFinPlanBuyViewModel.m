@@ -30,8 +30,6 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
-        _resultModel = [[HXBLazyCatRequestModel alloc] init];
     }
     return self;
 }
@@ -58,6 +56,7 @@
     request.requestUrl = kHXB_Coupon_Best;
     request.requestArgument = params;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bestCouponModel = [[HXBBestCouponModel alloc] init];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
@@ -82,6 +81,7 @@
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.resultModel = [[HXBLazyCatRequestModel alloc] init];
         [weakSelf hiddenHFBank];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];

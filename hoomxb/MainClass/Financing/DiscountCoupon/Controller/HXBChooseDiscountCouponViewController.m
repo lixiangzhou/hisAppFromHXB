@@ -90,7 +90,7 @@
     UIImageView *selectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(34), kScrAdaptationW750(32), kScrAdaptationH750(32))];
     [selectView addSubview:selectImageView];
     
-    selectImageView.image = _couponid.length ? [UIImage imageNamed:@"unselectCoupon"] : [UIImage imageNamed:@"chooseCoupon"];
+    selectImageView.image = _isSelectCoupon ? [UIImage imageNamed:@"chooseCoupon"] : [UIImage imageNamed:@"unselectCoupon"];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW750(92), 0, kScreenWidth, kScrAdaptationH750(100))];
     label.text = @"不使用优惠券";
@@ -236,7 +236,6 @@
         [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf displaySuccessData];
-                weakSelf.noDataView.hidden = YES;
             } else {
                 weakSelf.noDataView.hidden = NO;
             }
