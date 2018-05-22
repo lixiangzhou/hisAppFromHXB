@@ -90,6 +90,13 @@
     [self reSet];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if([self.webViewProxyDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+        return [self.webViewProxyDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     if([self.webViewProxyDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
         [self.webViewProxyDelegate webViewDidStartLoad:webView];

@@ -12,6 +12,15 @@
 
 @implementation HXBFinPlanBuyViewModel
 
+- (instancetype)init {
+    self = [super init];
+    if(self) {
+        self.isFilterHugHidden = NO;
+    }
+    
+    return self;
+}
+
 /// 添加load框，知道所有请求结束再消失
 - (void)hideProgress:(NYBaseRequest *)request {
     if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
