@@ -153,6 +153,8 @@
     self.pageClassDic[kTransfersale] = NSClassFromString(@"HXBAccountTransferBuyViewController");
     //账户激活结果
     self.pageClassDic[kAccountactive] = NSClassFromString(@"HXBUserMigrationResultViewController");
+    //通用超时结果
+    self.pageClassDic[kCommonTimeout] = NSClassFromString(@"HXBProcessingResultViewController");
 }
 
 /**
