@@ -11,12 +11,14 @@
 #import "HXBLazyCatResponseModel.h"
 #import "HXBLazyCatRequestResultModel.h"
 #import "WebViewJavascriptBridge.h"
+#import "HXBNsTimerManager.h"
 
 @interface HXBLazyCatAccountWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) NSMutableDictionary* pageClassDic;
 @property (nonatomic, strong) NSMutableArray *popViewControllers;
 
 @property (nonatomic, copy) NSString* redirectUrl;
+@property (nonatomic, strong) HXBNsTimerManager* timerManager;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -27,6 +29,13 @@
     [self setupJavascriptBridge];
     [self registerPageClass];
     [self findPopVC];
+}
+
+- (void)dealloc
+{
+    if(_timerManager) {
+        [self.timerManager stopTimer];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +72,7 @@
     NSString* url = request.URL.absoluteString;
     if([url containsString:@"objc://"]) {
         self.hiddenReturnButton = YES;
+        [self startDelay];
         return NO;
     }
     return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
@@ -79,8 +89,23 @@
         }
         else{
             self.hiddenReturnButton = YES;
+            [self startDelay];
         }
     }
+}
+
+- (void)startDelay {
+    if(_timerManager) {
+        [self.timerManager stopTimer];
+    }
+    self.timerManager = [HXBNsTimerManager createTimer:1 startSeconds:10 countDownTime:YES notifyCall:^(NSString *times) {
+        if(times.integerValue == 0) {
+            //超时处理
+            NSDictionary* result = @{@"result":@"timeout", @"action":kCommonTimeout, @"data":@{@"title":@"请求超时", @"content":@"请求超时，请返回至账户内查看结果"}};
+            [self jumpToResultPageWithData:result];
+        }
+    }];
+    [self.timerManager startTimer];
 }
 
 - (void)findPopVC {
@@ -178,6 +203,8 @@
 
 //根据数据跳转到响应的结果页面
 - (void)jumpToResultPageWithData:(id)data {
+    [self.timerManager stopTimer];
+    
     NSDictionary *dic = data;
     NSString *action = [dic stringAtPath:@"action"];
     HXBLazyCatResponseModel *responseModel = [[HXBLazyCatResponseModel alloc] initWithAction:action];
