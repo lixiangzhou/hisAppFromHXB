@@ -19,6 +19,8 @@ extern NSString* const kPlan; //计划购买
 extern NSString* const kTransfer; //债转
 extern NSString* const kTransfersale; //债转转让
 extern NSString* const kAccountactive; //账户激活
+//通用超时处理用的action
+extern NSString* const kCommonTimeout;
 
 @interface HXBLazyCatResultPageModel : NSObject
 

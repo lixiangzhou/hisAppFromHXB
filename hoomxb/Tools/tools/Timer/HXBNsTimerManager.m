@@ -83,14 +83,14 @@
 {
     if(self.isCountDown) {//倒计时
         _recordTimes -= diffTime;
-        if(_recordTimes < 0) {
+        if(_recordTimes <= 0) {
             _recordTimes = 0;
             [self stopTimer];
         }
     }
     else{
         _recordTimes += diffTime;
-        if(self.totalSeconds>0 && _recordTimes>self.totalSeconds) {
+        if(self.totalSeconds>0 && _recordTimes>=self.totalSeconds) {
             _recordTimes = self.totalSeconds;
             [self stopTimer];
         }
