@@ -299,9 +299,11 @@ static NSString *const bankString = @"绑定银行卡";
     } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值的金额为投资的钱减去账户余额
         dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]};
         [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
-            HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
-            HFVC.requestModel = weakSelf.viewModel.resultModel;
-            [weakSelf.navigationController pushViewController:HFVC animated:YES];
+            if (isSuccess) {
+                HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+                HFVC.requestModel = weakSelf.viewModel.resultModel;
+                [weakSelf.navigationController pushViewController:HFVC animated:YES];
+            }
         }];
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
