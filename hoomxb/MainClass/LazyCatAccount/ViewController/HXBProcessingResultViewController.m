@@ -13,8 +13,7 @@
 #import "HXBLazyCatResponseModel.h"
 @interface HXBProcessingResultViewController ()<HXBLazyCatResponseDelegate>
 
-@property (nonatomic, strong) HXBCommonResultController *resultVC;
-
+@property (nonatomic, strong) HXBLazyCatResponseModel *responsemodel;
 @end
 
 @implementation HXBProcessingResultViewController
@@ -22,12 +21,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.resultVC = [[HXBCommonResultController alloc] init];
-    [self addChildViewController:self.resultVC];
-    [self.view addSubview:self.resultVC.view];
+    HXBCommonResultController *resultVC = [[HXBCommonResultController alloc] init];
+    
+    self.title = self.responsemodel.data.title;
+    resultVC.contentModel.imageName = self.responsemodel.imageName;
+    resultVC.contentModel.titleString = self.responsemodel.data.title;
+    resultVC.contentModel.descString = self.responsemodel.data.content;
+    resultVC.contentModel.firstBtnTitle = @"返回我的账户";
+    
+    [self addChildViewController:resultVC];
+    [self.view addSubview:resultVC.view];
     
     kWeakSelf
-    [self.resultVC.contentModel setFirstBtnBlock:^(HXBCommonResultController *resultController) {
+    [resultVC.contentModel setFirstBtnBlock:^(HXBCommonResultController *resultController) {
         [weakSelf back];
     }];
     
@@ -45,11 +51,8 @@
 
 #pragma mark - HXBLazyCatResponseDelegate
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
-    self.title = model.data.title;
-    self.resultVC.contentModel.imageName = model.imageName;
-    self.resultVC.contentModel.titleString = model.data.title;
-    self.resultVC.contentModel.descString = model.data.content;
-    self.resultVC.contentModel.firstBtnTitle = @"返回我的账户";
+    self.responsemodel = model;
+    
 }
 
 
