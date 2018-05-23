@@ -8,6 +8,10 @@
 
 #import "HXBBaseViewController.h"
 
+#define HXB_LOAD_LISTEN @"window.addEventListener('load',pageLoadComplete,false);\
+function pageLoadComplete() {window.location='objc://pageLoadComplete';}\
+"
+
 @interface HXBBaseWebViewController : HXBBaseViewController<UIWebViewDelegate>
 
 /**

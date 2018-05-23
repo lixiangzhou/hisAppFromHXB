@@ -10,4 +10,6 @@
 
 @interface HXBPlanBuyResultViewController : HXBBaseViewController
 
+@property (nonatomic, strong) NSString *errorMessage;
+
 @end

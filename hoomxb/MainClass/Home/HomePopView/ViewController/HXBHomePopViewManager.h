@@ -16,6 +16,8 @@
  */
 @property (nonatomic,assign) BOOL isHide;
 
+@property (nonatomic,assign,readonly) BOOL isClosed;
+
 + (instancetype)sharedInstance;
 
 /**

@@ -12,6 +12,15 @@
 
 @implementation HXBFinPlanBuyViewModel
 
+- (instancetype)init {
+    self = [super init];
+    if(self) {
+        self.isFilterHugHidden = NO;
+    }
+    
+    return self;
+}
+
 /// 添加load框，知道所有请求结束再消失
 - (void)hideProgress:(NYBaseRequest *)request {
     if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
@@ -21,10 +30,16 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
-        _resultModel = [[HXBLazyCatRequestModel alloc] init];
     }
     return self;
+}
+
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl containsString:@"purchase"]) {
+        return NO;
+    } else {
+        return [super erroStateCodeDeal:request];
+    }
 }
 
 /**
@@ -41,6 +56,7 @@
     request.requestUrl = kHXB_Coupon_Best;
     request.requestArgument = params;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bestCouponModel = [[HXBBestCouponModel alloc] init];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
@@ -65,12 +81,29 @@
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.resultModel = [[HXBLazyCatRequestModel alloc] init];
         [weakSelf hiddenHFBank];
         NSDictionary *data = responseObject[kResponseData];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         [weakSelf hiddenHFBank];
+        if (request.responseObject) {
+            NSInteger status = [request.responseObject[kResponseStatus] integerValue];
+            weakSelf.errorMessage = request.responseObject[kResponseMessage];
+            NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
+            if (status) {
+                if ([errorType isEqualToString:@"TOAST"]) {
+                    [HxbHUDProgress showTextWithMessage:request.responseObject[@"message"]];
+                    status = kBuy_Toast;
+                } else if ([errorType isEqualToString:@"RESULT"]) {
+                    status = kBuy_Result;
+                } else if ([errorType isEqualToString:@"PROCESSING"]) {
+                    status = kBuy_Processing;
+                }
+                weakSelf.errorCode = status;
+            }
+        }
         if (resultBlock) resultBlock(NO);
     }];
 }
