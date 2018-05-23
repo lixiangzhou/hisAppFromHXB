@@ -24,11 +24,9 @@
     HXBCommonResultController *resultVC = [[HXBCommonResultController alloc] init];
     
     self.title = self.responsemodel.data.title;
-    resultVC.contentModel.imageName = self.responsemodel.imageName;
-    resultVC.contentModel.titleString = self.responsemodel.data.title;
-    resultVC.contentModel.descString = self.responsemodel.data.content;
-    resultVC.contentModel.firstBtnTitle = @"返回我的账户";
     
+    HXBCommonResultContentModel *contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:self.responsemodel.imageName titleString:self.responsemodel.data.title descString:self.responsemodel.data.content firstBtnTitle:@"返回我的账户"];
+    resultVC.contentModel = contentModel;
     [self addChildViewController:resultVC];
     [self.view addSubview:resultVC.view];
     
