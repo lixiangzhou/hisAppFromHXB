@@ -28,6 +28,14 @@
     }
 }
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl containsString:@"purchase"]) {
+        return NO;
+    } else {
+        return [super erroStateCodeDeal:request];
+    }
+}
+
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
         _resultModel = [[HXBLazyCatRequestModel alloc] init];
@@ -58,6 +66,22 @@
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         [weakSelf hiddenHFBank];
+        if (request.responseObject) {
+            NSInteger status = [request.responseObject[kResponseStatus] integerValue];
+            weakSelf.errorMessage = request.responseObject[kResponseMessage];
+            NSString *errorType = request.responseObject[kResponseErrorData][@"errorType"];
+            if (status) {
+                if ([errorType isEqualToString:@"TOAST"]) {
+                    [HxbHUDProgress showTextWithMessage:request.responseObject[@"message"]];
+                    status = kBuy_Toast;
+                } else if ([errorType isEqualToString:@"RESULT"]) {
+                    status = kBuy_Result;
+                } else if ([errorType isEqualToString:@"PROCESSING"]) {
+                    status = kBuy_Processing;
+                }
+                weakSelf.errorCode = status;
+            }
+        }
         if (resultBlock) resultBlock(NO);
     }];
 }

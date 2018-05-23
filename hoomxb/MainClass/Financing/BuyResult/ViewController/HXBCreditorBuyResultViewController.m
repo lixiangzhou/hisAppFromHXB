@@ -50,6 +50,15 @@
     [super viewWillAppear:animated];
     
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    
+    if (self.errorMessage.length) {
+        self.secondBtn.hidden = YES;
+        self.iconView.image = [UIImage imageNamed:@"failure"];
+        self.titleLabel.text = @"出借失败";
+        self.descLabel.text = self.errorMessage;
+        [self.firstBtn setTitle:@"重新出借" forState:UIControlStateNormal];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
