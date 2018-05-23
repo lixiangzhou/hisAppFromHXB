@@ -52,11 +52,5 @@
     self.resultVC.contentModel.firstBtnTitle = @"返回我的账户";
 }
 
-/**
- 返回上级层面的VC
- */
-- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
-    
-}
 
 @end
