@@ -143,7 +143,7 @@
     if (self.nextButtonClickBlock) {
         kWeakSelf
         if ([self judgeIsNull]) return;
-        [self.bindBankCardVM checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+        [self.bindBankCardVM checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:YES andCallBack:^(BOOL isSuccess) {
             if (isSuccess) {
                 weakSelf.cardBinModel = weakSelf.bindBankCardVM.cardBinModel;
                 NSDictionary *dic = @{
@@ -236,11 +236,11 @@
         kWeakSelf
         _bankCardTextField.block = ^(NSString *text) {
             _bankCardID = [_bankCardTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-            if (_bankCardID.length >= 12) {
-                if (weakSelf.checkCardBin) {
-                    weakSelf.checkCardBin(weakSelf.bankCardID);
-                }
-            }
+//            if (_bankCardID.length >= 12) {
+//                if (weakSelf.checkCardBin) {
+//                    weakSelf.checkCardBin(weakSelf.bankCardID);
+//                }
+//            }
         };
     }
     return _bankCardTextField;
