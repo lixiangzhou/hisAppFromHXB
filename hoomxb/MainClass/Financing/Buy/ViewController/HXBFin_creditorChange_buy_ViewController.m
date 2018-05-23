@@ -213,7 +213,7 @@ static NSString *const bankString = @"绑定银行卡";
     _handleDetailTitle = [NSString stringWithFormat:@"%.2f", investMoney.doubleValue];
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
-    [self setUpArray];
+    [self hasBuyType];
 }
 
 // 购买债权
