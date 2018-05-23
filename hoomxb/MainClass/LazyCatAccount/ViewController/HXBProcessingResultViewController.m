@@ -9,7 +9,11 @@
 #import "HXBProcessingResultViewController.h"
 #import "HXBCommonResultController.h"
 #import "HXBBaseTabBarController.h"
-@interface HXBProcessingResultViewController ()
+#import "HXBLazyCatResponseDelegate.h"
+#import "HXBLazyCatResponseModel.h"
+@interface HXBProcessingResultViewController ()<HXBLazyCatResponseDelegate>
+
+@property (nonatomic, strong) HXBCommonResultController *resultVC;
 
 @end
 
@@ -17,17 +21,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"请求超时";
-    HXBCommonResultController *resultVC = [[HXBCommonResultController alloc] init];
-    resultVC.contentModel = [[HXBCommonResultContentModel alloc] initWithImageName:@"outOffTime" titleString:@"请求超时" descString:@"请求超时，请返回至账户内查看结果" firstBtnTitle:@"返回我的账户"];
-    [self addChildViewController:resultVC];
-    [self.view addSubview:resultVC.view];
+    
+    self.resultVC = [[HXBCommonResultController alloc] init];
+    [self addChildViewController:self.resultVC];
+    [self.view addSubview:self.resultVC.view];
     
     kWeakSelf
-    [resultVC.contentModel setFirstBtnBlock:^(HXBCommonResultController *resultController) {
+    [self.resultVC.contentModel setFirstBtnBlock:^(HXBCommonResultController *resultController) {
         [weakSelf back];
     }];
     
+}
+
+- (void)leftBackBtnClick {
+    [self back];
 }
 
 - (void)back {
@@ -36,9 +43,20 @@
     tabBarVC.selectedIndex = 2;
 }
 
-- (void)leftBackBtnClick {
-    [self back];
+#pragma mark - HXBLazyCatResponseDelegate
+- (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
+    self.title = model.data.title;
+    self.resultVC.contentModel.imageName = model.imageName;
+    self.resultVC.contentModel.titleString = model.data.title;
+    self.resultVC.contentModel.descString = model.data.content;
+    self.resultVC.contentModel.firstBtnTitle = @"返回我的账户";
 }
 
+/**
+ 返回上级层面的VC
+ */
+- (void)setResultPageWithPopViewControllers:(NSArray *)vcArray {
+    
+}
 
 @end
