@@ -7,6 +7,8 @@
 //
 
 #import "HxbHUDProgress.h"
+#import "SGInfoAlert.h"
+
 @interface HxbHUDProgress () <MBProgressHUDDelegate>
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (assign, nonatomic)int  mTime;
@@ -31,7 +33,7 @@
         return;
     }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    [self showTextInView:keyWindow text:message];
+    [SGInfoAlert showInfo:message bgColor:[UIColor blackColor].CGColor inView:keyWindow vertical:0.3];
 }
 
 + (void)showTextInView:(UIView*)view text:(NSString *)message {

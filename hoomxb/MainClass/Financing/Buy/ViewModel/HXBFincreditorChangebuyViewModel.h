@@ -19,6 +19,16 @@
 @property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;
 
 /**
+ 错误状态码
+ */
+@property (nonatomic, assign) NSInteger errorCode;
+
+/**
+ 错误描述
+ */
+@property (nonatomic, copy) NSString *errorMessage;
+
+/**
  债权充值结果
  
  @param parameter 购买参数

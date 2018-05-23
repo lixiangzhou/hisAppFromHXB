@@ -10,4 +10,6 @@
 
 @interface HXBCreditorBuyResultViewController : HXBBaseViewController
 
+@property (nonatomic, strong) NSString *errorMessage;
+
 @end

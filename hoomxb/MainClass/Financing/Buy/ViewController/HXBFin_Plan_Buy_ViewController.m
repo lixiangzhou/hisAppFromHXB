@@ -19,6 +19,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBFinPlanBuyViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
+#import "HXBPlanBuyResultViewController.h"
 
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate, HXBRemoteUpdateInterface>
@@ -62,6 +63,8 @@
 @property (nonatomic, assign) double discountMoney;
 /** 优惠券id */
 @property (nonatomic, copy) NSString *couponid;
+/** 是否勾选优惠券 */
+@property (nonatomic, assign) BOOL isSelectCoupon;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
 // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
@@ -99,7 +102,7 @@
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
-    
+    _isSelectCoupon = NO;
     kWeakSelf
     _viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
         if (weakSelf.presentedViewController) {
@@ -197,6 +200,7 @@
         chooseDiscountVC.planid = _loanId;
         chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
         chooseDiscountVC.type = @"plan";
+        chooseDiscountVC.isSelectCoupon = _isSelectCoupon;
         chooseDiscountVC.couponid = self.isNewPlan ? @"0" : _couponid;
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
@@ -386,6 +390,19 @@
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
+        } else {
+            HXBPlanBuyResultViewController *failViewController = [[HXBPlanBuyResultViewController alloc]init];
+            switch (weakSelf.viewModel.errorCode) {
+                case kBuy_Result:
+                    failViewController.errorMessage = weakSelf.viewModel.errorMessage;
+                    break;
+                    
+                default:
+                    return;
+            }
+
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
+        
         }
     }];
     
@@ -400,6 +417,7 @@
         _hasBestCoupon = YES;
         _chooseCoupon = model;
         _couponid = model.ID;
+        _isSelectCoupon = NO;
     } else {
         _discountMoney = 0.0;
         _hasBestCoupon = NO;
@@ -407,6 +425,7 @@
         _couponTitle = @"优惠券";
         _discountTitle = @"不使用优惠券";
         _couponid = @"";
+        _isSelectCoupon = YES;
     }
     self.bottomView.addBtnIsUseable = YES;
     [self changeItemWithInvestMoney:_inputMoneyStr];
@@ -466,6 +485,7 @@
         } else {
             [weakSelf getBestCouponFailWithMoney:money cell:cell];
             weakSelf.discountTitle = @"请选择优惠券";
+            weakSelf.isSelectCoupon = NO;
             [weakSelf changeItemWithInvestMoney:money];
         }
     }];
@@ -519,16 +539,19 @@
         _couponTitle = [NSString stringWithFormat:@"优惠券（使用%@）", model.bestCoupon.summaryTitle];
         _hasBestCoupon = YES;
         _couponid = model.bestCoupon.ID;
+        _isSelectCoupon = NO;
     } else {
         _hasBestCoupon = NO;
         _afterDiscountMoney = money.doubleValue;
         _discountTitle = @"请选择优惠券";
         _couponTitle = @"优惠券";
         _couponid = @"";
+        _isSelectCoupon = NO;
         if (!model.hasCoupon) {
             _discountTitle = @"暂无可用优惠券";
         }
     }
+    
     [self changeItemWithInvestMoney:money];
 }
 
@@ -653,6 +676,7 @@
     } else {
         self.discountTitle = @"未使用";
         self.couponid = @"";
+        self.isSelectCoupon = NO;
         self.hasBestCoupon = NO;
         self.couponTitle = @"优惠券";
         self.afterDiscountMoney = text.doubleValue;

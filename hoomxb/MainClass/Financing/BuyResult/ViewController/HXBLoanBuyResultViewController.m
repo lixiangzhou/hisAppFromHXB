@@ -76,7 +76,7 @@
                 [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
             };
         }
-    } else {
+    } else if (_model.result.length && ![_model.result isEqualToString:@"success"]) {
         
         self.commenResultVC.contentModel.imageName = _model.imageName;
         self.commenResultVC.contentModel.titleString = _model.data.title;
@@ -97,6 +97,19 @@
 #pragma mark - Action
 - (void)setResultPageProperty:(HXBLazyCatResponseModel *)model {
     _model = model;
+}
+
+- (void)setErrorMessage:(NSString *)errorMessage {
+    if (errorMessage.length) {
+        self.commenResultVC.contentModel.imageName = @"failure";
+        self.commenResultVC.contentModel.titleString = @"加入失败";
+        self.commenResultVC.contentModel.descString = errorMessage;
+        self.commenResultVC.contentModel.firstBtnTitle = @"重新出借";
+        kWeakSelf
+        self.commenResultVC.contentModel.firstBtnBlock = ^(HXBCommonResultController *resultController) {
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        };
+    }
 }
 
 - (HXBCommonResultController *)commenResultVC {

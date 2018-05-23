@@ -49,12 +49,12 @@
     self.viewModel = [[HXBMyLoanDetailsViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    [self loadAccountLoanTransferInfo];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.agreementView];
     [self.view addSubview:self.sureBtn];
     [self setupFrame];
+    [self loadAccountLoanTransferInfo];
 }
 
 - (void)setupFrame
