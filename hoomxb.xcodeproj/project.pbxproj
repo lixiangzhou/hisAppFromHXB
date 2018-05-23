@@ -70,6 +70,7 @@
 		4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9215701F1DFC8800C8CECB /* bank_name.svg */; };
 		4E9215731F1DFC9E00C8CECB /* card.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9215721F1DFC9E00C8CECB /* card.svg */; };
 		4E9215751F1DFFA400C8CECB /* more.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9215741F1DFFA400C8CECB /* more.svg */; };
+		4E93874A20B5481000AEBD27 /* HXBProcessingResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93874920B5481000AEBD27 /* HXBProcessingResultViewController.m */; };
 		4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8651F5D4FE90001BE94 /* BXTextField.m */; };
 		4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8671F5D4FE90001BE94 /* UITextField+BXExtension.m */; };
 		4E94A86C1F5D4FE90001BE94 /* UIView+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8691F5D4FE90001BE94 /* UIView+BXExtension.m */; };
@@ -707,6 +708,8 @@
 		4E9215701F1DFC8800C8CECB /* bank_name.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bank_name.svg; sourceTree = "<group>"; };
 		4E9215721F1DFC9E00C8CECB /* card.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = card.svg; sourceTree = "<group>"; };
 		4E9215741F1DFFA400C8CECB /* more.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = more.svg; sourceTree = "<group>"; };
+		4E93874820B5481000AEBD27 /* HXBProcessingResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBProcessingResultViewController.h; sourceTree = "<group>"; };
+		4E93874920B5481000AEBD27 /* HXBProcessingResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBProcessingResultViewController.m; sourceTree = "<group>"; };
 		4E94A8641F5D4FE90001BE94 /* BXTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BXTextField.h; sourceTree = "<group>"; };
 		4E94A8651F5D4FE90001BE94 /* BXTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXTextField.m; sourceTree = "<group>"; };
 		4E94A8661F5D4FE90001BE94 /* UITextField+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BXExtension.h"; sourceTree = "<group>"; };
@@ -2600,6 +2603,8 @@
 			children = (
 				4E026FD42088798F00738A77 /* HXBLazyCatAccountWebViewController.h */,
 				4E026FD52088798F00738A77 /* HXBLazyCatAccountWebViewController.m */,
+				4E93874820B5481000AEBD27 /* HXBProcessingResultViewController.h */,
+				4E93874920B5481000AEBD27 /* HXBProcessingResultViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -5777,6 +5782,7 @@
 				9AE033B42022C423006D6140 /* HXBLoanTruansferDetailViewModel.m in Sources */,
 				4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */,
 				9AE032272022C317006D6140 /* HxbWithdrawViewController.m in Sources */,
+				4E93874A20B5481000AEBD27 /* HXBProcessingResultViewController.m in Sources */,
 				9AE031DE2022C317006D6140 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				9AE033B82022F8BB006D6140 /* HXBBaseViewModel.m in Sources */,
