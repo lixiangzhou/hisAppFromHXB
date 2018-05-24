@@ -309,6 +309,7 @@ static NSString *const bankString = @"绑定银行卡";
                 }
             }];
         }
+
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
                 @"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
@@ -324,7 +325,7 @@ static NSString *const bankString = @"绑定银行卡";
     alertVC.isCenterShow = YES;
     kWeakSelf
     [alertVC setRightBtnBlock:^{
-        NSDictionary *dic = @{@"amount": [NSString stringWithFormat:@"%@", self.userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new]};
+        NSDictionary *dic = @{@"amount": [NSString stringWithFormat:@"%@", weakSelf.userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new]};
         [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
