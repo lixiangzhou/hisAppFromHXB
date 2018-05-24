@@ -236,11 +236,11 @@
         kWeakSelf
         _bankCardTextField.block = ^(NSString *text) {
             _bankCardID = [_bankCardTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-//            if (_bankCardID.length >= 12) {
-//                if (weakSelf.checkCardBin) {
-//                    weakSelf.checkCardBin(weakSelf.bankCardID);
-//                }
-//            }
+            if (_bankCardID.length >= 12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(weakSelf.bankCardID);
+                }
+            }
         };
     }
     return _bankCardTextField;
