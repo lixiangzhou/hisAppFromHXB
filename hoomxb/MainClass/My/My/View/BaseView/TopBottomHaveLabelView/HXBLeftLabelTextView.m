@@ -151,14 +151,14 @@
     }
     if ([str containsString:@"."]) {
         NSString *intString = [str componentsSeparatedByString:@"."].firstObject;
-        if (intString.length > 9) {
+        if (intString.length > 10) {
             return NO;
         }
         NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
         return [NSString checkBothDecimalPlaces:checkStr];
         
     } else {
-        if (str.length > 9) {
+        if (str.length > 10) {
             return NO;
         }
     }
