@@ -9,11 +9,12 @@
 #import "HXBBaseViewModel.h"
 #import "HXBBaseViewModel+KEYCHAIN.h"
 #import "HXBLazyCatRequestModel.h"
+#import "HXBBankCardModel.h"
 
 @interface HXBMyTopUpVCViewModel : HXBBaseViewModel
 
 @property (nonatomic, strong) HXBLazyCatRequestModel *lazyCatReqModel;
-
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 /**
  快捷充值接口
  */
@@ -36,4 +37,7 @@
  @param callbackBlock 请求回调
  */
 - (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
+
+/// 请求顶部银行卡信息
+- (void)requestBankData:(void(^)(BOOL isSuccess))resultBlock;
 @end

@@ -11,7 +11,7 @@
 @class HXBBankCardModel;
 @interface HXBMyTopUpBankView : UIView
 
-@property (nonatomic, strong) HXBBankCardViewModel *bankCardViewModel;
+//@property (nonatomic, strong) HXBBankCardViewModel *bankCardViewModel;
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 @end
