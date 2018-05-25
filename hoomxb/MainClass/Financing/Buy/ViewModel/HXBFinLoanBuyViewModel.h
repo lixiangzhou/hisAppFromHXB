@@ -14,6 +14,16 @@
 @interface HXBFinLoanBuyViewModel : HXBBaseViewModel
 
 /**
+ 错误状态码
+ */
+@property (nonatomic, assign) NSInteger errorCode;
+
+/**
+ 错误描述
+ */
+@property (nonatomic, copy) NSString *errorMessage;
+
+/**
  散标购买结果Model
  */
 @property (nonatomic, strong) HXBLazyCatRequestModel *resultModel;

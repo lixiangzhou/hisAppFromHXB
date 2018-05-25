@@ -49,6 +49,13 @@
     return manager;
 }
 
+- (BOOL)isClosed {
+    if (self.isHide && !self.popView.superview) {
+        return YES;
+    }
+    return NO;
+}
+
 /**
  获取首页弹窗数据
  */
@@ -81,8 +88,7 @@
         }
     } else {
         _responseDict = dict;
-        //        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-        //        [kUserDefaults synchronize];
+ 
         [self cachePopHomeImage];
     }
 }
@@ -96,29 +102,23 @@
     }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image) {
-            //            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
-            //            weakSelf.popView.imgView.image = img;
+
             weakSelf.popView.imgView.image = image;
             [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
             [kUserDefaults synchronize];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
             [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
             
-//            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//            [kUserDefaults synchronize];
             weakSelf.isHide = NO;
             
             [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         } else {
-//            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//            [kUserDefaults synchronize];
+
             if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
                 [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
             } else {
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
             }
             self.isHide = YES;
@@ -136,11 +136,9 @@
             NSLog(@"1111显示完成");
             if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
                 [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-//                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
             } else {
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
             }
 
@@ -154,7 +152,7 @@
         // 处理自定义视图操作事件
         self.popView.closeActionBlock = ^{
             NSLog(@"1111点击关闭按钮");
-            [weakPopView dismiss];
+            [weakPopView dismiss:@"closeAction"];
         };
         self.popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
@@ -167,19 +165,14 @@
         };
         self.popView.clickBgmDismissCompleteBlock = ^{
             NSLog(@"1111点击背景移除完成");
-            [weakPopView dismiss];
+            [weakPopView dismiss:@"BgmDismiss"];
         };
         // 显示弹框
         if (!self.isHide) {
-//            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
             UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
             if (image) {
-//                weakSelf.popView.imgView.image = img;
                 weakSelf.popView.imgView.image = image;
                 [weakSelf.popView pop];
-//                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//                [kUserDefaults synchronize];
             }
         }
     }

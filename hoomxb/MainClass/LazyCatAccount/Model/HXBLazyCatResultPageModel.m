@@ -19,6 +19,8 @@ NSString* const kPlan = @"plan";
 NSString* const kTransfer = @"transfer";
 NSString* const kTransfersale = @"transfersale";
 NSString* const kAccountactive = @"accountactive";
+//通用超时处理用的action
+NSString* const kCommonTimeout = @"commonTimeout";
 
 @implementation HXBLazyCatResultPageModel
 

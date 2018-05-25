@@ -125,34 +125,49 @@
 //参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
-    NSString *str = nil;
+    NSMutableString *str = textField.text.mutableCopy;
     if (string.length) {
-        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        [str insertString:string atIndex:range.location];
+        NSLog(@"str = %@", str);
     } else {
         NSMutableString *strM = textField.text.mutableCopy;
         NSInteger length = strM.length;
         NSRange range = NSMakeRange(length - 1, 1);
-        
+
         if (range.location > 0 && range.location + range.length <= length) {
             [strM deleteCharactersInRange:range];
         }
         str = strM.copy;
     }
-    
+
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if (range.location == 0 && [string isEqualToString:@"."]) return NO;
-    if (range.location == 0 && string.length == 0) str = @""; // 删除最后一位的时候，把输入框清空
+    
+    if (range.location == 0 && string.length == 0) str = [NSMutableString stringWithString:@""]; // 删除最后一位的时候，把输入框清空
     if (str.length > 0) {
         self.haveStr(YES);
     } else {
         self.haveStr(NO);
     }
-    if (range.location == 0 && [string isEqualToString:@""]) return YES;
-    if (range.location == 11) return NO;
-//    return YES;
-    //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
-    NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    return [NSString checkBothDecimalPlaces:checkStr];
+    if ([str containsString:@"."]) {
+        NSString *intString = [str componentsSeparatedByString:@"."].firstObject;
+        if (intString.length > 10) {
+            return NO;
+        }
+        NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        return [NSString checkBothDecimalPlaces:checkStr];
+        
+    } else {
+        if (str.length > 10) {
+            return NO;
+        }
+    }
+    
+    
+
+
+
+    return YES;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {

@@ -20,6 +20,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBFincreditorChangebuyViewModel.h"
 #import "HXBLazyCatAccountWebViewController.h"
+#import "HXBCreditorBuyResultViewController.h"
 
 static NSString *const bankString = @"绑定银行卡";
 
@@ -212,7 +213,7 @@ static NSString *const bankString = @"绑定银行卡";
     _handleDetailTitle = [NSString stringWithFormat:@"%.2f", investMoney.doubleValue];
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
-    [self setUpArray];
+    [self hasBuyType];
 }
 
 // 购买债权
@@ -296,12 +297,19 @@ static NSString *const bankString = @"绑定银行卡";
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else if (buyType == HXBBuyTypeBankBuy) {  /// 充值的金额为投资的钱减去账户余额
-        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]};
-        [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
-            HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
-            HFVC.requestModel = weakSelf.viewModel.resultModel;
-            [weakSelf.navigationController pushViewController:HFVC animated:YES];
-        }];
+        if (self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue < self.userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new.doubleValue) {
+            [self lessRechargeMoney];
+        } else {
+            dic = @{@"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue - self.balanceMoneyStr.doubleValue]};
+            [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+                    HFVC.requestModel = weakSelf.viewModel.resultModel;
+                    [weakSelf.navigationController pushViewController:HFVC animated:YES];
+                }
+            }];
+        }
+
     } else if (buyType == HXBBuyTypeBalance) {  /// 余额购买
         dic = @{@"transferId": self.loanId,
                 @"amount": [NSString stringWithFormat:@"%.2f", self.inputMoneyStr.doubleValue],
@@ -309,6 +317,24 @@ static NSString *const bankString = @"绑定银行卡";
                 };
         [self buyCreditorWithDic:dic];
     }
+}
+
+// 充值金额小于最小充值金额
+- (void)lessRechargeMoney {
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", self.userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new] andLeftBtnName:@"取消" andRightBtnName:@"确认充值" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.isCenterShow = YES;
+    kWeakSelf
+    [alertVC setRightBtnBlock:^{
+        NSDictionary *dic = @{@"amount": [NSString stringWithFormat:@"%@", weakSelf.userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new]};
+        [_viewModel rechargeWithParameter:dic resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
+                HFVC.requestModel = weakSelf.viewModel.resultModel;
+                [weakSelf.navigationController pushViewController:HFVC animated:YES];
+            }
+        }];
+    }];
+    [self presentViewController:alertVC animated:NO completion:nil];
 }
 
 // 购买债权
@@ -319,6 +345,18 @@ static NSString *const bankString = @"绑定银行卡";
             HXBLazyCatAccountWebViewController *HFVC = [[HXBLazyCatAccountWebViewController alloc] init];
             HFVC.requestModel = weakSelf.viewModel.resultModel;
             [weakSelf.navigationController pushViewController:HFVC animated:YES];
+        } else {
+            HXBCreditorBuyResultViewController *failViewController = [[HXBCreditorBuyResultViewController alloc]init];
+            switch (weakSelf.viewModel.errorCode) {
+                case kBuy_Result:
+                    failViewController.errorMessage = weakSelf.viewModel.errorMessage;
+                    break;
+                    
+                default:
+                    return;
+            }
+            
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
         }
     }];
 }

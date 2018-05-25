@@ -43,4 +43,12 @@
  移除弹框
  */
 - (void)dismiss;
+
+/**
+ 移除弹框
+
+ @param fromAction 来源
+ */
+- (void)dismiss: (NSString *)fromAction;
+
 @end
