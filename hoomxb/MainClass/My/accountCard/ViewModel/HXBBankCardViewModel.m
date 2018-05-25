@@ -50,7 +50,7 @@
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBAccount_Bindcard]) {
         NSInteger status =  [request.responseObject[@"status"] integerValue];
-        if (status == kHXBOpenAccount_Outnumber) {
+        if (status == kHXBOpenAccount_Outnumber || status == kHXBCode_UnBindCardFail) {
             return NO;
         }
     }
@@ -155,7 +155,7 @@
         [weakSelf hiddenHFBank];
         if (request.responseObject) {
             NSInteger status =  [request.responseObject[@"status"] integerValue];
-            if (status == kHXBOpenAccount_Outnumber) {
+            if (status == kHXBOpenAccount_Outnumber || status == kHXBCode_UnBindCardFail) {
                 NSString *string = [NSString stringWithFormat:@"您今日绑卡错误次数已超限，请明日再试。如有疑问可联系客服 \n%@", kServiceMobile];
                 HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:string andLeftBtnName:@"取消" andRightBtnName:@"联系客服" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
                 alertVC.isCenterShow = YES;
