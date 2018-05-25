@@ -88,7 +88,7 @@
 - (void)openDepositoryWithUsrname:(NSString *)username idNo:(NSString *)idNo bankNo:(NSString *)bankNo resultBlock:(void (^)(BOOL))resultBlock {
     kWeakSelf
     [self showHFBankWithContent:hfContentText];
-    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+    [self checkCardBinResultRequestWithBankNumber:bankNo andisToastTip:YES andCallBack:^(BOOL isSuccess) {
         if (isSuccess) {
             NSDictionary *param = @{
                                     @"name" : username,
@@ -100,7 +100,6 @@
         } else {
             [weakSelf hiddenHFBank];
         }
-        
     }];
     
 }
@@ -145,7 +144,7 @@
         request.requestArgument = @{
                             @"bankCard" : bankNumber
                             };
-        request.showHud = isToast;
+//        request.showHud = isToast;
         weakSelf.cardBinrequest = request;
         weakSelf.cardBinIsShowTost = isToast;
     } resultBlock:^(HXBCardBinModel *cardBinModel, NSError *error) {
