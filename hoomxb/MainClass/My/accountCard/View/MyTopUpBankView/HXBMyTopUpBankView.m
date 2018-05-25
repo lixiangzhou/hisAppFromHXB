@@ -28,30 +28,9 @@
         [self addSubview:self.bankCardNumLabel];
         [self addSubview:self.amountLimitLabel];
         [self setContentViewFrame];
-        
-//        [self loadBankCard];
     }
     return self;
 }
-
-
-//- (void)loadBankCard
-//{
-//    kWeakSelf
-//    [self.bankCardViewModel requestBankDataResultBlock:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            weakSelf.bankCardModel = weakSelf.bankCardViewModel.bankCardModel;
-//            //设置绑卡信息
-//            weakSelf.bankNameLabel.text = weakSelf.bankCardModel.bankType;
-//            weakSelf.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[weakSelf.bankCardModel.cardId substringFromIndex:weakSelf.bankCardModel.cardId.length - 4]];
-//            weakSelf.amountLimitLabel.text = weakSelf.bankCardModel.quota;
-//            weakSelf.bankLogoImageView.svgImageString = weakSelf.bankCardModel.bankCode;
-//            if (weakSelf.bankLogoImageView.image == nil) {
-//                weakSelf.bankLogoImageView.svgImageString = @"默认";
-//            }
-//        }
-//    }];
-//}
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel {
     _bankCardModel = bankCardModel;

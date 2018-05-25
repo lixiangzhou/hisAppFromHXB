@@ -55,55 +55,6 @@
     }];
 }
 
-- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
-{
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
-    versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    versionUpdateAPI.requestArgument = @{
-                                         @"smscode" : smscode,
-                                         @"amount" : amount
-                                         };
-    versionUpdateAPI.showHud = YES;
-    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        if (callBackBlock) {
-            callBackBlock(YES);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (callBackBlock) {
-            callBackBlock(NO);
-        }
-    }];
-    
-}
-
-/**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
- */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess, NSError *error))callbackBlock {
-    kWeakSelf
-    [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
-        request.requestArgument = @{
-                                    @"amount" : amount,
-                                    @"action":action,
-                                    @"type":type
-                                    };
-        request.hudDelegate = weakSelf;
-        request.showHud = YES;
-    } resultBlock:^(id responseObject, NSError *error) {
-        if (error) {
-            callbackBlock(NO,error);
-        }
-        else {
-            callbackBlock(YES,nil);
-        }
-    }];
-}
-
 - (void)requestBankData:(void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
     [self.bankCardViewModel requestBankDataResultBlock:^(BOOL isSuccess) {

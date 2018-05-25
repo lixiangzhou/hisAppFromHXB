@@ -10,7 +10,6 @@
 #import "HXBFeedbackViewController.h"
 #import "HXBVersionUpdateViewModel.h"
 #import "HXBVersionUpdateModel.h"//版本更新的model
-#import "HXBAgreementView.h"
 #import "HXBBottomLineTableViewCell.h"
 #import "HXBCommonProblemViewController.h"//常见问题H5
 @interface HxbMyAboutMeViewController ()
