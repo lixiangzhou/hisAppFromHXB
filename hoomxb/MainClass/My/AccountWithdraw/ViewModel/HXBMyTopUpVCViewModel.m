@@ -8,11 +8,9 @@
 
 #import "HXBMyTopUpVCViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
-#import "HXBBankCardViewModel.h"
 #import "HXBBaseRequestManager.h"
 
 @interface HXBMyTopUpVCViewModel()
-@property (nonatomic, strong) HXBBankCardViewModel *bankCardViewModel;
 @end
 
 @implementation HXBMyTopUpVCViewModel
@@ -28,7 +26,7 @@
 
 /// 添加load框，知道所有请求结束再消失
 - (void)hideProgress:(NYBaseRequest *)request {
-    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self] && ![[HXBBaseRequestManager sharedInstance] isSendingRequest:self.bankCardViewModel]) {
+    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
         [super hideProgress:request];
     }
 }
@@ -56,20 +54,29 @@
 }
 
 - (void)requestBankData:(void(^)(BOOL isSuccess))resultBlock {
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    bankCardAPI.showHud = YES;
     kWeakSelf
-    [self.bankCardViewModel requestBankDataResultBlock:^(BOOL isSuccess) {
-        weakSelf.bankCardModel = weakSelf.bankCardViewModel.bankCardModel;
-        if (resultBlock) {        
-            resultBlock(isSuccess);
+    [bankCardAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
+        }
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        
+        NSDictionary *responseObject = request.responseObject;
+        
+        if (responseObject) {
+            [weakSelf showToast:@"银行卡请求失败"];
+        }
+        if (resultBlock) {
+            resultBlock(NO);
         }
     }];
-}
-
-- (HXBBankCardViewModel *)bankCardViewModel {
-    if (_bankCardViewModel == nil) {
-        _bankCardViewModel = [[HXBBankCardViewModel alloc] initWithBlock:self.hugViewBlock];
-    }
-    return _bankCardViewModel;
+    
 }
 
 @end
