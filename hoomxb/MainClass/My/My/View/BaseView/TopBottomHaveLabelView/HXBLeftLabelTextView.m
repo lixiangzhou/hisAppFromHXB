@@ -143,7 +143,7 @@
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if (range.location == 0 && [string isEqualToString:@"."]) return NO;
     
-    if (range.location == 0 && string.length == 0) str = [NSMutableString stringWithString:@""]; // 删除最后一位的时候，把输入框清空
+//    if (range.location == 0 && string.length == 0) str = [NSMutableString stringWithString:@""]; // 删除最后一位的时候，把输入框清空
     if (str.length > 0) {
         self.haveStr(YES);
     } else {
@@ -162,10 +162,6 @@
             return NO;
         }
     }
-    
-    
-
-
 
     return YES;
 }

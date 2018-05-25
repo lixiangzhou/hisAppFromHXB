@@ -11,7 +11,7 @@
 @interface HXBAccountActivationManager : NSObject
 
 //是否可以弹出. 当激活弹窗消失后， 需要设置这个值为FALSE; 反之亦然
-@property (nonatomic, assign) BOOL isPoped;
+@property (nonatomic, assign) BOOL isCanPoped;
 
 + (instancetype)sharedInstance;
 /**

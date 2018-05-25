@@ -27,14 +27,4 @@
 - (void)accountWithdrawaWithParameter: (NSMutableDictionary *)parameter
                      andRequestMethod: (NYRequestMethod)requestMethod
                           resultBlock: (void(^)(BOOL isSuccess))resultBlock;
-
-/**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
- */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
-
 @end

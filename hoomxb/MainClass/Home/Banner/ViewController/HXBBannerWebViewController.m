@@ -115,6 +115,7 @@ static NSString *const HXB_Dialog = @"dialog";
 
 - (void)logicalJumpWithData:(id)data
 {
+    kWeakSelf
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     NSString *path = data[@"path"];
@@ -169,23 +170,61 @@ static NSString *const HXB_Dialog = @"dialog";
         
     }else if ([path isEqualToString:kHomeVC]){
         //主页
-       [self.navigationController popViewControllerAnimated:NO];
-        tabBarVC.selectedIndex = 0;
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                tabBarVC.selectedIndex = 0;
+            }];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            tabBarVC.selectedIndex = 0;
+        }
     }else if ([path isEqualToString:kPlan_fragment]){
         //红利计划列表页
-        [self.navigationController popViewControllerAnimated:NO];
-        tabBarVC.selectedIndex = 1;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+         if (self.presentedViewController) {
+             [self.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                 tabBarVC.selectedIndex = 1;
+                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+             }];
+         }
+         else {
+             [self.navigationController popToRootViewControllerAnimated:NO];
+             tabBarVC.selectedIndex = 1;
+             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+         }
+        
     }else if ([path isEqualToString:kLoan_fragment]){
         //散标列表页
-        [self.navigationController popViewControllerAnimated:NO];
-        tabBarVC.selectedIndex = 1;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                tabBarVC.selectedIndex = 1;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
+            }];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            tabBarVC.selectedIndex = 1;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
+        }
+        
     }else if ([path isEqualToString:kLoantransferfragment]){
         //主页债权转让列表页
-        [self.navigationController popViewControllerAnimated:NO];
-        tabBarVC.selectedIndex = 1;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @2}];
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                tabBarVC.selectedIndex = 1;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @2}];
+            }];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            tabBarVC.selectedIndex = 1;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @2}];
+        }
+        
     }else if ([path isEqualToString:kAccountFriendsRecordActivity]){
         HXBInviteListViewController *inviteListVC = [[HXBInviteListViewController alloc] init];
         [self.navigationController pushViewController:inviteListVC animated:YES];

@@ -17,10 +17,8 @@
  是否为强制升级
  */
 @property (nonatomic, assign) BOOL isMandatoryUpdate;
-/**
- 是否展示过升级弹框
- */
-@property (nonatomic, assign) BOOL isShow;
+//是否已经被弹出
+@property (nonatomic, assign) BOOL isPoped;
 //只在appdelegate里面使用
 @property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
 
@@ -75,9 +73,14 @@
 }
 
 - (void)show {
-    if (self.versionUpdateModel && (!self.isShow)) {
-        self.isShow = YES;
+    if (self.versionUpdateModel && !self.isPoped) {
+        self.isPoped = YES;
         [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+    }
+    
+    if(self.isShow) {
+        UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:topVC];//展示首页弹窗
     }
 }
 

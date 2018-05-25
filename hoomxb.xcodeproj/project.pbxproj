@@ -286,9 +286,7 @@
 		9AE032522022C317006D6140 /* HXBAccountSecureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0316B2022C316006D6140 /* HXBAccountSecureCell.m */; };
 		9AE032532022C317006D6140 /* HXBBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0316D2022C316006D6140 /* HXBBankListCell.m */; };
 		9AE032542022C317006D6140 /* HXBCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0316F2022C316006D6140 /* HXBCustomTextField.m */; };
-		9AE032552022C317006D6140 /* HXBDepositoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031712022C316006D6140 /* HXBDepositoryHeaderView.m */; };
 		9AE032562022C317006D6140 /* HXBAgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031742022C316006D6140 /* HXBAgreementView.m */; };
-		9AE032572022C317006D6140 /* HXBOpenDepositAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031762022C316006D6140 /* HXBOpenDepositAccountView.m */; };
 		9AE032582022C317006D6140 /* HXBWithdrawCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031782022C316006D6140 /* HXBWithdrawCardView.m */; };
 		9AE032592022C317006D6140 /* HxbAccountInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0317B2022C316006D6140 /* HxbAccountInfoViewController.m */; };
 		9AE0325A2022C317006D6140 /* HxbMyAccountSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0317D2022C316006D6140 /* HxbMyAccountSecurityViewController.m */; };
@@ -1133,12 +1131,8 @@
 		9AE0316D2022C316006D6140 /* HXBBankListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankListCell.m; sourceTree = "<group>"; };
 		9AE0316E2022C316006D6140 /* HXBCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCustomTextField.h; sourceTree = "<group>"; };
 		9AE0316F2022C316006D6140 /* HXBCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCustomTextField.m; sourceTree = "<group>"; };
-		9AE031702022C316006D6140 /* HXBDepositoryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDepositoryHeaderView.h; sourceTree = "<group>"; };
-		9AE031712022C316006D6140 /* HXBDepositoryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDepositoryHeaderView.m; sourceTree = "<group>"; };
 		9AE031732022C316006D6140 /* HXBAgreementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAgreementView.h; sourceTree = "<group>"; };
 		9AE031742022C316006D6140 /* HXBAgreementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAgreementView.m; sourceTree = "<group>"; };
-		9AE031752022C316006D6140 /* HXBOpenDepositAccountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositAccountView.h; sourceTree = "<group>"; };
-		9AE031762022C316006D6140 /* HXBOpenDepositAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositAccountView.m; sourceTree = "<group>"; };
 		9AE031772022C316006D6140 /* HXBWithdrawCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawCardView.h; sourceTree = "<group>"; };
 		9AE031782022C316006D6140 /* HXBWithdrawCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardView.m; sourceTree = "<group>"; };
 		9AE0317A2022C316006D6140 /* HxbAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbAccountInfoViewController.h; sourceTree = "<group>"; };
@@ -3426,8 +3420,6 @@
 				9AE0316D2022C316006D6140 /* HXBBankListCell.m */,
 				9AE0316E2022C316006D6140 /* HXBCustomTextField.h */,
 				9AE0316F2022C316006D6140 /* HXBCustomTextField.m */,
-				9AE031702022C316006D6140 /* HXBDepositoryHeaderView.h */,
-				9AE031712022C316006D6140 /* HXBDepositoryHeaderView.m */,
 				9AE031722022C316006D6140 /* HXBOpenDepositAccountView */,
 				9AE031772022C316006D6140 /* HXBWithdrawCardView.h */,
 				9AE031782022C316006D6140 /* HXBWithdrawCardView.m */,
@@ -3440,8 +3432,6 @@
 			children = (
 				9AE031732022C316006D6140 /* HXBAgreementView.h */,
 				9AE031742022C316006D6140 /* HXBAgreementView.m */,
-				9AE031752022C316006D6140 /* HXBOpenDepositAccountView.h */,
-				9AE031762022C316006D6140 /* HXBOpenDepositAccountView.m */,
 			);
 			path = HXBOpenDepositAccountView;
 			sourceTree = "<group>";
@@ -5685,7 +5675,6 @@
 				9AE0338F2022C422006D6140 /* HXBLoanInformation.m in Sources */,
 				9AE0326D2022C317006D6140 /* HXBMYModel_LoanDetailModel.m in Sources */,
 				9AE032042022C317006D6140 /* HXBCircleViewConst.m in Sources */,
-				9AE032572022C317006D6140 /* HXBOpenDepositAccountView.m in Sources */,
 				9AE033762022C422006D6140 /* HXBFinModel_Buy_Plan.m in Sources */,
 				9AE032312022C317006D6140 /* HXBMyCouponViewController.m in Sources */,
 				9AE032282022C317006D6140 /* HXBFinancialAdvisorModel.m in Sources */,
@@ -5865,7 +5854,6 @@
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
 				9AE032772022C317006D6140 /* HXBTransferCreditorViewController.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
-				9AE032552022C317006D6140 /* HXBDepositoryHeaderView.m in Sources */,
 				9AE032512022C317006D6140 /* HXBAccount_AlterLoginPassword_View.m in Sources */,
 				E1277212209316B6004984AC /* HXBCreditorBuyResultViewController.m in Sources */,
 				8DAD307C1FBA8F8C00E2AEE8 /* HXBBaseViewController.m in Sources */,
