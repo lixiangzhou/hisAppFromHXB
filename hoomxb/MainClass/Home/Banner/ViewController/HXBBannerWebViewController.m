@@ -169,8 +169,15 @@ static NSString *const HXB_Dialog = @"dialog";
         
     }else if ([path isEqualToString:kHomeVC]){
         //主页
-       [self.navigationController popViewControllerAnimated:NO];
-        tabBarVC.selectedIndex = 0;
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                [self.navigationController popViewControllerAnimated:NO];
+                tabBarVC.selectedIndex = 0;
+            }];
+        } else {       
+            [self.navigationController popViewControllerAnimated:NO];
+            tabBarVC.selectedIndex = 0;
+        }
     }else if ([path isEqualToString:kPlan_fragment]){
         //红利计划列表页
         [self.navigationController popViewControllerAnimated:NO];
