@@ -18,7 +18,7 @@
 /**
  是否展示过升级弹框
  */
-@property (nonatomic, assign, readonly) BOOL isShow;
+@property (nonatomic, assign) BOOL isShow;
 
 //单例
 + (instancetype)sharedInstance;

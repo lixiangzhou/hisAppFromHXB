@@ -21,6 +21,7 @@
 #import "HXBNoticeViewController.h"
 #import "HXBBannerWebViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBAccountActivationManager.h"
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kNoticeVC @"/home/notice"//公告列表
@@ -127,52 +128,56 @@
 }
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
-    
-    if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
-        kWeakSelf
-        // 显示完成回调
-        __weak typeof(_popView) weakPopView = self.popView;
-        self.popView.popCompleteBlock = ^{
-            NSLog(@"1111显示完成");
-            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                [kUserDefaults synchronize];
-            } else {
-                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                [kUserDefaults synchronize];
-            }
-
-            weakSelf.isHide = YES;
-            
-        };
-        // 移除完成回调
-        self.popView.dismissCompleteBlock = ^{
-            NSLog(@"1111移除完成");
-        };
-        // 处理自定义视图操作事件
-        self.popView.closeActionBlock = ^{
-            NSLog(@"1111点击关闭按钮");
-            [weakPopView dismiss:@"closeAction"];
-        };
-        self.popView.clickImageBlock = ^{
-            NSLog(@"1111点击图片");
-            //校验可不可以跳转
-            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel.homePopModel]) {
-                //跳转到原生或h5
-                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel.homePopModel fromController:controller];
-            }
-            
-        };
-        self.popView.clickBgmDismissCompleteBlock = ^{
-            NSLog(@"1111点击背景移除完成");
-            [weakPopView dismiss:@"BgmDismiss"];
-        };
-        // 显示弹框
-        if (!self.isHide) {
-            UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-            if (image) {
-                weakSelf.popView.imgView.image = image;
-                [weakSelf.popView pop];
+    if([HXBAccountActivationManager sharedInstance].isCanPoped) {
+        [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
+    }
+    else{
+        if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
+            kWeakSelf
+            // 显示完成回调
+            __weak typeof(_popView) weakPopView = self.popView;
+            self.popView.popCompleteBlock = ^{
+                NSLog(@"1111显示完成");
+                if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                    [kUserDefaults synchronize];
+                } else {
+                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                    [kUserDefaults synchronize];
+                }
+                
+                weakSelf.isHide = YES;
+                
+            };
+            // 移除完成回调
+            self.popView.dismissCompleteBlock = ^{
+                NSLog(@"1111移除完成");
+            };
+            // 处理自定义视图操作事件
+            self.popView.closeActionBlock = ^{
+                NSLog(@"1111点击关闭按钮");
+                [weakPopView dismiss:@"closeAction"];
+            };
+            self.popView.clickImageBlock = ^{
+                NSLog(@"1111点击图片");
+                //校验可不可以跳转
+                if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel.homePopModel]) {
+                    //跳转到原生或h5
+                    [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel.homePopModel fromController:controller];
+                }
+                
+            };
+            self.popView.clickBgmDismissCompleteBlock = ^{
+                NSLog(@"1111点击背景移除完成");
+                [weakPopView dismiss:@"BgmDismiss"];
+            };
+            // 显示弹框
+            if (!self.isHide) {
+                UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+                if (image) {
+                    weakSelf.popView.imgView.image = image;
+                    [weakSelf.popView pop];
+                }
             }
         }
     }

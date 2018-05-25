@@ -19,6 +19,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
 #import "HXBGeneralAlertVC.h"
+#import "HXBVersionUpdateManager.h"
 
 
 @interface HXBAlertManager ()
@@ -203,6 +204,7 @@
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"" andRightButtonMassage:@"立即更新"];
         alertVC.isAutomaticDismiss = NO;
         [alertVC setClickXYRightButtonBlock:^{
+            [HXBVersionUpdateManager sharedInstance].isShow = YES;
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
         }];
@@ -211,17 +213,20 @@
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
         [alertVC setClickXYRightButtonBlock:^{
+            [HXBVersionUpdateManager sharedInstance].isShow = YES;
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
             [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         }];
         
         [alertVC setClickXYLeftButtonBlock:^{
+            [HXBVersionUpdateManager sharedInstance].isShow = YES;
             //点击取消处理
             [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         }];
         [self promptPriorityWithAlertVC:alertVC];
     } else {
+        [HXBVersionUpdateManager sharedInstance].isShow = YES;
         [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }
 }

@@ -27,7 +27,7 @@
 #import "HXBVersionUpdateManager.h"
 #import "HXBHomeNewbieProductModel.h"
 #import "HXBHomePlatformIntroductionModel.h"
-#import "HXBAccountActivationManager.h"
+
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -71,7 +71,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
     [self transparentNavigationTitle];
     self.tabBarController.tabBar.hidden = NO;
 }

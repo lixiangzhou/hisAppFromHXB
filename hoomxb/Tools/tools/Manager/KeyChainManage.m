@@ -214,7 +214,7 @@ static NSString *const hostH5 = @"hostH5";
             BOOL isAccountActivation = viewModel.userInfoModel.userInfo.isUserActive;
             if(!isAccountActivation && viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {//账户需要激活
                 
-                [HXBAccountActivationManager sharedInstance].isPoped = YES;
+                [HXBAccountActivationManager sharedInstance].isCanPoped = YES;
                 
                 [[HXBAccountActivationManager sharedInstance] entryActiveAccountPage];
                 
@@ -224,6 +224,7 @@ static NSString *const hostH5 = @"hostH5";
                 }
             }
             else {
+                [HXBAccountActivationManager sharedInstance].isCanPoped = NO;
                 if (resultBlock) {
                     resultBlock(viewModel, nil);
                 }
