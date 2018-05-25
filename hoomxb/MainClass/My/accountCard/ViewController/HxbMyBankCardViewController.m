@@ -100,12 +100,11 @@
         //            [self.navigationController pushViewController:VC animated:YES];
         
         [self.viewModel requestUnBindWithParam:nil finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
-            
+            self.navigationItem.rightBarButtonItem.enabled = YES;
             if (succeed) {
                 HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
                 lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
                 [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
-                self.navigationItem.rightBarButtonItem.enabled = YES;
             }
         }];
     }
