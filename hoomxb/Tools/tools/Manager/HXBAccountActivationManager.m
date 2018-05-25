@@ -17,7 +17,7 @@
 @interface HXBAccountActivationManager() {
     BOOL _isCanPoped;
 }
-@property (nonatomic, strong) HXBUserMigrationViewController* accountActivationVC;
+@property (nonatomic, weak) HXBUserMigrationViewController* accountActivationVC;
 @property (nonatomic, copy) NSString* popFlag;
 @end
 
