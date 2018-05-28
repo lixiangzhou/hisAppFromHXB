@@ -1,6 +1,6 @@
 //
 //  HXBModifyTransactionPasswordViewController.m
-//  修改交易密码
+//  修改交易密码或解绑原手机号
 //
 //  Created by HXB-C on 2017/6/8.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
@@ -69,18 +69,19 @@
 - (void)authenticationWithIDCard:(NSString *)IDCard
 {
     kWeakSelf
-    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && self.type == HXBModifyTransactionPasswordType) {
+        
         [self.viewModel modifyTransactionPasswordWithIdCard:IDCard resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.homeView idcardWasSuccessfully];
                 [weakSelf getValidationCode];
             }
         }];
+        
     } else {
         [weakSelf.homeView idcardWasSuccessfully];
         [weakSelf getValidationCode];
     }
-    
 }
 
 
@@ -89,7 +90,7 @@
  */
 - (void)getValidationCode {
     // fixme : 暂时获取验证码的action只有两个，目前处理为修改交易密码用前面的，其他均为解绑原手机号。
-    NSString *action = [self.title isEqualToString:@"修改交易密码"] ? kTypeKey_tradpwd : kTypeKey_oldmobile;
+    NSString *action = self.type == HXBModifyTransactionPasswordType ? kTypeKey_tradpwd : kTypeKey_oldmobile;
     kWeakSelf
     [_viewModel myTraderPasswordGetverifyCodeWithAction:action resultBlock:^(BOOL isSuccess) {
         if (!isSuccess) {
@@ -117,12 +118,12 @@
 
 - (void)checkIdentitySmsSuccessWithIDCard:(NSString *)IDCard andCode:(NSString *)code
 {
-    if ([self.title isEqualToString:@"修改交易密码"]) {
+    if (self.type == HXBModifyTransactionPasswordType) {
         HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
         transactionPasswordVC.idcard = IDCard;
         transactionPasswordVC.code = code;
         [self.navigationController pushViewController:transactionPasswordVC animated:YES];
-    }else if ([self.title isEqualToString:@"解绑原手机号"]){
+    }else if (self.type == HXBModifyPhoneType){
         HXBModifyPhoneViewController *modifyPhoneVC = [[HXBModifyPhoneViewController alloc] init];
         [self.navigationController pushViewController:modifyPhoneVC animated:YES];
     }
@@ -138,8 +139,8 @@
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
+            
             [weakSelf authenticationWithIDCard:IDCard];
-//            [weakSelf getValidationCode];
         };
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
