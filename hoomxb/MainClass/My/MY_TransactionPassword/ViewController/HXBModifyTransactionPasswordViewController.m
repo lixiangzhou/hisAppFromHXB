@@ -69,18 +69,19 @@
 - (void)authenticationWithIDCard:(NSString *)IDCard
 {
     kWeakSelf
-    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && self.type == HXBModifyTransactionPasswordType) {
+        
         [self.viewModel modifyTransactionPasswordWithIdCard:IDCard resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.homeView idcardWasSuccessfully];
                 [weakSelf getValidationCode];
             }
         }];
+        
     } else {
         [weakSelf.homeView idcardWasSuccessfully];
         [weakSelf getValidationCode];
     }
-    
 }
 
 
@@ -138,9 +139,8 @@
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
-            if (self.type == HXBModifyTransactionPasswordType) {
-                [weakSelf authenticationWithIDCard:IDCard];
-            }
+            
+            [weakSelf authenticationWithIDCard:IDCard];
         };
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
