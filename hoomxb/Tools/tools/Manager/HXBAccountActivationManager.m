@@ -12,9 +12,13 @@
 #import "HXBHomePopViewManager.h"
 
 #import "HXBUserMigrationViewController.h"
+#import "HXBVersionUpdateManager.h"
 
-@interface HXBAccountActivationManager()
-@property (nonatomic, strong) HXBUserMigrationViewController* accountActivationVC;
+@interface HXBAccountActivationManager() {
+    BOOL _isCanPoped;
+}
+@property (nonatomic, weak) HXBUserMigrationViewController* accountActivationVC;
+@property (nonatomic, copy) NSString* popFlag;
 @end
 
 @implementation HXBAccountActivationManager
@@ -28,6 +32,31 @@
     });
     
     return sharedInstance;
+}
+
+- (BOOL)isCanPoped {
+    if(!KeyChain.isLogin) {
+        return NO;
+    }
+    else {
+        if(!_popFlag) {
+            return YES;
+        }
+    }
+    return _isCanPoped;
+}
+
+- (void)setIsCanPoped:(BOOL)isCanPoped {
+    _isCanPoped = isCanPoped;
+    
+    BOOL isShowVersionPopview = _popFlag? NO : YES;
+    _popFlag = @"pop";
+    if(isShowVersionPopview && !isCanPoped) {
+        UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+        if ([topVC isKindOfClass:NSClassFromString(@"HxbHomeViewController")]) {
+            [[HXBVersionUpdateManager sharedInstance] show];
+        }
+    }
 }
 
 - (void)popActiveAccountPage {
@@ -54,15 +83,15 @@
  */
 - (void)entryActiveAccountPage {
     
-    if (self.isPoped) {
-        if (![HXBHomePopViewManager sharedInstance].isClosed)
-        {
-            UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
-            if (![topVC isKindOfClass:NSClassFromString(@"HxbHomeViewController")]) {
-                [self popActiveAccountPage];
-            }
-        } else {
+    if (_popFlag && self.isCanPoped) {
+        UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+        if (![topVC isKindOfClass:NSClassFromString(@"HxbHomeViewController")]) {
             [self popActiveAccountPage];
+        }
+        else {
+            if([HXBVersionUpdateManager sharedInstance].isShow){
+               [self popActiveAccountPage];
+            }
         }
     }
 }
@@ -72,8 +101,14 @@
  */
 - (void)exitActiveAccountPage {
     if(self.accountActivationVC.presentingViewController) {
-        self.isPoped = NO;
+        self.isCanPoped = NO;
         [self.accountActivationVC dismissViewControllerAnimated:NO completion:nil];
+        self.accountActivationVC = nil;
+        
+        UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
+        if ([topVC isKindOfClass:NSClassFromString(@"HxbHomeViewController")]) {
+            [[HXBVersionUpdateManager sharedInstance] show];
+        }
     }
     
 }

@@ -204,7 +204,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self isMatchToBuyWithMoney:investMoney];
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
-    [self setUpArray];
+    [self hasBuyType];
 }
 
 // 购买散标

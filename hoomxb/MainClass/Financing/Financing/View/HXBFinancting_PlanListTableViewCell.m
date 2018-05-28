@@ -209,7 +209,7 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(32));
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
-        make.height.equalTo(@(kScrAdaptationH750(25)));
+        make.height.equalTo(@(kScrAdaptationH750(30)));
         make.right.equalTo(weakSelf.contentView.mas_centerX);
     }];
     [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {

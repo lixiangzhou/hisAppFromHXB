@@ -21,8 +21,6 @@
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
 
 @property (nonatomic, strong) HXBMyTopUpVCViewModel *viewModel;
-
-
 @end
 
 @implementation HxbMyTopUpViewController
@@ -32,6 +30,8 @@
     self.isColourGradientNavigationBar = YES;
     self.title = @"充值";
     [self.view addSubview:self.myTopUpBaseView];
+    
+    [self getBankData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,6 +66,15 @@
 {
     [super viewDidDisappear:animated];
     self.myTopUpBaseView.amount = @"";
+}
+
+- (void)getBankData {
+    kWeakSelf
+    [self.viewModel requestBankData:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myTopUpBaseView.mybankView.bankCardModel = weakSelf.viewModel.bankCardModel;
+        }
+    }];
 }
 
 #pragma mark - Action

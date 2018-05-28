@@ -8,8 +8,28 @@
 
 #import "HXBMyTopUpVCViewModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+#import "HXBBaseRequestManager.h"
+
+@interface HXBMyTopUpVCViewModel()
+@end
 
 @implementation HXBMyTopUpVCViewModel
+
+- (instancetype)init {
+    self = [super init];
+    if(self) {
+        self.isFilterHugHidden = NO;
+    }
+    
+    return self;
+}
+
+/// 添加load框，知道所有请求结束再消失
+- (void)hideProgress:(NYBaseRequest *)request {
+    if (![[HXBBaseRequestManager sharedInstance] isSendingRequest:self]) {
+        [super hideProgress:request];
+    }
+}
 
 - (void)accountQuickChargeWithAmount:(NSString *)amount resultBlock:(void (^)(BOOL))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -33,53 +53,30 @@
     }];
 }
 
-- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
-{
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
-    versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    versionUpdateAPI.requestArgument = @{
-                                         @"smscode" : smscode,
-                                         @"amount" : amount
-                                         };
-    versionUpdateAPI.showHud = YES;
-    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        if (callBackBlock) {
-            callBackBlock(YES);
+- (void)requestBankData:(void(^)(BOOL isSuccess))resultBlock {
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    bankCardAPI.showHud = YES;
+    kWeakSelf
+    [bankCardAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        if (resultBlock) {
+            resultBlock(YES);
         }
+        
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (callBackBlock) {
-            callBackBlock(NO);
+        
+        NSDictionary *responseObject = request.responseObject;
+        
+        if (responseObject) {
+            [weakSelf showToast:@"银行卡请求失败"];
+        }
+        if (resultBlock) {
+            resultBlock(NO);
         }
     }];
     
-}
-
-/**
- 获取充值短验
- @param amount 充值金额
- @param action 判断是否为提现或者充值
- @param type 短信验证码或是语言验证码
- @param callbackBlock 请求回调
- */
-- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess, NSError *error))callbackBlock {
-    kWeakSelf
-    [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
-        request.requestArgument = @{
-                                    @"amount" : amount,
-                                    @"action":action,
-                                    @"type":type
-                                    };
-        request.hudDelegate = weakSelf;
-        request.showHud = YES;
-    } resultBlock:^(id responseObject, NSError *error) {
-        if (error) {
-            callbackBlock(NO,error);
-        }
-        else {
-            callbackBlock(YES,nil);
-        }
-    }];
 }
 
 @end

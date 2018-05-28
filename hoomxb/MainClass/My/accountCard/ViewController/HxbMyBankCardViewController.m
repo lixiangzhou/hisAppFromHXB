@@ -89,18 +89,19 @@
 }
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
-
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     kWeakSelf
     if (!self.bankCardModel.enableUnbind) {
         [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     } else {
         //            HXBUnBindCardController *VC = [HXBUnBindCardController new];
         //            VC.bankCardModel = self.bankCardModel;
         //            [self.navigationController pushViewController:VC animated:YES];
         
         [self.viewModel requestUnBindWithParam:nil finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
-            
-            if (canPush) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            if (succeed) {
                 HXBLazyCatAccountWebViewController *lazyCatWebVC = [HXBLazyCatAccountWebViewController new];
                 lazyCatWebVC.requestModel = weakSelf.viewModel.lazyCatRequestModel;
                 [weakSelf.navigationController pushViewController:lazyCatWebVC animated:YES];
