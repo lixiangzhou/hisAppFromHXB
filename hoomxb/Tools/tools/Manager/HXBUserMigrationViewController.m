@@ -27,8 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor lightGrayColor];
-    self.view.alpha = 0.6f;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
     [self.view addSubview:self.imageV];
     [self setupSubViewFrame];
 }
@@ -68,7 +67,7 @@
         _imageV.userInteractionEnabled = YES;
          UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageV:)];
         [_imageV addGestureRecognizer:tapRecognize];
-        _imageV.image = [UIImage imageNamed:@"AppIcon"];
+        _imageV.image = [UIImage imageNamed:@"UserMigrationUpgrade"];
     }
     return _imageV;
 }
