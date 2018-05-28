@@ -81,23 +81,26 @@
 
 - (void)timeDeal:(NSTimeInterval)diffTime
 {
+    BOOL isStopTimer = NO;
     if(self.isCountDown) {//倒计时
         _recordTimes -= diffTime;
         if(_recordTimes <= 0) {
             _recordTimes = 0;
-            [self stopTimer];
+            isStopTimer = YES;
         }
     }
     else{
         _recordTimes += diffTime;
         if(self.totalSeconds>0 && _recordTimes>=self.totalSeconds) {
             _recordTimes = self.totalSeconds;
-            [self stopTimer];
+            isStopTimer = YES;
         }
     }
-    
-    if(self.countDownBlock) {
+    if(_timer && self.countDownBlock) {
         self.countDownBlock([NSString stringWithFormat:@"%ld", (NSInteger)_recordTimes]);
+    }
+    if(isStopTimer) {
+        [self stopTimer];
     }
 }
 
