@@ -25,7 +25,20 @@
 
 @implementation HXBModifyPhoneViewController
 
-
+- (HXBModifyPhoneViewModel *)viewModel {
+    kWeakSelf
+    if (!_viewModel) {
+        _viewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
+        }];
+    }
+    return _viewModel;
+}
 - (HXBModifyPhoneView *)homeView
 {
     if (!_homeView) {
@@ -41,15 +54,7 @@
             if (weakSelf.checkPaptcha.length == 0) {
                 [HxbHUDProgress showTextWithMessage:@"请输入正确的短信验证码"];
             } else {
-                
-                weakSelf.viewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
-                    if (weakSelf.presentedViewController) {
-                        return weakSelf.presentedViewController.view;
-                    }
-                    else {
-                        return weakSelf.view;
-                    }
-                }];
+            
                 [weakSelf.viewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
                         KeyChain.mobile = weakSelf.viewModel.modifyPhoneModel.mobile;//phoneNumber;
@@ -91,7 +96,6 @@
     [self presentViewController:checkCaptchVC animated:YES completion:nil];
     [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
         weakSelf.checkPaptcha = checkPaptcha;
-        [weakSelf.homeView getCodeSuccessfully];
         [weakSelf graphicSuccessWithPhoneNumber:phoneNumber andWithCheckPaptcha:checkPaptcha];
 //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
 //        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -108,8 +112,10 @@
  */
 - (void)graphicSuccessWithPhoneNumber:(NSString *)phoneNumber andWithCheckPaptcha:(NSString *)checkPaptcha
 {
+    kWeakSelf
     [self.viewModel getVerifyCodeRequesWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
+            [weakSelf.homeView getCodeSuccessfully];
             NSLog(@"%d",isSuccess);
         }
         else {
