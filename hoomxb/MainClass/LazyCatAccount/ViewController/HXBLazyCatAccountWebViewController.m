@@ -19,6 +19,8 @@
 
 @property (nonatomic, copy) NSString* redirectUrl;
 @property (nonatomic, strong) HXBNsTimerManager* timerManager;
+
+@property (nonatomic, assign) BOOL isReceiveCallBack;
 @end
 
 @implementation HXBLazyCatAccountWebViewController
@@ -98,11 +100,15 @@
     if(_timerManager) {
         [self.timerManager stopTimer];
     }
+    kWeakSelf
     self.timerManager = [HXBNsTimerManager createTimer:1 startSeconds:10 countDownTime:YES notifyCall:^(NSString *times) {
         if(times.integerValue == 0) {
             //超时处理
             NSDictionary* result = @{@"result":@"timeout", @"action":kCommonTimeout, @"data":@{@"title":@"请求超时", @"content":@"请求超时，请返回至账户内查看结果"}};
-            [self jumpToResultPageWithData:result];
+            if(!weakSelf.isReceiveCallBack){
+                weakSelf.isReceiveCallBack = YES;
+                [weakSelf jumpToResultPageWithData:result];
+            }
         }
     }];
     [self.timerManager startTimer];
@@ -199,7 +205,10 @@
     [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         //根据数据跳转到响应的结果页面
-        [weakSelf jumpToResultPageWithData:data];
+        if(!weakSelf.isReceiveCallBack) {
+            [weakSelf jumpToResultPageWithData:data];
+            weakSelf.isReceiveCallBack = YES;
+        }
     }];
 }
 
