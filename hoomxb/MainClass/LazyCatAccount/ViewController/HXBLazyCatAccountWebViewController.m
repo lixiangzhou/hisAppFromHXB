@@ -205,9 +205,9 @@
     [self registJavascriptBridge:@"showResult" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         //根据数据跳转到响应的结果页面
-        if(!self.isReceiveCallBack) {
+        if(!weakSelf.isReceiveCallBack) {
             [weakSelf jumpToResultPageWithData:data];
-            self.isReceiveCallBack = YES;
+            weakSelf.isReceiveCallBack = YES;
         }
     }];
 }
