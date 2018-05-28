@@ -343,38 +343,6 @@
     return isNull;
 }
 
-- (void)openDepositRequestSuccess {
-    [HxbHUDProgress showTextWithMessage:@"开户成功"];
-    
-    if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
-        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    } else if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
-        HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-        [self.navigationController pushViewController:withdrawViewController animated:YES];
-    } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
-    {
-        if (_isFromUnbundBank) {
-            for (UIViewController *controller in self.navigationController.viewControllers) {
-                if ([controller isKindOfClass:[HxbAccountInfoViewController class]]) {
-                    HxbAccountInfoViewController *accountInfoVC = (HxbAccountInfoViewController *)controller;
-                    [self.navigationController popToViewController:accountInfoVC animated:YES];
-                    break;
-                }
-            }
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else if (self.type == HXBChangePhone){
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改绑定手机号";
-        [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    }
-}
-
 #pragma mark - Action
 /// 开通恒丰银行存管账户
 - (void)bottomBtnClick {
