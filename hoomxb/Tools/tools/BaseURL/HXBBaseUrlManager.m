@@ -39,7 +39,7 @@
             if (storedBaseUrl.length > 0) {
                 _baseUrl = storedBaseUrl;
             } else {
-                _baseUrl = @"http://192.168.1.36:3100";
+                _baseUrl = @"http://192.168.1.37:3100";
             }
         }
     }
