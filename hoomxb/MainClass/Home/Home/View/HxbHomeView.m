@@ -82,6 +82,7 @@
         //没有投资显示的界面
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight + newbieViewHeight);
         [weakSelf.headView showNotValidatedView];
+        self.mainTableView.tableHeaderView = self.headView;
         return;
     }
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
@@ -93,7 +94,7 @@
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight + newbieViewHeight);
         [self.headView showNotValidatedView];
     }
-    
+    self.mainTableView.tableHeaderView = self.headView;
 }
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
