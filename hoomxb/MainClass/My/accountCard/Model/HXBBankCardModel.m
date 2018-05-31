@@ -34,8 +34,4 @@
 //    
 //}
 
-- (NSString *)securyMobile {
-    _securyMobile = [self.mobile replaceStringWithStartLocation:3 lenght:self.mobile.length-7];
-    return _securyMobile;
-}
 @end

@@ -42,10 +42,7 @@
  name
  */
 @property (nonatomic, copy) NSString *name;
-/**
- 银行卡预留手机号
- */
-@property (nonatomic, copy) NSString *mobile;
+
 /**
  province
  */
@@ -85,10 +82,7 @@
  限额提示
  */
 @property (nonatomic, copy) NSString *quota;
-/**
- 密文手机号
- */
-@property (nonatomic, copy) NSString *securyMobile;
+
 
 /**
  提现预计到帐时间文本
