@@ -119,7 +119,6 @@
     }];
     kWeakSelf
     _amountTextField.haveStr = ^(BOOL haveStr) {
-        haveStr = (haveStr && self.mybankView.bankCardModel.mobile.length > 0);
         weakSelf.nextButton.userInteractionEnabled = haveStr;
         weakSelf.nextButton.backgroundColor = haveStr ? COR29 : COR12;
     };
