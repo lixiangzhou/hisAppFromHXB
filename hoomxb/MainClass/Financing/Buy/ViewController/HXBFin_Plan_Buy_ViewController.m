@@ -145,11 +145,19 @@
     [self.tableView reloadData];
     
     if (self.isNewPlan) {
-        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"温馨提示：" attributes:@{NSForegroundColorAttributeName: RGB(115, 173, 255)}];
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+        attachment.bounds = CGRectMake(0, -2, 14, 14);
+        
+        NSMutableAttributedString *attrText = [NSMutableAttributedString new];
+        [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
         [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"新手产品每人加入上限%@元", self.NewPlanJoinLimit] attributes:@{NSForegroundColorAttributeName: COR8}]];
+        
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        
         CGFloat tipHeigt = ceil([font lineHeight]);
         CGRect rect = CGRectMake(15, self.tableView.height - tipHeigt - 40 - HXBBottomAdditionHeight, kScreenW - 15 * 2, tipHeigt);
+        
         UILabel * tipLabel = [[UILabel alloc] initWithFrame:rect];
         tipLabel.font = font;
         tipLabel.attributedText = attrText;
