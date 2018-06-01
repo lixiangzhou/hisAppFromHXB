@@ -39,6 +39,8 @@
     if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
         if (self.planDetailModel.lockDays) {
             _lockTime = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
+        } else {
+            _lockTime = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
         }
     } else {
         if (self.planDetailModel.lockPeriod) {
