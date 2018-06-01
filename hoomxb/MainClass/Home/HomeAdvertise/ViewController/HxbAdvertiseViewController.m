@@ -11,6 +11,7 @@
 #import <UIImageView+WebCache.h>
 
 @interface HxbAdvertiseViewController ()
+@property (nonatomic, strong) UIImageView *topImageView;
 @property (nonatomic, weak) UIImageView *imgView;
 @property (nonatomic, strong) HXBAdvertiseViewModel *viewModel;
 @end
@@ -37,6 +38,8 @@
     imgView.image = [UIImage getLauchImage];
     [self.view addSubview:imgView];
     self.imgView = imgView;
+    
+    [self.view addSubview:self.topImageView];
 }
 
 - (void)addTimer {
@@ -51,8 +54,16 @@
 - (void)getData {
     kWeakSelf
     [self.viewModel requestSplashImages:^(NSString *imageUrl) {
-        [weakSelf.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage getLauchImage]];
+        [weakSelf.topImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
     }];
+}
+
+- (UIImageView *)topImageView {
+    if (!_topImageView) {
+        _topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - kScrAdaptationH(120) - HXBBottomAdditionHeight)];
+        _topImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _topImageView;
 }
 
 @end
