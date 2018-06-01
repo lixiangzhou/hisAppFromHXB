@@ -34,6 +34,19 @@
     return _cashType;
 }
 
+- (NSString *)showExtendLockPeriod {
+    if (_lockPeriod.length) {
+        if ([_novice isEqualToString:@"1"]) {
+            return [NSString stringWithFormat:@"%@个月", _lockPeriod];
+        }
+        return [NSString stringWithFormat:@"%@个月", _extendLockPeriod];
+    }
+    if (_lockDays) {
+        return [NSString stringWithFormat:@"%@天", _lockDays];
+    }
+    return  @"--";
+}
+
 @end
 
 @implementation HXBFinDetailModel_PlanDetail_DataList

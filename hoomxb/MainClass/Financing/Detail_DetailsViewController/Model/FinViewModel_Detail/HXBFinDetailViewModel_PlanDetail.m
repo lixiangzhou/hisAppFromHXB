@@ -53,8 +53,12 @@
 //加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
-        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: self.planDetailModel.singleMaxRegisterAmount.doubleValue];
-//        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
+        if ([_planDetailModel.novice isEqualToString:@"1"]) {
+            NSString *maxAmount = _planDetailModel.singleMaxRegisterAmount.doubleValue > _planDetailModel.newbiePlanAmount.doubleValue ? _planDetailModel.newbiePlanAmount : _planDetailModel.singleMaxRegisterAmount;
+            _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: maxAmount.doubleValue];
+        } else {
+            _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: _planDetailModel.singleMaxRegisterAmount.doubleValue];
+        }
     }
     return _singleMaxRegisterAmount;
 }
@@ -181,8 +185,8 @@
 //    if (self.planDetailModel.joinCount.integerValue == 1) {
 //        self.hxb_singleMaxRegisterAmount = @"本期计划加入上限20,000元";
 //    }
-    NSString *str = [NSString hxb_getPerMilWithDouble:self.singleMaxRegisterAmount.doubleValue];
-    self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期加入上限%@元",str];
+//    NSString *str = [NSString hxb_getPerMilWithDouble:self.singleMaxRegisterAmount.doubleValue];
+    self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期加入上限%@",self.singleMaxRegisterAmount];
 }
 
 - (void)setAddButtonStrValue {
