@@ -201,7 +201,7 @@
     _homePageModel_DataList = homePageModel_DataList;
     _titleLabel.text = @"红利智投";
 //    _titleLabel.text = [NSString stringWithFormat:@"红利智投-%@个月", homePageModel_DataList.lockPeriod];
-    self.investmentPeriodTitleLabel.text = [NSString stringWithFormat:@"%@个月", homePageModel_DataList.showExtendLockPeriod];
+    self.investmentPeriodTitleLabel.text = [NSString stringWithFormat:@"%@", homePageModel_DataList.showExtendLockPeriod];
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
         NSRange range = [messageStr rangeOfString:homePageModel_DataList.fixExtraInterestRate];

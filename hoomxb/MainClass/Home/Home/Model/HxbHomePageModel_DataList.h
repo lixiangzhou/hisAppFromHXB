@@ -35,7 +35,7 @@
  锁定期扩展
  */
 @property (nonatomic, copy) NSString *extendLockPeriod;
-@property (nonatomic,copy) NSString *showExtendLockPeriod;
+@property (nonatomic,copy,readonly) NSString *showExtendLockPeriod;
 /**
  预期年化收益率
  */

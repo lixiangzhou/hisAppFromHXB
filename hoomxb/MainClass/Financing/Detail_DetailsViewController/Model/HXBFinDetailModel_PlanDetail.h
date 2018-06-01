@@ -164,7 +164,7 @@
 @property (nonatomic,copy) NSString *incomeApproach;//": "收益方式文案，文案规则：HXB返回：按月付息，INVEST返回：收益复投"
 @property (nonatomic,copy) NSString *interestDate;//": "按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息"
 
-@property (nonatomic,copy) NSString *showExtendLockPeriod;
+@property (nonatomic,copy,readonly) NSString *showExtendLockPeriod;
 ///红利计划详情页的数据数组
 //@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*dataList;
 @end
