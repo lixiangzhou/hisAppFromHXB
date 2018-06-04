@@ -658,7 +658,9 @@
             
             [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
         }
-        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        else {
+           _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        }
         _topView.placeholderStr = _placeholderStr;
     }
     
