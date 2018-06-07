@@ -61,7 +61,11 @@
     
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = @"/plan";
+#if kIsNewBieDevelopVersion
+    request.requestArgument = isUpData ? @{@"page": @(page).description,@"cashType":@"newbie"} : @{@"page": @(page).description};
+#else
     request.requestArgument = isUpData ? @{@"page": @(page).description,@"cashType":@"HXB"} : @{@"page": @(page).description};
+#endif
     request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
