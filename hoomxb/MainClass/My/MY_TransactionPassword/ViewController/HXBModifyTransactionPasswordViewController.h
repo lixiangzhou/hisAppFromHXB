@@ -10,7 +10,14 @@
 
 @class HXBUserInfoModel;
 @interface HXBModifyTransactionPasswordViewController : HXBBaseViewController
+typedef enum : NSInteger {
+    /// 修改交易密码
+    HXBModifyTransactionPasswordType,
+    /// 解绑原手机号
+    HXBModifyPhoneType
+} HXBModifyTransactionPasswordORModifyPhoneType;
 
+@property (nonatomic,assign) HXBModifyTransactionPasswordORModifyPhoneType type;
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 
 @end

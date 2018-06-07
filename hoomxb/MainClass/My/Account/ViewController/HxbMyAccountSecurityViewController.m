@@ -229,6 +229,7 @@ UITableViewDataSource,UITableViewDelegate
 {
     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
     modifyTransactionPasswordVC.title = @"解绑原手机号";
+    modifyTransactionPasswordVC.type = HXBModifyPhoneType;
     modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
     [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }

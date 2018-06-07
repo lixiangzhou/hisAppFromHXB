@@ -220,6 +220,7 @@
 - (void)forgetPwd {
     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [HXBModifyTransactionPasswordViewController new];
     modifyTransactionPasswordVC.title = @"修改交易密码";
+    modifyTransactionPasswordVC.type = HXBModifyTransactionPasswordType;
     [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }
 
