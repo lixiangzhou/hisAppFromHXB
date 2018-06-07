@@ -64,8 +64,9 @@
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
     [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(weakSelf);
+        make.left.right.equalTo(weakSelf);
         make.top.equalTo(weakSelf.bannerView.mas_bottom).offset(kScrAdaptationH(10));
+        make.bottom.equalTo(weakSelf).offset(0.5);
     }];
     [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.newbieView).offset(kHXBSpacing_30);
