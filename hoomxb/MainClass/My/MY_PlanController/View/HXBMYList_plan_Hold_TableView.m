@@ -10,7 +10,14 @@
 #import "HXBBaseViewCell_MYListCellTableViewCell.h"
 #import "HXBMYViewModel_MianPlanViewModel.h"//  我的界面的 plan list ViewModel
 #import "HXBMYModel_MainPlanModel.h"//红利计划model
+#import <objc/runtime.h>
 static NSString *const CELLID = @"CELLID";
+static NSString *const AverageHistoricalAnnualIncomeInHoldingKey = @"AverageHistoricalAnnualIncomeInHoldingKey";
+static NSString *const WithdrawnFromIncomeKey = @"WithdrawnFromIncomeKey";
+static NSString *const SumofMoney = @"加入金额(元)";
+static NSString *const EarnedIncome = @"已获收益(元)";
+static NSString *const AverageHistoricalAnnualIncome = @"平均历史年化收益";
+static NSString *const AmountToBeTransferredOut = @"待转出金额(元)";
 @interface HXBMYList_plan_Hold_TableView ()
 <
 UITableViewDelegate,
@@ -85,24 +92,24 @@ static NSString *const exitTitle = @"已退出";
     switch (viewModel.requestType) {
         case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
             titleArray = @[
-                           @"加入金额(元)",
-                           @"已获收益(元)",
-                           @"平均历史年化收益"
+                           SumofMoney,
+                           EarnedIncome,
+                           AverageHistoricalAnnualIncome
                            ];
             break;
         case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
             titleArray = @[
-                           @"加入金额(元)",
-                           @"已获收益(元)",
-                           @"待转出金额(元)"
+                           SumofMoney,
+                           EarnedIncome,
+                           AmountToBeTransferredOut
                            ];
             exiTingImageViewName = @"explain.svg";
             break;
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
             titleArray = @[
-                           @"加入金额(元)",
-                           @"已获收益(元)",
-                           @"平均历史年化收益"
+                           SumofMoney,
+                           EarnedIncome,
+                           AverageHistoricalAnnualIncome
                            ];
 //            lanTruansferImageName = @"LoanTruansfer";
             break;
@@ -137,9 +144,54 @@ static NSString *const exitTitle = @"已退出";
         manager.title_ImageName = lanTruansferImageName;
         return manager;
     }];
+    
+    if ([viewModel.planModelDataList.novice isEqualToString:@"1"]) {
+        UILabel *label = nil;
+        if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN && [[titleArray lastObject] isEqualToString:AverageHistoricalAnnualIncome]) { //持有中 平均历史年化收益 tips
+            label = (UILabel *)cell.bottomTopBottomView.rightViewArray.lastObject;
+        }
+        if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_EXIT_PLAN && [titleArray[1] isEqualToString:EarnedIncome]) { //已退出 已获收益
+            label = (UILabel *)cell.bottomTopBottomView.rightViewArray[1];
+        }
+        
+        if (label) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", label.text] ?: @""];
+            NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+            attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+            attachment.bounds = CGRectMake(0, -1, 11, 11);
+            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+            label.attributedText = attr;
+            
+            [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tipClick:)]];
+            if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN && [[titleArray lastObject] isEqualToString:AverageHistoricalAnnualIncome]) { //持有中 平均历史年化收益 tips
+                objc_setAssociatedObject(label, (__bridge const void * _Nonnull)(AverageHistoricalAnnualIncomeInHoldingKey), indexPath, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            }
+            if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_EXIT_PLAN && [titleArray[1] isEqualToString:EarnedIncome]) { //已退出 已获收益
+                objc_setAssociatedObject(label, (__bridge const void * _Nonnull)(WithdrawnFromIncomeKey), indexPath, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            }
+        }
+    }
+
     return cell;
 }
 
+- (void)tipClick:(UITapGestureRecognizer *)tap {
+    NSIndexPath *indexPath = nil;
+    if((indexPath = objc_getAssociatedObject(tap.view, (__bridge const void * _Nonnull)(AverageHistoricalAnnualIncomeInHoldingKey)))) {
+        HXBMYViewModel_MianPlanViewModel *viewModel = self.mainPlanViewModelArray[indexPath.section];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        alertVC.isHIddenLeftBtn = YES;
+        alertVC.isCenterShow = YES;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    }
+    if((indexPath = objc_getAssociatedObject(tap.view, (__bridge const void * _Nonnull)(WithdrawnFromIncomeKey)))) { //暂时等是否有新字段
+        HXBMYViewModel_MianPlanViewModel *viewModel = self.mainPlanViewModelArray[indexPath.section];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        alertVC.isHIddenLeftBtn = YES;
+        alertVC.isCenterShow = YES;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 防止崩溃
