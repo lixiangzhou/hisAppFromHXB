@@ -116,22 +116,42 @@ UITableViewDataSource
         //持有中&新手计划
         return  weakSelf.manager.infoViewManager;
     }];
-    if (weakSelf.manager.type == HXBRequestType_MY_PlanRequestType_HOLD_PLAN&&[weakSelf.manager.planDetailModel.novice isEqualToString:@"1"]) {
-        
-        UILabel *rightLabel = (UILabel *)weakSelf.infoView.rightViewArray[1];
-        rightLabel.userInteractionEnabled = YES;
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", rightLabel.text] ?: @""];
-        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-        attachment.image = [UIImage imageNamed:@"lightblue_tip"];
-        attachment.bounds = CGRectMake(0, -2, 14, 14);
-        [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
-        rightLabel.attributedText = attr;
-        
-        [rightLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
-        
-        UILabel *leftLabel = (UILabel *)weakSelf.infoView.leftViewArray[1];
-        leftLabel.userInteractionEnabled = YES;
-        [leftLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
+    if ([weakSelf.manager.planDetailModel.novice isEqualToString:@"1"]) {
+        if (weakSelf.manager.type == HXBRequestType_MY_PlanRequestType_HOLD_PLAN || weakSelf.manager.type == HXBRequestType_MY_PlanRequestType_EXITING_PLAN)
+        {
+            UILabel *rightLabel = (UILabel *)weakSelf.infoView.rightViewArray[1];
+            rightLabel.userInteractionEnabled = YES;
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", rightLabel.text] ?: @""];
+            NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+            attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+            attachment.bounds = CGRectMake(0, -1, 11, 11);
+            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+            rightLabel.attributedText = attr;
+            
+            [rightLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
+            
+            UILabel *leftLabel = (UILabel *)weakSelf.infoView.leftViewArray[1];
+            leftLabel.userInteractionEnabled = YES;
+            [leftLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
+        }
+        //已退出 等待接口新字段
+//        if (weakSelf.manager.type == HXBRequestType_MY_PlanRequestType_EXIT_PLAN)
+//        {
+//            UILabel *rightLabel = (UILabel *)weakSelf.infoView.rightViewArray[1];
+//            rightLabel.userInteractionEnabled = YES;
+//            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", rightLabel.text] ?: @""];
+//            NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+//            attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+//            attachment.bounds = CGRectMake(0, -1, 11, 11);
+//            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+//            rightLabel.attributedText = attr;
+//
+//            [rightLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
+//
+//            UILabel *leftLabel = (UILabel *)weakSelf.infoView.leftViewArray[1];
+//            leftLabel.userInteractionEnabled = YES;
+//            [leftLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(tipNoviceClick:)]];
+//        }
     }
     
     [self.typeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
