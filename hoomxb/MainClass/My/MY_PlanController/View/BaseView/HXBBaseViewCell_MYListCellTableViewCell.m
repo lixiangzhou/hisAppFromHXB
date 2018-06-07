@@ -19,8 +19,6 @@
 
 @property (nonatomic, strong) UIImageView *planStatusIamgeView;
 
-/// 底部三层
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *bottomTopBottomView;
 
 @property (nonatomic,strong) HXBBaseViewCell_MYListCellTableViewCellManager *myListCellManager;
 
@@ -34,7 +32,7 @@
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUP];
-        self.myListCellManager = [[HXBBaseViewCell_MYListCellTableViewCellManager alloc] init];
+        _myListCellManager = [[HXBBaseViewCell_MYListCellTableViewCellManager alloc] init];
     }
     return self;
 }
@@ -53,8 +51,7 @@
     else {
         self.insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(15));
     }
-    /// 底部的上下分层的View
-    [self setUPBottomView];
+    
     if (myListCellManager.title_ImageName.length) {
        UIImage *image = [UIImage imageNamed:myListCellManager.title_ImageName];
         if (!image) {
@@ -105,6 +102,8 @@
         make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW(15));
         make.bottom.equalTo(weakSelf.contentView);
     }];
+    
+    [self.contentView insertSubview:self.planStatusIamgeView belowSubview:self.bottomTopBottomView];
 }
 
 // 点击图片的方法
@@ -215,19 +214,21 @@
     }];
 }
 
-/// 底部的上下分层的View
-- (void) setUPBottomView {
-    self.bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(13) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:self.insets andCashType:nil];
-    UILabel *label = (UILabel *) self.bottomTopBottomView.rightViewArray[1];
-   
-    [self.contentView addSubview:self.bottomTopBottomView];
-    [self.bottomTopBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.contentView);
-        make.top.equalTo(self.lineview.mas_bottom);
-        make.bottom.equalTo(self.lineview);
-    }];
-     label.textColor = kHXBColor_Red_090303;
+- (HXBBaseView_MoreTopBottomView *)bottomTopBottomView {
+    if (_bottomTopBottomView == nil) {
+        _bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(14) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:self.insets andCashType:nil];
+        UILabel *label = (UILabel *) _bottomTopBottomView.rightViewArray[1];
+        [self.contentView addSubview:_bottomTopBottomView];
+        [_bottomTopBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.contentView);
+            make.top.equalTo(self.lineview.mas_bottom);
+            make.bottom.equalTo(self.contentView);
+        }];
+        label.textColor = kHXBColor_Red_090303;
+    }
+    return _bottomTopBottomView;
 }
+
 
 - (UIImageView *)planStatusIamgeView {
     if (!_planStatusIamgeView) {
@@ -252,6 +253,7 @@
         self.bottomViewManager.leftTextColor = kHXBColor_Font0_6;
         self.bottomViewManager.rightTextColor = kHXBColor_Grey_Font0_3;
         self.bottomViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        self.bottomViewManager.rightViewColor = [UIColor clearColor];
     }
     return self;
 }
