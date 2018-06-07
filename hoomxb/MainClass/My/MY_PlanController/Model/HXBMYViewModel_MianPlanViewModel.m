@@ -96,7 +96,7 @@
     if (!_expectedRate) {
         //只有新手&存在贴息率&持有中 才会显示 "x.x%+x.x%"
 //        NSString *expectedRateStr = [self.planModelDataList.novice isEqualToString:@"1"]&&self.planModelDataList.subsidyInterestRate&&self.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN? [NSString stringWithFormat:@"%.1lf%%+%.1lf%%",self.planModelDataList.expectedRate.floatValue,self.planModelDataList.subsidyInterestRate.floatValue]:[NSString stringWithFormat:@"%.1lf%%",self.planModelDataList.expectedRate.floatValue];
-        NSString *expectedRateStr = [NSString stringWithFormat:@"%.1lf%%",self.planModelDataList.expectedRate.floatValue];
+        NSString *expectedRateStr = [NSString stringWithFormat:@"%.1f%%",self.planModelDataList.expectedRate.floatValue];
         _expectedRate = expectedRateStr;
     }
     return _expectedRate;
