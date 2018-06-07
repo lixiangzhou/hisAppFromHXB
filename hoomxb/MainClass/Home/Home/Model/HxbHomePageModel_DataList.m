@@ -35,6 +35,19 @@
     return _fixExtraInterestRate?:@"0";
 }
 
+- (NSString *)showExtendLockPeriod {
+    if (_lockPeriod.length) {
+        if (_novice == 1) {
+            return [NSString stringWithFormat:@"%@个月", _lockPeriod];
+        }
+        return [NSString stringWithFormat:@"%@个月", _extendLockPeriod];
+    }
+    if (_lockDays) {
+        return [NSString stringWithFormat:@"%d天", _lockDays];
+    }
+    return  @"--";
+}
+
 /**
  剩余时间
  */
