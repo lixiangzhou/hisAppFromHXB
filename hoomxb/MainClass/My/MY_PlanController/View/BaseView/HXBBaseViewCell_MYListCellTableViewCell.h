@@ -12,6 +12,8 @@
 
 ///设置值
 - (void) setUPValueWithListCellManager:(HXBBaseViewCell_MYListCellTableViewCellManager *(^)(HXBBaseViewCell_MYListCellTableViewCellManager *manager))managerBlock;
+/// 底部三层
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *bottomTopBottomView;
 @end
 
 
