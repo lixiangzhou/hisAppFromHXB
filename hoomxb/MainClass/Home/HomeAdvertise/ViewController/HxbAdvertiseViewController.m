@@ -11,7 +11,7 @@
 #import <UIImageView+WebCache.h>
 
 @interface HxbAdvertiseViewController ()
-@property (nonatomic, weak) UIImageView *imgView;
+@property (nonatomic, strong) UIImageView *topImageView;
 @property (nonatomic, strong) HXBAdvertiseViewModel *viewModel;
 @end
 
@@ -36,7 +36,8 @@
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:self.view.frame];
     imgView.image = [UIImage getLauchImage];
     [self.view addSubview:imgView];
-    self.imgView = imgView;
+    
+    [self.view addSubview:self.topImageView];
 }
 
 - (void)addTimer {
@@ -51,8 +52,27 @@
 - (void)getData {
     kWeakSelf
     [self.viewModel requestSplashImages:^(NSString *imageUrl) {
-        [weakSelf.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage getLauchImage]];
+        [weakSelf.topImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
     }];
+    
+#warning to uncommon
+    //    [self.viewModel getSplashImage:^(NSString *imageUrl) {
+    //        if (imageUrl) {
+    //            [weakSelf.topImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
+    //            [weakSelf addTimer];
+    //        } else {
+    //            weakSelf.dismissBlock();
+    //        }
+    //    }];
+
+}
+
+- (UIImageView *)topImageView {
+    if (!_topImageView) {
+        _topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - kScrAdaptationH(120) - HXBBottomAdditionHeight)];
+        _topImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _topImageView;
 }
 
 @end

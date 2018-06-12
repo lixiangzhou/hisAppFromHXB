@@ -7,6 +7,10 @@
 //
 
 #import "HXBAdvertiseViewModel.h"
+#import "SDImageCache.h"
+#import "SDWebImageDownloader.h"
+
+#define kSplashImageUrlKey @"kSplashImageUrlKey"
 
 @implementation HXBAdvertiseViewModel
 
@@ -25,6 +29,40 @@
         if (resultBlock) {
             resultBlock(nil);
         }
+    }];
+}
+
+
+- (void)getSplashImage:(void (^)(NSString *imageUrl))resultBlock {
+    // 显示缓存图片
+    NSString *splashImageUrl = [kUserDefaults objectForKey:kSplashImageUrlKey];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:kSplashImageUrlKey];
+    if (image) {
+        resultBlock(splashImageUrl);
+    } else {
+        resultBlock(nil);
+    }
+    
+    [self downloadSplashImageWithCache:splashImageUrl];
+}
+
+- (void)downloadSplashImageWithCache:(NSString *)splashImageUrl {
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
+    request.requestUrl = kHXBSplash;
+    request.showHud = NO;
+    
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        NSString *imageURL = responseObject[kResponseData][@"url"];
+        // 不同的URL就更新缓存
+        if ([imageURL isEqualToString:splashImageUrl] == NO) {
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                if (image) {
+                    [kUserDefaults setObject:imageURL forKey:kSplashImageUrlKey];
+                    [kUserDefaults synchronize];
+                }
+            }];
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
     }];
 }
 
