@@ -55,7 +55,10 @@
     BOOL isNewPlan = [self.planDetailModel.planDetailModel.novice isEqualToString:@"1"];
     float remainAmount = self.planDetailModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailModel.planDetailModel.userRemainAmount.floatValue;
-    float creditorVCStr = isNewPlan ? MIN(remainAmount, newBiePlanLeftAmount) : MIN(remainAmount, userRemainAmount);
+    float creditorVCStr = MIN(remainAmount, userRemainAmount);
+    if(isNewPlan) {
+        creditorVCStr = MIN(creditorVCStr, newBiePlanLeftAmount);
+    }
     
     planJoinVC.isNewPlan = isNewPlan;
     planJoinVC.NewPlanJoinLimit = self.planDetailModel.planDetailModel.newbiePlanAmount;
