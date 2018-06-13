@@ -27,8 +27,6 @@
 @property (nonatomic, copy) NSString *investMoney;
 /** 产品类型 */
 @property (nonatomic, copy) NSString *type;
-/** 是否是新手 */
-@property (nonatomic, assign) BOOL isNewPlan;
 /** delegate */
 @property (nonatomic, assign) id <HXBChooseDiscountCouponViewControllerDelegate> delegate;
 
