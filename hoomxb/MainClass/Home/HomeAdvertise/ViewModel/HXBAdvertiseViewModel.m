@@ -10,9 +10,13 @@
 #import "SDImageCache.h"
 #import "SDWebImageDownloader.h"
 
-#define kSplashImageUrlKey @"kSplashImageUrlKey"
+#define kSplashDataKey @"kSplashDataKey"
 
 @implementation HXBAdvertiseViewModel
+
+- (BOOL)hasSplashData {
+    return [kUserDefaults objectForKey:kSplashDataKey];
+}
 
 - (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock {
     // 无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
@@ -33,37 +37,39 @@
 }
 
 
-- (void)getSplashImage:(void (^)(NSString *imageUrl))resultBlock {
+- (void)getSplashImage:(void (^)(BOOL isSuccess))resultBlock {
     // 显示缓存图片
-    NSString *splashImageUrl = [kUserDefaults objectForKey:kSplashImageUrlKey];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:kSplashImageUrlKey];
+    NSDictionary *splashData = [kUserDefaults objectForKey:kSplashDataKey];
+    NSString *imageUrl = splashData[@"image"];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageUrl];
     if (image) {
-        resultBlock(splashImageUrl);
+        resultBlock(YES);
     } else {
-        resultBlock(nil);
+        resultBlock(NO);
     }
-    
-    [self downloadSplashImageWithCache:splashImageUrl];
+
+    [self downloadSplashImageWithCache:splashData];
 }
 
-- (void)downloadSplashImageWithCache:(NSString *)splashImageUrl {
+- (void)downloadSplashImageWithCache:(NSDictionary *)splashData {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBSplash;
     request.showHud = NO;
     
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSString *imageURL = responseObject[kResponseData][@"url"];
+        NSDictionary *data = responseObject[kResponseData];
+        NSString *imageURL = data[@"image"];
+        NSString *oldImageURL = splashData[@"image"];
         // 不同的URL就更新缓存
-        if ([imageURL isEqualToString:splashImageUrl] == NO) {
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                if (image) {
-                    [kUserDefaults setObject:imageURL forKey:kSplashImageUrlKey];
-                    [kUserDefaults synchronize];
-                }
-            }];
+        if ([imageURL isEqualToString:oldImageURL] == NO) {
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
         }
+        
+        [kUserDefaults setObject:data forKey:kSplashDataKey];
+        [kUserDefaults synchronize];
     } failure:^(NYBaseRequest *request, NSError *error) {
     }];
 }
 
+     
 @end

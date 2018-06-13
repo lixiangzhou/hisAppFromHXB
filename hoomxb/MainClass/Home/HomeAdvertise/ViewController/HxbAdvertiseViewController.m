@@ -67,10 +67,16 @@
 
 }
 
+- (void)tapImage {
+    
+}
+
 - (UIImageView *)topImageView {
     if (!_topImageView) {
         _topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - kScrAdaptationH(120) - HXBBottomAdditionHeight)];
+        _topImageView.userInteractionEnabled = YES;
         _topImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_topImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage)]];
     }
     return _topImageView;
 }

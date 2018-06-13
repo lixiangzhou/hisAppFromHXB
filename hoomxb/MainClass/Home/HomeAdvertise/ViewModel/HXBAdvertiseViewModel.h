@@ -9,8 +9,11 @@
 #import "HXBBaseViewModel.h"
 
 @interface HXBAdvertiseViewModel : HXBBaseViewModel
+
+@property (nonatomic, assign, readonly) BOOL hasSplashData;
+
 - (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock;
 /// 获取闪屏图片，从缓存中取，并后台下载新的图片
 /// 若有缓存则显示，没有就不显示
-- (void)getSplashImage:(void (^)(NSString *imageUrl))resultBlock;
+- (void)getSplashImage:(void (^)(BOOL isSuccess))resultBlock;
 @end
