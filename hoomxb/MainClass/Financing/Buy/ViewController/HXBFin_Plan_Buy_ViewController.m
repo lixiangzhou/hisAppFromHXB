@@ -149,7 +149,7 @@ static NSString *const bankString = @"绑定银行卡";
         
         NSMutableAttributedString *attrText = [NSMutableAttributedString new];
         [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
-        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" 新手产品每人加入上限%@元", self.NewPlanJoinLimit] attributes:@{NSForegroundColorAttributeName: COR8}]];
+        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" 新手产品每人加入上限%@元", [NSString hxb_getPerMilWithDoubleNum:[self.NewPlanJoinLimit integerValue]]] attributes:@{NSForegroundColorAttributeName: COR8}]];
         
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         
