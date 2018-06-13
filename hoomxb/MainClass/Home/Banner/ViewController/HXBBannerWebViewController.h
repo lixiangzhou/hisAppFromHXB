@@ -7,9 +7,7 @@
 //
 
 
-@class HXBBannerViewModel;
+@class BannerModel;
 @interface HXBBannerWebViewController : HXBBaseWKWebViewController
-
-@property (nonatomic, strong) HXBBannerViewModel* viewModel;
-
+@property (nonatomic, strong) BannerModel *model;
 @end

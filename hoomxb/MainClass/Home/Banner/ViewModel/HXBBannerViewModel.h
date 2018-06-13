@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) BannerModel *model;
 
+- (BOOL)isNeedShare;
+- (void)share;
+
 @end

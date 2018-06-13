@@ -25,9 +25,7 @@ static NSString *const HXB_Toast = @"toast";
 static NSString *const HXB_Dialog = @"dialog";
 
 @interface HXBBannerWebViewController ()
-{
-    HXBBannerViewModel * _viewModel;
-}
+@property (nonatomic, strong) HXBBannerViewModel* viewModel;
 @end
 
 @implementation HXBBannerWebViewController
@@ -41,6 +39,7 @@ static NSString *const HXB_Dialog = @"dialog";
     self.pageReload = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupJavascriptBridge];
+    [self setupShareBtn];
 }
 
 #pragma mark 初始化viewModel
@@ -55,21 +54,21 @@ static NSString *const HXB_Dialog = @"dialog";
     return _viewModel;
 }
 
-- (void)setViewModel:(HXBBannerViewModel *)viewModel {
-    _viewModel = viewModel;
-//
-    if ([_viewModel.model.shareStatus isEqualToString:@"link"]) {
-        //连接分享
-        NSLog(@"连接分享");
-    } else if([_viewModel.model.shareStatus isEqualToString:@"picture"]){
-        //图片分享
-        NSLog(@"图片分享");
-    } else if([_viewModel.model.shareStatus isEqualToString:@"none"]){
-        //不分享
-        NSLog(@"不分享");
+- (void)setupShareBtn {
+    self.viewModel.model = self.model;
+    if ([self.viewModel isNeedShare]) {
+        UIButton *shareBtn = [[UIButton alloc] initWithFrame: CGRectMake(kScreenW - HXBNavigationBarHeight, 0, HXBNavigationBarHeight, HXBNavigationBarHeight)];
+        shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, kScrAdaptationW(15));
+        [shareBtn setImage:[UIImage imageNamed:@"share"] forState:(UIControlStateNormal)];
+        [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.navigationController.navigationBar addSubview:shareBtn];
     }
+    
 }
 
+- (void)shareClick {
+    [self.viewModel share];
+}
 /**
  初始化与H5交互
  */

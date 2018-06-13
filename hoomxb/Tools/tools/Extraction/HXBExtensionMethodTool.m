@@ -56,11 +56,7 @@
         if (model.link.length) {
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
             webViewVC.pageUrl = model.link;
-            HXBBannerViewModel *viewModel = [[HXBBannerViewModel alloc] initWithBlock:^UIView *{
-                return webViewVC.view;
-            }];
-            viewModel.model = model;
-            webViewVC.viewModel = viewModel;
+            webViewVC.model = model;
             vc = webViewVC;
         }
         
