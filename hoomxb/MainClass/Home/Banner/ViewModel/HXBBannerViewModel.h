@@ -7,7 +7,9 @@
 //
 
 #import "HXBBaseViewModel+KEYCHAIN.h"
-
+#import "BannerModel.h"
 @interface HXBBannerViewModel : HXBBaseViewModel
+
+@property (nonatomic, strong) BannerModel *model;
 
 @end

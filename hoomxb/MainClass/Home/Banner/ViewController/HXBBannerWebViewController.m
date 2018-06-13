@@ -25,7 +25,9 @@ static NSString *const HXB_Toast = @"toast";
 static NSString *const HXB_Dialog = @"dialog";
 
 @interface HXBBannerWebViewController ()
-@property (nonatomic, strong) HXBBannerViewModel* viewModel;
+{
+    HXBBannerViewModel * _viewModel;
+}
 @end
 
 @implementation HXBBannerWebViewController
@@ -51,6 +53,21 @@ static NSString *const HXB_Dialog = @"dialog";
     }
     
     return _viewModel;
+}
+
+- (void)setViewModel:(HXBBannerViewModel *)viewModel {
+    _viewModel = viewModel;
+//
+    if ([_viewModel.model.shareStatus isEqualToString:@"link"]) {
+        //连接分享
+        NSLog(@"连接分享");
+    } else if([_viewModel.model.shareStatus isEqualToString:@"picture"]){
+        //图片分享
+        NSLog(@"图片分享");
+    } else if([_viewModel.model.shareStatus isEqualToString:@"none"]){
+        //不分享
+        NSLog(@"不分享");
+    }
 }
 
 /**
