@@ -21,6 +21,7 @@
 #import "HXBNoticeViewController.h"
 #import "HXBBannerWebViewController.h"
 #import "HXBRootVCManager.h"
+#import "NSDate+HXB.h"
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kNoticeVC @"/home/notice"//公告列表
@@ -81,8 +82,6 @@
         }
     } else {
         _responseDict = dict;
-        //        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-        //        [kUserDefaults synchronize];
         [self cachePopHomeImage];
     }
 }
@@ -96,31 +95,36 @@
     }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image) {
-            //            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
-            //            weakSelf.popView.imgView.image = img;
             weakSelf.popView.imgView.image = image;
             [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
             [kUserDefaults synchronize];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
             [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
             
-//            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//            [kUserDefaults synchronize];
             weakSelf.isHide = NO;
             
             [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         } else {
-//            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//            [kUserDefaults synchronize];
+
             if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
                 [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
-            } else {
+            } else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everytime"]) {
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            } else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyday"]) {
+                long long secondaysZeroTimestamp = [[NSNumber numberWithDouble:[[NSDate getTomorrowDayTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//第二天零时零分零秒
+                long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
+                long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
+                
+                if (secondaysZeroTimestamp >= startTimestamp && secondaysZeroTimestamp < endTimestamp) {
+                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                } else {
+                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                }
                 [kUserDefaults synchronize];
             }
+            
             self.isHide = YES;
         }
     }];
@@ -136,11 +140,21 @@
             NSLog(@"1111显示完成");
             if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
                 [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-//                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
-            } else {
+            } else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everytime"]){
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                //                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            }  else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyday"]){
+
+                long long secondaysZeroTimestamp = [[NSNumber numberWithDouble:[[NSDate getTomorrowDayTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//第二天零时零分零秒
+                long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
+                long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
+
+                if (secondaysZeroTimestamp >= startTimestamp && secondaysZeroTimestamp < endTimestamp) {
+                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                } else {
+                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                }
                 [kUserDefaults synchronize];
             }
 
@@ -171,15 +185,10 @@
         };
         // 显示弹框
         if (!self.isHide) {
-//            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
             UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
             if (image) {
-//                weakSelf.popView.imgView.image = img;
                 weakSelf.popView.imgView.image = image;
                 [weakSelf.popView pop];
-//                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-//                [kUserDefaults synchronize];
             }
         }
     }
