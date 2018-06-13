@@ -110,18 +110,14 @@
     [self cancelShareView];
 }
 
+/**
+ 分享链接
+ 
+ @param platformType 分享的平台QQ。微信等
+ */
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
-    if (!KeyChain.ishaveNet) {
-         [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
-         [self cancelShareView];
-        return;
-    }
-    if (!self.shareVM.shareModel) {
-        [HxbHUDProgress showMessageCenter:@"网速较慢，请稍后重试" inView:nil];
-        return;
-    }
-    [self cancelShareView];
+    [self netCheck];
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
@@ -153,6 +149,40 @@
         }
         //        [self alertWithError:error];
     }];
+}
+
+/**
+ 分享图片
+ 
+ @param platformType 分享的平台QQ。微信等
+ */
+- (void)shareImageToPlatformType:(UMSocialPlatformType)platformType {
+    [self netCheck];
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+    [shareObject setShareImage:self.shareVM.shareModel.image];
+    messageObject.shareObject = shareObject;
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            [self.shareVM sharFailureStringWithCode:error.code];
+        } else {
+            NSLog(@"response data is %@",data);
+        }
+    }];
+}
+
+- (void)netCheck {
+    if (!KeyChain.ishaveNet) {
+        [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+        [self cancelShareView];
+        return;
+    }
+    if (!self.shareVM.shareModel) {
+        [HxbHUDProgress showMessageCenter:@"网速较慢，请稍后重试" inView:nil];
+        return;
+    }
+    [self cancelShareView];
 }
 
 #pragma mark - Setter / Getter / Lazy
@@ -207,7 +237,15 @@
         _umengView.backgroundColor = [UIColor clearColor];
         kWeakSelf
         _umengView.shareWebPageToPlatformType = ^(UMSocialPlatformType type) {
-            [weakSelf shareWebPageToPlatformType:type];
+            switch (weakSelf.shareType) {
+                case HXBShareTypeWebPage:
+                    [weakSelf shareWebPageToPlatformType:type];
+                    break;
+                    
+                case HXBShareTypeImage:
+                    [weakSelf shareImageToPlatformType:type];
+                    break;
+            }
         };
     }
     return _umengView;
