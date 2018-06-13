@@ -516,6 +516,7 @@ static NSString *const bankString = @"绑定银行卡";
         chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
         chooseDiscountVC.type = @"plan";
         chooseDiscountVC.couponid = self.isNewPlan ? @"0" : _couponid;
+        chooseDiscountVC.isNewPlan = self.isNewPlan;
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
 }
@@ -664,9 +665,7 @@ static const NSInteger topView_high = 300;
     // 小于最小投资金额时，输入框不可以编辑
     if (self.isFirstBuy) {
         if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
@@ -676,9 +675,7 @@ static const NSInteger topView_high = 300;
         }
     } else {
         if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
