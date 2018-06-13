@@ -57,7 +57,7 @@
         _notifitionView.hidden = YES;
         _tableView.tableHeaderView = [self tableViewHeadView];
     } else {
-        _notifitionView.hidden = NO;
+        _notifitionView.hidden = self.isNewPlan ? YES : NO;
         _tableView.tableHeaderView.hidden = YES;
         _tableView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(40));
     }
@@ -221,10 +221,14 @@
                           };
     kWeakSelf
     [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+        if (weakSelf.isNewPlan) {
+            weakSelf.nodataView.hidden = NO;
+            return ;
+        }
         if (isSuccess) {
             [weakSelf displaySuccessData];
         } else {
-            weakSelf.noDataView.hidden = NO;
+            weakSelf.nodataView.hidden = NO;
         }
     }];
 }
@@ -239,7 +243,6 @@
     }
     if (self.viewModel.chooseCouponModel.dataList.count == 0 && self.viewModel.chooseCouponModel.unusableList.count == 0) {
         self.nodataView.hidden = NO;
-        self.notifitionView.hidden = YES;
     } else {
         self.tableView.hidden = NO;
         self.nodataView.hidden = YES;
