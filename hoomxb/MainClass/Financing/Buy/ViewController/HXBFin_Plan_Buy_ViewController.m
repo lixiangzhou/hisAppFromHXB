@@ -70,8 +70,6 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
-// 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
-@property (nonatomic, assign) BOOL hasInvestMoney;
 // 当前输入框的金额
 @property (nonatomic, assign) double curruntInvestMoney;
 // 展示HUD
@@ -231,9 +229,9 @@ static NSString *const bankString = @"绑定银行卡";
     
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
-    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue && !_hasInvestMoney) { // 超过可加入金额是，只check，不用强制到最大可加入金额
+    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && !_hasInvestMoney && _isFirstBuy) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -244,7 +242,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self checkIfNeedNewPlanDatas:_inputMoneyStr];
         
         [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
-    } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
+    } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
         _inputMoneyStr = _registerMultipleAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -260,22 +258,14 @@ static NSString *const bankString = @"绑定银行卡";
         } else {
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
-        if (_hasInvestMoney) {
-            if (self.isExceedLimitInvest && !_isSelectLimit) {
+        if (isFitToBuy) {
+            if (self.isExceedLimitInvest &&!_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
             [self chooseBuyTypeWithSting:_btnLabelText];
         } else {
-            if (isFitToBuy) {
-                if (self.isExceedLimitInvest &&!_isSelectLimit) {
-                    [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-                    return;
-                }
-                [self chooseBuyTypeWithSting:_btnLabelText];
-            } else {
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-            }
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
     }
 }
@@ -666,21 +656,17 @@ static const NSInteger topView_high = 300;
     if (self.isFirstBuy) {
         if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
-            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     } else {
         if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
-            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     }
