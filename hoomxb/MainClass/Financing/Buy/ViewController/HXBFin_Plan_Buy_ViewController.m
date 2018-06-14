@@ -220,7 +220,7 @@ static NSString *const bankString = @"绑定银行卡";
         self.topView.profitStr = @"预期收益0.00元";
         
         if (self.isNewPlan) {
-            [self.topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+            [self.topView setProfitString:@"0.00"];
         }
         
         _inputMoneyStr = @"";
@@ -282,10 +282,11 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)checkIfNeedNewPlanDatas:(NSString *)baseMoney {
     if (self.isNewPlan) {
+        /// 贴息收益
         CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-        NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
+        /// 总收益
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
-        [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
+        [_topView setProfitString:_profitMoneyStr];
     }
 }
 
@@ -739,14 +740,14 @@ static const NSInteger topView_high = 300;
         if (self.isNewPlan) {
             _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
             _topView.alertTipBlock = ^{
-                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"加息收益将在退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"贴息收益%.2f元在计划退出时发放至账户", _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
                 alertVC.isHIddenLeftBtn = YES;
                 alertVC.isCenterShow = YES;
                 [weakSelf presentViewController:alertVC animated:YES completion:nil];
                 
             };
             
-            [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+            [_topView setProfitString:@"0.00"];
         }
         else {
            _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];

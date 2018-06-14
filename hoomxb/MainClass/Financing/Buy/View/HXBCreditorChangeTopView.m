@@ -317,17 +317,17 @@
     _profitLabel.attributedText = attributedStr;
 }
 
-- (void)setProfitStr:(NSString *)profitStr andSubsidy:(NSString *)subsidy {
+- (void)setProfitString:(NSString *)profitStr {
     NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"预期收益" attributes:@{NSForegroundColorAttributeName: COR10}];
     [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:profitStr attributes:@{NSForegroundColorAttributeName: COR29}]];
-    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元，加息收益" attributes:@{NSForegroundColorAttributeName: COR10}]];
-    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:subsidy attributes:@{NSForegroundColorAttributeName: COR29}]];
-    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元 " attributes:@{NSForegroundColorAttributeName: COR10}]];
-    
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{NSForegroundColorAttributeName: COR10}]];
     NSTextAttachment *attachment = [NSTextAttachment new];
     attachment.image = [UIImage imageNamed:@"lightblue_tip"];
     attachment.bounds = CGRectMake(0, -2, 14, 14);
-    [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+    /// 新手输入框没有输入，则不展示tips
+    if (profitStr.floatValue > 0) {
+        [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+    }
     
     _profitLabel.attributedText = attrText;
 }
