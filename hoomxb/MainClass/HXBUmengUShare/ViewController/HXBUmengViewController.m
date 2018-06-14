@@ -237,7 +237,7 @@
         _umengView.backgroundColor = [UIColor clearColor];
         kWeakSelf
         _umengView.shareWebPageToPlatformType = ^(UMSocialPlatformType type) {
-            switch (weakSelf.shareType) {
+            switch ([weakSelf.shareVM getShareType]) {
                 case HXBShareTypeWebPage:
                     [weakSelf shareWebPageToPlatformType:type];
                     break;

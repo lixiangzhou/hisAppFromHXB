@@ -75,12 +75,11 @@
 }
 
 
-+ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM shareStatus:(NSString *)shareStatus {
++ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM {
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_alert];
     if (KeyChain.ishaveNet) {
         HXBUmengViewController *UmengVC = [[HXBUmengViewController alloc] init];
         UmengVC.shareVM = shareVM;
-        UmengVC.shareType = [shareStatus isEqualToString:@"link"] ? HXBShareTypeWebPage : HXBShareTypeImage;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:UmengVC animated:NO completion:^{
             [UmengVC showShareView];
         }];

@@ -16,13 +16,13 @@
 
 - (BOOL)isNeedShare {
     
-     if ([self.model.shareStatus isEqualToString:@"link"]) {
+     if ([self.model.share.status isEqualToString:@"link"]) {
      //连接分享
          return YES;
-     } else if([self.model.shareStatus isEqualToString:@"picture"]){
+     } else if([self.model.share.status isEqualToString:@"picture"]){
      //图片分享
          return YES;
-     } else if([self.model.shareStatus isEqualToString:@"none"]){
+     } else if([self.model.share.status isEqualToString:@"none"]){
      //不分享
          return NO;
      }
@@ -33,7 +33,7 @@
     //连接分享
     HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
     shareViewModel.shareModel = self.model.share;
-    [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel shareStatus:self.model.shareStatus];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
 }
 
 @end

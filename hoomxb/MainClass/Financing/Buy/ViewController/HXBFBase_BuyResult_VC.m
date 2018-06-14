@@ -172,7 +172,7 @@
 
 - (void)clickToShare:(UIButton *)clickToShare {
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
-    [HXBUMengShareManager showShareMenuViewInWindowWith:nil shareStatus:@"link"];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 // 设置行间距的富文本
