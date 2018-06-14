@@ -78,7 +78,20 @@
             _responseDict = (NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject];
             [self cachePopHomeImage];
         } else {
-            self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
+            if ([_responseDict[@"frequency"] isEqualToString:@"once"] || [_responseDict[@"frequency"] isEqualToString:@"everytime"]) {
+                self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
+            } else if ([_responseDict[@"frequency"] isEqualToString:@"everyday"]) {
+                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
+                long long startTimestamp = [_responseDict[@"start"] longLongValue];
+                long long endTimestamp = [_responseDict[@"end"] longLongValue];
+                if (todayTimestamp >= startTimestamp && todayTimestamp < endTimestamp) {
+                    self.isHide = [kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@%lld",_responseDict[@"id"],_responseDict[@"frequency"],todayTimestamp]];
+                } else {
+                    self.isHide = YES;
+                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@%lld",_responseDict[@"id"],_responseDict[@"frequency"],todayTimestamp]];//下次隐藏
+                    [kUserDefaults synchronize];
+                }
+            }
         }
     } else {
         _responseDict = dict;
@@ -94,6 +107,11 @@
         [imageCache removeImageForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] fromDisk:YES];
     }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    
+        long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
+        long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
+        long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
+        
         if (image) {
             weakSelf.popView.imgView.image = image;
             [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
@@ -102,8 +120,8 @@
             [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
             
             weakSelf.isHide = NO;
-            
             [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
+   
         } else {
 
             if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
@@ -113,14 +131,11 @@
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
                 [kUserDefaults synchronize];
             } else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyday"]) {
-                long long secondaysZeroTimestamp = [[NSNumber numberWithDouble:[[NSDate getTomorrowDayTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//第二天零时零分零秒
-                long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
-                long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
                 
-                if (secondaysZeroTimestamp >= startTimestamp && secondaysZeroTimestamp < endTimestamp) {
-                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                if (todayTimestamp >= startTimestamp && todayTimestamp < endTimestamp) { //当天0时在弹窗有效期
+                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@%lld",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"],todayTimestamp]];
                 } else {
-                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@%lld",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"],todayTimestamp]];
                 }
                 [kUserDefaults synchronize];
             }
@@ -146,15 +161,9 @@
                 [kUserDefaults synchronize];
             }  else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyday"]){
 
-                long long secondaysZeroTimestamp = [[NSNumber numberWithDouble:[[NSDate getTomorrowDayTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//第二天零时零分零秒
-                long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
-                long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
+                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
 
-                if (secondaysZeroTimestamp >= startTimestamp && secondaysZeroTimestamp < endTimestamp) {
-                    [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                } else {
-                    [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
-                }
+                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@%lld",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"],todayTimestamp]];
                 [kUserDefaults synchronize];
             }
 

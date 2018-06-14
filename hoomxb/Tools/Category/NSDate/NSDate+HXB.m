@@ -75,4 +75,23 @@
     return  [formatter dateFromString:a];//将字符串转换为时间对象
 }
 
+/// 返回今天0时0分0秒的时间戳
++ (NSDate *)getTodayTimestamp {
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorian components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+    [components setDay:([components day])];
+    
+    NSDate *beginningOfWeek = [gregorian dateFromComponents:components];
+    NSDateFormatter *dateday = [[NSDateFormatter alloc] init];
+    [dateday setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString *todayTimestamp = [NSString stringWithFormat:@"%@ 00:00:00",[dateday stringFromDate:beginningOfWeek]];//@"2023-10-23 00:00:00";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    return [formatter dateFromString:todayTimestamp];//将字符串转换为时间对象;
+}
+
 @end

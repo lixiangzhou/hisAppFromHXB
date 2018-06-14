@@ -23,5 +23,7 @@
 + (NSString *)getTomorrowDay:(NSDate *)aDate;
 /// 传入今天的时间，返回明天0时0分0秒的时间戳
 + (NSDate *)getTomorrowDayTimestamp:(NSDate *)aDate;
+/// 返回今天0时0分0秒的时间戳
++ (NSDate *)getTodayTimestamp;
 
 @end
