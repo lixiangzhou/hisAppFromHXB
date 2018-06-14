@@ -186,7 +186,7 @@ static NSString *const exitTitle = @"已退出";
     }
     if((indexPath = objc_getAssociatedObject(tap.view, (__bridge const void * _Nonnull)(WithdrawnFromIncomeKey)))) { //暂时等是否有新字段
         HXBMYViewModel_MianPlanViewModel *viewModel = self.mainPlanViewModelArray[indexPath.section];
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieQuitEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
