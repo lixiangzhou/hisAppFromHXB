@@ -187,7 +187,7 @@
     NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
     [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
     [self showSecurityCertificationOrInvest:self.userInfoViewModel];
-    if (homeBaseModel.newbieProductData.img.length > 0) {
+    if (homeBaseModel.newbieProductData.dataList.count > 0) {
         self.newbieView.hidden = NO;
     } else {
         self.newbieView.hidden = YES;
