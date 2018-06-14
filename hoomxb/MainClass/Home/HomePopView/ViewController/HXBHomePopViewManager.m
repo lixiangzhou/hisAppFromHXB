@@ -22,6 +22,7 @@
 #import "HXBBannerWebViewController.h"
 #import "HXBRootVCManager.h"
 #import "NSDate+HXB.h"
+#import "HXBExtensionMethodTool.h"
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kNoticeVC @"/home/notice"//公告列表
@@ -206,47 +207,12 @@
 - (void)jumpPageFromHomePopView:(HXBHomePopVWModel *)homePopViewModel fromController:(UIViewController *)controller{
     
     self.popView.userInteractionEnabled = NO;//避免重复点击
-    if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
-        
-        if ([homePopViewModel.url hasPrefix:kPlan_fragment]) {
-            //计划列表
-            HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-            tabBarVC.selectedIndex = 1;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-        } else if ([homePopViewModel.url hasPrefix:kPlanDetailVC]){
-            //某个计划的详情页
-            HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
-            NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.url];
-            if (parameterDict[@"productId"]) {
-                planDetailsVC.planID = parameterDict[@"productId"];
-                planDetailsVC.isPlan = YES;
-                planDetailsVC.isFlowChart = YES;
-                [controller.navigationController pushViewController:planDetailsVC animated:YES];
-            } else {
-                return;
-            }
-        } else if([homePopViewModel.url hasPrefix:kRegisterVC]){
-            //注册
-            //跳转登录注册
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
-            
-        }else if ([homePopViewModel.url hasPrefix:kNoticeVC]){
-            //公告列表
-            HXBNoticeViewController *noticeVC = [[HXBNoticeViewController alloc] init];
-            [controller.navigationController pushViewController:noticeVC animated:YES];
-        }
-    } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
-        }
-    } else if ([homePopViewModel.type isEqualToString:@"h5"]) {
-        
-        if (homePopViewModel.url.length) {
-            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-            webViewVC.pageUrl = homePopViewModel.url;
-            [controller.navigationController pushViewController:webViewVC animated:YES];
-        }
-    }
+    
+    BannerModel *pushVCmodel = [[BannerModel alloc] init];
+    pushVCmodel.type = homePopViewModel.type;
+    pushVCmodel.link = homePopViewModel.url;
+
+    [HXBExtensionMethodTool pushToViewControllerWithModel:pushVCmodel andWithFromVC:controller];
     
     [self.popView dismiss];
 }
