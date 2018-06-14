@@ -93,7 +93,7 @@ static NSString *const HXB_Dialog = @"dialog";
         NSLog(@"%@",data);
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
         shareViewModel.shareModel = [HXBUMShareModel yy_modelWithDictionary:data];
-        [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
+        [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel shareStatus:@"link"];
     }];
     
 }
