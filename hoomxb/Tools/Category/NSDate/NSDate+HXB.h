@@ -19,11 +19,6 @@
 + (NSString *)getDateStringWithTimeStr:(NSString *)str;
 /// 字符串转时间戳 如：2017-4-10 17:15:10
 + (NSString *)getTimeStrWithString:(NSString *)str;
-/// 传入今天的时间，返回明天的时间
-+ (NSString *)getTomorrowDay:(NSDate *)aDate;
-/// 传入今天的时间，返回明天0时0分0秒的时间戳
-+ (NSDate *)getTomorrowDayTimestamp:(NSDate *)aDate;
-/// 返回今天0时0分0秒的时间戳
-+ (NSDate *)getTodayTimestamp;
-
+/// 传入date，返回此天的0时0分0秒时间
++ (NSDate *)getDayZeroTimestamp:(NSDate *)aDate;
 @end

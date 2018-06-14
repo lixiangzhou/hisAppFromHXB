@@ -24,14 +24,6 @@
 #import "NSDate+HXB.h"
 #import "HXBExtensionMethodTool.h"
 
-#define kRegisterVC @"/account/register"//注册页面
-#define kNoticeVC @"/home/notice"//公告列表
-#define kPlanDetailVC @"/plan/detail"//某个计划的详情页
-//#define kLoanDetailVC @"/loan/detail"//某个散标的详情页
-#define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
-//#define kLoan_fragment @"/home/loan_fragment"//散标列表页
-//#define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
-
 @interface HXBHomePopViewManager ()
 
 @property (nonatomic, strong) HXBHomePopView *popView;
@@ -66,6 +58,7 @@
             weakSelf.isHide = YES;
             return ;
         }
+        
         [weakSelf updateUserDefaultsPopViewDate:(NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject]];
     }];
 }
@@ -82,13 +75,15 @@
             if ([_responseDict[@"frequency"] isEqualToString:@"once"] || [_responseDict[@"frequency"] isEqualToString:@"everytime"]) {
                 self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
             } else if ([_responseDict[@"frequency"] isEqualToString:@"everyday"]) {
-                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
+                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getDayZeroTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
                 long long startTimestamp = [_responseDict[@"start"] longLongValue];
                 long long endTimestamp = [_responseDict[@"end"] longLongValue];
                 if (todayTimestamp >= startTimestamp && todayTimestamp < endTimestamp) {
                     self.isHide = [kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@%lld",_responseDict[@"id"],_responseDict[@"frequency"],todayTimestamp]];
                 } else {
                     self.isHide = YES;
+                     long long lastTimestamp = [[NSNumber numberWithDouble:[[NSDate getDayZeroTimestamp:[NSDate dateWithTimeInterval:-24*60*60 sinceDate:[NSDate date]]] timeIntervalSince1970] * 1000] longLongValue];//前一天零时零分零秒
+                    [kUserDefaults removeObjectForKey:[NSString stringWithFormat:@"%@%@%lld",_responseDict[@"id"],_responseDict[@"frequency"],lastTimestamp]];
                     [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@%lld",_responseDict[@"id"],_responseDict[@"frequency"],todayTimestamp]];//下次隐藏
                     [kUserDefaults synchronize];
                 }
@@ -109,7 +104,7 @@
     }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     
-        long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
+        long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getDayZeroTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
         long long startTimestamp = [weakSelf.responseDict[@"start"] longLongValue];
         long long endTimestamp = [weakSelf.responseDict[@"end"] longLongValue];
         
@@ -162,7 +157,7 @@
                 [kUserDefaults synchronize];
             }  else if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyday"]){
 
-                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getTodayTimestamp] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
+                long long todayTimestamp = [[NSNumber numberWithDouble:[[NSDate getDayZeroTimestamp:[NSDate date]] timeIntervalSince1970] * 1000] longLongValue];//今天零时零分零秒
 
                 [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@%lld",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"],todayTimestamp]];
                 [kUserDefaults synchronize];
