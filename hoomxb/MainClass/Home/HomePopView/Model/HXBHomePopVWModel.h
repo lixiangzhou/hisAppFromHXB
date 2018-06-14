@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HXBUMShareModel.h"
 
 @interface HXBHomePopVWModel : NSObject
-
+//2.9.0新增分享模型
+@property (nonatomic, strong) HXBUMShareModel *share;
 @property (nonatomic, copy) NSString *title;//弹窗名称
 @property (nonatomic, copy) NSString *image;//图片链接地址
 @property (nonatomic, copy) NSString *ID;//弹窗唯一标识ID

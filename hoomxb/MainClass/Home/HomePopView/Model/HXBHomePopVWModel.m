@@ -14,4 +14,10 @@
     return @{@"ID" : @"id"};
 }
 
++ modelContainerPropertyGenericClass {
+    return @{
+             @"share":[HXBUMShareModel class]
+             };
+}
+
 @end
