@@ -210,6 +210,7 @@
             NSLog(@"点击了账户密码登录");
             [KeyChain signOut];
             [[HXBRootVCManager manager] makeTabbarRootVC];
+            [self.view removeFromSuperview];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
             break;
@@ -279,6 +280,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
             [[HXBRootVCManager manager] makeTabbarRootVC];
+            [self.view removeFromSuperview];
         }
         
     } else {
@@ -297,7 +299,11 @@
         if (equal) {
             NSLog(@"登陆成功！");
             KeyChain.gesturePwdCount = @"5";
-            [[HXBRootVCManager manager] makeTabbarRootVC];
+//            [[HXBRootVCManager manager] makeTabbarRootVC];
+            [self.view removeFromSuperview];
+            if (self.dismissBlock) {
+                self.dismissBlock();
+            }
         } else {
            
             
@@ -313,9 +319,11 @@
                 [KeyChain signOut];
                 alertVC.leftBtnBlock = ^{
                     [[HXBRootVCManager manager] makeTabbarRootVC];
+                    [self.view removeFromSuperview];
                 };
                 alertVC.rightBtnBlock = ^{
                     [[HXBRootVCManager manager] makeTabbarRootVC];
+                    [self.view removeFromSuperview];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 };
                 
@@ -348,6 +356,7 @@
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
             [[HXBRootVCManager manager] makeTabbarRootVC];
+            [self.view removeFromSuperview];
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };

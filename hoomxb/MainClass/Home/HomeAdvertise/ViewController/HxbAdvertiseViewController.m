@@ -9,10 +9,12 @@
 #import "HxbAdvertiseViewController.h"
 #import "HXBAdvertiseViewModel.h"
 #import <UIImageView+WebCache.h>
+#import "HXBRootVCManager.h"
 
 @interface HxbAdvertiseViewController ()
 @property (nonatomic, strong) UIImageView *topImageView;
 @property (nonatomic, strong) HXBAdvertiseViewModel *viewModel;
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation HxbAdvertiseViewController
@@ -37,16 +39,8 @@
     imgView.image = [UIImage getLauchImage];
     [self.view addSubview:imgView];
     
+    self.topImageView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.topImageView];
-}
-
-- (void)addTimer {
-    // 3 秒后消失
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.dismissBlock) {
-            self.dismissBlock();
-        }
-    });
 }
 
 - (void)getData {
@@ -68,8 +62,40 @@
 }
 
 - (void)tapImage {
+    [self invalidateTimer];
+    [self.view removeFromSuperview];
     
+    if ([HXBRootVCManager manager].gesturePwdVC) {
+        [[HXBRootVCManager manager] showGesPwd];
+        [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^{
+            
+        };
+    } else {
+        
+    }
 }
+
+- (void)dealloc {
+    [self invalidateTimer];
+}
+
+- (void)addTimer {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [self.view removeFromSuperview];
+        if (self.dismissBlock) {
+            self.dismissBlock();
+        }
+    }];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)invalidateTimer {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+}
+
 
 - (UIImageView *)topImageView {
     if (!_topImageView) {

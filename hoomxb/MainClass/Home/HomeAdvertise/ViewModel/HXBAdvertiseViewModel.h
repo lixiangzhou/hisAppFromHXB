@@ -10,7 +10,9 @@
 
 @interface HXBAdvertiseViewModel : HXBBaseViewModel
 
-@property (nonatomic, assign, readonly) BOOL hasSplashData;
+@property (nonatomic, assign, readonly) BOOL canShow;
+
+@property (nonatomic, assign, readonly) BOOL hasCacheData;
 
 - (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock;
 /// 获取闪屏图片，从缓存中取，并后台下载新的图片
