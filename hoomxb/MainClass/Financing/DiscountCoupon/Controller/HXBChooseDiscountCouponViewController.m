@@ -224,7 +224,7 @@
         if (isSuccess) {
             [weakSelf displaySuccessData];
         } else {
-            weakSelf.noDataView.hidden = NO;
+            weakSelf.nodataView.hidden = NO;
         }
     }];
 }
@@ -239,7 +239,6 @@
     }
     if (self.viewModel.chooseCouponModel.dataList.count == 0 && self.viewModel.chooseCouponModel.unusableList.count == 0) {
         self.nodataView.hidden = NO;
-        self.notifitionView.hidden = YES;
     } else {
         self.tableView.hidden = NO;
         self.nodataView.hidden = YES;
