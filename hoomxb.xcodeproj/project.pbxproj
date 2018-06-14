@@ -37,6 +37,7 @@
 		4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */; };
 		4E48FF421F69124600965BA2 /* HXBDeviceVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */; };
 		4E4DC30F2024366300E96A08 /* HXBHomeNewbieProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC30D2024366300E96A08 /* HXBHomeNewbieProductModel.m */; };
+		4E50D5E920D0EA2D00E71B01 /* HXBExtensionMethodTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E50D5E820D0EA2D00E71B01 /* HXBExtensionMethodTool.m */; };
 		4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
 		4E613B391FC809C0003FC5F9 /* HXBWKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E613B381FC809C0003FC5F9 /* HXBWKWebViewProgressView.m */; };
 		4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBB1F189F02002A3E18 /* bank.svg */; };
@@ -648,6 +649,8 @@
 		4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDeviceVersion.m; sourceTree = "<group>"; };
 		4E4DC30D2024366300E96A08 /* HXBHomeNewbieProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomeNewbieProductModel.m; sourceTree = "<group>"; };
 		4E4DC30E2024366300E96A08 /* HXBHomeNewbieProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHomeNewbieProductModel.h; sourceTree = "<group>"; };
+		4E50D5E720D0EA2D00E71B01 /* HXBExtensionMethodTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBExtensionMethodTool.h; sourceTree = "<group>"; };
+		4E50D5E820D0EA2D00E71B01 /* HXBExtensionMethodTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBExtensionMethodTool.m; sourceTree = "<group>"; };
 		4E613B371FC809C0003FC5F9 /* HXBWKWebViewProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWKWebViewProgressView.h; sourceTree = "<group>"; };
 		4E613B381FC809C0003FC5F9 /* HXBWKWebViewProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWKWebViewProgressView.m; sourceTree = "<group>"; };
 		4E7BBBEF1FF5E59C0092FD09 /* HXBBackgroundColorMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBackgroundColorMacros.h; sourceTree = "<group>"; };
@@ -1992,6 +1995,15 @@
 				4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */,
 			);
 			path = HXBDeviceVersion;
+			sourceTree = "<group>";
+		};
+		4E50D5E620D0E8AF00E71B01 /* Extraction */ = {
+			isa = PBXGroup;
+			children = (
+				4E50D5E720D0EA2D00E71B01 /* HXBExtensionMethodTool.h */,
+				4E50D5E820D0EA2D00E71B01 /* HXBExtensionMethodTool.m */,
+			);
+			path = Extraction;
 			sourceTree = "<group>";
 		};
 		4E73BBCE1EC2EFC3001B8357 /* Plist */ = {
@@ -4981,6 +4993,7 @@
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				4E50D5E620D0E8AF00E71B01 /* Extraction */,
 				9AF760592046728200539BFB /* AlertView */,
 				9AFBE1DB1FE8FD01000ED560 /* Timer */,
 				9AF220EA1FC2BA8F00002D1D /* BaseURL */,
@@ -5674,6 +5687,7 @@
 				9AE033A92022C423006D6140 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				E19105B220455358002B3831 /* HXBMainListViewPlanTopViewViewModel.m in Sources */,
 				9AE032112022C317006D6140 /* HXBMainListView_Loan.m in Sources */,
+				4E50D5E920D0EA2D00E71B01 /* HXBExtensionMethodTool.m in Sources */,
 				4EADD2BC202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m in Sources */,
 				8D2CF5221FC2DA5D008F7A89 /* HXBInviteListViewController.m in Sources */,
 				E19105AF20455278002B3831 /* HXBMainListViewPlanViewModel.m in Sources */,
