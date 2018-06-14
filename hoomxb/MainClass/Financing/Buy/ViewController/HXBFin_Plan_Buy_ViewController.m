@@ -114,7 +114,6 @@ static NSString *const bankString = @"绑定银行卡";
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
-    [self unavailableMoney];
     [self hasBestCouponRequest];
     [self isMatchToBuyWithMoney:@"0"];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
@@ -649,27 +648,6 @@ static const NSInteger topView_high = 300;
     }
     [self setUpArray];
     [self changeItemWithInvestMoney:money];
-}
-
-- (void)unavailableMoney {
-    // 小于最小投资金额时，输入框不可以编辑
-    if (self.isFirstBuy) {
-        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self getBESTCouponWithMoney:_inputMoneyStr];
-        } else {
-            _topView.disableKeyBorad = NO;
-        }
-    } else {
-        if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
-            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self getBESTCouponWithMoney:_inputMoneyStr];
-        } else {
-            _topView.disableKeyBorad = NO;
-        }
-    }
 }
 
 - (void)setUpArray {
