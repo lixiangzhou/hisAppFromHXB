@@ -9,11 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UMSocialCore/UMSocialCore.h>
 @class HXBUMShareModel;
+
+typedef NS_ENUM(NSUInteger, HXBShareType) {
+    HXBShareTypeWebPage,
+    HXBShareTypeImage,
+};
+
 @interface HXBUMShareViewModel : NSObject
 
 @property (nonatomic, strong) HXBUMShareModel *shareModel;
 
 
+- (HXBShareType)getShareType;
 /**
  获取分享数据
  */

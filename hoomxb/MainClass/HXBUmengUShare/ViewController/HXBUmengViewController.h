@@ -9,16 +9,7 @@
 #import <UIKit/UIKit.h>
 @class HXBUMShareViewModel;
 
-typedef NS_ENUM(NSUInteger, HXBShareType) {
-    HXBShareTypeWebPage,
-    HXBShareTypeImage,
-};
-
 @interface HXBUmengViewController : UIViewController
-/**
- 分享的类型
- */
-@property (nonatomic, assign) HXBShareType shareType;
 /**
  分享的数据
  */
