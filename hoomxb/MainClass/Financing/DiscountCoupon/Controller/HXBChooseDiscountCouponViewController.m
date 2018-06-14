@@ -57,7 +57,7 @@
         _notifitionView.hidden = YES;
         _tableView.tableHeaderView = [self tableViewHeadView];
     } else {
-        _notifitionView.hidden = self.isNewPlan ? YES : NO;
+        _notifitionView.hidden = NO;
         _tableView.tableHeaderView.hidden = YES;
         _tableView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(40));
     }
@@ -221,10 +221,6 @@
                           };
     kWeakSelf
     [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
-        if (weakSelf.isNewPlan) {
-            weakSelf.nodataView.hidden = NO;
-            return ;
-        }
         if (isSuccess) {
             [weakSelf displaySuccessData];
         } else {
