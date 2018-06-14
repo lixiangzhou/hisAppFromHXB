@@ -327,6 +327,7 @@
     /// 新手输入框没有输入，则不展示tips
     if (profitStr.floatValue > 0) {
         [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        [self.backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertTip)]];
     }
     
     _profitLabel.attributedText = attrText;
@@ -340,8 +341,6 @@
             make.right.equalTo(weakSelf).offset(-kScrAdaptationW(15));
         }];
         _profitTypeLabel.hidden = YES;
-        
-        [self.backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertTip)]];
     }
 }
 
