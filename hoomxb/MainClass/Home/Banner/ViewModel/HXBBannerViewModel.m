@@ -30,15 +30,10 @@
 }
 
 - (void)share {
-    if ([self.model.shareStatus isEqualToString:@"link"]) {
-        //连接分享
-        HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
-        shareViewModel.shareModel = self.model.share;
-        [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
-    } else if([self.model.shareStatus isEqualToString:@"picture"]){
-        //图片分享
-        
-    }
+    //连接分享
+    HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
+    shareViewModel.shareModel = self.model.share;
+    [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel shareStatus:self.model.shareStatus];
 }
 
 @end

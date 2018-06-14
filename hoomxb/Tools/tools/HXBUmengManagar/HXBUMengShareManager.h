@@ -20,5 +20,5 @@
 /**
  显示分享
  */
-+ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM;
++ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM shareStatus:(NSString *)shareStatus;
 @end
