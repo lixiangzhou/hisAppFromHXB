@@ -74,7 +74,7 @@
 - (void)changeIndicationView:(HXBRequestUserInfoViewModel *)viewModel
 {
     CGFloat newbieViewHeight = 0;
-    if (self.homeBaseViewModel.homeBaseModel.newbieProductData.img.length > 0) {
+    if (self.homeBaseViewModel.homeBaseModel.newbieProductData.dataList.count > 0) {
         newbieViewHeight = kHXBNewbieHeight;
     }
     kWeakSelf
