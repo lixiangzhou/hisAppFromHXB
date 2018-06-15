@@ -33,5 +33,7 @@
 - (void)showSlash;
 
 - (void)showGesPwd;
+///
+//- (void)popWindowsAtHomeAfterSlashOrGesturePwd;
 
 @end

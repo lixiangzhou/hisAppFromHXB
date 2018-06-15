@@ -32,4 +32,6 @@ typedef enum{
 @property (nonatomic, assign) HXBAccountSecureSwitchType switchType;
 
 @property (nonatomic, copy) void (^dismissBlock)();
+
+- (void)checkAlertSkipSetting;
 @end

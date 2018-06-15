@@ -7,15 +7,18 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "BannerModel.h"
 
 @interface HXBAdvertiseViewModel : HXBBaseViewModel
+/// 闪屏页数据
+@property (nonatomic, strong, readonly) BannerModel *bannerModel;
 
-@property (nonatomic, assign, readonly) BOOL canShow;
+/// 图片URL
+@property (nonatomic, strong) NSURL *imageUrl;
 
-@property (nonatomic, assign, readonly) BOOL hasCacheData;
+/// 是否可以跳转到活动页
+@property (nonatomic, assign) BOOL canToActivity;
 
-- (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock;
-/// 获取闪屏图片，从缓存中取，并后台下载新的图片
-/// 若有缓存则显示，没有就不显示
-- (void)getSplashImage:(void (^)(BOOL isSuccess))resultBlock;
+- (void)getSlash:(void (^)(BOOL isSuccess))resultBlock;
+
 @end

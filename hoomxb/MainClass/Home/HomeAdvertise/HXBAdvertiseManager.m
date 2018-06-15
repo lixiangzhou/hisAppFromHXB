@@ -9,11 +9,14 @@
 #import "HXBAdvertiseManager.h"
 #import "SDImageCache.h"
 #import "SDWebImageDownloader.h"
+#import "BannerModel.h"
 
 #define kSplashDataKey @"kSplashDataKey"
 
 @interface HXBAdvertiseManager ()
-@property (nonatomic, assign, readwrite) BOOL canShow;
+@property (nonatomic, assign, readwrite) BOOL requestSuccess;
+@property (nonatomic, strong) BannerModel *bannerModel;
+@property (nonatomic, assign) BOOL requestCompleted;
 @end
 
 @implementation HXBAdvertiseManager
@@ -26,36 +29,41 @@
     return mgr;
 }
 
-- (void)getSplashImage {
+- (void)getSplash {
+    // 请求闪屏数据
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:nil];
     request.requestUrl = kHXBSplash;
     
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        weakSelf.canShow = YES;
+        weakSelf.requestSuccess = YES;
         [weakSelf cacheResponse:responseObject];
+        weakSelf.requestCompleted = YES;
     } failure:^(NYBaseRequest *request, NSError *error) {
-        weakSelf.canShow = NO;
+        weakSelf.requestSuccess = NO;
+        weakSelf.requestCompleted = YES;
     }];
 }
 
+/// 缓存闪屏数据
 - (void)cacheResponse:(NSDictionary *)responseObject {
     NSDictionary *data = responseObject[kResponseData];
     NSString *imageURL = data[@"image"];
     
     NSString *oldImageURL = [self getCacheData][@"image"];
-    // 不同的URL就更新缓存
-    if ([imageURL isEqualToString:oldImageURL] == NO) {
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
-    } else {
+    // 不同的URL就更新缓存，相同就检查有没有缓存成功，没有缓存成功就重新缓存
+    if ([imageURL isEqualToString:oldImageURL]) {
         if ([[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageURL] == NO) {
             [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
         }
+    } else {
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
     }
     
     [kUserDefaults setObject:data forKey:kSplashDataKey];
     [kUserDefaults synchronize];
-
+    
+    self.bannerModel = [BannerModel yy_modelWithDictionary:data];
 }
 
 - (NSDictionary *)getCacheData {

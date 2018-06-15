@@ -10,6 +10,10 @@
 #import "HXBAdvertiseViewModel.h"
 #import <UIImageView+WebCache.h>
 #import "HXBRootVCManager.h"
+#import "HXBExtensionMethodTool.h"
+#import "HXBAdvertiseManager.h"
+#import "HXBHomePopViewManager.h"
+#import "HXBVersionUpdateManager.h"
 
 @interface HxbAdvertiseViewController ()
 @property (nonatomic, strong) UIImageView *topImageView;
@@ -29,8 +33,6 @@
     
     [self setUI];
     
-    [self addTimer];
-    
     [self getData];
 }
 
@@ -45,34 +47,45 @@
 
 - (void)getData {
     kWeakSelf
-    [self.viewModel requestSplashImages:^(NSString *imageUrl) {
-        [weakSelf.topImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
+    [self.viewModel getSlash:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf.topImageView sd_setImageWithURL:weakSelf.viewModel.imageUrl];
+        }
     }];
-    
-#warning to uncommon
-    //    [self.viewModel getSplashImage:^(NSString *imageUrl) {
-    //        if (imageUrl) {
-    //            [weakSelf.topImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
-    //            [weakSelf addTimer];
-    //        } else {
-    //            weakSelf.dismissBlock();
-    //        }
-    //    }];
-
 }
 
 - (void)tapImage {
+    if (self.viewModel.canToActivity == NO) {
+        return;
+    }
+    self.topImageView.userInteractionEnabled = NO;
     [self invalidateTimer];
-    [self.view removeFromSuperview];
     
+    kWeakSelf
     if ([HXBRootVCManager manager].gesturePwdVC) {
+        [self.view removeFromSuperview];
         [[HXBRootVCManager manager] showGesPwd];
+        
         [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^{
-            
+            /// 延时是为了避免突然出现其他界面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+            });
+            [weakSelf toActivity];
         };
     } else {
-        
+        /// 延时是为了避免突然出现其他界面
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.view removeFromSuperview];
+        });
+        [self toActivity];
     }
+}
+
+- (void)toActivity {
+    UINavigationController *nav = [HXBRootVCManager manager].mainTabbarVC.childViewControllers[0];
+    UIViewController *homeVC = nav.childViewControllers.firstObject;
+    [HXBExtensionMethodTool pushToViewControllerWithModel:self.viewModel.bannerModel andWithFromVC:homeVC];
 }
 
 - (void)dealloc {
@@ -80,10 +93,10 @@
 }
 
 - (void)addTimer {
+    kWeakSelf
     self.timer = [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
-        [self.view removeFromSuperview];
-        if (self.dismissBlock) {
-            self.dismissBlock();
+        if (weakSelf.dismissBlock) {
+            weakSelf.dismissBlock();
         }
     }];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];

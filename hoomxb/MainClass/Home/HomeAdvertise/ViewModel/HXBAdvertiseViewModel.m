@@ -7,69 +7,37 @@
 //
 
 #import "HXBAdvertiseViewModel.h"
-#import "SDImageCache.h"
-#import "SDWebImageDownloader.h"
-
-#define kSplashDataKey @"kSplashDataKey"
+#import "HXBAdvertiseManager.h"
 
 @implementation HXBAdvertiseViewModel
 
-- (BOOL)hasSplashData {
-    return [kUserDefaults objectForKey:kSplashDataKey];
-}
-
-- (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock {
-    // 无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
-    NYBaseRequest *splashTRequest = [[NYBaseRequest alloc] initWithDelegate:self];
-    splashTRequest.requestUrl = kHXBSplash;
-    splashTRequest.showHud = NO;
-    
-    [splashTRequest loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSString *imageURL = responseObject[kResponseData][@"url"];
-        if (resultBlock) {
-            resultBlock(imageURL);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (resultBlock) {
-            resultBlock(nil);
-        }
-    }];
-}
-
-
-- (void)getSplashImage:(void (^)(BOOL isSuccess))resultBlock {
-    // 显示缓存图片
-    NSDictionary *splashData = [kUserDefaults objectForKey:kSplashDataKey];
-    NSString *imageUrl = splashData[@"image"];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageUrl];
-    if (image) {
+- (void)getSlash:(void (^)(BOOL isSuccess))resultBlock {
+    if ([HXBAdvertiseManager shared].bannerModel) { // 如果已经请求下来数据，直接返回
         resultBlock(YES);
     } else {
-        resultBlock(NO);
-    }
-
-    [self downloadSplashImageWithCache:splashData];
-}
-
-- (void)downloadSplashImageWithCache:(NSDictionary *)splashData {
-    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
-    request.requestUrl = kHXBSplash;
-    request.showHud = NO;
-    
-    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSDictionary *data = responseObject[kResponseData];
-        NSString *imageURL = data[@"image"];
-        NSString *oldImageURL = splashData[@"image"];
-        // 不同的URL就更新缓存
-        if ([imageURL isEqualToString:oldImageURL] == NO) {
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
+        if ([HXBAdvertiseManager shared].requestCompleted) {    // 请求完成，但是没有数据，表示返回失败，返回NO
+            resultBlock(NO);
+        } else {    // 没有完成就等待请求完成，请求完成后 requestCompleted = YES
+            __weak HXBAdvertiseManager *mgr = [HXBAdvertiseManager shared];
+            [RACObserve([HXBAdvertiseManager shared], requestCompleted) subscribeNext:^(id  _Nullable x) {
+                resultBlock(mgr.requestSuccess);
+            }];
         }
-        
-        [kUserDefaults setObject:data forKey:kSplashDataKey];
-        [kUserDefaults synchronize];
-    } failure:^(NYBaseRequest *request, NSError *error) {
-    }];
+    }
 }
 
+- (BannerModel *)bannerModel {
+    [HXBAdvertiseManager shared].bannerModel.type = @"h5";
+    [HXBAdvertiseManager shared].bannerModel.link = @"https:/www.baidu.com";
+    return [HXBAdvertiseManager shared].bannerModel;
+}
+
+- (NSURL *)imageUrl {
+    return [NSURL URLWithString:self.bannerModel.image];
+}
+
+- (BOOL)canToActivity {
+    return self.bannerModel.link != nil && [self.bannerModel.link isEqualToString:@""] == NO;
+}
      
 @end

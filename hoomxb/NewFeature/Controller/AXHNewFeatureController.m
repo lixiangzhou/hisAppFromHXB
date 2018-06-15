@@ -114,11 +114,16 @@
 {
     [[HXBRootVCManager manager] makeTabbarRootVC];
     
-    if ([HXBAdvertiseManager shared].canShow) {
+    if ([HXBAdvertiseManager shared].requestSuccess) {
         [[HXBRootVCManager manager] showSlash];
     } else {
         if ([HXBRootVCManager manager].gesturePwdVC) {
             [[HXBRootVCManager manager] showGesPwd];
+            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^{
+                [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+            };
+        } else {
+            [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
         }
     }
 }

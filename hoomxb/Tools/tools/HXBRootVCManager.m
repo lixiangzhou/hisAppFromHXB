@@ -32,9 +32,6 @@
         UIViewController *vc = [manager getTabBarOrGesPwdVC];
         if ([vc isKindOfClass:[HXBGesturePasswordViewController class]]) {
             manager.gesturePwdVC = (HXBGesturePasswordViewController *)vc;
-            manager.gesturePwdVC.dismissBlock = ^{
-                [manager makeTabbarRootVC];
-            };
         }
     });
     return manager;
@@ -47,7 +44,7 @@
     
     [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据
     [[HXBVersionUpdateManager sharedInstance] checkVersionUpdate];
-    [[HXBAdvertiseManager shared] getSplashImage];
+    [[HXBAdvertiseManager shared] getSplash];
     
     [self chooseRootViewController];
     
@@ -64,9 +61,6 @@
     if ([currentVersion isEqualToString:lastVersion]) { // 没有最新的版本号
         [self makeTabbarRootVC];
         [self showSlash];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self showSlash];
-//        });
     } else { // 有新版本
         AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
         self.window.rootViewController = VC;
@@ -78,14 +72,23 @@
 
 - (void)showSlash {
     [self.mainTabbarVC.view addSubview:self.advertiseVC.view];
+    [self.advertiseVC addTimer];
     [HXBAdvertiseManager shared].isShowed = YES;
 }
 
 - (void)showGesPwd {
     if (self.gesturePwdVC) {
         [self.mainTabbarVC.view addSubview:self.gesturePwdVC.view];
+        [self.gesturePwdVC checkAlertSkipSetting];
     }
 }
+
+//- (void)popWindowsAtHomeAfterSlashOrGesturePwd {
+//    UIViewController *VC = self.mainTabbarVC.childViewControllers.firstObject.childViewControllers.firstObject;
+//    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:VC];//展示首页弹窗
+//    [[HXBVersionUpdateManager sharedInstance] show];
+////    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+//}
 
 /**
  判断是否进入手势密码
@@ -111,6 +114,7 @@
             
             if (skipGesturePwd && appeared) {
                 [self makeTabbarRootVC];
+//                [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
             } else {
                 [KeyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
@@ -121,6 +125,7 @@
         }
     } else {
         [self makeTabbarRootVC];
+//        [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
     }
 }
 
@@ -157,6 +162,7 @@
 }
 
 - (void)makeTabbarRootVC {
+//    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = NO;
     self.window.rootViewController = self.mainTabbarVC;
 }
 
@@ -217,8 +223,14 @@
         _advertiseVC = [HxbAdvertiseViewController new];
         kWeakSelf
         _advertiseVC.dismissBlock = ^{
+            [weakSelf.advertiseVC.view removeFromSuperview];
+            
             if (weakSelf.gesturePwdVC) {    // 需要显示手势密码
                 [weakSelf showGesPwd];
+                weakSelf.gesturePwdVC.dismissBlock = ^{
+                    [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+                };
+            } else {
             }
         };
     }
