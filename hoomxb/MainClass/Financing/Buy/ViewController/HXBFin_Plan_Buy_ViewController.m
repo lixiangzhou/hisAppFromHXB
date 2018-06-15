@@ -704,7 +704,7 @@ static const NSInteger topView_high = 300;
         if (self.isNewPlan) {
             _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
             _topView.alertTipBlock = ^{
-                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"贴息收益%.2f元在计划退出时发放至账户", _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"新手加息收益%.2f元将在计划退出时发放至您的账户", _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
                 alertVC.isHIddenLeftBtn = YES;
                 alertVC.isCenterShow = YES;
                 [weakSelf presentViewController:alertVC animated:YES completion:nil];
