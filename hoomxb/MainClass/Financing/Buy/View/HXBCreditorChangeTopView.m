@@ -30,7 +30,7 @@
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIImageView *leftImage;
-
+@property (nonatomic, strong) UITapGestureRecognizer *backViewTapGesture;
 @end
 @implementation HXBCreditorChangeTopView
 
@@ -327,7 +327,9 @@
     /// 新手输入框没有输入，则不展示tips
     if (profitStr.floatValue > 0) {
         [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
-        [self.backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertTip)]];
+        self.backViewTapGesture.enabled = YES;
+    } else {
+        self.backViewTapGesture.enabled = NO;
     }
     
     _profitLabel.attributedText = attrText;
@@ -374,6 +376,7 @@
     if (!_backView) {
         _backView = [[UIView alloc] initWithFrame:CGRectZero];
         _backView.backgroundColor = [UIColor whiteColor];
+        [_backView addGestureRecognizer:self.backViewTapGesture];
     }
     return _backView;
 }
@@ -425,6 +428,14 @@
         _rechargeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     }
     return _rechargeBtn;
+}
+
+- (UITapGestureRecognizer *)backViewTapGesture {
+    if (!_backViewTapGesture) {
+        _backViewTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertTip)];
+        _backViewTapGesture.enabled = NO;
+    }
+    return _backViewTapGesture;
 }
 
 /*
