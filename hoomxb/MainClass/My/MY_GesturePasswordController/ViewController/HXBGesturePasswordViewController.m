@@ -271,13 +271,14 @@
         
         KeyChain.skipGesture = kHXBGesturePwdSkipeNO;
        
-        
         if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
             [self.navigationController popToViewController:popToVC animated:YES];
         } else if (self.switchType == HXBAccountSecureSwitchTypeChange) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
-            [self.view removeFromSuperview];
+            if (self.dismissBlock) {
+                self.dismissBlock(NO, NO);
+            }
         }
         
     } else {
@@ -297,7 +298,7 @@
             NSLog(@"登陆成功！");
             KeyChain.gesturePwdCount = @"5";
             if (self.dismissBlock) {
-                self.dismissBlock();
+                self.dismissBlock(YES, YES);
             }
         } else {
             NSLog(@"密码错误！");
@@ -311,13 +312,17 @@
                 KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                 [KeyChain signOut];
                 alertVC.leftBtnBlock = ^{
-                    [self.view removeFromSuperview];
+                    if (self.dismissBlock) {
+                        self.dismissBlock(NO, NO);
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
                 };
                 alertVC.rightBtnBlock = ^{
-                    [self.view removeFromSuperview];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
+                    if (self.dismissBlock) {
+                        self.dismissBlock(NO, NO);
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 };
                 
                 [self presentViewController:alertVC animated:NO completion:nil];
@@ -354,7 +359,9 @@
         alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
-            [self.view removeFromSuperview];
+            if (self.dismissBlock) {
+                self.dismissBlock(NO, NO);
+            }
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };

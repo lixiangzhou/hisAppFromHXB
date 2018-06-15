@@ -76,19 +76,19 @@
     [HXBAdvertiseManager shared].isShowed = YES;
 }
 
-- (void)showGesPwd {
+- (void)showGesturePwd {
     if (self.gesturePwdVC) {
         [self.mainTabbarVC.view addSubview:self.gesturePwdVC.view];
         [self.gesturePwdVC checkAlertSkipSetting];
     }
 }
 
-//- (void)popWindowsAtHomeAfterSlashOrGesturePwd {
-//    UIViewController *VC = self.mainTabbarVC.childViewControllers.firstObject.childViewControllers.firstObject;
-//    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:VC];//展示首页弹窗
-//    [[HXBVersionUpdateManager sharedInstance] show];
-////    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
-//}
+- (void)popWindowsAtHomeAfterSlashOrGesturePwd {
+    UIViewController *VC = self.mainTabbarVC.childViewControllers.firstObject.childViewControllers.firstObject;
+    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:VC];//展示首页弹窗
+    [[HXBVersionUpdateManager sharedInstance] show];
+    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+}
 
 /**
  判断是否进入手势密码
@@ -162,7 +162,7 @@
 }
 
 - (void)makeTabbarRootVC {
-//    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = NO;
+    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = NO;
     self.window.rootViewController = self.mainTabbarVC;
 }
 
@@ -222,15 +222,19 @@
     if (_advertiseVC == nil) {
         _advertiseVC = [HxbAdvertiseViewController new];
         kWeakSelf
+        // 3 秒后自动消失
         _advertiseVC.dismissBlock = ^{
             [weakSelf.advertiseVC.view removeFromSuperview];
-            
             if (weakSelf.gesturePwdVC) {    // 需要显示手势密码
-                [weakSelf showGesPwd];
-                weakSelf.gesturePwdVC.dismissBlock = ^{
+                [weakSelf showGesturePwd];
+                // 需要在手势密码页消失的时候 手动调用弹窗
+                weakSelf.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity){
                     [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+                    [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
                 };
             } else {
+                // 自动到首页的时候 手动调用弹窗
+                [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
             }
         };
     }

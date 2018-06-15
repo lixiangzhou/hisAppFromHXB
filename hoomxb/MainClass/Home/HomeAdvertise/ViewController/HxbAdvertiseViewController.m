@@ -64,27 +64,34 @@
     kWeakSelf
     if ([HXBRootVCManager manager].gesturePwdVC) {
         [self.view removeFromSuperview];
-        [[HXBRootVCManager manager] showGesPwd];
+        [[HXBRootVCManager manager] showGesturePwd];
         
-        [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^{
-            /// 延时是为了避免突然出现其他界面
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+            if (delay) {
+                /// 延时是为了避免突然出现其他界面
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+                });
+            } else {
                 [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
-            });
-            [weakSelf toActivity];
+            }
+            if (toActivity) {
+                [weakSelf toActivity];
+            }
         };
     } else {
         /// 延时是为了避免突然出现其他界面
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.view removeFromSuperview];
         });
+        [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
         [self toActivity];
     }
 }
 
 - (void)toActivity {
     UINavigationController *nav = [HXBRootVCManager manager].mainTabbarVC.childViewControllers[0];
-    UIViewController *homeVC = nav.childViewControllers.firstObject;
+    HXBBaseViewController *homeVC = (HXBBaseViewController *)nav.childViewControllers.firstObject;
     [HXBExtensionMethodTool pushToViewControllerWithModel:self.viewModel.bannerModel andWithFromVC:homeVC];
 }
 

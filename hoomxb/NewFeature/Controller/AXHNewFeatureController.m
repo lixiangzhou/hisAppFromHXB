@@ -118,9 +118,10 @@
         [[HXBRootVCManager manager] showSlash];
     } else {
         if ([HXBRootVCManager manager].gesturePwdVC) {
-            [[HXBRootVCManager manager] showGesPwd];
-            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^{
+            [[HXBRootVCManager manager] showGesturePwd];
+            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
                 [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+                [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
             };
         } else {
             [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;

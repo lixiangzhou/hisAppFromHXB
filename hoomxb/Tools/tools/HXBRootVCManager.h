@@ -30,10 +30,13 @@
 /// 让tabBarVC 成为 root VC
 - (void)makeTabbarRootVC;
 
+/// 显示闪屏页面到 tabbar
 - (void)showSlash;
 
-- (void)showGesPwd;
-///
-//- (void)popWindowsAtHomeAfterSlashOrGesturePwd;
+/// 显示手势密码页面到 tabbar
+- (void)showGesturePwd;
+
+/// 闪屏或手势页接受后，首页手动弹窗
+- (void)popWindowsAtHomeAfterSlashOrGesturePwd;
 
 @end
