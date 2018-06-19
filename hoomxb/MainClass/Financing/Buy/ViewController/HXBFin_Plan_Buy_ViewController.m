@@ -212,20 +212,6 @@ static NSString *const bankString = @"绑定银行卡";
 
 // 购买红利计划
 - (void)requestForPlan {
-    if (_availablePoint.integerValue == 0) {
-        self.topView.totalMoney = @"";
-        self.topView.profitStr = @"预期收益0.00元";
-        
-        if (self.isNewPlan) {
-            [self.topView setProfitString:@"0.00"];
-        }
-        
-        _inputMoneyStr = @"";
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-        return;
-    }
-    
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
