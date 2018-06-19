@@ -52,6 +52,13 @@
     
     [self.view addSubview:_tableView];
     [self.view addSubview:self.notifitionView];
+    [self.view addSubview:self.nodataView];
+    [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(kScrAdaptationH(140));
+        make.height.width.equalTo(@(kScrAdaptationH(184)));
+        make.centerX.equalTo(self.view);
+    }];
+    self.nodataView.hidden = YES;
     
     if (_investMoney.floatValue > 0) {
         _notifitionView.hidden = YES;
@@ -251,13 +258,6 @@
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.imageName = @"noCoupons";
         _nodataView.noDataMassage = @"暂无优惠券";
-        [self.view addSubview:_nodataView];
-        _nodataView.hidden = YES;
-        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kScrAdaptationH(140));
-            make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self.view);
-        }];
     }
     return _nodataView;
 }
