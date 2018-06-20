@@ -261,7 +261,7 @@ static NSString *const bankString = @"绑定银行卡";
         CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
         float total = baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy;
         /// 总收益
-        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", [NSString notRounding:2 price:total]];
+        _profitMoneyStr = [NSString stringWithFormat:@"%@", [NSString notRounding:2 price:total]];
         [_topView setProfitString:_profitMoneyStr];
     }
 }
