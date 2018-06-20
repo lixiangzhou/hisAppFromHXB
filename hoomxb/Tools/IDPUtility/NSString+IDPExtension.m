@@ -84,4 +84,17 @@
     }
     return dic;
 }
+
+- (NSString *)notRounding:(int)position{
+
+    NSDecimalNumberHandler* roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundBankers scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    NSDecimalNumber *ouncesDecimal  = [[NSDecimalNumber alloc] initWithString:self];
+    
+    NSDecimalNumber *roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
+    
+    
+    return [NSString stringWithFormat:@"%@",roundedOunces];
+    
+}
+
 @end

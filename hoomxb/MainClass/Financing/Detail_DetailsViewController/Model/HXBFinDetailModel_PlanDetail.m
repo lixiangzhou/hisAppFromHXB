@@ -46,6 +46,12 @@
     return  @"--";
 }
 
+- (NSString *)expectedSubsidyInterestAmount {
+    if(_expectedSubsidyInterestAmount) {
+        return [_expectedSubsidyInterestAmount notRounding:2];
+    }
+    return _expectedSubsidyInterestAmount;
+}
 @end
 
 @implementation HXBFinDetailModel_PlanDetail_DataList
