@@ -12,10 +12,6 @@
 
 //2.9.0新增分享模型
 @property (nonatomic, strong) HXBUMShareModel *share;
-/**
- 2.9.0新增活动可分享状态
- */
-@property (nonatomic, copy) NSString *shareStatus;
 ///标题
 @property (nonatomic, copy) NSString *title;
 ///图片绝对地址

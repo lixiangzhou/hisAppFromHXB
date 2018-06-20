@@ -21,6 +21,11 @@ image    string    分享的logo图片地址,绝对地址
 */
 
 /**
+2.9.0新增活动可分享状态
+*/
+@property (nonatomic, copy) NSString *status;
+
+/**
 分享标题
 */
 @property (nonatomic, copy) NSString *title;
