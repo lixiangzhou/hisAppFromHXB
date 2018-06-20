@@ -31,4 +31,5 @@
  @return 转换后的结果
  */
 - (NSString *)notRounding:(int)position;
++ (NSString *)notRounding:(int)position price:(float)price;
 @end

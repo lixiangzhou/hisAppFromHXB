@@ -86,15 +86,19 @@
 }
 
 - (NSString *)notRounding:(int)position{
+    float price = self.floatValue;
+    
+    return [NSString notRounding:position price:price];
+    
+}
 
++ (NSString *)notRounding:(int)position price:(float)price {
     NSDecimalNumberHandler* roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundBankers scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
-    NSDecimalNumber *ouncesDecimal  = [[NSDecimalNumber alloc] initWithString:self];
+    NSDecimalNumber *ouncesDecimal  = [[NSDecimalNumber alloc] initWithFloat:price];
     
     NSDecimalNumber *roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
     
     
     return [NSString stringWithFormat:@"%@",roundedOunces];
-    
 }
-
 @end

@@ -13,10 +13,4 @@
     return @{@"ID" : @"id"};
 }
 
-- (NSString *)expectedSubsidyInterestAmount {
-    if(_expectedSubsidyInterestAmount) {
-        return [_expectedSubsidyInterestAmount notRounding:2];
-    }
-    return _expectedSubsidyInterestAmount;
-}
 @end
