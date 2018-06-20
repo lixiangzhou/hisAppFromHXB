@@ -11,6 +11,8 @@
 ///广告的VC
 @interface HxbAdvertiseViewController : UIViewController
 
+/// 自动消失的回调
 @property (nonatomic, copy) void(^dismissBlock)();
 
+- (void)addTimer;
 @end

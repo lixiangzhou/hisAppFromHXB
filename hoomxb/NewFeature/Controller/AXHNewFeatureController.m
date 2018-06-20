@@ -13,6 +13,7 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBAdvertiseManager.h"
 
 @interface AXHNewFeatureController ()<TAPageControlDelegate>
 @property (strong, nonatomic) TAPageControl *pageControl;
@@ -111,7 +112,21 @@
 #pragma mark - Action
 - (void)start
 {
-    [[HXBRootVCManager manager] enterTheGesturePasswordVCOrTabBar];
+    [[HXBRootVCManager manager] makeTabbarRootVC];
+    
+    if ([HXBAdvertiseManager shared].requestSuccess) {
+        [[HXBRootVCManager manager] showSlash];
+    } else {
+        if ([HXBRootVCManager manager].gesturePwdVC) {
+            [[HXBRootVCManager manager] showGesturePwd];
+            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+                [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+                [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+            };
+        } else {
+            [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+        }
+    }
 }
 
 

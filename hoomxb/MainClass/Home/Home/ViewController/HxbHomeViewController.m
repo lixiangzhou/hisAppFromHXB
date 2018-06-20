@@ -27,6 +27,8 @@
 #import "HXBHomeNewbieProductModel.h"
 #import "HXBHomePlatformIntroductionModel.h"
 #import "HXBExtensionMethodTool.h"
+#import "HXBAdvertiseManager.h"
+
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -51,6 +53,7 @@
     [self setupUI];
     
     [self registerRefresh];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:kHXBNotification_RefreshHomeData object:nil];
     
     [self hiddenTabbarLine];
     self.times = 1;
@@ -59,8 +62,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
-    [[HXBVersionUpdateManager sharedInstance] show];
+    if ([HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
+        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
+        [[HXBVersionUpdateManager sharedInstance] show];
+    }
+    
     [self hideNavigationBar:animated];
     [self getData:YES];
     self.homeView.userInfoViewModel = self.homeVimewModle.userInfoModel;
@@ -89,7 +95,6 @@
         make.bottom.equalTo(self.view); //注意适配iPhone X
     }];
 }
-
 
 // 去除tabBar上面的横线
 - (void)hiddenTabbarLine {
