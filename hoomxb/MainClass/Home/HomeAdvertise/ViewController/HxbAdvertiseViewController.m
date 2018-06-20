@@ -41,7 +41,7 @@
     imgView.image = [UIImage getLauchImage];
     [self.view addSubview:imgView];
     
-    self.topImageView.backgroundColor = [UIColor blueColor];
+//    self.topImageView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.topImageView];
 }
 
