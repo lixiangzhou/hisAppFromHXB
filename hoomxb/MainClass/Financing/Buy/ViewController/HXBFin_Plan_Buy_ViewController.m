@@ -260,8 +260,9 @@ static NSString *const bankString = @"绑定银行卡";
         /// 贴息收益
         CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
         float total = baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy;
+        NSString* priceStr = [NSString stringWithFormat:@"%.4f", total];
         /// 总收益
-        _profitMoneyStr = [NSString stringWithFormat:@"%@", [NSString notRounding:2 price:total]];
+        _profitMoneyStr = [NSString stringWithFormat:@"%@", [priceStr notRounding:2]];
         [_topView setProfitString:_profitMoneyStr];
     }
 }
@@ -692,7 +693,8 @@ static const NSInteger topView_high = 300;
             _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
             _topView.alertTipBlock = ^{
                 float price = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"新手加息收益%@元将在计划退出时发放至您的账户", [NSString notRounding:2 price:price]] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+                NSString* priceStr = [NSString stringWithFormat:@"%.4f", price];
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"新手加息收益%@元将在计划退出时发放至您的账户", [priceStr notRounding:2]] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
                 alertVC.isHIddenLeftBtn = YES;
                 alertVC.isCenterShow = YES;
                 [weakSelf presentViewController:alertVC animated:YES completion:nil];
