@@ -76,7 +76,11 @@ typedef enum : NSUInteger {
 // 期限
 - (NSString *)lockPeriod {
     if (self.planListModel.lockPeriod.length) {
-        return self.planListModel.extendLockPeriod;
+        if (self.planListModel.novice == 1) {
+            return self.planListModel.lockPeriod;
+        } else {
+            return self.planListModel.extendLockPeriod;
+        }
     }
     if (self.planListModel.lockDays) {
         return [NSString stringWithFormat:@"%d", self.planListModel.lockDays];
@@ -174,7 +178,7 @@ typedef enum : NSUInteger {
 - (void)setupExpectedYearRateAttributedStr {
 
     if (self.planListModel.novice && self.planListModel.expectedRate.floatValue) {
-        NSString *numberStr = [NSString stringWithFormat:@"%.1lf%%",self.planListModel.expectedRate.floatValue];
+        NSString *numberStr = [NSString stringWithFormat:@"%.1f%%",self.planListModel.expectedRate.floatValue];
         NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
         if (self.planListModel.subsidyInterestRate.floatValue) {
             NSString *subsidyInterestRate = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.subsidyInterestRate.doubleValue];
@@ -188,7 +192,7 @@ typedef enum : NSUInteger {
         self.expectedYearRateAttributedStr = numberAttributeString;
         return;
     }
-    NSString *numberStr = [NSString stringWithFormat:@"%.1lf%%",self.planListModel.baseInterestRate.floatValue];
+    NSString *numberStr = [NSString stringWithFormat:@"%.1f%%",self.planListModel.baseInterestRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
     //加息利率
     if (self.planListModel.extraInterestRate.floatValue) {

@@ -66,6 +66,8 @@ redProgressLeft:待转让金额
 @property (nonatomic,copy) NSString *subsidyInterestRate;/// 贴息收益率
 @property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;/// 贴息预期收益
 @property (nonatomic,copy) NSString *novice;/// 新手标志(1:是 0:否)
+@property (nonatomic,copy) NSString *newbieEarningsTips;
+@property (nonatomic,copy) NSString *newbieQuitEarningsTips;//新手 已退出
 @property (nonatomic,copy) NSString *lockDays;/// 新手计划锁定期/天
 
 /**

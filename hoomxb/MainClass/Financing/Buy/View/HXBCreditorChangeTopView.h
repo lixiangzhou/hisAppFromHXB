@@ -53,6 +53,6 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, assign) BOOL isNewPlan;
 
 /// 设置预期收益和加息收益 2.5版本加入
-- (void)setProfitStr:(NSString *)profitStr andSubsidy:(NSString *)subsidy;
+- (void)setProfitString:(NSString *)profitStr;
 
 @end

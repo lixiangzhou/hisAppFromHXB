@@ -249,7 +249,9 @@ static NSString *const hostH5 = @"hostH5";
 - (void)removeGesture
 {
     KeyChainManage *manager = KeyChain;
-    [manager.keychain removeItemForKey:kGesturePwd];
+    if (kGesturePwd.length > 0) {
+        [manager.keychain removeItemForKey:kGesturePwd];
+    }
     [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 

@@ -39,6 +39,8 @@
     if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
         if (self.planDetailModel.lockDays) {
             _lockTime = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
+        } else {
+            _lockTime = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
         }
     } else {
         if (self.planDetailModel.lockPeriod) {
@@ -75,7 +77,8 @@
 - (NSString *)expectedRate {
     if (self.planDetailModel.expectedRate) {
         //收益中&新手计划&存在贴息
-        NSString *expectedRateStr = [self.planDetailModel.type isEqualToString:@"HOLD_PLAN"]&&[self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.subsidyInterestRate ? [NSString stringWithFormat:@"%.1f%%+%.1f%%",self.planDetailModel.expectedRate.floatValue,self.planDetailModel.subsidyInterestRate.floatValue]: [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+//        NSString *expectedRateStr = [self.planDetailModel.type isEqualToString:@"HOLD_PLAN"]&&[self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.subsidyInterestRate ? [NSString stringWithFormat:@"%.1f%%+%.1f%%",self.planDetailModel.expectedRate.floatValue,self.planDetailModel.subsidyInterestRate.floatValue]: [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+        NSString *expectedRateStr = [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
         _expectedRate = expectedRateStr;
     } else {
         _expectedRate = @"--";
@@ -233,7 +236,11 @@
     if (self.planDetailModel.quitDate) {
         _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.quitDate andDateFormat:@"yyyy-MM-dd"];
     } else {
-        _quitDate = @"--";
+        if (self.planDetailModel.registerTime) {
+            _quitDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.registerTime andDateFormat:@"yyyy-MM-dd"];
+        } else {
+            _quitDate = @"--";
+        }
     }
     return _quitDate;
 }
