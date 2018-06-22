@@ -27,8 +27,6 @@
 }
 
 - (BannerModel *)bannerModel {
-    [HXBAdvertiseManager shared].bannerModel.type = @"h5";
-    [HXBAdvertiseManager shared].bannerModel.link = @"https:/www.baidu.com";
     return [HXBAdvertiseManager shared].bannerModel;
 }
 
