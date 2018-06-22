@@ -10,6 +10,7 @@
 #import "HXBVersionUpdateModel.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
+#import "HXBAdvertiseManager.h"
 
 @interface HXBVersionUpdateManager ()
 
@@ -75,7 +76,7 @@
 }
 
 - (void)show {
-    if (self.versionUpdateModel && (!self.isShow)) {
+    if (self.versionUpdateModel && (!self.isShow) && [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
         self.isShow = YES;
         [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
     }
