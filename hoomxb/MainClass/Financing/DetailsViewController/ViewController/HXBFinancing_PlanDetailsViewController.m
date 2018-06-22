@@ -202,9 +202,9 @@ static NSString* const kTitlePlanServiceAgreement = @"红利智投服务协议";
             }
         }
         
-        NSString *extendLockPeriod = [NSString stringWithFormat:@"%@个月", weakSelf.viewModel.planDetailModel.planDetailModel.extendLockPeriod];
+//        NSString *extendLockPeriod = [NSString stringWithFormat:@"%@个月", weakSelf.viewModel.planDetailModel.planDetailModel.extendLockPeriod];
         
-        manager.leftViewManager.leftLabelStr = extendLockPeriod;//期限
+        manager.leftViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.planDetailModel.showExtendLockPeriod;//期限
         manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.viewModel.planDetailModel.minRegisterAmount doubleValue]];//起投
         manager.rightViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";

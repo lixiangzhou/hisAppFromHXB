@@ -116,7 +116,7 @@
         manager.dateViewManager.rightStrArray = @[
                                                  weakSelf.planDetailModel.beginSellingTime,//开始时间
                                                  weakSelf.planDetailModel.financeEndTime,//结束时间
-                                                 weakSelf.planDetailModel.extendLockPeriod//期限
+                                                 weakSelf.planDetailModel.planDetailModel.showExtendLockPeriod//期限
                                                 ];
         if ([detailData.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
             manager.typeViewManager.leftStrArray = @[

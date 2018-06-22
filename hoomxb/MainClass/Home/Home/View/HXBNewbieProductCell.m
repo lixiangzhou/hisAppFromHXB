@@ -110,12 +110,12 @@
     _homePageModel_DataList = homePageModel_DataList;
      if (![homePageModel_DataList.subsidyInterestRate isEqualToString:@"0"]) {
          NSString *subsidyInterestRate = [NSString stringWithFormat:@" +%.1f%%",[homePageModel_DataList.subsidyInterestRate doubleValue]];
-         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],subsidyInterestRate];
+         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.expectedRate doubleValue],subsidyInterestRate];
          NSRange range = [messageStr rangeOfString:subsidyInterestRate];
          self.subsidyInterestRateLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:kHXBColor_FF6A0F_100 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
      }
      else {
-         self.subsidyInterestRateLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
+         self.subsidyInterestRateLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.expectedRate doubleValue]];
      }
     
     if (homePageModel_DataList.lockDays > 0) {

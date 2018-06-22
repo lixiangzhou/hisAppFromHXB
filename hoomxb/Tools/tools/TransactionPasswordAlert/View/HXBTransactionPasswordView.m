@@ -159,6 +159,7 @@
     [self closePasswordView];
     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
     modifyTransactionPasswordVC.title = @"修改交易密码";
+    modifyTransactionPasswordVC.type = HXBModifyTransactionPasswordType;
     [[HXBRootVCManager manager].topVC.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }
 

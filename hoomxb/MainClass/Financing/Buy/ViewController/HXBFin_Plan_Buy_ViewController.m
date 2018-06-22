@@ -70,8 +70,6 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
-// 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
-@property (nonatomic, assign) BOOL hasInvestMoney;
 // 当前输入框的金额
 @property (nonatomic, assign) double curruntInvestMoney;
 // 展示HUD
@@ -116,7 +114,6 @@ static NSString *const bankString = @"绑定银行卡";
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
-    [self unavailableMoney];
     [self hasBestCouponRequest];
     [self isMatchToBuyWithMoney:@"0"];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
@@ -143,11 +140,19 @@ static NSString *const bankString = @"绑定银行卡";
     [self.tableView reloadData];
     
     if (self.isNewPlan) {
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+        attachment.bounds = CGRectMake(0, -2, 14, 14);
+        
+        NSMutableAttributedString *attrText = [NSMutableAttributedString new];
+        [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" 新手产品每人加入上限%@元", [NSString hxb_getPerMilWithDoubleNum:[self.NewPlanJoinLimit integerValue]]] attributes:@{NSForegroundColorAttributeName: COR8}]];
+        
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"温馨提示：" attributes:@{NSForegroundColorAttributeName: RGB(115, 173, 255)}];
-        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"新手产品每人加入上限%@元", self.NewPlanJoinLimit] attributes:@{NSForegroundColorAttributeName: COR8}]];
+        
         CGFloat tipHeigt = ceil([font lineHeight]);
         CGRect rect = CGRectMake(15, self.tableView.height - tipHeigt - 40 - HXBBottomAdditionHeight, kScreenW - 15 * 2, tipHeigt);
+        
         UILabel * tipLabel = [[UILabel alloc] initWithFrame:rect];
         tipLabel.font = font;
         tipLabel.attributedText = attrText;
@@ -207,25 +212,11 @@ static NSString *const bankString = @"绑定银行卡";
 
 // 购买红利计划
 - (void)requestForPlan {
-    if (_availablePoint.integerValue == 0) {
-        self.topView.totalMoney = @"";
-        self.topView.profitStr = @"预期收益0.00元";
-        
-        if (self.isNewPlan) {
-            [self.topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
-        }
-        
-        _inputMoneyStr = @"";
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-        return;
-    }
-    
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
-    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue && !_hasInvestMoney) { // 超过可加入金额是，只check，不用强制到最大可加入金额
+    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && !_hasInvestMoney && _isFirstBuy) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -236,7 +227,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self checkIfNeedNewPlanDatas:_inputMoneyStr];
         
         [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
-    } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
+    } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
         _inputMoneyStr = _registerMultipleAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -252,32 +243,27 @@ static NSString *const bankString = @"绑定银行卡";
         } else {
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
-        if (_hasInvestMoney) {
-            if (self.isExceedLimitInvest && !_isSelectLimit) {
+        if (isFitToBuy) {
+            if (self.isExceedLimitInvest &&!_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
             [self chooseBuyTypeWithSting:_btnLabelText];
         } else {
-            if (isFitToBuy) {
-                if (self.isExceedLimitInvest &&!_isSelectLimit) {
-                    [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
-                    return;
-                }
-                [self chooseBuyTypeWithSting:_btnLabelText];
-            } else {
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-            }
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
     }
 }
 
 - (void)checkIfNeedNewPlanDatas:(NSString *)baseMoney {
     if (self.isNewPlan) {
+        /// 贴息收益
         CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-        NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
-        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
-        [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
+        float total = baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy;
+        NSString* priceStr = [NSString stringWithFormat:@"%.4f", total];
+        /// 总收益
+        _profitMoneyStr = [NSString stringWithFormat:@"%@", [priceStr notRounding:2]];
+        [_topView setProfitString:_profitMoneyStr];
     }
 }
 
@@ -507,7 +493,7 @@ static NSString *const bankString = @"绑定银行卡";
         chooseDiscountVC.planid = _loanId;
         chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
         chooseDiscountVC.type = @"plan";
-        chooseDiscountVC.couponid = self.isNewPlan ? @"0" : _couponid;
+        chooseDiscountVC.couponid = _couponid;
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
 }
@@ -652,41 +638,9 @@ static const NSInteger topView_high = 300;
     [self changeItemWithInvestMoney:money];
 }
 
-- (void)unavailableMoney {
-    // 小于最小投资金额时，输入框不可以编辑
-    if (self.isFirstBuy) {
-        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
-            _hasInvestMoney = YES;
-            _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self getBESTCouponWithMoney:_inputMoneyStr];
-        } else {
-            _hasInvestMoney = NO;
-            _topView.disableKeyBorad = NO;
-        }
-    } else {
-        if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
-            _hasInvestMoney = YES;
-            _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self getBESTCouponWithMoney:_inputMoneyStr];
-        } else {
-            _hasInvestMoney = NO;
-            _topView.disableKeyBorad = NO;
-        }
-    }
-}
-
 - (void)setUpArray {
     _profitMoneyStr = _profitMoneyStr ? _profitMoneyStr : @"";
     self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
-    if (self.isNewPlan) {
-        _discountTitle = @"暂无可用优惠券";
-    }
     self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     [self.tableView reloadData];
 }
@@ -738,16 +692,20 @@ static const NSInteger topView_high = 300;
         if (self.isNewPlan) {
             _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
             _topView.alertTipBlock = ^{
-                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"加息收益将在退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+                float price = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
+                NSString* priceStr = [NSString stringWithFormat:@"%.4f", price];
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:[NSString stringWithFormat:@"新手加息收益%@元将在计划退出时发放至您的账户", [priceStr notRounding:2]] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
                 alertVC.isHIddenLeftBtn = YES;
                 alertVC.isCenterShow = YES;
                 [weakSelf presentViewController:alertVC animated:YES completion:nil];
                 
             };
             
-            [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+            [_topView setProfitString:@"0.00"];
         }
-        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        else {
+           _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        }
         _topView.placeholderStr = _placeholderStr;
     }
     

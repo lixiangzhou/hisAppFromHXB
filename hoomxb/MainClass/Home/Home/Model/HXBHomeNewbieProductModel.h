@@ -24,4 +24,9 @@
  点击新手图片跳转地址
  */
 @property (nonatomic, copy) NSString *url;
+
+/**
+ 2.8.0新手新增字段
+ */
+@property (nonatomic, copy) NSString *maxRate;
 @end
