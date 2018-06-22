@@ -23,6 +23,7 @@
 #import "HXBRootVCManager.h"
 #import "NSDate+HXB.h"
 #import "HXBExtensionMethodTool.h"
+#import "HXBAdvertiseManager.h"
 
 @interface HXBHomePopViewManager ()
 
@@ -143,7 +144,7 @@
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
     
-    if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
+    if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow && [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
         kWeakSelf
         // 显示完成回调
         __weak typeof(_popView) weakPopView = self.popView;

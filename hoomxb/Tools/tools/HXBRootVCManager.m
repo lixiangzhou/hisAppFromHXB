@@ -84,10 +84,10 @@
 }
 
 - (void)popWindowsAtHomeAfterSlashOrGesturePwd {
+    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
     UIViewController *VC = self.mainTabbarVC.childViewControllers.firstObject.childViewControllers.firstObject;
     [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:VC];//展示首页弹窗
     [[HXBVersionUpdateManager sharedInstance] show];
-    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
 }
 
 /**
