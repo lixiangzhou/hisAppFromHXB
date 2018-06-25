@@ -226,7 +226,7 @@
     if (!_popView) {
          _popView = [[HXBHomePopView alloc]init];
         // 显示时点击背景是否移除弹框
-        _popView.isClickBGDismiss = YES;
+        _popView.isClickBGDismiss = NO;
         // 显示时背景的透明度
         _popView.popBGAlpha = 0.6f;
     }
