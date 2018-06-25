@@ -114,7 +114,7 @@
 {
     [[HXBRootVCManager manager] makeTabbarRootVC];
     
-    if ([HXBAdvertiseManager shared].requestSuccess) {
+    if ([HXBAdvertiseManager shared].advertieseImage != nil) {
         [[HXBRootVCManager manager] showSlash];
     } else {
         if ([HXBRootVCManager manager].gesturePwdVC) {

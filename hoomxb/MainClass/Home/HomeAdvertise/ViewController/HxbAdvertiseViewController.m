@@ -49,13 +49,19 @@
     kWeakSelf
     [self.viewModel getSlash:^(BOOL isSuccess) {
         if (isSuccess) {
-            [weakSelf.topImageView sd_setImageWithURL:weakSelf.viewModel.imageUrl];
+            [[SDWebImageManager sharedManager] downloadImageWithURL:weakSelf.viewModel.imageUrl options:SDWebImageLowPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                if (image) {
+                    CGFloat height = kScreenW / image.size.width * image.size.height;
+                    weakSelf.topImageView.image = image;
+                    weakSelf.topImageView.frame = CGRectMake(0, 0, kScreenW, height);
+                }
+            }];
         }
     }];
 }
 
 - (void)tapImage {
-    if (self.viewModel.canToActivity == NO) {
+    if (self.viewModel.canToActivity == NO && self.topImageView.image != nil) {
         return;
     }
     self.topImageView.userInteractionEnabled = NO;
@@ -119,9 +125,8 @@
 
 - (UIImageView *)topImageView {
     if (!_topImageView) {
-        _topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH - kScrAdaptationH(120) - HXBBottomAdditionHeight)];
+        _topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0)];
         _topImageView.userInteractionEnabled = YES;
-        _topImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_topImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage)]];
     }
     return _topImageView;

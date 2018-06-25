@@ -51,13 +51,19 @@
     NSString *imageURL = data[@"image"];
     
     NSString *oldImageURL = [self getCacheData][@"image"];
+    
+    kWeakSelf
     // 不同的URL就更新缓存，相同就检查有没有缓存成功，没有缓存成功就重新缓存
     if ([imageURL isEqualToString:oldImageURL]) {
         if ([[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageURL] == NO) {
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                weakSelf.advertieseImage = image;
+            }];
         }
     } else {
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:nil];
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+            weakSelf.advertieseImage = image;
+        }];
     }
     
     [kUserDefaults setObject:data forKey:kSplashDataKey];

@@ -18,6 +18,8 @@
 @property (nonatomic, assign, readonly) BOOL requestSuccess;
 /// 闪屏页数据
 @property (nonatomic, strong, readonly) BannerModel *bannerModel;
+/// 闪屏页图片
+@property (nonatomic, strong) UIImage *advertieseImage;
 /// 数据请求是否完成，可能成功可能失败
 @property (nonatomic, assign, readonly) BOOL requestCompleted;
 
