@@ -58,7 +58,7 @@
         UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageURL];
         if (cachedImage == nil) {
             [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                
+                weakSelf.advertieseImage = image;
             }];
         } else {
             weakSelf.advertieseImage = cachedImage;
