@@ -114,6 +114,7 @@
     if (self.dismissBlock) {
         self.dismissBlock();
     }
+    [self invalidateTimer];
 }
 
 - (void)invalidateTimer {
