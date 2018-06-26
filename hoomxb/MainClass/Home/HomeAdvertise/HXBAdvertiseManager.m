@@ -55,10 +55,13 @@
     kWeakSelf
     // 不同的URL就更新缓存，相同就检查有没有缓存成功，没有缓存成功就重新缓存
     if ([imageURL isEqualToString:oldImageURL]) {
-        if ([[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageURL] == NO) {
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageURL];
+        if (cachedImage == nil) {
             [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                weakSelf.advertieseImage = image;
+                
             }];
+        } else {
+            weakSelf.advertieseImage = cachedImage;
         }
     } else {
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
