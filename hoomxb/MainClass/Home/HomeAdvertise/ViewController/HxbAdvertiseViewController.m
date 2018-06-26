@@ -106,13 +106,15 @@
 }
 
 - (void)addTimer {
-    kWeakSelf
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
-        if (weakSelf.dismissBlock) {
-            weakSelf.dismissBlock();
-        }
-    }];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(dismissAdvertise) userInfo:nil repeats:NO];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)dismissAdvertise{
+    if (self.dismissBlock) {
+        self.dismissBlock();
+    }
+    [self invalidateTimer];
 }
 
 - (void)invalidateTimer {
