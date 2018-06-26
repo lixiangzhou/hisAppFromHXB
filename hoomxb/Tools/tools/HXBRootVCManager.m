@@ -95,6 +95,9 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
+    if ([self.mainTabbarVC isKindOfClass:[HXBBaseTabBarController class]] == NO) {
+        return;
+    }
     if (KeyChain.isLogin) {
         NSLog(@"%@ %@ %d", KeyChain.gesturePwd, KeyChain.skipGesture, KeyChain.skipGestureAlertAppeared);
         if (KeyChain.gesturePwd.length > 0 && [KeyChain.skipGesture isEqualToString:kHXBGesturePwdSkipeNO]) {   // 已有手势密码，手势登录
@@ -102,7 +105,7 @@
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
-            self.window.rootViewController = gesturePasswordVC;
+            self.gesturePwdVC = gesturePasswordVC;
         } else {
             NSString *skip = KeyChain.skipGesture;
             BOOL skipGesturePwd = NO;
@@ -113,19 +116,21 @@
             BOOL appeared = KeyChain.skipGestureAlertAppeared;
             
             if (skipGesturePwd && appeared) {
-                [self makeTabbarRootVC];
-//                [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+                return;
             } else {
                 [KeyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
                 gesturePasswordVC.type = GestureViewControllerTypeSetting;
                 gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
-                self.window.rootViewController = gesturePasswordVC;
+                self.gesturePwdVC = gesturePasswordVC;
             }
         }
-    } else {
-        [self makeTabbarRootVC];
-//        [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+        
+        [self showGesturePwd];
+        
+        self.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+            [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
+        };
     }
 }
 
