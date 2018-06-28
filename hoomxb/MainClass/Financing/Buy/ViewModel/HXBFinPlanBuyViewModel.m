@@ -13,8 +13,7 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
-        _bestCouponModel = [[HXBBestCouponModel alloc] init];
-        _resultModel = [[HXBFinModel_BuyResoult_PlanModel alloc] init];
+        
     }
     return self;
 }
@@ -42,6 +41,7 @@
     request.requestArgument = params;
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
+        weakSelf.bestCouponModel = [[HXBBestCouponModel alloc] init];
         [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -68,6 +68,7 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *data = responseObject[kResponseData];
+        weakSelf.resultModel = [[HXBFinModel_BuyResoult_PlanModel alloc] init];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
