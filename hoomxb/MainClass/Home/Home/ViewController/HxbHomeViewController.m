@@ -63,8 +63,8 @@
     [super viewWillAppear:animated];
     
     if ([HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
-        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
         [[HXBVersionUpdateManager sharedInstance] show];
+        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
     }
     
     [self hideNavigationBar:animated];
