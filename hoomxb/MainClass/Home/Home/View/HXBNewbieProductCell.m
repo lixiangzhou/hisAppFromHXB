@@ -120,11 +120,11 @@
     
     if (homePageModel_DataList.lockDays > 0) {
         self.lockLabel.text = [NSString stringWithFormat:@"%d",homePageModel_DataList.lockDays];
-        self.lockTipLabel.text = _homePageModel_DataList.novice == 1?@"锁定期(天)":@"期限(天)";
+        self.lockTipLabel.text = @"锁定期(天)";
     }
     else if (homePageModel_DataList.lockPeriod > 0) {
         self.lockLabel.text = [NSString stringWithFormat:@"%@",homePageModel_DataList.lockPeriod];
-        self.lockTipLabel.text = _homePageModel_DataList.novice == 1?@"锁定期(月)":@"期限(月)";
+        self.lockTipLabel.text = @"锁定期(月)";
     }
     self.backgroundImageView.hidden = !homePageModel_DataList.isShowNewBieBackgroundImageView;
     self.lineView.hidden = homePageModel_DataList.isShowNewBieBackgroundImageView;
