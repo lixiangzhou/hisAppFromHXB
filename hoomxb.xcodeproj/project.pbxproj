@@ -159,27 +159,6 @@
 		8D56C7942043B9C6008C3F1C /* HXBModifyTransactionPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C7932043B9C6008C3F1C /* HXBModifyTransactionPasswordViewModel.m */; };
 		8D56C7972043C61F008C3F1C /* HXBTransactionPasswordConfirmationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C7962043C61F008C3F1C /* HXBTransactionPasswordConfirmationViewModel.m */; };
 		8D56C79B2043FEE3008C3F1C /* HXBFinPlanBuyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D56C79A2043FEE3008C3F1C /* HXBFinPlanBuyViewModel.m */; };
-		8D5EDF1220EA2ED80036E156 /* HXBGCar6.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEEB20EA2ED00036E156 /* HXBGCar6.m */; };
-		8D5EDF1320EA2ED80036E156 /* HXBGCar1.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEEC20EA2ED00036E156 /* HXBGCar1.m */; };
-		8D5EDF1420EA2ED80036E156 /* HXBGCar7.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEEE20EA2ED10036E156 /* HXBGCar7.m */; };
-		8D5EDF1520EA2ED80036E156 /* HXBGCar5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF020EA2ED10036E156 /* HXBGCar5.m */; };
-		8D5EDF1620EA2ED80036E156 /* HXBGCar11.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF220EA2ED20036E156 /* HXBGCar11.m */; };
-		8D5EDF1720EA2ED80036E156 /* HXBGCar3.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF520EA2ED20036E156 /* HXBGCar3.m */; };
-		8D5EDF1820EA2ED80036E156 /* HXBGCar8.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF620EA2ED20036E156 /* HXBGCar8.m */; };
-		8D5EDF1920EA2ED80036E156 /* HXBGCar10.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF720EA2ED30036E156 /* HXBGCar10.m */; };
-		8D5EDF1A20EA2ED80036E156 /* HXBGCar13.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEF920EA2ED30036E156 /* HXBGCar13.m */; };
-		8D5EDF1B20EA2ED80036E156 /* HXBGCar14.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEFA20EA2ED30036E156 /* HXBGCar14.m */; };
-		8D5EDF1C20EA2ED80036E156 /* HXBGCar9.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDEFB20EA2ED40036E156 /* HXBGCar9.m */; };
-		8D5EDF1D20EA2ED80036E156 /* HXBGCar18.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0020EA2ED50036E156 /* HXBGCar18.m */; };
-		8D5EDF1E20EA2ED80036E156 /* HXBGCar21.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0220EA2ED50036E156 /* HXBGCar21.m */; };
-		8D5EDF1F20EA2ED80036E156 /* HXBGCar15.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0320EA2ED50036E156 /* HXBGCar15.m */; };
-		8D5EDF2020EA2ED80036E156 /* HXBGCar2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0420EA2ED50036E156 /* HXBGCar2.m */; };
-		8D5EDF2120EA2ED80036E156 /* HXBGCar16.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0520EA2ED60036E156 /* HXBGCar16.m */; };
-		8D5EDF2220EA2ED80036E156 /* HXBGCar19.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0620EA2ED60036E156 /* HXBGCar19.m */; };
-		8D5EDF2320EA2ED80036E156 /* HXBGCar20.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0820EA2ED60036E156 /* HXBGCar20.m */; };
-		8D5EDF2420EA2ED80036E156 /* HXBGCar12.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0D20EA2ED70036E156 /* HXBGCar12.m */; };
-		8D5EDF2520EA2ED80036E156 /* HXBGCar4.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF0E20EA2ED70036E156 /* HXBGCar4.m */; };
-		8D5EDF2620EA2ED80036E156 /* HXBGCar17.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EDF1120EA2ED80036E156 /* HXBGCar17.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
 		8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30441FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.m */; };
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
@@ -910,48 +889,6 @@
 		8D56C7962043C61F008C3F1C /* HXBTransactionPasswordConfirmationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBTransactionPasswordConfirmationViewModel.m; sourceTree = "<group>"; };
 		8D56C7992043FEE3008C3F1C /* HXBFinPlanBuyViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinPlanBuyViewModel.h; sourceTree = "<group>"; };
 		8D56C79A2043FEE3008C3F1C /* HXBFinPlanBuyViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinPlanBuyViewModel.m; sourceTree = "<group>"; };
-		8D5EDEE820EA2ED00036E156 /* HXBGCar19.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar19.h; sourceTree = "<group>"; };
-		8D5EDEE920EA2ED00036E156 /* HXBGCar3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar3.h; sourceTree = "<group>"; };
-		8D5EDEEA20EA2ED00036E156 /* HXBGCar11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar11.h; sourceTree = "<group>"; };
-		8D5EDEEB20EA2ED00036E156 /* HXBGCar6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar6.m; sourceTree = "<group>"; };
-		8D5EDEEC20EA2ED00036E156 /* HXBGCar1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar1.m; sourceTree = "<group>"; };
-		8D5EDEED20EA2ED10036E156 /* HXBGCar8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar8.h; sourceTree = "<group>"; };
-		8D5EDEEE20EA2ED10036E156 /* HXBGCar7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar7.m; sourceTree = "<group>"; };
-		8D5EDEEF20EA2ED10036E156 /* HXBGCar2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar2.h; sourceTree = "<group>"; };
-		8D5EDEF020EA2ED10036E156 /* HXBGCar5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar5.m; sourceTree = "<group>"; };
-		8D5EDEF120EA2ED20036E156 /* HXBGCar6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar6.h; sourceTree = "<group>"; };
-		8D5EDEF220EA2ED20036E156 /* HXBGCar11.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar11.m; sourceTree = "<group>"; };
-		8D5EDEF320EA2ED20036E156 /* HXBGCar21.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar21.h; sourceTree = "<group>"; };
-		8D5EDEF420EA2ED20036E156 /* HXBGCar10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar10.h; sourceTree = "<group>"; };
-		8D5EDEF520EA2ED20036E156 /* HXBGCar3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar3.m; sourceTree = "<group>"; };
-		8D5EDEF620EA2ED20036E156 /* HXBGCar8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar8.m; sourceTree = "<group>"; };
-		8D5EDEF720EA2ED30036E156 /* HXBGCar10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar10.m; sourceTree = "<group>"; };
-		8D5EDEF820EA2ED30036E156 /* HXBGCar7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar7.h; sourceTree = "<group>"; };
-		8D5EDEF920EA2ED30036E156 /* HXBGCar13.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar13.m; sourceTree = "<group>"; };
-		8D5EDEFA20EA2ED30036E156 /* HXBGCar14.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar14.m; sourceTree = "<group>"; };
-		8D5EDEFB20EA2ED40036E156 /* HXBGCar9.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar9.m; sourceTree = "<group>"; };
-		8D5EDEFC20EA2ED40036E156 /* HXBGCar12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar12.h; sourceTree = "<group>"; };
-		8D5EDEFD20EA2ED40036E156 /* HXBGCar14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar14.h; sourceTree = "<group>"; };
-		8D5EDEFE20EA2ED40036E156 /* HXBGCar1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar1.h; sourceTree = "<group>"; };
-		8D5EDEFF20EA2ED40036E156 /* HXBGCar17.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar17.h; sourceTree = "<group>"; };
-		8D5EDF0020EA2ED50036E156 /* HXBGCar18.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar18.m; sourceTree = "<group>"; };
-		8D5EDF0120EA2ED50036E156 /* HXBGCar20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar20.h; sourceTree = "<group>"; };
-		8D5EDF0220EA2ED50036E156 /* HXBGCar21.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar21.m; sourceTree = "<group>"; };
-		8D5EDF0320EA2ED50036E156 /* HXBGCar15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar15.m; sourceTree = "<group>"; };
-		8D5EDF0420EA2ED50036E156 /* HXBGCar2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar2.m; sourceTree = "<group>"; };
-		8D5EDF0520EA2ED60036E156 /* HXBGCar16.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar16.m; sourceTree = "<group>"; };
-		8D5EDF0620EA2ED60036E156 /* HXBGCar19.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar19.m; sourceTree = "<group>"; };
-		8D5EDF0720EA2ED60036E156 /* HXBGCar15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar15.h; sourceTree = "<group>"; };
-		8D5EDF0820EA2ED60036E156 /* HXBGCar20.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar20.m; sourceTree = "<group>"; };
-		8D5EDF0920EA2ED60036E156 /* HXBGCar5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar5.h; sourceTree = "<group>"; };
-		8D5EDF0A20EA2ED70036E156 /* HXBGCar13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar13.h; sourceTree = "<group>"; };
-		8D5EDF0B20EA2ED70036E156 /* HXBGCar9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar9.h; sourceTree = "<group>"; };
-		8D5EDF0C20EA2ED70036E156 /* HXBGCar16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar16.h; sourceTree = "<group>"; };
-		8D5EDF0D20EA2ED70036E156 /* HXBGCar12.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar12.m; sourceTree = "<group>"; };
-		8D5EDF0E20EA2ED70036E156 /* HXBGCar4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar4.m; sourceTree = "<group>"; };
-		8D5EDF0F20EA2ED80036E156 /* HXBGCar4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar4.h; sourceTree = "<group>"; };
-		8D5EDF1020EA2ED80036E156 /* HXBGCar18.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGCar18.h; sourceTree = "<group>"; };
-		8D5EDF1120EA2ED80036E156 /* HXBGCar17.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGCar17.m; sourceTree = "<group>"; };
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
@@ -2574,48 +2511,6 @@
 				8D3914E020EA0F490005AF9E /* ObjectiveSugar.h */,
 				8D3914E720EA0FA30005AF9E /* HXBG1.h */,
 				8D3914E820EA0FA30005AF9E /* HXBG1.m */,
-				8D5EDEFE20EA2ED40036E156 /* HXBGCar1.h */,
-				8D5EDEEC20EA2ED00036E156 /* HXBGCar1.m */,
-				8D5EDEEF20EA2ED10036E156 /* HXBGCar2.h */,
-				8D5EDF0420EA2ED50036E156 /* HXBGCar2.m */,
-				8D5EDEE920EA2ED00036E156 /* HXBGCar3.h */,
-				8D5EDEF520EA2ED20036E156 /* HXBGCar3.m */,
-				8D5EDF0F20EA2ED80036E156 /* HXBGCar4.h */,
-				8D5EDF0E20EA2ED70036E156 /* HXBGCar4.m */,
-				8D5EDF0920EA2ED60036E156 /* HXBGCar5.h */,
-				8D5EDEF020EA2ED10036E156 /* HXBGCar5.m */,
-				8D5EDEF120EA2ED20036E156 /* HXBGCar6.h */,
-				8D5EDEEB20EA2ED00036E156 /* HXBGCar6.m */,
-				8D5EDEF820EA2ED30036E156 /* HXBGCar7.h */,
-				8D5EDEEE20EA2ED10036E156 /* HXBGCar7.m */,
-				8D5EDEED20EA2ED10036E156 /* HXBGCar8.h */,
-				8D5EDEF620EA2ED20036E156 /* HXBGCar8.m */,
-				8D5EDF0B20EA2ED70036E156 /* HXBGCar9.h */,
-				8D5EDEFB20EA2ED40036E156 /* HXBGCar9.m */,
-				8D5EDEF420EA2ED20036E156 /* HXBGCar10.h */,
-				8D5EDEF720EA2ED30036E156 /* HXBGCar10.m */,
-				8D5EDEEA20EA2ED00036E156 /* HXBGCar11.h */,
-				8D5EDEF220EA2ED20036E156 /* HXBGCar11.m */,
-				8D5EDEFC20EA2ED40036E156 /* HXBGCar12.h */,
-				8D5EDF0D20EA2ED70036E156 /* HXBGCar12.m */,
-				8D5EDF0A20EA2ED70036E156 /* HXBGCar13.h */,
-				8D5EDEF920EA2ED30036E156 /* HXBGCar13.m */,
-				8D5EDEFD20EA2ED40036E156 /* HXBGCar14.h */,
-				8D5EDEFA20EA2ED30036E156 /* HXBGCar14.m */,
-				8D5EDF0720EA2ED60036E156 /* HXBGCar15.h */,
-				8D5EDF0320EA2ED50036E156 /* HXBGCar15.m */,
-				8D5EDF0C20EA2ED70036E156 /* HXBGCar16.h */,
-				8D5EDF0520EA2ED60036E156 /* HXBGCar16.m */,
-				8D5EDEFF20EA2ED40036E156 /* HXBGCar17.h */,
-				8D5EDF1120EA2ED80036E156 /* HXBGCar17.m */,
-				8D5EDF1020EA2ED80036E156 /* HXBGCar18.h */,
-				8D5EDF0020EA2ED50036E156 /* HXBGCar18.m */,
-				8D5EDEE820EA2ED00036E156 /* HXBGCar19.h */,
-				8D5EDF0620EA2ED60036E156 /* HXBGCar19.m */,
-				8D5EDF0120EA2ED50036E156 /* HXBGCar20.h */,
-				8D5EDF0820EA2ED60036E156 /* HXBGCar20.m */,
-				8D5EDEF320EA2ED20036E156 /* HXBGCar21.h */,
-				8D5EDF0220EA2ED50036E156 /* HXBGCar21.m */,
 			);
 			path = OCSuger;
 			sourceTree = "<group>";
@@ -5814,7 +5709,6 @@
 				9AE033782022C422006D6140 /* HXBFinBaseNegotiateView.m in Sources */,
 				9AE033AD2022C423006D6140 /* HXBFinanctingView_HomePage.m in Sources */,
 				4EF076DA20EA11BA00445879 /* TetrisMachine.m in Sources */,
-				8D5EDF1F20EA2ED80036E156 /* HXBGCar15.m in Sources */,
 				4EF076DE20EA11BA00445879 /* TetrisMachineTransformaCommand.m in Sources */,
 				9AE031FC2022C317006D6140 /* HXBUnBindCardController.m in Sources */,
 				9AE032132022C317006D6140 /* HXBMY_Loan_TableView.m in Sources */,
@@ -5831,7 +5725,6 @@
 				9AE032122022C317006D6140 /* HXBMainListView_Loan_TopView.m in Sources */,
 				E1B21E6E2042B37E00DD3784 /* HXBModifyTransactionPasswordViewController.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
-				8D5EDF1A20EA2ED80036E156 /* HXBGCar13.m in Sources */,
 				4E823A801FB0354B00DD7079 /* UITextField+HLNumberFormatTextField.m in Sources */,
 				9AE0339D2022C422006D6140 /* HXBTenderDetailCell.m in Sources */,
 				9AE033A62022C422006D6140 /* HXBFin_LoanTruansferDetail_TopView.m in Sources */,
@@ -5870,7 +5763,6 @@
 				9AE033872022C422006D6140 /* HXBFinHomePageViewModel_PlanList.m in Sources */,
 				E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */,
 				E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */,
-				8D5EDF1420EA2ED80036E156 /* HXBGCar7.m in Sources */,
 				9AE0327A2022C317006D6140 /* HXBMYModel_CapitalRecordDetailModel.m in Sources */,
 				9AE031F42022C317006D6140 /* HXBRechargesuccessView.m in Sources */,
 				9AE034AA20232B0F006D6140 /* HXBHomePageHeadView.m in Sources */,
@@ -5889,7 +5781,6 @@
 				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
 				E12B2E5320EA198900B70D81 /* NSString+Extension.m in Sources */,
 				9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */,
-				8D5EDF1C20EA2ED80036E156 /* HXBGCar9.m in Sources */,
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
 				9AE032582022C317006D6140 /* HXBWithdrawCardView.m in Sources */,
 				E133DCEC1EEE3597009466DE /* HxbSignUpViewController.m in Sources */,
@@ -5911,8 +5802,6 @@
 				9AE033682022C422006D6140 /* HXBFinDetailViewModel_PlanDetail.m in Sources */,
 				E1B21E702042B38F00DD3784 /* HXBSetTransactionPasswordViewController.m in Sources */,
 				9AE0323B2022C317006D6140 /* HXBMY_Plan_ExitTingTableView.m in Sources */,
-				8D5EDF2120EA2ED80036E156 /* HXBGCar16.m in Sources */,
-				8D5EDF1220EA2ED80036E156 /* HXBGCar6.m in Sources */,
 				9AE034B020232B0F006D6140 /* BannerModel.m in Sources */,
 				9AE033962022C422006D6140 /* HxbFinanctingViewController.m in Sources */,
 				9AE033742022C422006D6140 /* HXBFinModel_Buy_LoanModel.m in Sources */,
@@ -5944,7 +5833,6 @@
 				9AE0326A2022C317006D6140 /* HxbMyViewController.m in Sources */,
 				9AE0338F2022C422006D6140 /* HXBLoanInformation.m in Sources */,
 				9AE0326D2022C317006D6140 /* HXBMYModel_LoanDetailModel.m in Sources */,
-				8D5EDF1920EA2ED80036E156 /* HXBGCar10.m in Sources */,
 				9AE032042022C317006D6140 /* HXBCircleViewConst.m in Sources */,
 				9AE032572022C317006D6140 /* HXBOpenDepositAccountView.m in Sources */,
 				9AE033762022C422006D6140 /* HXBFinModel_Buy_Plan.m in Sources */,
@@ -5978,7 +5866,6 @@
 				9AE032332022C317006D6140 /* HXBMYModel_MainPlanModel.m in Sources */,
 				9AE032092022C317006D6140 /* HXBTransactionPasswordConfirmationView.m in Sources */,
 				4E026FD62088798F00738A77 /* HXBLazyCatAccountWebViewController.m in Sources */,
-				8D5EDF2620EA2ED80036E156 /* HXBGCar17.m in Sources */,
 				9AE034C520232B0F006D6140 /* HXBNoticeVCViewModel.m in Sources */,
 				9AE031F22022C317006D6140 /* HXBMyTopUpHeaderView.m in Sources */,
 				E12B2E5720EA198900B70D81 /* UIButton+EnlargeTouchArea.m in Sources */,
@@ -5999,7 +5886,6 @@
 				9AE032182022C317006D6140 /* HXBMY_CapitalRecordViewController.m in Sources */,
 				E12B2E4C20EA198900B70D81 /* YJYTouchCollectionView.m in Sources */,
 				9AE031FA2022C317006D6140 /* HXBOpenDepositAccountViewController.m in Sources */,
-				8D5EDF1D20EA2ED80036E156 /* HXBGCar18.m in Sources */,
 				E1FCA4452050DFBD002A0523 /* HXBFincreditorChangebuyViewModel.m in Sources */,
 				9AE0324C2022C317006D6140 /* HXBMy_AllFinance_TableViewCell.m in Sources */,
 				9AE031FD2022C317006D6140 /* HxbWithdrawCardViewController.m in Sources */,
@@ -6010,10 +5896,8 @@
 				E12B2E4A20EA198900B70D81 /* UIColor+expanded.m in Sources */,
 				9AE034B920232B0F006D6140 /* HXBAdvertiseViewModel.m in Sources */,
 				9AE033692022C422006D6140 /* HXBFinDatailModel_LoanDetail.m in Sources */,
-				8D5EDF1720EA2ED80036E156 /* HXBGCar3.m in Sources */,
 				9AE033792022C422006D6140 /* HXBRechargeView.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
-				8D5EDF2220EA2ED80036E156 /* HXBGCar19.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
 				9AE032062022C317006D6140 /* HXBCheckLoginPasswordViewController.m in Sources */,
 				8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */,
@@ -6123,7 +6007,6 @@
 				9AE0336E2022C422006D6140 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
 				9AE032352022C317006D6140 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				9AE033902022C422006D6140 /* HXBLoanInstructionView.m in Sources */,
-				8D5EDF1B20EA2ED80036E156 /* HXBGCar14.m in Sources */,
 				9AE031F02022C317006D6140 /* HXBMyTopUpBankView.m in Sources */,
 				9AE0337C2022C422006D6140 /* HXBFin_creditorChange_TableViewCell.m in Sources */,
 				288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */,
@@ -6156,7 +6039,6 @@
 				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
 				9AE0339F2022C422006D6140 /* HXBFinBase_FlowChartView.m in Sources */,
 				9AE033672022C422006D6140 /* HXBFinDetailViewModel_LoanTruansferDetail.m in Sources */,
-				8D5EDF1520EA2ED80036E156 /* HXBGCar5.m in Sources */,
 				9AE0322B2022C317006D6140 /* HXBMyCouponListModel.m in Sources */,
 				4E94A86C1F5D4FE90001BE94 /* UIView+BXExtension.m in Sources */,
 				9AE0321E2022C317006D6140 /* HXBRiskAssessmentViewController.m in Sources */,
@@ -6176,7 +6058,6 @@
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				8DAD30841FBA8F8C00E2AEE8 /* HXBBaseTableViewCell.m in Sources */,
-				8D5EDF2520EA2ED80036E156 /* HXBGCar4.m in Sources */,
 				8D3914E920EA0FA30005AF9E /* HXBG1.m in Sources */,
 				9AF7605F204672A600539BFB /* HXBSetGesturePasswordAgent.m in Sources */,
 				E166CDB820562CFA00666749 /* HXBMyPlanDetailsExitViewModel.m in Sources */,
@@ -6226,7 +6107,6 @@
 				9AE032102022C317006D6140 /* HXBMY_LoanTruansferViewModel.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				9AE0335E2022C422006D6140 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */,
-				8D5EDF1E20EA2ED80036E156 /* HXBGCar21.m in Sources */,
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
 				9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */,
@@ -6255,7 +6135,6 @@
 				E133DCEA1EEE3597009466DE /* HXBSignUPRealnameViewController.m in Sources */,
 				9AE034AD20232B0F006D6140 /* HxbHomeView.m in Sources */,
 				9AE033832022C422006D6140 /* HXBFin_Plan_Buy_ViewController.m in Sources */,
-				8D5EDF1320EA2ED80036E156 /* HXBGCar1.m in Sources */,
 				9AE0322D2022C317006D6140 /* HXBMyCouponListView.m in Sources */,
 				9AE031EB2022C317006D6140 /* HXBBankList.m in Sources */,
 				288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */,
@@ -6288,7 +6167,6 @@
 				4EB420901F25FCDC00631A25 /* HXBMiddlekey.m in Sources */,
 				9AE033852022C422006D6140 /* HXBFinHomePageViewModel_LoanList.m in Sources */,
 				9AE031E82022C317006D6140 /* HXBPresentInformationView.m in Sources */,
-				8D5EDF1620EA2ED80036E156 /* HXBGCar11.m in Sources */,
 				9AE0325C2022C317006D6140 /* HBAlertPasswordView.m in Sources */,
 				9AE032752022C317006D6140 /* HXBTransferCreditorTopView.m in Sources */,
 				9AE0324B2022C317006D6140 /* HXBAssetsCustomVIew.m in Sources */,
@@ -6312,7 +6190,6 @@
 				9AE032222022C317006D6140 /* HXBWithdrawRecordModel.m in Sources */,
 				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,
 				8D3914E520EA0F4A0005AF9E /* NSSet+ObjectiveSugar.m in Sources */,
-				8D5EDF1820EA2ED80036E156 /* HXBGCar8.m in Sources */,
 				E166CDB52056292500666749 /* HXBMYPlanListDetailsExitViewController.m in Sources */,
 				9AE032252022C317006D6140 /* HXBWithdrawRecordViewModel.m in Sources */,
 				9AE033B02022C423006D6140 /* HXBFinancing_LoanDetailsViewController.m in Sources */,
@@ -6324,12 +6201,10 @@
 				9AE031EC2022C317006D6140 /* HXBCardBinModel.m in Sources */,
 				9AE032802022C317006D6140 /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
 				9AE031E12022C317006D6140 /* HXBMY_PlanDtetail_Topcell.m in Sources */,
-				8D5EDF2320EA2ED80036E156 /* HXBGCar20.m in Sources */,
 				9A917E7C202859BF00F90146 /* HXBBannerViewModel.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
 				9AF7605C2046728300539BFB /* SGInfoAlert.m in Sources */,
 				9AE031ED2022C317006D6140 /* HXBWithdrawModel.m in Sources */,
-				8D5EDF2420EA2ED80036E156 /* HXBGCar12.m in Sources */,
 				8D3914E220EA0F4A0005AF9E /* NSDictionary+ObjectiveSugar.m in Sources */,
 				9AE034AE20232B0F006D6140 /* HxbHomeViewController.m in Sources */,
 				E12A4CB6204505000095951E /* HXBMyAccountSecurityViewModel.m in Sources */,
@@ -6345,7 +6220,6 @@
 				8D56C7942043B9C6008C3F1C /* HXBModifyTransactionPasswordViewModel.m in Sources */,
 				9AE031E02022C317006D6140 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
 				9AE0325B2022C317006D6140 /* HXBMyRequestAccountModel.m in Sources */,
-				8D5EDF2020EA2ED80036E156 /* HXBGCar2.m in Sources */,
 				9AC21DAC208DB2C300DF967F /* HXBLazyCatResponseModel.m in Sources */,
 				4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */,
 				9AE033802022C422006D6140 /* HXBFBase_BuyResult_VC.m in Sources */,
