@@ -29,4 +29,8 @@ pod 'UMengUShare/UI'
 pod 'UMengUShare/Social/ReducedWeChat'
 # 集成QQ/QZone/TIM(精简版0.5M)
 pod 'UMengUShare/Social/ReducedQQ'
+
+pod 'KIF' #垃圾代码 测试库
+
+
 end

@@ -7,6 +7,7 @@
 //
 
 #import "HXBGarbageCodeEnter.h"
+#import "BYCTestCode.h" /// 调用这个即可 [[BYCTestCode new] createIncomeChartLineView];
 
 @implementation HXBGarbageCodeEnter
 
