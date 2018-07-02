@@ -8,6 +8,7 @@
 
 #import "HXBGarbageCodeEnter.h"
 #import "HXBG1.h"
+#import "HXBTestCode.h"
 
 @implementation HXBGarbageCodeEnter
 + (instancetype)shared {
@@ -21,5 +22,7 @@
 
 - (void)forWordCup {
     [[HXBG1 shared] inject];
+    
+    [[HXBTestCode new] testCode];
 }
 @end
