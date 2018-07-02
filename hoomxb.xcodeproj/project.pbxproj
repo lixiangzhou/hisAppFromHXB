@@ -509,6 +509,22 @@
 		E12A4CB0204500EC0095951E /* HXBAccountInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E12A4CAF204500EC0095951E /* HXBAccountInfoViewModel.m */; };
 		E12A4CB3204502DE0095951E /* HXBWithdrawCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E12A4CB2204502DE0095951E /* HXBWithdrawCardViewModel.m */; };
 		E12A4CB6204505000095951E /* HXBMyAccountSecurityViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E12A4CB5204505000095951E /* HXBMyAccountSecurityViewModel.m */; };
+		E12B2E4920EA198900B70D81 /* NSString+Valid.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E2C20EA198500B70D81 /* NSString+Valid.m */; };
+		E12B2E4A20EA198900B70D81 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E2D20EA198500B70D81 /* UIColor+expanded.m */; };
+		E12B2E4B20EA198900B70D81 /* YJYLinesSelectCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3020EA198600B70D81 /* YJYLinesSelectCell1.m */; };
+		E12B2E4C20EA198900B70D81 /* YJYTouchCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3120EA198600B70D81 /* YJYTouchCollectionView.m */; };
+		E12B2E4D20EA198900B70D81 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3220EA198600B70D81 /* UIView+Common.m */; };
+		E12B2E4E20EA198900B70D81 /* YJYLinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3320EA198600B70D81 /* YJYLinesCell.m */; };
+		E12B2E4F20EA198900B70D81 /* YJYLinesPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3420EA198600B70D81 /* YJYLinesPaoPaoView.m */; };
+		E12B2E5020EA198900B70D81 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3520EA198600B70D81 /* UIImage+Common.m */; };
+		E12B2E5120EA198900B70D81 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3620EA198600B70D81 /* NSString+Additions.m */; };
+		E12B2E5220EA198900B70D81 /* YJYLinesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E12B2E3820EA198600B70D81 /* YJYLinesCell.xib */; };
+		E12B2E5320EA198900B70D81 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3920EA198700B70D81 /* NSString+Extension.m */; };
+		E12B2E5420EA198900B70D81 /* LRSChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3A20EA198700B70D81 /* LRSChartView.m */; };
+		E12B2E5520EA198900B70D81 /* LinesSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E3F20EA198700B70D81 /* LinesSelectCell.m */; };
+		E12B2E5620EA198900B70D81 /* YJYTouchScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E4420EA198800B70D81 /* YJYTouchScroll.m */; };
+		E12B2E5720EA198900B70D81 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E4720EA198900B70D81 /* UIButton+EnlargeTouchArea.m */; };
+		E12B2E5A20EA19B700B70D81 /* BYCTestCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E12B2E5920EA19B700B70D81 /* BYCTestCode.m */; };
 		E133DCDC1EEE3597009466DE /* HXBSingnUPEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC9C1EEE3597009466DE /* HXBSingnUPEventManager.m */; };
 		E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC9F1EEE3597009466DE /* LoginModel.m */; };
 		E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCA11EEE3597009466DE /* SignUpModel.m */; };
@@ -1611,6 +1627,37 @@
 		E12A4CB2204502DE0095951E /* HXBWithdrawCardViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardViewModel.m; sourceTree = "<group>"; };
 		E12A4CB4204505000095951E /* HXBMyAccountSecurityViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyAccountSecurityViewModel.h; sourceTree = "<group>"; };
 		E12A4CB5204505000095951E /* HXBMyAccountSecurityViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyAccountSecurityViewModel.m; sourceTree = "<group>"; };
+		E12B2E2C20EA198500B70D81 /* NSString+Valid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Valid.m"; sourceTree = "<group>"; };
+		E12B2E2D20EA198500B70D81 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
+		E12B2E2E20EA198500B70D81 /* YJYLinesSelectCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYLinesSelectCell1.h; sourceTree = "<group>"; };
+		E12B2E2F20EA198600B70D81 /* LinesSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinesSelectCell.h; sourceTree = "<group>"; };
+		E12B2E3020EA198600B70D81 /* YJYLinesSelectCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYLinesSelectCell1.m; sourceTree = "<group>"; };
+		E12B2E3120EA198600B70D81 /* YJYTouchCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYTouchCollectionView.m; sourceTree = "<group>"; };
+		E12B2E3220EA198600B70D81 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
+		E12B2E3320EA198600B70D81 /* YJYLinesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYLinesCell.m; sourceTree = "<group>"; };
+		E12B2E3420EA198600B70D81 /* YJYLinesPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYLinesPaoPaoView.m; sourceTree = "<group>"; };
+		E12B2E3520EA198600B70D81 /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
+		E12B2E3620EA198600B70D81 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		E12B2E3720EA198600B70D81 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		E12B2E3820EA198600B70D81 /* YJYLinesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YJYLinesCell.xib; sourceTree = "<group>"; };
+		E12B2E3920EA198700B70D81 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		E12B2E3A20EA198700B70D81 /* LRSChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSChartView.m; sourceTree = "<group>"; };
+		E12B2E3B20EA198700B70D81 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		E12B2E3C20EA198700B70D81 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
+		E12B2E3D20EA198700B70D81 /* NSString+Valid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Valid.h"; sourceTree = "<group>"; };
+		E12B2E3E20EA198700B70D81 /* LRSChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSChartView.h; sourceTree = "<group>"; };
+		E12B2E3F20EA198700B70D81 /* LinesSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinesSelectCell.m; sourceTree = "<group>"; };
+		E12B2E4020EA198800B70D81 /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
+		E12B2E4120EA198800B70D81 /* YJYLinesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYLinesCell.h; sourceTree = "<group>"; };
+		E12B2E4220EA198800B70D81 /* YJYTouchCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYTouchCollectionView.h; sourceTree = "<group>"; };
+		E12B2E4320EA198800B70D81 /* YJYLinesPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYLinesPaoPaoView.h; sourceTree = "<group>"; };
+		E12B2E4420EA198800B70D81 /* YJYTouchScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYTouchScroll.m; sourceTree = "<group>"; };
+		E12B2E4520EA198800B70D81 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
+		E12B2E4620EA198800B70D81 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		E12B2E4720EA198900B70D81 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		E12B2E4820EA198900B70D81 /* YJYTouchScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYTouchScroll.h; sourceTree = "<group>"; };
+		E12B2E5820EA19B700B70D81 /* BYCTestCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BYCTestCode.h; sourceTree = "<group>"; };
+		E12B2E5920EA19B700B70D81 /* BYCTestCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BYCTestCode.m; sourceTree = "<group>"; };
 		E133DC9B1EEE3597009466DE /* HXBSingnUPEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSingnUPEventManager.h; sourceTree = "<group>"; };
 		E133DC9C1EEE3597009466DE /* HXBSingnUPEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSingnUPEventManager.m; sourceTree = "<group>"; };
 		E133DC9E1EEE3597009466DE /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
@@ -2870,6 +2917,7 @@
 			isa = PBXGroup;
 			children = (
 				8D3914D220EA0F2A0005AF9E /* G1 */,
+				E12B2E2B20EA18A300B70D81 /* BYCcode */,
 				4EF076AF20EA11B900445879 /* TetrisMachine */,
 				9A7D74A720E9D6CD009B65C1 /* HXBGarbageCodeEnter.h */,
 				9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */,
@@ -4770,6 +4818,44 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E12B2E2B20EA18A300B70D81 /* BYCcode */ = {
+			isa = PBXGroup;
+			children = (
+				E12B2E2F20EA198600B70D81 /* LinesSelectCell.h */,
+				E12B2E3F20EA198700B70D81 /* LinesSelectCell.m */,
+				E12B2E3E20EA198700B70D81 /* LRSChartView.h */,
+				E12B2E3A20EA198700B70D81 /* LRSChartView.m */,
+				E12B2E4620EA198800B70D81 /* NSString+Additions.h */,
+				E12B2E3620EA198600B70D81 /* NSString+Additions.m */,
+				E12B2E3B20EA198700B70D81 /* NSString+Extension.h */,
+				E12B2E3920EA198700B70D81 /* NSString+Extension.m */,
+				E12B2E3D20EA198700B70D81 /* NSString+Valid.h */,
+				E12B2E2C20EA198500B70D81 /* NSString+Valid.m */,
+				E12B2E3720EA198600B70D81 /* UIButton+EnlargeTouchArea.h */,
+				E12B2E4720EA198900B70D81 /* UIButton+EnlargeTouchArea.m */,
+				E12B2E3C20EA198700B70D81 /* UIColor+expanded.h */,
+				E12B2E2D20EA198500B70D81 /* UIColor+expanded.m */,
+				E12B2E4020EA198800B70D81 /* UIImage+Common.h */,
+				E12B2E3520EA198600B70D81 /* UIImage+Common.m */,
+				E12B2E4520EA198800B70D81 /* UIView+Common.h */,
+				E12B2E3220EA198600B70D81 /* UIView+Common.m */,
+				E12B2E4120EA198800B70D81 /* YJYLinesCell.h */,
+				E12B2E3320EA198600B70D81 /* YJYLinesCell.m */,
+				E12B2E3820EA198600B70D81 /* YJYLinesCell.xib */,
+				E12B2E4320EA198800B70D81 /* YJYLinesPaoPaoView.h */,
+				E12B2E3420EA198600B70D81 /* YJYLinesPaoPaoView.m */,
+				E12B2E2E20EA198500B70D81 /* YJYLinesSelectCell1.h */,
+				E12B2E3020EA198600B70D81 /* YJYLinesSelectCell1.m */,
+				E12B2E4220EA198800B70D81 /* YJYTouchCollectionView.h */,
+				E12B2E3120EA198600B70D81 /* YJYTouchCollectionView.m */,
+				E12B2E4820EA198900B70D81 /* YJYTouchScroll.h */,
+				E12B2E4420EA198800B70D81 /* YJYTouchScroll.m */,
+				E12B2E5820EA19B700B70D81 /* BYCTestCode.h */,
+				E12B2E5920EA19B700B70D81 /* BYCTestCode.m */,
+			);
+			path = BYCcode;
+			sourceTree = "<group>";
+		};
 		E133DC8B1EEE3597009466DE /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -5576,6 +5662,7 @@
 				4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */,
 				4EECDFD11F380E8B00301758 /* hongli.svg in Resources */,
 				4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
+				E12B2E5220EA198900B70D81 /* YJYLinesCell.xib in Resources */,
 				4EECE0151F38177000301758 /* 5003.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
@@ -5739,6 +5826,7 @@
 				E133DCED1EEE3597009466DE /* HXBSignUPViewModel.m in Sources */,
 				E11D781D202AA43D00DFC124 /* HXBMyPlanDetailsViewModel.m in Sources */,
 				9AE034B820232B0F006D6140 /* HxbAdvertiseViewController.m in Sources */,
+				E12B2E5620EA198900B70D81 /* YJYTouchScroll.m in Sources */,
 				4EB29C521F4A7AD800E33CDF /* YYMemoryCache.m in Sources */,
 				9AE0323C2022C317006D6140 /* HXBMYList_plan_Hold_TableView.m in Sources */,
 				9AE032122022C317006D6140 /* HXBMainListView_Loan_TopView.m in Sources */,
@@ -5795,10 +5883,12 @@
 				9AE032152022C317006D6140 /* HXBFeedbackViewController.m in Sources */,
 				9AE032612022C317006D6140 /* HXBBaseView_TwoLable_View.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
+				E12B2E4F20EA198900B70D81 /* YJYLinesPaoPaoView.m in Sources */,
 				9AC21DAF208DB2E500DF967F /* HXBLazyCatResultPageModel.m in Sources */,
 				E1E4A025202AA3CD004F7D10 /* HXBModifyPhoneModel.m in Sources */,
 				9AE032662022C317006D6140 /* HXBMyHomeViewCell.m in Sources */,
 				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
+				E12B2E5320EA198900B70D81 /* NSString+Extension.m in Sources */,
 				9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */,
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
 				9AE032582022C317006D6140 /* HXBWithdrawCardView.m in Sources */,
@@ -5844,6 +5934,7 @@
 				9AE0320A2022C317006D6140 /* HXBSetTransactionPasswordView.m in Sources */,
 				9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */,
 				9AE033652022C422006D6140 /* HXBFinAddRecordViewModel.m in Sources */,
+				E12B2E4B20EA198900B70D81 /* YJYLinesSelectCell1.m in Sources */,
 				9AE034BB20232B0F006D6140 /* HXBHomePopView.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				9AE032782022C317006D6140 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
@@ -5891,6 +5982,7 @@
 				4E026FD62088798F00738A77 /* HXBLazyCatAccountWebViewController.m in Sources */,
 				9AE034C520232B0F006D6140 /* HXBNoticeVCViewModel.m in Sources */,
 				9AE031F22022C317006D6140 /* HXBMyTopUpHeaderView.m in Sources */,
+				E12B2E5720EA198900B70D81 /* UIButton+EnlargeTouchArea.m in Sources */,
 				4E99BF4E1F5505D700D197A3 /* HXBXYAlertViewController.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
@@ -5906,6 +5998,7 @@
 				4EADD2B8202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.m in Sources */,
 				9AE0337D2022C422006D6140 /* HXBFin_JoinimmediateView_Loan.m in Sources */,
 				9AE032182022C317006D6140 /* HXBMY_CapitalRecordViewController.m in Sources */,
+				E12B2E4C20EA198900B70D81 /* YJYTouchCollectionView.m in Sources */,
 				9AE031FA2022C317006D6140 /* HXBOpenDepositAccountViewController.m in Sources */,
 				8D5EDEE520EA16CF0036E156 /* HXBGCar5.m in Sources */,
 				E1FCA4452050DFBD002A0523 /* HXBFincreditorChangebuyViewModel.m in Sources */,
@@ -5915,6 +6008,7 @@
 				9AE032142022C317006D6140 /* HXBMY_LoanListViewController.m in Sources */,
 				4E0446DE1FBEA98A0030E276 /* HXBUmengViewController.m in Sources */,
 				9AE0321D2022C317006D6140 /* HXBBaseVersionUpdateManager.m in Sources */,
+				E12B2E4A20EA198900B70D81 /* UIColor+expanded.m in Sources */,
 				9AE034B920232B0F006D6140 /* HXBAdvertiseViewModel.m in Sources */,
 				9AE033692022C422006D6140 /* HXBFinDatailModel_LoanDetail.m in Sources */,
 				8D5EDEE320EA16CF0036E156 /* HXBGCar15.m in Sources */,
@@ -5927,6 +6021,7 @@
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfoAgent.m in Sources */,
 				9AE0326E2022C317006D6140 /* HXBMyModel_MainLoanModel.m in Sources */,
 				9AE0338E2022C422006D6140 /* HXBHXBBorrowUserinforView.m in Sources */,
+				E12B2E5020EA198900B70D81 /* UIImage+Common.m in Sources */,
 				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
 				9AE032322022C317006D6140 /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				8D3914E320EA0F4A0005AF9E /* NSMutableArray+ObjectiveSugar.m in Sources */,
@@ -5946,6 +6041,7 @@
 				9AE032012022C317006D6140 /* HXBCircle.m in Sources */,
 				E1E4A028202AA442004F7D10 /* HXBModifyPhoneViewModel.m in Sources */,
 				9AE031DF2022C317006D6140 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
+				E12B2E4E20EA198900B70D81 /* YJYLinesCell.m in Sources */,
 				9AE031E52022C317006D6140 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				9AE031F12022C317006D6140 /* HXBMyTopUpBaseView.m in Sources */,
 				9AE033602022C422006D6140 /* HXBFinModel_AddRecortdModel_Plan.m in Sources */,
@@ -6003,6 +6099,7 @@
 				9A34ECCE2088633A00D1FC1C /* HXBLazyCatRequestModel.m in Sources */,
 				9AE032562022C317006D6140 /* HXBAgreementView.m in Sources */,
 				9AE0321B2022C317006D6140 /* HXBVersionUpdateModel.m in Sources */,
+				E12B2E5A20EA19B700B70D81 /* BYCTestCode.m in Sources */,
 				9AE032172022C317006D6140 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
 				4EF076D420EA11BA00445879 /* MacStartupCommand.m in Sources */,
 				8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */,
@@ -6013,6 +6110,7 @@
 				9AE031F32022C317006D6140 /* HXBRechargeFailView.m in Sources */,
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
 				8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */,
+				E12B2E5420EA198900B70D81 /* LRSChartView.m in Sources */,
 				9AE0320F2022C317006D6140 /* HXBMY_LoanTruansferModel.m in Sources */,
 				8D2B8008202A9D5400307564 /* HXBMyViewModel.m in Sources */,
 				8D2CF5261FC2DA5D008F7A89 /* HXBHeadView.m in Sources */,
@@ -6072,6 +6170,7 @@
 				4EF076D320EA11BA00445879 /* MacShutDownCommand.m in Sources */,
 				9AE034AB20232B0F006D6140 /* HXBHomePageLoginIndicationView.m in Sources */,
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,
+				E12B2E5520EA198900B70D81 /* LinesSelectCell.m in Sources */,
 				9AE032732022C317006D6140 /* HXBMY_LoanTruansferTableView.m in Sources */,
 				8D36109A204FD50F009E8505 /* HXBSignInViewModel.m in Sources */,
 				8DAD308B1FBA8F8C00E2AEE8 /* STCollectionView.m in Sources */,
@@ -6097,6 +6196,7 @@
 				9AE032212022C317006D6140 /* HXBWithdrawRecordListModel.m in Sources */,
 				8D5EDED920EA16CF0036E156 /* HXBGCar17.m in Sources */,
 				282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */,
+				E12B2E5120EA198900B70D81 /* NSString+Additions.m in Sources */,
 				9AE032632022C317006D6140 /* HXBLeftLabelTextView.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
 				8D3610A420577331009E8505 /* HXBMyPlanExitSuccessController.m in Sources */,
@@ -6124,6 +6224,7 @@
 				4E3A27D11FBAEE4D004FB54D /* HXBRootVCManager.m in Sources */,
 				4E2BACA81FB2EE3A002A3C82 /* HXBUMengShareManager.m in Sources */,
 				9AE033632022C422006D6140 /* HXBFinAddRecordVC_Plan.m in Sources */,
+				E12B2E4920EA198900B70D81 /* NSString+Valid.m in Sources */,
 				9AE032102022C317006D6140 /* HXBMY_LoanTruansferViewModel.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				9AE0335E2022C422006D6140 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */,
@@ -6137,6 +6238,7 @@
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
 				9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */,
 				9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */,
+				E12B2E4D20EA198900B70D81 /* UIView+Common.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
 				9AE032232022C317006D6140 /* HXBWithdrawRecordCell.m in Sources */,
 				9AE0320E2022C317006D6140 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,

@@ -9,6 +9,7 @@
 #import "HXBGarbageCodeEnter.h"
 #import "HXBG1.h"
 #import "HXBTestCode.h"
+#import "BYCTestCode.h"
 
 @implementation HXBGarbageCodeEnter
 + (instancetype)shared {
@@ -24,5 +25,7 @@
     [[HXBG1 shared] inject];
     
     [[HXBTestCode new] testCode];
+    
+    [[BYCTestCode new] createIncomeChartLineView];
 }
 @end
