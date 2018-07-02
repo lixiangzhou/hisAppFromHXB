@@ -2654,7 +2654,7 @@
 		9A7D74A620E9D698009B65C1 /* GarbageCode */ = {
 			isa = PBXGroup;
 			children = (
-				E12B2E2B20EA18A300B70D81 /* byc */,
+				E12B2E2B20EA18A300B70D81 /* BYCcode */,
 				9A7D74A720E9D6CD009B65C1 /* HXBGarbageCodeEnter.h */,
 				9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */,
 			);
@@ -4554,7 +4554,7 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E12B2E2B20EA18A300B70D81 /* byc */ = {
+		E12B2E2B20EA18A300B70D81 /* BYCcode */ = {
 			isa = PBXGroup;
 			children = (
 				E12B2E2F20EA198600B70D81 /* LinesSelectCell.h */,
@@ -4589,7 +4589,7 @@
 				E12B2E5820EA19B700B70D81 /* BYCTestCode.h */,
 				E12B2E5920EA19B700B70D81 /* BYCTestCode.m */,
 			);
-			path = byc;
+			path = BYCcode;
 			sourceTree = "<group>";
 		};
 		E133DC8B1EEE3597009466DE /* User */ = {
