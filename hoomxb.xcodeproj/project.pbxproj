@@ -117,6 +117,20 @@
 		4EECE01B1F38177000301758 /* 5009.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0091F38177000301758 /* 5009.svg */; };
 		4EECE01D1F38177000301758 /* 5012.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE00B1F38177000301758 /* 5012.svg */; };
 		4EEFBE511FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFBE501FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m */; };
+		4EF076D120EA11BA00445879 /* MacComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076B320EA11B900445879 /* MacComputer.m */; };
+		4EF076D220EA11BA00445879 /* MacManner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076B520EA11B900445879 /* MacManner.m */; };
+		4EF076D320EA11BA00445879 /* MacShutDownCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076B720EA11B900445879 /* MacShutDownCommand.m */; };
+		4EF076D420EA11BA00445879 /* MacStartupCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076B920EA11B900445879 /* MacStartupCommand.m */; };
+		4EF076D520EA11BA00445879 /* DynamicCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076BC20EA11B900445879 /* DynamicCommand.m */; };
+		4EF076D620EA11BA00445879 /* DynamicCommandManner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076BE20EA11B900445879 /* DynamicCommandManner.m */; };
+		4EF076D720EA11BA00445879 /* GenericsCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076C120EA11B900445879 /* GenericsCommand.m */; };
+		4EF076D820EA11BA00445879 /* GenericsCommandManner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076C320EA11B900445879 /* GenericsCommandManner.m */; };
+		4EF076D920EA11BA00445879 /* HXBTestCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076C520EA11B900445879 /* HXBTestCode.m */; };
+		4EF076DA20EA11BA00445879 /* TetrisMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076C720EA11B900445879 /* TetrisMachine.m */; };
+		4EF076DB20EA11BA00445879 /* TetrisMachineLeftCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076C920EA11B900445879 /* TetrisMachineLeftCommand.m */; };
+		4EF076DC20EA11BA00445879 /* TetrisMachineManner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076CB20EA11BA00445879 /* TetrisMachineManner.m */; };
+		4EF076DD20EA11BA00445879 /* TetrisMachineRightCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076CE20EA11BA00445879 /* TetrisMachineRightCommand.m */; };
+		4EF076DE20EA11BA00445879 /* TetrisMachineTransformaCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF076D020EA11BA00445879 /* TetrisMachineTransformaCommand.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		8D2B8008202A9D5400307564 /* HXBMyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B8007202A9D5400307564 /* HXBMyViewModel.m */; };
 		8D2B800D202AA40100307564 /* HXBCouponExchangeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B800C202AA40100307564 /* HXBCouponExchangeViewModel.m */; };
@@ -782,6 +796,36 @@
 		4EECE00B1F38177000301758 /* 5012.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5012.svg; sourceTree = "<group>"; };
 		4EEFBE4F1FE0FBBF004EA6D5 /* HXBVersionUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateManager.h; sourceTree = "<group>"; };
 		4EEFBE501FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateManager.m; sourceTree = "<group>"; };
+		4EF076B120EA11B900445879 /* ComputerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComputerProtocol.h; sourceTree = "<group>"; };
+		4EF076B220EA11B900445879 /* MacComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacComputer.h; sourceTree = "<group>"; };
+		4EF076B320EA11B900445879 /* MacComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacComputer.m; sourceTree = "<group>"; };
+		4EF076B420EA11B900445879 /* MacManner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacManner.h; sourceTree = "<group>"; };
+		4EF076B520EA11B900445879 /* MacManner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacManner.m; sourceTree = "<group>"; };
+		4EF076B620EA11B900445879 /* MacShutDownCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacShutDownCommand.h; sourceTree = "<group>"; };
+		4EF076B720EA11B900445879 /* MacShutDownCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacShutDownCommand.m; sourceTree = "<group>"; };
+		4EF076B820EA11B900445879 /* MacStartupCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacStartupCommand.h; sourceTree = "<group>"; };
+		4EF076B920EA11B900445879 /* MacStartupCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacStartupCommand.m; sourceTree = "<group>"; };
+		4EF076BB20EA11B900445879 /* DynamicCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicCommand.h; sourceTree = "<group>"; };
+		4EF076BC20EA11B900445879 /* DynamicCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicCommand.m; sourceTree = "<group>"; };
+		4EF076BD20EA11B900445879 /* DynamicCommandManner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicCommandManner.h; sourceTree = "<group>"; };
+		4EF076BE20EA11B900445879 /* DynamicCommandManner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicCommandManner.m; sourceTree = "<group>"; };
+		4EF076C020EA11B900445879 /* GenericsCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericsCommand.h; sourceTree = "<group>"; };
+		4EF076C120EA11B900445879 /* GenericsCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericsCommand.m; sourceTree = "<group>"; };
+		4EF076C220EA11B900445879 /* GenericsCommandManner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericsCommandManner.h; sourceTree = "<group>"; };
+		4EF076C320EA11B900445879 /* GenericsCommandManner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericsCommandManner.m; sourceTree = "<group>"; };
+		4EF076C420EA11B900445879 /* HXBTestCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTestCode.h; sourceTree = "<group>"; };
+		4EF076C520EA11B900445879 /* HXBTestCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTestCode.m; sourceTree = "<group>"; };
+		4EF076C620EA11B900445879 /* TetrisMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachine.h; sourceTree = "<group>"; };
+		4EF076C720EA11B900445879 /* TetrisMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TetrisMachine.m; sourceTree = "<group>"; };
+		4EF076C820EA11B900445879 /* TetrisMachineLeftCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachineLeftCommand.h; sourceTree = "<group>"; };
+		4EF076C920EA11B900445879 /* TetrisMachineLeftCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TetrisMachineLeftCommand.m; sourceTree = "<group>"; };
+		4EF076CA20EA11BA00445879 /* TetrisMachineManner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachineManner.h; sourceTree = "<group>"; };
+		4EF076CB20EA11BA00445879 /* TetrisMachineManner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TetrisMachineManner.m; sourceTree = "<group>"; };
+		4EF076CC20EA11BA00445879 /* TetrisMachineProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachineProtocol.h; sourceTree = "<group>"; };
+		4EF076CD20EA11BA00445879 /* TetrisMachineRightCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachineRightCommand.h; sourceTree = "<group>"; };
+		4EF076CE20EA11BA00445879 /* TetrisMachineRightCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TetrisMachineRightCommand.m; sourceTree = "<group>"; };
+		4EF076CF20EA11BA00445879 /* TetrisMachineTransformaCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TetrisMachineTransformaCommand.h; sourceTree = "<group>"; };
+		4EF076D020EA11BA00445879 /* TetrisMachineTransformaCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TetrisMachineTransformaCommand.m; sourceTree = "<group>"; };
 		6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.adoc.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.adoc.xcconfig"; sourceTree = "<group>"; };
 		8D2B8006202A9D5400307564 /* HXBMyViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyViewModel.h; sourceTree = "<group>"; };
 		8D2B8007202A9D5400307564 /* HXBMyViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyViewModel.m; sourceTree = "<group>"; };
@@ -2285,6 +2329,67 @@
 			path = "银行icon";
 			sourceTree = "<group>";
 		};
+		4EF076AF20EA11B900445879 /* TetrisMachine */ = {
+			isa = PBXGroup;
+			children = (
+				4EF076B020EA11B900445879 /* Computer */,
+				4EF076BA20EA11B900445879 /* DynamicCommand */,
+				4EF076BF20EA11B900445879 /* GenericsCommand */,
+				4EF076C420EA11B900445879 /* HXBTestCode.h */,
+				4EF076C520EA11B900445879 /* HXBTestCode.m */,
+				4EF076C620EA11B900445879 /* TetrisMachine.h */,
+				4EF076C720EA11B900445879 /* TetrisMachine.m */,
+				4EF076C820EA11B900445879 /* TetrisMachineLeftCommand.h */,
+				4EF076C920EA11B900445879 /* TetrisMachineLeftCommand.m */,
+				4EF076CA20EA11BA00445879 /* TetrisMachineManner.h */,
+				4EF076CB20EA11BA00445879 /* TetrisMachineManner.m */,
+				4EF076CC20EA11BA00445879 /* TetrisMachineProtocol.h */,
+				4EF076CD20EA11BA00445879 /* TetrisMachineRightCommand.h */,
+				4EF076CE20EA11BA00445879 /* TetrisMachineRightCommand.m */,
+				4EF076CF20EA11BA00445879 /* TetrisMachineTransformaCommand.h */,
+				4EF076D020EA11BA00445879 /* TetrisMachineTransformaCommand.m */,
+			);
+			path = TetrisMachine;
+			sourceTree = "<group>";
+		};
+		4EF076B020EA11B900445879 /* Computer */ = {
+			isa = PBXGroup;
+			children = (
+				4EF076B120EA11B900445879 /* ComputerProtocol.h */,
+				4EF076B220EA11B900445879 /* MacComputer.h */,
+				4EF076B320EA11B900445879 /* MacComputer.m */,
+				4EF076B420EA11B900445879 /* MacManner.h */,
+				4EF076B520EA11B900445879 /* MacManner.m */,
+				4EF076B620EA11B900445879 /* MacShutDownCommand.h */,
+				4EF076B720EA11B900445879 /* MacShutDownCommand.m */,
+				4EF076B820EA11B900445879 /* MacStartupCommand.h */,
+				4EF076B920EA11B900445879 /* MacStartupCommand.m */,
+			);
+			path = Computer;
+			sourceTree = "<group>";
+		};
+		4EF076BA20EA11B900445879 /* DynamicCommand */ = {
+			isa = PBXGroup;
+			children = (
+				4EF076BB20EA11B900445879 /* DynamicCommand.h */,
+				4EF076BC20EA11B900445879 /* DynamicCommand.m */,
+				4EF076BD20EA11B900445879 /* DynamicCommandManner.h */,
+				4EF076BE20EA11B900445879 /* DynamicCommandManner.m */,
+			);
+			path = DynamicCommand;
+			sourceTree = "<group>";
+		};
+		4EF076BF20EA11B900445879 /* GenericsCommand */ = {
+			isa = PBXGroup;
+			children = (
+				4EF076C020EA11B900445879 /* GenericsCommand.h */,
+				4EF076C120EA11B900445879 /* GenericsCommand.m */,
+				4EF076C220EA11B900445879 /* GenericsCommandManner.h */,
+				4EF076C320EA11B900445879 /* GenericsCommandManner.m */,
+			);
+			path = GenericsCommand;
+			sourceTree = "<group>";
+		};
 		8D2B8005202A9D2A00307564 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2655,6 +2760,7 @@
 			isa = PBXGroup;
 			children = (
 				E12B2E2B20EA18A300B70D81 /* BYCcode */,
+				4EF076AF20EA11B900445879 /* TetrisMachine */,
 				9A7D74A720E9D6CD009B65C1 /* HXBGarbageCodeEnter.h */,
 				9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */,
 			);
@@ -5549,6 +5655,8 @@
 				9AE031FE2022C317006D6140 /* HxbWithdrawResultViewController.m in Sources */,
 				9AE033782022C422006D6140 /* HXBFinBaseNegotiateView.m in Sources */,
 				9AE033AD2022C423006D6140 /* HXBFinanctingView_HomePage.m in Sources */,
+				4EF076DA20EA11BA00445879 /* TetrisMachine.m in Sources */,
+				4EF076DE20EA11BA00445879 /* TetrisMachineTransformaCommand.m in Sources */,
 				9AE031FC2022C317006D6140 /* HXBUnBindCardController.m in Sources */,
 				9AE032132022C317006D6140 /* HXBMY_Loan_TableView.m in Sources */,
 				9AE0322F2022C317006D6140 /* HXBMyCouponExchangeViewController.m in Sources */,
@@ -5631,6 +5739,7 @@
 				E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */,
 				9AE0336D2022C422006D6140 /* HXBFin_Detail_DetailsVC_Plan.m in Sources */,
 				8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */,
+				4EF076D820EA11BA00445879 /* GenericsCommandManner.m in Sources */,
 				4E9D5A30202434DB007572B1 /* HXBNewbieProductCell.m in Sources */,
 				8D361097204FCA0F009E8505 /* HXBSignUPAndLoginAgent.m in Sources */,
 				9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */,
@@ -5693,6 +5802,7 @@
 				9AE033892022C422006D6140 /* HXBFinHomePageModel_LoanTruansferList.m in Sources */,
 				8DAD30851FBA8F8C00E2AEE8 /* HXBBaseToolBarView.m in Sources */,
 				9AE033642022C422006D6140 /* HXBFinAddRecortdVC_Loan.m in Sources */,
+				4EF076D920EA11BA00445879 /* HXBTestCode.m in Sources */,
 				E12A4CB0204500EC0095951E /* HXBAccountInfoViewModel.m in Sources */,
 				E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */,
 				9AE0336F2022C422006D6140 /* HXBFinPlanContract_ContractWebView.m in Sources */,
@@ -5709,6 +5819,7 @@
 				4E99BF4E1F5505D700D197A3 /* HXBXYAlertViewController.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
+				4EF076D720EA11BA00445879 /* GenericsCommand.m in Sources */,
 				9AE0321A2022C317006D6140 /* HXBModifyPhoneViewController.m in Sources */,
 				9AE032812022C317006D6140 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
 				E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */,
@@ -5790,9 +5901,11 @@
 				8D56C7912043B356008C3F1C /* HXBSignUPRealnameViewModel.m in Sources */,
 				E19105A920455107002B3831 /* HXBMYAllFinanceViewModel.m in Sources */,
 				9AE034AF20232B0F006D6140 /* HXBHomeVCViewModel.m in Sources */,
+				4EF076DC20EA11BA00445879 /* TetrisMachineManner.m in Sources */,
 				9AE0339E2022C422006D6140 /* HXBFin_DetailsViewBase.m in Sources */,
 				E133DCF11EEE3597009466DE /* HXBUserInfoModel.m in Sources */,
 				4EA8C1A11FBC2FB50064019C /* UIImage+HXBUtil.m in Sources */,
+				4EF076D520EA11BA00445879 /* DynamicCommand.m in Sources */,
 				9AE0338A2022C422006D6140 /* HXBFinHomePageModel_PlanList.m in Sources */,
 				9AE033A92022C423006D6140 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				E19105B220455358002B3831 /* HXBMainListViewPlanTopViewViewModel.m in Sources */,
@@ -5814,10 +5927,12 @@
 				9AE0321B2022C317006D6140 /* HXBVersionUpdateModel.m in Sources */,
 				E12B2E5A20EA19B700B70D81 /* BYCTestCode.m in Sources */,
 				9AE032172022C317006D6140 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
+				4EF076D420EA11BA00445879 /* MacStartupCommand.m in Sources */,
 				8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E45F42A1F4FC05C009708B7 /* HXBUmengManagar.m in Sources */,
 				9AE032722022C317006D6140 /* HXBMy_Loan_Swipe.m in Sources */,
+				4EF076D620EA11BA00445879 /* DynamicCommandManner.m in Sources */,
 				9AE031F32022C317006D6140 /* HXBRechargeFailView.m in Sources */,
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
 				8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */,
@@ -5826,6 +5941,7 @@
 				8D2B8008202A9D5400307564 /* HXBMyViewModel.m in Sources */,
 				8D2CF5261FC2DA5D008F7A89 /* HXBHeadView.m in Sources */,
 				9AE0339C2022C422006D6140 /* HXBTenderDetailViewModel.m in Sources */,
+				4EF076D220EA11BA00445879 /* MacManner.m in Sources */,
 				8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */,
 				9AE032372022C317006D6140 /* HXBBaseView_MYList_TableViewCell.m in Sources */,
 				9AE0324F2022C317006D6140 /* HXBProportionalBarView.m in Sources */,
@@ -5861,6 +5977,7 @@
 				9AE032552022C317006D6140 /* HXBDepositoryHeaderView.m in Sources */,
 				9AE032512022C317006D6140 /* HXBAccount_AlterLoginPassword_View.m in Sources */,
 				8DAD307C1FBA8F8C00E2AEE8 /* HXBBaseViewController.m in Sources */,
+				4EF076DB20EA11BA00445879 /* TetrisMachineLeftCommand.m in Sources */,
 				9AE0325A2022C317006D6140 /* HxbMyAccountSecurityViewController.m in Sources */,
 				E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */,
 				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
@@ -5874,6 +5991,7 @@
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
 				4E1053FA1FE7BE9900BCE2F4 /* HXBCustomNavView.m in Sources */,
 				9AE032302022C317006D6140 /* HXBMyCouponListViewController.m in Sources */,
+				4EF076D320EA11BA00445879 /* MacShutDownCommand.m in Sources */,
 				9AE034AB20232B0F006D6140 /* HXBHomePageLoginIndicationView.m in Sources */,
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,
 				E12B2E5520EA198900B70D81 /* LinesSelectCell.m in Sources */,
@@ -5972,6 +6090,7 @@
 				9AE034A820232B0F006D6140 /* HXBHomeTitleModel.m in Sources */,
 				9AE0338B2022C422006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */,
 				9AE033AB2022C423006D6140 /* HXBFinanctingDetail_progressCell.m in Sources */,
+				4EF076D120EA11BA00445879 /* MacComputer.m in Sources */,
 				9AE033732022C422006D6140 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1FCA43C204F8E70002A0523 /* HXBChooseDiscountCouponViewModel.m in Sources */,
 				9AE031E62022C317006D6140 /* HXBBankView.m in Sources */,
@@ -6007,6 +6126,7 @@
 				9AE033AE2022C423006D6140 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */,
 				9AE032602022C317006D6140 /* HXBBaseView_MoreTopBottomView.m in Sources */,
+				4EF076DD20EA11BA00445879 /* TetrisMachineRightCommand.m in Sources */,
 				E1E4A033202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m in Sources */,
 				9AE034B520232B0F006D6140 /* TYCyclePagerView.m in Sources */,
 				9AE032222022C317006D6140 /* HXBWithdrawRecordModel.m in Sources */,
