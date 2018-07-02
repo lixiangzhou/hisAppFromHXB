@@ -22,8 +22,6 @@
 @property (nonatomic,strong) HXBBaseScrollToolBarView *scrollToolBarView;
 //toolBarView
 @property (nonatomic,strong) HXBBaseToolBarView *toolBarView;
-//toolBarView的option标题数组
-@property (nonatomic,strong) NSArray <NSString *>*toolBarViewOptionStrArray;
 //scrollToolBarView 底部的scrollView的集合
 @property (nonatomic,strong) NSArray <UIScrollView *>*bottomViewArray;
 //bottomViewArray里面的红利计划view
@@ -64,31 +62,19 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[
-                                       @"红利智投",
-                                       @"散标",
-                                       @"债权转让" //债权转让，以后打开
-                                       ];
-    
-    
     //设置toolBarView
     [self setupToolBarView];
     
     //搭建底部的ScrollView
     [self setupBottomScrollViewArray];
     
-    //为底部的scrollView添加定时器
-    [self setupCountDownManager];
-    
     //搭建ScrollToolBarView
     [self setupScrollToolBarView];
-    //定时器
-    [self setupCountDownManager];
 }
 
 //设置toolBarView
 - (void)setupToolBarView {
-    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray topNavigationToolBar:YES];
+    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:@[@"红利智投", @"散标", @"债权转让"] topNavigationToolBar:YES];
     self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
     self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = YES;
@@ -101,10 +87,6 @@
     self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
     self.toolBarView.itemTitleColor_select = [UIColor whiteColor];
     self.toolBarView.itemTextColor_Normal = [UIColor colorWithWhite:1 alpha:0.5];
-    
-    //边框
-//    self.toolBarView.layer.borderWidth = .2;
-//    self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 //设置底部的scrollView数组
@@ -121,14 +103,6 @@
                              self.loanListTableView,
                              self.loanTruansferTableView //债权转让，以后打开
                             ];
-}
-
-//MARK: 定时器管理者
-- (void)setupCountDownManager {
-    NSMutableArray *arrayM = [[NSMutableArray alloc]init];
-    [arrayM addObjectsFromArray:self.finPlanListVMArray];
-//    [arrayM addObjectsFromArray:self.finLoanListVMArray];
-   
 }
 
 

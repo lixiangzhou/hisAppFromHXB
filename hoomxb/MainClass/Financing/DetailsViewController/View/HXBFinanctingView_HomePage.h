@@ -62,7 +62,5 @@
 ///债转下拉刷新
 @property (nonatomic,copy) void(^loanTruansferHeaderBlock)();
 
-///刷新UI
-- (void)loadData;
 @end
 

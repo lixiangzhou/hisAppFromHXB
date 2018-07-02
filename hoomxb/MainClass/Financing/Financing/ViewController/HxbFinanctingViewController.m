@@ -79,7 +79,6 @@
     
     //上拉刷新与下拉加载
     [self registerRefresh];
-    [self planLoadDateWithIsUpData:YES];
     
 //    //创建定时器
 //    [self creatCountDownManager];
