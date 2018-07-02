@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HXBGCar1 : NSObject
+@interface HXBGCar2 : NSObject
 @property (nonatomic, copy) NSString *color1;
 @property (nonatomic, copy) NSString *color2;
 @property (nonatomic, copy) NSString *color3;

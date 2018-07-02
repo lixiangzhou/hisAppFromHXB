@@ -6,8 +6,8 @@
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBGCar1.h"
+#import "HXBGCar2.h"
 
-@implementation HXBGCar1
+@implementation HXBGCar2
 
 @end
