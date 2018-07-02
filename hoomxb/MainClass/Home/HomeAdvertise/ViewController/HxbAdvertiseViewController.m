@@ -72,7 +72,7 @@
         [self.view removeFromSuperview];
         [[HXBRootVCManager manager] showGesturePwd];
         
-        [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+        [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity, BOOL popRightNow) {
             if (delay) {
                 /// 延时是为了避免突然出现其他界面
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -83,6 +83,12 @@
             }
             if (toActivity) {
                 [weakSelf toActivity];
+            }
+            
+            if (popRightNow) {
+                [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+            } else {
+                [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
             }
         };
     } else {
