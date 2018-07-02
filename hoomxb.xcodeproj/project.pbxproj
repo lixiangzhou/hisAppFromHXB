@@ -172,6 +172,7 @@
 		9A647E12204E968900EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A647E11204E968800EC4684 /* WebViewJavascriptBridgeBase+HXBHandle.m */; };
 		9A6B578120299B0200798DE0 /* HXBOpenDepositAccountAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B578020299B0200798DE0 /* HXBOpenDepositAccountAgent.m */; };
 		9A6B578420299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B578320299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.m */; };
+		9A7D74A920E9D6CD009B65C1 /* HXBGarbageCodeEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */; };
 		9A917E7C202859BF00F90146 /* HXBBannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A917E7B202859BF00F90146 /* HXBBannerViewModel.m */; };
 		9ABC1045206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABC1044206C8D3500930C9C /* HXBFinBaseFlowChartChildView.m */; };
 		9AC21DAC208DB2C300DF967F /* HXBLazyCatResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC21DAB208DB2C300DF967F /* HXBLazyCatResponseModel.m */; };
@@ -876,6 +877,8 @@
 		9A6B578020299B0200798DE0 /* HXBOpenDepositAccountAgent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositAccountAgent.m; sourceTree = "<group>"; };
 		9A6B578220299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordAgent.h; sourceTree = "<group>"; };
 		9A6B578320299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordAgent.m; sourceTree = "<group>"; };
+		9A7D74A720E9D6CD009B65C1 /* HXBGarbageCodeEnter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBGarbageCodeEnter.h; sourceTree = "<group>"; };
+		9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBGarbageCodeEnter.m; sourceTree = "<group>"; };
 		9A917E7A202859BF00F90146 /* HXBBannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBannerViewModel.h; sourceTree = "<group>"; };
 		9A917E7B202859BF00F90146 /* HXBBannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBannerViewModel.m; sourceTree = "<group>"; };
 		9ABC1043206C8D3500930C9C /* HXBFinBaseFlowChartChildView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinBaseFlowChartChildView.h; sourceTree = "<group>"; };
@@ -1812,6 +1815,7 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				9A7D74A620E9D698009B65C1 /* GarbageCode */,
 				9A34ECC52088616500D1FC1C /* MainClass */,
 				8DAD303E1FBA8F8B00E2AEE8 /* Base */,
 				E122D8081EA0CAB900DC71ED /* Tools */,
@@ -2598,6 +2602,15 @@
 				E133DCD01EEE3597009466DE /* HXBRequestUserInfoAgent.m */,
 			);
 			path = RequestAgent;
+			sourceTree = "<group>";
+		};
+		9A7D74A620E9D698009B65C1 /* GarbageCode */ = {
+			isa = PBXGroup;
+			children = (
+				9A7D74A720E9D6CD009B65C1 /* HXBGarbageCodeEnter.h */,
+				9A7D74A820E9D6CD009B65C1 /* HXBGarbageCodeEnter.m */,
+			);
+			path = GarbageCode;
 			sourceTree = "<group>";
 		};
 		9A917E792028594F00F90146 /* ViewModel */ = {
@@ -5445,6 +5458,7 @@
 				9AE033A82022C423006D6140 /* HXBFin_PlanDetailView.m in Sources */,
 				9AE0324E2022C317006D6140 /* HXBProgressView.m in Sources */,
 				E11D78192029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.m in Sources */,
+				9A7D74A920E9D6CD009B65C1 /* HXBGarbageCodeEnter.m in Sources */,
 				9AE031FE2022C317006D6140 /* HxbWithdrawResultViewController.m in Sources */,
 				9AE033782022C422006D6140 /* HXBFinBaseNegotiateView.m in Sources */,
 				9AE033AD2022C423006D6140 /* HXBFinanctingView_HomePage.m in Sources */,
