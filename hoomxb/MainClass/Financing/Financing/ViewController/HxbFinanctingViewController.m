@@ -153,13 +153,15 @@
         }
     }];
 }
+
+// MARK: - Cell 点击事件
 - (void)clickCell {
     
     [self clickPlanListCell];       //点击了红利计划列表的cell，跳转了红利计划详情页
     [self clickLoanListCell];       //点击了散标列表页测cell， 跳转详情页
     [self clickLoanTruansferCell];  //点击了债转列表页测cell， 跳转详情页
 }
-//MARK: - 点击了红利计划列表页的 cell
+// MARK: - 点击了红利计划列表页的 cell
 - (void) clickPlanListCell {
     __weak typeof(self)weakSelf = self;
     [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, HXBFinHomePageViewModel_PlanList *model) {
@@ -179,14 +181,22 @@
 
     [self.navigationController pushViewController:planDetailsVC animated:YES];
 }
-//MARK: - 点击了散标列表页的 cell
+// MARK: - 点击了散标列表页的 cell
 - (void) clickLoanListCell {
     __weak typeof (self) weakSelf = self;
     [self.homePageView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
         [weakSelf pushLoanListCellViewControllerWithModel:model];
     }];
 }
-//MARK:- 点击了债转的 cell
+
+- (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
+    HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
+    loanDetailsVC.loanID = model.loanListModel.loanId;
+    loanDetailsVC.loanListViewMode = model;
+    [self.navigationController pushViewController:loanDetailsVC animated:YES];
+}
+
+// MARK:- 点击了债转的 cell
 - (void)clickLoanTruansferCell {
     kWeakSelf
     [self.homePageView setClickLoanTruansferCellBlock:^(HXBFinHomePageViewModel_LoanTruansferViewModel* model,NSIndexPath *index){
@@ -202,16 +212,8 @@
     [self.navigationController pushViewController:loanTruansfer_VC animated:YES];
     
 }
-- (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
-    HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
-    loanDetailsVC.loanID = model.loanListModel.loanId;
-    loanDetailsVC.loanListViewMode = model;
-    [self.navigationController pushViewController:loanDetailsVC animated:YES];
-}
 
-- (void)clickLeftBarButtonItem {
-    [self popoverPresentationController];
-}
+
 #pragma mark - 上啦刷新与下拉加载
 - (void) registerRefresh{
     //红利计划上拉刷新与下拉加载
