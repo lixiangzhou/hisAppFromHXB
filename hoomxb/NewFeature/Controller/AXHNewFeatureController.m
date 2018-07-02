@@ -119,9 +119,13 @@
     } else {
         if ([HXBRootVCManager manager].gesturePwdVC) {
             [[HXBRootVCManager manager] showGesturePwd];
-            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+            [HXBRootVCManager manager].gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity, BOOL popRightNow) {
                 [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
-                [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+                if (popRightNow) {
+                    [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+                } else {
+                    [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+                }
             };
         } else {
             [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
