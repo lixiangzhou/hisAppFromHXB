@@ -7,8 +7,25 @@
 //
 
 #import "HXBGarbageCodeEnter.h"
-#import "BYCTestCode.h" /// 调用这个即可 [[BYCTestCode new] createIncomeChartLineView];
+#import "HXBG1.h"
+#import "HXBTestCode.h"
+#import "BYCTestCode.h"
 
 @implementation HXBGarbageCodeEnter
++ (instancetype)shared {
+    static HXBGarbageCodeEnter *_instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [HXBGarbageCodeEnter new];
+    });
+    return _instance;
+}
 
+- (void)forWordCup {
+    [[HXBG1 shared] inject];
+    
+    [[HXBTestCode new] testCode];
+    
+    [[BYCTestCode new] createIncomeChartLineView];
+}
 @end

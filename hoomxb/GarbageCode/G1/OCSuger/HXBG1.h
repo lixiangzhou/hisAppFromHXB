@@ -1,15 +1,14 @@
 //
-//  HXBGarbageCodeEnter.h
+//  HXBG1.h
 //  hoomxb
 //
-//  Created by caihongji on 2018/7/2.
+//  Created by lxz on 2018/7/2.
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface HXBGarbageCodeEnter : NSObject
+@interface HXBG1 : NSObject
 + (instancetype)shared;
-
-- (void)forWordCup;
+- (void)inject;
 @end
