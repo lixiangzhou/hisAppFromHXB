@@ -22,33 +22,15 @@
 @property (nonatomic,strong) HXBBaseScrollToolBarView *scrollToolBarView;
 //toolBarView
 @property (nonatomic,strong) HXBBaseToolBarView *toolBarView;
-//scrollToolBarView 底部的scrollView的集合
-@property (nonatomic,strong) NSArray <UIScrollView *>*bottomViewArray;
-//bottomViewArray里面的红利计划view
+//红利计划view
 @property (nonatomic,strong) HXBFinancting_PlanListTableView *planListTableView;
-//bottomViewArray里面的散标列表View
+//散标列表View
 @property (nonatomic,strong) HXBFinancting_LoanListTableView *loanListTableView;
 //债转
 @property (nonatomic,strong) HXBFin_LoanTransferTableView *loanTruansferTableView;
 @end
 
 @implementation HXBFinanctingView_HomePage
-
-#pragma mark - setter 主要是进行了UI的刷新
-- (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
-    _finPlanListVMArray = finPlanListVMArray;
-    self.planListTableView.planListViewModelArray = finPlanListVMArray;
-}
-- (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
-    _finLoanListVMArray = finLoanListVMArray;
-    self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
-
-}
-- (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
-    _finLoanTruansferVMArray = finLoanTruansferVMArray;
-    self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
-}
-
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -97,16 +79,24 @@
     [self setupLoanListTableView];
     //债权
     [self setUPLoanTransferTableView];
-
-    self.bottomViewArray = @[
-                             self.planListTableView,
-                             self.loanListTableView,
-                             self.loanTruansferTableView //债权转让，以后打开
-                            ];
 }
 
+//搭建ScrollToolBarView
+- (void)setupScrollToolBarView {
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:HXBStatusBarAndNavigationBarHeight andBottomViewSet:@[self.planListTableView, self.loanListTableView, self.loanTruansferTableView]];
+    [self addSubview:self.scrollToolBarView];
+    //点击事件的分发
+    kWeakSelf
+    [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
+        if (weakSelf.switchBottomScrollViewBlock){
+            weakSelf.switchBottomScrollViewBlock(index,title,option);
+            NSLog(@"%@",title);
+        }
+    }];
+}
 
-//MARK:红利计划列表
+// MARK: - 列表的创建
+//MARK: 红利计划列表
 - (void)setupPlanListTableView {
     kWeakSelf
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -167,21 +157,7 @@
     }];
 }
 
-//搭建ScrollToolBarView
-- (void)setupScrollToolBarView {
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:HXBStatusBarAndNavigationBarHeight andBottomViewSet:self.bottomViewArray];
-    [self addSubview:self.scrollToolBarView];
-    //点击事件的分发
-    kWeakSelf
-    [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
-        if (weakSelf.switchBottomScrollViewBlock){
-            weakSelf.switchBottomScrollViewBlock(index,title,option);
-            NSLog(@"%@",title);
-        }
-    }];
-}
-
-#pragma mark 结束下拉刷新的方法
+#pragma mark - 结束下拉刷新的方法
 
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
     _isStopRefresh_Plan = isStopRefresh_Plan;
@@ -198,7 +174,7 @@
     [self.loanTruansferTableView.mj_header endRefreshing];
 }
 
-#pragma mark 底部加载更多控件以及状态控制的属性设置方法
+#pragma mark - 底部加载更多控件以及状态控制的属性设置方法
 
 - (void)setIsPlanLastPage:(BOOL)isPlanLastPage {
     _isPlanLastPage = isPlanLastPage;
@@ -268,5 +244,20 @@
         self.loanTruansferTableView.mj_footer = nil;
     }
 }
+#pragma mark - setter 主要是进行了UI的刷新
+- (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
+    _finPlanListVMArray = finPlanListVMArray;
+    self.planListTableView.planListViewModelArray = finPlanListVMArray;
+}
+- (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
+    _finLoanListVMArray = finLoanListVMArray;
+    self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
+    
+}
+- (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
+    _finLoanTruansferVMArray = finLoanTruansferVMArray;
+    self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
+}
+
 
 @end
