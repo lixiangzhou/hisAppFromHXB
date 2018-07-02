@@ -1,5 +1,5 @@
 //
-//  HXBGCar1.h
+//  HXBGCar4.h
 //  hoomxb
 //
 //  Created by lxz on 2018/7/2.
@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HXBGCar1 : NSObject
+
+@interface HXBGCar4 : NSObject
 @property (nonatomic, copy) NSString *color1;
 @property (nonatomic, copy) NSString *color2;
 @property (nonatomic, copy) NSString *color3;

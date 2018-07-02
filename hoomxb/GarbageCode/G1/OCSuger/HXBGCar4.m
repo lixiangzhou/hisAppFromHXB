@@ -1,13 +1,14 @@
 //
-//  HXBGCar1.m
+//  HXBGCar4.m
 //  hoomxb
 //
 //  Created by lxz on 2018/7/2.
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBGCar1.h"
+#import "HXBGCar4.h"
 
-@implementation HXBGCar1
+@implementation HXBGCar4
+
 
 @end
