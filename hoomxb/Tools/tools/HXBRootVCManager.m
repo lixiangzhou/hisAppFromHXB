@@ -128,7 +128,7 @@
         
         [self showGesturePwd];
         
-        self.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity) {
+        self.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity, BOOL popRightNow) {
             [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
         };
     }
@@ -233,9 +233,13 @@
             if (weakSelf.gesturePwdVC) {    // 需要显示手势密码
                 [weakSelf showGesturePwd];
                 // 需要在手势密码页消失的时候 手动调用弹窗
-                weakSelf.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity){
+                weakSelf.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity, BOOL popRightNow) {
                     [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
-                    [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+                    if (popRightNow) {
+                        [[HXBRootVCManager manager] popWindowsAtHomeAfterSlashOrGesturePwd];
+                    } else {
+                        [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+                    }
                 };
             } else {
                 // 自动到首页的时候 手动调用弹窗

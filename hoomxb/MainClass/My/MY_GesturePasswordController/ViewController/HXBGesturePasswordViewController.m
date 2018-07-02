@@ -15,6 +15,7 @@
 #import "HxbMyAccountSecurityViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBGeneralAlertVC.h"
+#import "HXBAdvertiseManager.h"
 
 @interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
@@ -208,6 +209,7 @@
             NSLog(@"点击了账户密码登录");
             [KeyChain signOut];
             [self.view removeFromSuperview];
+            [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
@@ -277,7 +279,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
             if (self.dismissBlock) {
-                self.dismissBlock(NO, NO);
+                self.dismissBlock(NO, NO, YES);
             }
         }
         
@@ -298,7 +300,7 @@
             NSLog(@"登陆成功！");
             KeyChain.gesturePwdCount = @"5";
             if (self.dismissBlock) {
-                self.dismissBlock(YES, YES);
+                self.dismissBlock(YES, YES, YES);
             }
         } else {
             NSLog(@"密码错误！");
@@ -313,13 +315,13 @@
                 [KeyChain signOut];
                 alertVC.leftBtnBlock = ^{
                     if (self.dismissBlock) {
-                        self.dismissBlock(NO, NO);
+                        self.dismissBlock(NO, NO, YES);
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
                 };
                 alertVC.rightBtnBlock = ^{
                     if (self.dismissBlock) {
-                        self.dismissBlock(NO, NO);
+                        self.dismissBlock(NO, NO, NO);
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
@@ -360,7 +362,7 @@
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
             if (self.dismissBlock) {
-                self.dismissBlock(NO, NO);
+                self.dismissBlock(NO, NO, YES);
             }
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
