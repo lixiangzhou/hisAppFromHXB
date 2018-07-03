@@ -105,7 +105,13 @@
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+            [self.gesturePwdVC.view removeFromSuperview];
+            id block = self.gesturePwdVC.dismissBlock;
             self.gesturePwdVC = gesturePasswordVC;
+
+            if ([HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd == NO) {
+                self.gesturePwdVC.dismissBlock = block;
+            }
         } else {
             NSString *skip = KeyChain.skipGesture;
             BOOL skipGesturePwd = NO;
@@ -122,15 +128,21 @@
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
                 gesturePasswordVC.type = GestureViewControllerTypeSetting;
                 gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+                [self.gesturePwdVC.view removeFromSuperview];
+                id block = self.gesturePwdVC.dismissBlock;
                 self.gesturePwdVC = gesturePasswordVC;
+                
+                if ([HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd == NO) {
+                    self.gesturePwdVC.dismissBlock = block;
+                }
             }
         }
         
         [self showGesturePwd];
         
-        self.gesturePwdVC.dismissBlock = ^(BOOL delay, BOOL toActivity, BOOL popRightNow) {
+        if ([HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
             [[HXBRootVCManager manager].gesturePwdVC.view removeFromSuperview];
-        };
+        }
     }
 }
 
