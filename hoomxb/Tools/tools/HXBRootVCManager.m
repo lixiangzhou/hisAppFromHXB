@@ -105,6 +105,7 @@
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+            [self.gesturePwdVC.view removeFromSuperview];
             self.gesturePwdVC = gesturePasswordVC;
         } else {
             NSString *skip = KeyChain.skipGesture;
@@ -122,6 +123,7 @@
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
                 gesturePasswordVC.type = GestureViewControllerTypeSetting;
                 gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+                [self.gesturePwdVC.view removeFromSuperview];
                 self.gesturePwdVC = gesturePasswordVC;
             }
         }
