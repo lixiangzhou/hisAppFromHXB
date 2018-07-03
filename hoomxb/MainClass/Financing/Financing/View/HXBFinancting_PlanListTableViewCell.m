@@ -111,8 +111,9 @@
     
     [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.topView);
-        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
-        make.left.equalTo(weakSelf.topView.mas_centerX);
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-15));
+        make.left.greaterThanOrEqualTo(weakSelf.topView.mas_centerX);
+        make.height.equalTo(@kScrAdaptationH(20));
     }];
     
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -178,11 +179,23 @@
 }
 
 #pragma mark - setter
-//MARK: 倒计时的重要传递
 - (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
     _finPlanListViewModel = finPlanListViewModel;
     
-    self.nameLabel.text = finPlanListViewModel.planListModel.name;
+    self.nameLabel.attributedText = finPlanListViewModel.nameAttributeString;
+    self.tagLabel.attributedText = finPlanListViewModel.tagAttributeString;
+    
+    if (finPlanListViewModel.planListModel.novice) {
+        [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        self.topView.hidden = YES;
+    } else {
+        [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@30);
+        }];
+        self.topView.hidden = NO;
+    }
     
     self.addStatus.text = finPlanListViewModel.unifyStatus;
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
@@ -192,9 +205,14 @@
     self.countDownLable.text = finPlanListViewModel.countDownString;
     
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
-    self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_FF7D2F_100 : kHXBColor_Red_090303;
     
-    self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
+    self.lockPeriodLabel.attributedText = finPlanListViewModel.lockPeriod;
+    
+    if (finPlanListViewModel.planListModel.novice == 1) {
+        self.lockPeriodLabel_Const.text = finPlanListViewModel.planListModel.lockPeriod.length ? @"锁定期(月)" : @"锁定期(天)";
+    } else {
+        self.lockPeriodLabel_Const.text =  finPlanListViewModel.planListModel.lockPeriod.length ? @"适用期限(月)" : @"期限(天)";
+    }
     
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
@@ -208,19 +226,14 @@
     } else {
         self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
     }
-    if (finPlanListViewModel.planListModel.tag.length > 0) {
-        self.tagLabel.text = finPlanListViewModel.planListModel.tag;
-        self.tagLabel.hidden = NO;
-    } else {
-        self.tagLabel.hidden = YES;
-    }
+
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
     [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
     //设置优惠券
     [self setupCoupon];
 }
 
-- (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
     _loanListViewModel = loanListViewModel;
     HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
     self.nameLabel.text = model.title;
@@ -355,7 +368,9 @@
     if (!_tagLabel) {
         _tagLabel = [[UILabel alloc] init];
         _tagLabel.font = kHXBFont_PINGFANGSC_REGULAR(11);
-        _tagLabel.textColor = kHXBColor_RGB(253, 151, 24, 1);
+        _tagLabel.textColor = UIColorFromRGB(0xFD9718);
+        _tagLabel.backgroundColor = kHXBColor_RGB(0.99, 0.59, 0, 0.08);
+        _tagLabel.layer.cornerRadius = 1;
     }
     return _tagLabel;
 }
@@ -364,7 +379,7 @@
     if (!_expectedYearRateLable) {
         _expectedYearRateLable = [[UILabel alloc]init];
         _expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(25);
-        _expectedYearRateLable.textColor = kHXBColor_RGB(255, 59, 45, 1);
+        _expectedYearRateLable.textColor = UIColorFromRGB(0xFF3B2D);
     }
     return _expectedYearRateLable;
 }
@@ -436,7 +451,7 @@
 - (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [UIView new];
-        _bottomLine.backgroundColor = kHXBColor_RGB(236, 236, 236, 1);
+        _bottomLine.backgroundColor = UIColorFromRGB(0xECECEC);
     }
     return _bottomLine;
 }

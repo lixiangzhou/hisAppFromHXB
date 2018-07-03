@@ -44,11 +44,10 @@ typedef enum : NSUInteger {
 // 计划类型
 @property (nonatomic, assign) PlanType planType;
 // 计划期限 （天就取天 月取月 没有值 --）
-@property (nonatomic, copy) NSString *lockPeriod;
+@property (nonatomic, copy) NSAttributedString *lockPeriod;
 
 
-#pragma mark - 计算属性
 @property (nonatomic, copy) NSAttributedString *nameAttributeString;
-
+@property (nonatomic, copy) NSAttributedString *tagAttributeString;
 
 @end

@@ -48,9 +48,44 @@ typedef enum : NSUInteger {
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
     
-//    _nameAttributeString
-//    _nameAttributeString =
+    [self calNameAttributeString];
+    [self calTagAttributeString];
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
+}
+
+- (void)calTagAttributeString {
+    if (self.planListModel.tag.length > 0) {
+        NSMutableAttributedString *tagAttributeString = [NSMutableAttributedString new];
+        [tagAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:@"  "]];
+        
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"tag_present"];
+        attachment.bounds = CGRectMake(0, -2, attachment.image.size.width, attachment.image.size.height);
+        [tagAttributeString appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        [tagAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+        [tagAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:self.planListModel.tag]];
+        [tagAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:@"  "]];
+        self.tagAttributeString = tagAttributeString;
+    } else {
+        self.tagAttributeString = [[NSAttributedString alloc] initWithString:@""];
+    }
+}
+
+- (void)calNameAttributeString {
+    NSString *periodString = @"";
+    if (self.planListModel.lockPeriod.integerValue <= 3) {
+        periodString = @"短期";
+    } else if (self.planListModel.lockPeriod.integerValue <= 6) {
+        periodString = @"中期";
+    } else if (self.planListModel.lockPeriod.integerValue <= 12) {
+        periodString = @"中长期";
+    } else {
+        periodString = @"长期";
+    }
+    NSMutableAttributedString *nameAttributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@-%@个月", periodString, self.planListModel.lockPeriod] attributes:@{NSFontAttributeName: kHXBFont_28, NSForegroundColorAttributeName: kHXBColor_333333_100}];
+    [nameAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:@" | " attributes:@{NSFontAttributeName: kHXBFont_28, NSForegroundColorAttributeName: kHXBColor_D8D8D8_100}]];
+    [nameAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@元起投", self.planListModel.minRegisterAmount] attributes:@{NSFontAttributeName: kHXBFont_24, NSForegroundColorAttributeName: kHXBColor_333333_100}]];
+    _nameAttributeString = nameAttributeString;
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
@@ -77,18 +112,25 @@ typedef enum : NSUInteger {
 }
 
 // 期限
-- (NSString *)lockPeriod {
+- (NSAttributedString *)lockPeriod {
+    NSString *lock = nil;
     if (self.planListModel.lockPeriod.length) {
         if (self.planListModel.novice == 1) {
-            return self.planListModel.lockPeriod;
+            lock = self.planListModel.lockPeriod;
         } else {
-            return self.planListModel.extendLockPeriod;
+            lock = self.planListModel.extendLockPeriod;
         }
+    } else if (self.planListModel.lockDays) {
+        lock = [NSString stringWithFormat:@"%d", self.planListModel.lockDays];
     }
-    if (self.planListModel.lockDays) {
-        return [NSString stringWithFormat:@"%d", self.planListModel.lockDays];
+    
+    if (lock) {
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:lock attributes:@{NSFontAttributeName: kHXBFont_34}];
+        [attr appendAttributedString:[[NSAttributedString alloc] initWithString:@"个月" attributes:@{NSFontAttributeName: kHXBFont_24}]];
+        return attr;
     }
-    return  @"--";
+    
+    return [[NSMutableAttributedString alloc] initWithString:@"--" attributes:@{NSFontAttributeName: kHXBFont_34}];;
 }
 
 - (PlanType)planType {
@@ -193,23 +235,23 @@ typedef enum : NSUInteger {
         }
         // 新手利息为基准利率和贴息利率之和
         self.expectedYearRateAttributedStr = numberAttributeString;
-        return;
+    } else {
+        NSString *numberStr = [NSString stringWithFormat:@"%.1f%%",self.planListModel.baseInterestRate.floatValue];
+        NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
+        //加息利率
+        if (self.planListModel.extraInterestRate.floatValue) {
+            NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.extraInterestRate.doubleValue];
+            NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
+            NSRange range = NSMakeRange(0, extraInterestRateStr.length);
+            UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);
+            [extraInterestRate addAttribute:NSFontAttributeName value:font range:range];
+            //合并
+            [numberAttributeString appendAttributedString:extraInterestRate];
+            self.expectedYearRateAttributedStr = numberAttributeString;
+        } else {
+            self.expectedYearRateAttributedStr = numberAttributeString;
+        }
     }
-    NSString *numberStr = [NSString stringWithFormat:@"%.1f%%",self.planListModel.baseInterestRate.floatValue];
-    NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
-    //加息利率
-    if (self.planListModel.extraInterestRate.floatValue) {
-        NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.extraInterestRate.doubleValue];
-        NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
-        NSRange range = NSMakeRange(0, extraInterestRateStr.length);
-        UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);
-        [extraInterestRate addAttribute:NSFontAttributeName value:font range:range];
-        //合并
-        [numberAttributeString appendAttributedString:extraInterestRate];
-        self.expectedYearRateAttributedStr = numberAttributeString;
-    }
-    self.expectedYearRateAttributedStr = numberAttributeString;
-   
 }
 
 ///监听是否倒计时了
