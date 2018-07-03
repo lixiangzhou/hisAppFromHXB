@@ -89,13 +89,11 @@ static NSString *CELLID = @"CELLID";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinHomePageViewModel_PlanList *model = self.planListViewModelArray[indexPath.section];
     
-    CGFloat centerHeight = 92;
-    CGFloat topHeight = 40;
     CGFloat couponHeight = 33;
     if (model.planType == planType_newComer) {
-        return model.planListModel.hasCoupon ? centerHeight + couponHeight : centerHeight;
+        return model.planListModel.hasCoupon ? 98 + couponHeight : 98;
     } else {
-        return centerHeight + topHeight;
+        return model.planListModel.hasCoupon ? 132 + couponHeight : 132;
     }
     
 //    // 新手标

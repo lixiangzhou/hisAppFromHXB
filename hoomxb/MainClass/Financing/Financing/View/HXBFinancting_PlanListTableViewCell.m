@@ -98,9 +98,9 @@
 //    }];
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(kScrAdaptationW(10)));
+        make.top.equalTo(@(kScrAdaptationW(6)));
         make.right.left.equalTo(weakSelf.contentView);
-        make.height.equalTo(@(kScrAdaptationW(30)));
+        make.height.equalTo(@(kScrAdaptationW(34)));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -117,14 +117,14 @@
     }];
     
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.topView.mas_bottom).offset(kScrAdaptationW(15));
+        make.top.equalTo(weakSelf.topView.mas_bottom).offset(kScrAdaptationW(16));
         make.left.equalTo(weakSelf.nameLabel);
         make.height.equalTo(@(kScrAdaptationH(25)));
     }];
     
     [self.expectedYearRateLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.expectedYearRateLable);
-        make.top.equalTo(weakSelf.expectedYearRateLable.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(weakSelf.expectedYearRateLable.mas_bottom).offset(kScrAdaptationH(12));
         make.height.equalTo(@(kScrAdaptationH(13)));
     }];
     
@@ -192,7 +192,7 @@
         self.topView.hidden = YES;
     } else {
         [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@30);
+            make.height.equalTo(@34);
         }];
         self.topView.hidden = NO;
     }
@@ -200,7 +200,6 @@
     self.addStatus.text = finPlanListViewModel.unifyStatus;
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
-    self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
     
     self.countDownLable.text = finPlanListViewModel.countDownString;
     
@@ -217,9 +216,6 @@
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     }
-    
-    [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
-    
     
     if (finPlanListViewModel.planType == planType_newComer) { // 如果是新手标，隐藏一些图标
         self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
@@ -240,7 +236,7 @@
     
     self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
-    self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
+    
 
     
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
@@ -273,28 +269,13 @@
 //设置等待加入label的背景颜色
 - (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
     if ([status isEqualToString:@"等待加入"]) {
-        if (planType == planType_newComer) {
-            self.addStatus.backgroundColor = kHXBColor_FFFCF5_100;
-            self.addStatus.layer.borderColor = kHXBColor_FF9535_100.CGColor;
-            self.addStatus.textColor = kHXBColor_FF7D2F_100;
-            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
-        } else {
-            self.addStatus.backgroundColor = RGB(255, 247, 247);
-            self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
-            self.addStatus.textColor = RGB(253, 54, 54);
-            self.countDownLable.textColor = HXBC_Red_Deep;
-        }
+        self.addStatus.backgroundColor = UIColorFromRGB(0xF5F5F9);
+        self.addStatus.textColor = UIColorFromRGB(0x9295A2);
+        self.countDownLable.textColor = HXBC_Red_Deep;
     } else if ([status isEqualToString:@"立即加入"]) {
-        if (planType == planType_newComer) {
-            self.addStatus.backgroundColor = kHXBColor_FF7D2F_100;
-            self.addStatus.layer.borderColor = kHXBColor_FF7D2F_100.CGColor;
-            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
-        } else {
-            self.addStatus.backgroundColor = kHXBColor_Red_090303;
-            self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
-            self.countDownLable.textColor = HXBC_Red_Deep;
-        }
+        self.addStatus.backgroundColor = kHXBColor_Red_090303;
         self.addStatus.textColor = [UIColor whiteColor];
+        self.countDownLable.textColor = HXBC_Red_Deep;
     }
 }
 
@@ -416,7 +397,6 @@
 - (UILabel *)addStatus {
     if (!_addStatus) {
         _addStatus = [[UILabel alloc] init];
-        _addStatus.layer.borderWidth = kXYBorderWidth;
         _addStatus.textAlignment = NSTextAlignmentCenter;
         _addStatus.font = kHXBFont_28;
     }

@@ -204,20 +204,13 @@ typedef enum : NSUInteger {
 }
 - (void)setupAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
-        self.addButtonTitleColor = kHXBColor_Font0_6;
-        self.addButtonBackgroundColor = kHXBColor_Grey090909;
-        self.addButtonBorderColor = kHXBColor_Font0_5;
+        self.addButtonTitleColor = UIColorFromRGB(0x9295A2);
+        self.addButtonBackgroundColor = UIColorFromRGB(0xF5F5F9);
         return;
-    }
-    if (self.planListModel.novice) {
-        self.addButtonBackgroundColor = kHXBColor_FF7D2F_100;
-        self.addButtonBorderColor = kHXBColor_FF7D2F_100;
-    } else {
+    } else {    
         self.addButtonBackgroundColor = kHXBColor_Red_090303;
-        self.addButtonBorderColor = kHXBColor_Red_090303;
+        self.addButtonTitleColor = [UIColor whiteColor];
     }
-    self.addButtonTitleColor = [UIColor whiteColor];
-
 }
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
