@@ -47,4 +47,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *lockPeriod;
 
 
+#pragma mark - 计算属性
+@property (nonatomic, copy) NSAttributedString *nameAttributeString;
+
+
 @end

@@ -94,19 +94,30 @@ static NSString *CELLID = @"CELLID";
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 新手标
-    if (self.planListViewModelArray[indexPath.section].planType == planType_newComer) {
-        return kPlanListCellNoHasCouponHeight;
-    } else if (self.planListViewModelArray[indexPath.section].planType == playType_HXB) {
-        return kPlanListCellHasCouponHeight;
-    } else if (self.planListViewModelArray[indexPath.section].planType == planType_invest) {
-        if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
-            return kPlanListCellHasCouponHeight;
-        } else {
-            return kPlanListCellNoHasCouponHeight;
-        }
+    HXBFinHomePageViewModel_PlanList *model = self.planListViewModelArray[indexPath.section];
+    
+    CGFloat centerHeight = 92;
+    CGFloat topHeight = 40;
+    CGFloat couponHeight = 33;
+    if (model.planType == planType_newComer) {
+        return model.planListModel.hasCoupon ? centerHeight + couponHeight : centerHeight;
+    } else {
+        return centerHeight + topHeight;
     }
-    return kPlanListCellNoHasCouponHeight; // 默认高度
+    
+//    // 新手标
+//    if (self.planListViewModelArray[indexPath.section].planType == planType_newComer) {
+//        return kPlanListCellNoHasCouponHeight;
+//    } else if (self.planListViewModelArray[indexPath.section].planType == playType_HXB) {
+//        return kPlanListCellHasCouponHeight;
+//    } else if (self.planListViewModelArray[indexPath.section].planType == planType_invest) {
+//        if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
+//            return kPlanListCellHasCouponHeight;
+//        } else {
+//            return kPlanListCellNoHasCouponHeight;
+//        }
+//    }
+//    return kPlanListCellNoHasCouponHeight; // 默认高度
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -114,7 +125,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kPlanListCellSpacing;
+    return 0.1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

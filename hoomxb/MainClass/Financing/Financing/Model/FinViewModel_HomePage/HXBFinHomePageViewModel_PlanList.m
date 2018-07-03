@@ -47,6 +47,9 @@ typedef enum : NSUInteger {
 
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
+    
+//    _nameAttributeString
+//    _nameAttributeString =
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
 }
 

@@ -3874,7 +3874,12 @@
 		9AE032F72022C421006D6140 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9AE032F82022C421006D6140 /* Base */,
+				9AE0334B2022C422006D6140 /* HXBFinanctingView_HomePage.h */,
+				9AE0334C2022C422006D6140 /* HXBFinanctingView_HomePage.m */,
+				9AE0330C2022C421006D6140 /* HXBFinancting_PlanListTableView.h */,
+				9AE0330D2022C421006D6140 /* HXBFinancting_PlanListTableView.m */,
+				9AE0330E2022C421006D6140 /* HXBFinancting_PlanListTableViewCell.h */,
+				9AE0330F2022C421006D6140 /* HXBFinancting_PlanListTableViewCell.m */,
 				9AE032F92022C421006D6140 /* BorrowingInformation */,
 				9AE033062022C421006D6140 /* HXBFin_LoanTransferTableView.h */,
 				9AE033072022C421006D6140 /* HXBFin_LoanTransferTableView.m */,
@@ -3882,19 +3887,8 @@
 				9AE033092022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.m */,
 				9AE0330A2022C421006D6140 /* HXBFinancting_LoanListTableView.h */,
 				9AE0330B2022C421006D6140 /* HXBFinancting_LoanListTableView.m */,
-				9AE0330C2022C421006D6140 /* HXBFinancting_PlanListTableView.h */,
-				9AE0330D2022C421006D6140 /* HXBFinancting_PlanListTableView.m */,
-				9AE0330E2022C421006D6140 /* HXBFinancting_PlanListTableViewCell.h */,
-				9AE0330F2022C421006D6140 /* HXBFinancting_PlanListTableViewCell.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		9AE032F82022C421006D6140 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		9AE032F92022C421006D6140 /* BorrowingInformation */ = {
@@ -3970,8 +3964,6 @@
 				9AE033482022C422006D6140 /* HXBFinanctingDetail_progressCell.m */,
 				9AE033492022C422006D6140 /* HXBFinanctingDetail_trustCell.h */,
 				9AE0334A2022C422006D6140 /* HXBFinanctingDetail_trustCell.m */,
-				9AE0334B2022C422006D6140 /* HXBFinanctingView_HomePage.h */,
-				9AE0334C2022C422006D6140 /* HXBFinanctingView_HomePage.m */,
 				9AE0334D2022C422006D6140 /* HXBFinPlanDetailsView_FlowChart.h */,
 				9AE0334E2022C422006D6140 /* HXBFinPlanDetailsView_FlowChart.m */,
 			);
