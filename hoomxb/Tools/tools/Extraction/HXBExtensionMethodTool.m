@@ -47,8 +47,8 @@
                 [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
             } else if ([path isEqualToString:kRegisterVC]) { //跳转登录注册
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
-            } else {
-                
+            } else if ([path isEqualToString:kLoginVC]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             }
         }];
         
