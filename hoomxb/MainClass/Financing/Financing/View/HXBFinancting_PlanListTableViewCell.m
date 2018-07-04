@@ -340,7 +340,7 @@
 - (UILabel *)expectedYearRateLable{
     if (!_expectedYearRateLable) {
         _expectedYearRateLable = [[UILabel alloc]init];
-        _expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(25);
+        _expectedYearRateLable.font = [UIFont boldSystemFontOfSize:kScrAdaptationW(25)];
         _expectedYearRateLable.textColor = UIColorFromRGB(0xFF3B2D);
     }
     return _expectedYearRateLable;

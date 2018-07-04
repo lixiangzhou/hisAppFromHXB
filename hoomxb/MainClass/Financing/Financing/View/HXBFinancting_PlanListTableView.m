@@ -95,20 +95,6 @@ static NSString *CELLID = @"CELLID";
     } else {
         return model.hasHappyThing ? 132 + happyHeight : 132;
     }
-    
-//    // 新手标
-//    if (self.planListViewModelArray[indexPath.section].planType == planType_newComer) {
-//        return kPlanListCellNoHasCouponHeight;
-//    } else if (self.planListViewModelArray[indexPath.section].planType == playType_HXB) {
-//        return kPlanListCellHasCouponHeight;
-//    } else if (self.planListViewModelArray[indexPath.section].planType == planType_invest) {
-//        if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
-//            return kPlanListCellHasCouponHeight;
-//        } else {
-//            return kPlanListCellNoHasCouponHeight;
-//        }
-//    }
-//    return kPlanListCellNoHasCouponHeight; // 默认高度
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -116,12 +102,35 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
+    return 40;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headView = [[UIView alloc] init];
-    headView.backgroundColor = BACKGROUNDCOLOR;
+    headView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"新手专享";
+    titleLabel.font = [UIFont boldSystemFontOfSize:kScrAdaptationW(17)];
+    titleLabel.textColor = kHXBColor_333333_100;
+    [headView addSubview:titleLabel];
+    
+    UILabel *descLabel = [UILabel new];
+    descLabel.text = @"灵活高收益";
+    descLabel.font = kHXBFont_24;
+    descLabel.textColor = kHXBColor_333333_100;
+    [headView addSubview:descLabel];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@15);
+        make.bottom.equalTo(headView);
+    }];
+    
+    [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-15);
+        make.bottom.equalTo(headView);
+    }];
+    
     return headView;
 }
 
