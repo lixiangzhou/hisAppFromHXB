@@ -51,6 +51,11 @@ typedef enum : NSUInteger {
     [self calNameAttributeString];
     [self calTagAttributeString];
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
+    [self calHapppyNeed];
+}
+
+- (void)calHapppyNeed {
+    self.hasHappyThing = self.planListModel.hasDiscountCoupon || self.planListModel.hasMoneyOffCoupon;
 }
 
 - (void)calTagAttributeString {
@@ -207,7 +212,7 @@ typedef enum : NSUInteger {
         self.addButtonTitleColor = UIColorFromRGB(0x9295A2);
         self.addButtonBackgroundColor = UIColorFromRGB(0xF5F5F9);
         return;
-    } else {    
+    } else {
         self.addButtonBackgroundColor = kHXBColor_Red_090303;
         self.addButtonTitleColor = [UIColor whiteColor];
     }

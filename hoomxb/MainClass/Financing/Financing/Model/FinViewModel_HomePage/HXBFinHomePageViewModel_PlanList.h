@@ -49,5 +49,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, copy) NSAttributedString *nameAttributeString;
 @property (nonatomic, copy) NSAttributedString *tagAttributeString;
+/// 是否有 加息、满减、抵扣
+@property (nonatomic, assign) BOOL hasHappyThing;
 
 @end

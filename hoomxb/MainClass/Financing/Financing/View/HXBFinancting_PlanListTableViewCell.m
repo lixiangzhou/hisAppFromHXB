@@ -33,9 +33,7 @@
 
 @property (nonatomic, strong) UIView *bottomLine;
 
-
-//@property (nonatomic,strong) UIImageView *moneyOffCouponImageView;        // 满减券
-//@property (nonatomic,strong) UIImageView *discountCouponImageView;        // 抵扣券
+@property (nonatomic, strong) UIView *happyView;    // 加息、满减、抵扣
 
 @end
 @implementation HXBFinancting_PlanListTableViewCell
@@ -73,30 +71,15 @@
     [self.countDownView addSubview:self.arrowImageView];
     [self.countDownView addSubview:self.countDownLable];
 
+    [self.contentView addSubview:self.happyView];
+    
     [self.contentView addSubview:self.bottomLine];
-//    [self.contentView addSubview:self.discountCouponImageView];
-//    [self.contentView addSubview:self.moneyOffCouponImageView];
 }
 ///布局UI
 
 - (void)layoutSubUI {
     kWeakSelf
     //布局
-    
-//    [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(weakSelf.lineImageView.mas_bottom);
-//        make.bottom.equalTo(weakSelf.contentView);
-//        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
-//        make.width.offset(kScrAdaptationW750(60));
-//    }];
-//
-//    [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(weakSelf.lineImageView.mas_bottom);
-//        make.bottom.equalTo(weakSelf.contentView);
-//        make.left.equalTo(weakSelf.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
-//        make.width.offset(kScrAdaptationW750(60));
-//    }];
-    
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(kScrAdaptationW(6)));
         make.right.left.equalTo(weakSelf.contentView);
@@ -145,32 +128,19 @@
         make.width.equalTo(@(kScrAdaptationW(80)));
     }];
     
+    [self.happyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.nameLabel);
+        make.top.equalTo(weakSelf.expectedYearRateLable_Const.mas_bottom);
+        make.right.equalTo(weakSelf.addStatus);
+        make.height.equalTo(@33);
+    }];
+    
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView);
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.height.equalTo(@0.5);
     }];
-//    [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(weakSelf.expectedYearRateLable_Const);
-//        make.centerX.equalTo(weakSelf.addStatus);
-//        make.left.equalTo(weakSelf.arrowImageView.mas_left);
-//        make.right.equalTo(weakSelf.countDownLable.mas_right);
-//        make.bottom.equalTo(weakSelf.countDownLable.mas_bottom);
-//    }];
-//
-//    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.countDownView.mas_left);
-//        make.height.top.equalTo(weakSelf.countDownLable);
-//        make.width.equalTo(weakSelf.countDownLable.mas_height);
-//    }];
-//
-//    [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.bottom.equalTo(weakSelf.countDownView);
-//        make.left.equalTo(weakSelf.arrowImageView.mas_right).offset(kScrAdaptationW(6));
-//        //        make.width.equalTo(@(kScrAdaptationW(36)));
-//        make.height.equalTo(@(kScrAdaptationH(13)));
-//    }];
     
     [self.countDownLable setHidden: YES];
     [self.arrowImageView setHidden: YES];
@@ -181,11 +151,47 @@
 #pragma mark - setter
 - (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
     _finPlanListViewModel = finPlanListViewModel;
-    
+    // 标题
     self.nameLabel.attributedText = finPlanListViewModel.nameAttributeString;
+    // tag
     self.tagLabel.attributedText = finPlanListViewModel.tagAttributeString;
     
-    if (finPlanListViewModel.planListModel.novice) {
+    // 顶部View是否显示，新手不显示
+    [self setTopViews];
+    
+    // 状态
+    self.addStatus.text = finPlanListViewModel.unifyStatus;
+    self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
+    self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
+    
+    // 利率
+    self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
+    
+    // 锁定期
+    self.lockPeriodLabel.attributedText = finPlanListViewModel.lockPeriod;
+    if (finPlanListViewModel.planListModel.novice == 1) {
+        self.lockPeriodLabel_Const.text = finPlanListViewModel.planListModel.lockPeriod.length ? @"锁定期(月)" : @"锁定期(天)";
+    } else {
+        self.lockPeriodLabel_Const.text =  finPlanListViewModel.planListModel.lockPeriod.length ? @"适用期限(月)" : @"期限(天)";
+    }
+    
+    // 加息、抵扣、满减
+    [self setHappyViews];
+    
+    // 倒计时
+    self.countDownLable.text = finPlanListViewModel.countDownString;
+    if (self.finPlanListViewModel.remainTimeString.length) {
+        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
+    }
+
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    //设置优惠券
+    
+}
+
+- (void)setTopViews {
+    if (self.finPlanListViewModel.planListModel.novice) {
         [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
@@ -196,37 +202,73 @@
         }];
         self.topView.hidden = NO;
     }
-    
-    self.addStatus.text = finPlanListViewModel.unifyStatus;
-    self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
-    self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
-    
-    self.countDownLable.text = finPlanListViewModel.countDownString;
-    
-    self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
-    
-    self.lockPeriodLabel.attributedText = finPlanListViewModel.lockPeriod;
-    
-    if (finPlanListViewModel.planListModel.novice == 1) {
-        self.lockPeriodLabel_Const.text = finPlanListViewModel.planListModel.lockPeriod.length ? @"锁定期(月)" : @"锁定期(天)";
-    } else {
-        self.lockPeriodLabel_Const.text =  finPlanListViewModel.planListModel.lockPeriod.length ? @"适用期限(月)" : @"期限(天)";
-    }
-    
-    if (self.finPlanListViewModel.remainTimeString.length) {
-        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
-    }
-    
-    if (finPlanListViewModel.planType == planType_newComer) { // 如果是新手标，隐藏一些图标
-        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
-    } else {
-        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
-    }
+}
 
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
-    //设置优惠券
-    [self setupCoupon];
+- (void)setHappyViews {
+    if (self.finPlanListViewModel.hasHappyThing) {
+        [self.happyView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@33);
+        }];
+        self.happyView.hidden = NO;
+        [self.happyView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview) withObject:nil];
+        
+        NSMutableArray *btnArray = [NSMutableArray new];
+        // 加息
+        if (self.finPlanListViewModel.planListModel) {
+            NSString *text = [NSString stringWithFormat:@"加息%%%@", self.finPlanListViewModel.planListModel];
+//            NSString *text = [NSString stringWithFormat:@"加息%@%%", @"0.5"];
+            UIButton *btn = [UIButton new];
+            btn.userInteractionEnabled = NO;
+            [btn setBackgroundImage:[UIImage imageNamed:@"jx_background"] forState:UIControlStateNormal];
+            [btn setTitle:text forState:UIControlStateNormal];
+            [btn setTitleColor:UIColorFromRGB(0xFF9817) forState:UIControlStateNormal];
+            btn.titleLabel.font = kHXBFont_22;
+            btn.titleEdgeInsets = UIEdgeInsetsMake(-2, 0, 0, 0);
+            [btn sizeToFit];
+            btn.size = CGSizeMake(btn.size.width + 4, 16);
+//            [btnArray addObject:btn];
+//            [self.happyView addSubview:btn];
+        }
+        // 满减
+        if (self.finPlanListViewModel.planListModel.hasMoneyOffCoupon) {
+            UIButton *btn = [UIButton new];
+            btn.userInteractionEnabled = NO;
+            [btn setBackgroundImage:[UIImage imageNamed:@"mj_background"] forState:UIControlStateNormal];
+            [btn setTitle:@"满减 " forState:UIControlStateNormal];
+            [btn setTitleColor:UIColorFromRGB(0x4C7BFE) forState:UIControlStateNormal];
+            btn.titleLabel.font = kHXBFont_22;
+            btn.titleEdgeInsets = UIEdgeInsetsMake(-2, 0, 0, 0);
+            btn.size = CGSizeMake(32, 16);
+            [btnArray addObject:btn];
+            [self.happyView addSubview:btn];
+        }
+        // 折扣
+        if (self.finPlanListViewModel.planListModel.hasDiscountCoupon) {
+            UIButton *btn = [UIButton new];
+            btn.userInteractionEnabled = NO;
+            [btn setBackgroundImage:[UIImage imageNamed:@"zk_background"] forState:UIControlStateNormal];
+            [btn setTitle:@"折扣 " forState:UIControlStateNormal];
+            [btn setTitleColor:UIColorFromRGB(0xFF3B2D) forState:UIControlStateNormal];
+            btn.titleLabel.font = kHXBFont_22;
+            btn.titleEdgeInsets = UIEdgeInsetsMake(-2, 0, 0, 0);
+            btn.size = CGSizeMake(32, 16);
+            [btnArray addObject:btn];
+            [self.happyView addSubview:btn];
+        }
+        
+        CGFloat x = 0;
+        for (NSInteger i = 0; i < btnArray.count; i++) {
+            UIButton *btn = btnArray[i];
+            [btn setX:x];
+            [btn setY:17];
+            x = x + btn.width + 4;
+        }
+    } else {
+        [self.happyView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        self.happyView.hidden = NO;
+    }
 }
 
 - (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
@@ -425,7 +467,13 @@
         _countDownView.backgroundColor = [UIColor clearColor];
     }
     return _countDownView;
-    
+}
+
+- (UIView *)happyView {
+    if (!_happyView) {
+        _happyView = [UIView new];
+    }
+    return _happyView;
 }
 
 - (UIView *)bottomLine {
