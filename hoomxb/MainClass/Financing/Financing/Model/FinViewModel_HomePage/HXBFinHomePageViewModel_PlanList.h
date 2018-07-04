@@ -33,12 +33,10 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *countDownString;
 /// 等待加入的时候，剩余时间大于一小时
 @property (nonatomic,copy) NSString *remainTimeString;
-/// 加入按钮的颜色
-@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+/// 加入按钮的图片
+@property (nonatomic,strong) UIImage *addButtonBackgroundImage;
 ///加入按钮的字体颜色
 @property (nonatomic,strong) UIColor *addButtonTitleColor;
-///addbutton 边缘的颜色
-@property (nonatomic,strong) UIColor *addButtonBorderColor;
 
 #pragma mark --- 新手专区新增辅助属性
 // 计划类型

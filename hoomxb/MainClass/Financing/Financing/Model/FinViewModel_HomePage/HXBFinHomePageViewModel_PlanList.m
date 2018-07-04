@@ -102,6 +102,7 @@ typedef enum : NSUInteger {
     }
 //    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
     _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
+    self.isCountDown = NO;
     if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
         NSLog(@"%@倒计时",_countDownLastStr);
         self.isCountDown = YES;
@@ -204,16 +205,19 @@ typedef enum : NSUInteger {
         case 10:
             [self setupAddButtonColorWithType:YES];
             return @"已退出";
+        case 11:
+            [self setupAddButtonColorWithType:YES];
+            return @"退出中";
     }
     return nil;
 }
 - (void)setupAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
         self.addButtonTitleColor = UIColorFromRGB(0x9295A2);
-        self.addButtonBackgroundColor = UIColorFromRGB(0xF5F5F9);
+        self.addButtonBackgroundImage = [UIImage imageNamed:@"list_bt_bg_dis"];
         return;
     } else {
-        self.addButtonBackgroundColor = kHXBColor_Red_090303;
+        self.addButtonBackgroundImage = [UIImage imageNamed:@"bt_bg_nor"];
         self.addButtonTitleColor = [UIColor whiteColor];
     }
 }

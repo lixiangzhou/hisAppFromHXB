@@ -64,16 +64,16 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.planListViewModelArray.count;
 }
 
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return self.planListViewModelArray.count;
+//}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.finPlanListViewModel = self.planListViewModelArray[indexPath.section];
+    cell.finPlanListViewModel = self.planListViewModelArray[indexPath.row];
     return cell;
 }
 
@@ -87,7 +87,7 @@ static NSString *CELLID = @"CELLID";
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFinHomePageViewModel_PlanList *model = self.planListViewModelArray[indexPath.section];
+    HXBFinHomePageViewModel_PlanList *model = self.planListViewModelArray[indexPath.row];
     
     CGFloat happyHeight = 33;
     if (model.planType == planType_newComer) {

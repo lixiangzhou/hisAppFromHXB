@@ -25,11 +25,9 @@
 @property (nonatomic,strong) UILabel *expectedYearRateLable_Const;  // 平均历史年化收益
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;    // 适用期限
 
-@property (nonatomic,strong) UILabel *addStatus;                //加入的状态
+@property (nonatomic,strong) UIButton *statusView;                //加入的状态
 
-@property (nonatomic,strong) UIImageView *arrowImageView;       //时间的图标
-@property (nonatomic,strong) UILabel *countDownLable;           //倒计时label
-@property (nonatomic,strong) UIView *countDownView;                       //承载倒计时的View
+@property (nonatomic,strong) UIButton *countDownView;           //倒计时label
 
 @property (nonatomic, strong) UIView *bottomLine;
 
@@ -65,11 +63,9 @@
     [self.contentView addSubview:self.expectedYearRateLable_Const];
     [self.contentView addSubview:self.lockPeriodLabel_Const];
     
-    [self.contentView addSubview:self.addStatus];
+    [self.contentView addSubview:self.statusView];
     
     [self.contentView addSubview:self.countDownView];
-    [self.countDownView addSubview:self.arrowImageView];
-    [self.countDownView addSubview:self.countDownLable];
 
     [self.contentView addSubview:self.happyView];
     
@@ -121,17 +117,21 @@
         make.centerX.equalTo(weakSelf.lockPeriodLabel);
     }];
     
-    [self.addStatus mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.statusView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.expectedYearRateLable.mas_bottom);
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.height.equalTo(@(kScrAdaptationH(27)));
         make.width.equalTo(@(kScrAdaptationW(80)));
     }];
     
+    [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(weakSelf.statusView);
+    }];
+    
     [self.happyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.nameLabel);
         make.top.equalTo(weakSelf.expectedYearRateLable_Const.mas_bottom);
-        make.right.equalTo(weakSelf.addStatus);
+        make.right.equalTo(weakSelf.statusView);
         make.height.equalTo(@33);
     }];
     
@@ -141,11 +141,7 @@
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.height.equalTo(@0.5);
     }];
-    
-    [self.countDownLable setHidden: YES];
-    [self.arrowImageView setHidden: YES];
-    
-    
+
 }
 
 #pragma mark - setter
@@ -160,9 +156,10 @@
     [self setTopViews];
     
     // 状态
-    self.addStatus.text = finPlanListViewModel.unifyStatus;
-    self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
-    self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
+    
+    [self.statusView setTitle:finPlanListViewModel.unifyStatus forState:UIControlStateNormal];
+    [self.statusView setBackgroundImage:finPlanListViewModel.addButtonBackgroundImage forState:UIControlStateNormal];
+    [self.statusView setTitleColor:finPlanListViewModel.addButtonTitleColor forState:UIControlStateNormal];
     
     // 利率
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
@@ -179,15 +176,10 @@
     [self setHappyViews];
     
     // 倒计时
-    self.countDownLable.text = finPlanListViewModel.countDownString;
+    self.countDownView.hidden = self.finPlanListViewModel.isHidden;
     if (self.finPlanListViewModel.remainTimeString.length) {
-        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
+        [self.countDownView setTitle:finPlanListViewModel.remainTimeString forState:UIControlStateNormal];
     }
-
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
-    //设置优惠券
-    
 }
 
 - (void)setTopViews {
@@ -276,99 +268,46 @@
     HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
     self.nameLabel.text = model.title;
     
-    self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
-    self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
-    
+    self.statusView.backgroundColor = loanListViewModel.addButtonBackgroundColor;
+    [self.statusView setTitleColor:loanListViewModel.addButtonTitleColor forState:UIControlStateNormal];
 
     
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
-    self.addStatus.text = loanListViewModel.status;
-}
-
-
-//设置优惠券
-- (void)setupCoupon {
-//    self.moneyOffCouponImageView.hidden = !self.finPlanListViewModel.planListModel.hasMoneyOffCoupon;
-//    self.discountCouponImageView.hidden = !self.finPlanListViewModel.planListModel.hasDiscountCoupon;
-//    if (self.finPlanListViewModel.planListModel.hasMoneyOffCoupon) {
-//        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.lineImageView.mas_bottom);
-//            make.bottom.equalTo(self.contentView);
-//            make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
-//            make.width.offset(kScrAdaptationW750(60));
-//        }];
-//    } else {
-//        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.lineImageView.mas_bottom);
-//            make.bottom.equalTo(self.contentView);
-//            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
-//            make.width.offset(kScrAdaptationW750(60));
-//        }];
-//    }
+    [self.statusView setTitle:loanListViewModel.status forState:UIControlStateNormal];
 }
 
 //设置等待加入label的背景颜色
 - (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
     if ([status isEqualToString:@"等待加入"]) {
-        self.addStatus.backgroundColor = UIColorFromRGB(0xF5F5F9);
-        self.addStatus.textColor = UIColorFromRGB(0x9295A2);
-        self.countDownLable.textColor = HXBC_Red_Deep;
+        [self.statusView setBackgroundImage:[UIImage imageNamed:@"list_bt_bg_dis"] forState:UIControlStateNormal];
+        [self.statusView setTitleColor:UIColorFromRGB(0x9295A2) forState:UIControlStateNormal];
     } else if ([status isEqualToString:@"立即加入"]) {
-        self.addStatus.backgroundColor = kHXBColor_Red_090303;
-        self.addStatus.textColor = [UIColor whiteColor];
-        self.countDownLable.textColor = HXBC_Red_Deep;
+        [self.statusView setBackgroundImage:[UIImage imageNamed:@"bt_bg_nor"] forState:UIControlStateNormal];
+        [self.statusView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    self.countDownView.hidden = self.finPlanListViewModel.isHidden;
     
     if (self.finPlanListViewModel.remainTimeString.length) {
-        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
+        [self.countDownView setTitle:_finPlanListViewModel.remainTimeString forState:UIControlStateNormal];
         return;
     }
     if (self.finPlanListViewModel.isCountDown) {
-        self.countDownLable.text = countDownString;
-        self.addStatus.text = @"等待加入";
-        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
+        [self.countDownView setTitle:countDownString forState:UIControlStateNormal];
+        [self.statusView setTitle:@"等待加入" forState:UIControlStateNormal];
+        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.statusView.currentTitle];
     }
-    if ([self.addStatus.text isEqualToString:@"等待加入"] && self.finPlanListViewModel.isHidden) {
-        self.addStatus.text = @"立即加入";
-        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
+    if ([self.statusView.currentTitle isEqualToString:@"等待加入"] && self.finPlanListViewModel.isHidden) {
+        [self.statusView setTitle:@"立即加入" forState:UIControlStateNormal];
+        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.statusView.currentTitle];
     }
 }
 
-//- (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
-//    _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
-//    self.lockPeriodLabel_Const.text = lockPeriodLabel_ConstStr;
-//}
-
-//- (void)setExpectedYearRateLable_ConstStr:(NSString *)expectedYearRateLable_ConstStr {
-//    _expectedYearRateLable_ConstStr = expectedYearRateLable_ConstStr;
-//    _expectedYearRateLable_Const.text = _expectedYearRateLable_ConstStr;
-//}
-
 #pragma mark - Getter
-//- (UIImageView *)discountCouponImageView {
-//    if (!_discountCouponImageView) {
-//        _discountCouponImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_DiscountCoupon"]];
-//        _discountCouponImageView.contentMode = UIViewContentModeScaleAspectFit;
-//        _discountCouponImageView.hidden = YES;
-//    }
-//    return _discountCouponImageView;
-//}
-//
-//- (UIImageView *)moneyOffCouponImageView {
-//    if (!_moneyOffCouponImageView) {
-//        _moneyOffCouponImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_MoneyOffCoupon"]];
-//        _moneyOffCouponImageView.contentMode = UIViewContentModeScaleAspectFit;
-//        _moneyOffCouponImageView.hidden = YES;
-//    }
-//    return _moneyOffCouponImageView;
-//}
 
 - (UIView *)topView {
     if (!_topView) {
@@ -436,38 +375,27 @@
     return _expectedYearRateLable_Const;
 }
 
-- (UILabel *)addStatus {
-    if (!_addStatus) {
-        _addStatus = [[UILabel alloc] init];
-        _addStatus.textAlignment = NSTextAlignmentCenter;
-        _addStatus.font = kHXBFont_28;
+- (UIButton *)statusView {
+    if (!_statusView) {
+        _statusView = [[UIButton alloc] init];
+        _statusView.titleLabel.font = kHXBFont_28;
+        _statusView.layer.cornerRadius = 2;
+        _statusView.layer.masksToBounds = YES;
     }
-    return _addStatus;
+    return _statusView;
 }
 
-- (UIImageView *)arrowImageView {
-    if (!_arrowImageView) {
-        _arrowImageView = [[UIImageView alloc]init];
-        _arrowImageView.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    return _arrowImageView;
-}
-
-- (UILabel *)countDownLable {
-    if (!_countDownLable){
-        _countDownLable = [[UILabel alloc]init];
-        _countDownLable.font = kHXBFont_PINGFANGSC_REGULAR(13);
-    }
-    return _countDownLable;
-}
-
-- (UIView *)countDownView {
-    if (!_countDownView) {
-        _countDownView = [[UIView alloc] init];
-        _countDownView.backgroundColor = [UIColor clearColor];
+- (UIButton *)countDownView {
+    if (!_countDownView){
+        _countDownView = [[UIButton alloc]init];
+        _countDownView.titleLabel.font = kHXBFont_24;
+        [_countDownView setBackgroundImage:[UIImage imageNamed:@"bt_bg_nor"] forState:UIControlStateNormal];
+        _countDownView.layer.cornerRadius = 2;
+        _countDownView.layer.masksToBounds = YES;
     }
     return _countDownView;
 }
+
 
 - (UIView *)happyView {
     if (!_happyView) {

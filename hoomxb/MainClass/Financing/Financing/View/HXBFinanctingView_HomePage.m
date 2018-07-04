@@ -100,7 +100,7 @@
 - (void)setupPlanListTableView {
     kWeakSelf
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.planListTableView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
+//    self.planListTableView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
 //    self.planListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
     
     //监听contentOffset
