@@ -57,18 +57,36 @@
 //设置toolBarView
 - (void)setupToolBarView {
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:@[@"红利智投", @"散标", @"债权转让"] topNavigationToolBar:YES];
-    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
-    self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
+    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(85);
+    self.toolBarView.barAnimaViewH = kScrAdaptationH(3);
     self.toolBarView.isAnima_ItemBottomBarView = YES;
-    self.toolBarView.isColorChange = YES;
+    self.toolBarView.isColorChange = NO;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
-    self.toolBarView.barAnimaViewBottomSpacing = kScrAdaptationH(5);
-    self.toolBarView.itemTextFont = kHXBFont_PINGFANGSC_REGULAR(17);
+    self.toolBarView.barAnimaViewBottomSpacing = kScrAdaptationH(0);
+    self.toolBarView.itemBarAnimaViewColor = UIColorFromRGB(0xFF3B2D);
+    self.toolBarView.itemTextFont = kHXBFont_PINGFANGSC_REGULAR(15);
     self.toolBarView.label_Item_CenterY_Difference = kScrAdaptationH(15);
    
-    self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
-    self.toolBarView.itemTitleColor_select = [UIColor whiteColor];
-    self.toolBarView.itemTextColor_Normal = [UIColor colorWithWhite:1 alpha:0.5];
+    self.toolBarView.itemTitleColor_select = UIColorFromRGB(0xFF3B2D);
+    self.toolBarView.itemTextColor_Normal = kHXBColor_333333_100;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIView *bgView = [UIView new];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [self.toolBarView insertSubview:bgView atIndex:0];
+        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.toolBarView);
+        }];
+        
+        UIView *bottomView = [UIView new];
+        bottomView.backgroundColor = UIColorFromRGB(0xECECEC);
+        [self.toolBarView insertSubview:bottomView belowSubview:self.toolBarView.itemBarAnimaView];
+        kWeakSelf
+        [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@1);
+            make.bottom.left.right.equalTo(weakSelf.toolBarView);
+        }];
+    });
 }
 
 //设置底部的scrollView数组

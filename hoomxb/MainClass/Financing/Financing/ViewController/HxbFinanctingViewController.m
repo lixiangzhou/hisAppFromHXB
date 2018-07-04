@@ -333,4 +333,9 @@
     [self loanLoadDateWithIsUpData:YES];
     [self loanTruansferLoandDataWithIsUPData:YES];
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 @end

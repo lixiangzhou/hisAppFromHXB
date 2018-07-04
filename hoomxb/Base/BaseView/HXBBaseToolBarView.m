@@ -160,7 +160,8 @@
         UIButton *button = [[UIButton alloc] init];
         button.tag = i + 1000;
         [self addSubview:button];
-        button.frame = self.optionRectArrayM[i].CGRectValue;
+        CGRect rect = self.optionRectArrayM[i].CGRectValue;
+        button.frame = rect;
         [button setTitle:self.optionStrArray[i] forState:UIControlStateNormal];
         [button setTitle:self.optionStrArray[i] forState:UIControlStateSelected];
 
@@ -267,7 +268,7 @@
     CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing;
     NSLog(@"%.2f", _barAnimaViewSpacing);
 //    CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
-    CGFloat barAnimaViewW = kScrAdaptationW(20);
+    CGFloat barAnimaViewW = kScrAdaptationW(28);
     CGFloat barAnimaViewCenterX = self.frame.size.width/self.optionStrArray.count/2 +  self.selectItemIndex * self.frame.size.width/self.optionStrArray.count;
 
     self.itemBarAnimaView = [[UIView alloc]initWithFrame: CGRectZero];
@@ -447,7 +448,7 @@
  
 }
 - (void)layoutSubviews {
-    
+    [super layoutSubviews];
     if (_isColorChange && !self.colourGradientView) {
         self.colourGradientView = [[HXBColourGradientView alloc]initWithFrame:CGRectZero];
         [self insertSubview:self.colourGradientView atIndex:0];
