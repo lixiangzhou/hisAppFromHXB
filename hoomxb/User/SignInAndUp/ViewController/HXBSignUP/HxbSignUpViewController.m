@@ -8,7 +8,6 @@
 
 #import "HxbSignUpViewController.h"
 #import "HXBSignUPView.h"///关于 注册的view
-#import "HxbSignUpSucceedViewController.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSendSmscodeViewController.h"///短信验证的Vc
 #import "HxbSignInViewController.h"

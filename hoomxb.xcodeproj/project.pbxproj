@@ -480,7 +480,6 @@
 		E133DCE81EEE3597009466DE /* HXBSendSmscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCBF1EEE3597009466DE /* HXBSendSmscodeViewController.m */; };
 		E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCC21EEE3597009466DE /* HxbSignInViewController.m */; };
 		E133DCEA1EEE3597009466DE /* HXBSignUPRealnameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCC61EEE3597009466DE /* HXBSignUPRealnameViewController.m */; };
-		E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCC81EEE3597009466DE /* HxbSignUpSucceedViewController.m */; };
 		E133DCEC1EEE3597009466DE /* HxbSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCCA1EEE3597009466DE /* HxbSignUpViewController.m */; };
 		E133DCED1EEE3597009466DE /* HXBSignUPViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCCD1EEE3597009466DE /* HXBSignUPViewModel.m */; };
 		E133DCEE1EEE3597009466DE /* HXBRequestUserInfoAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DCD01EEE3597009466DE /* HXBRequestUserInfoAgent.m */; };
@@ -1507,8 +1506,6 @@
 		E133DCC21EEE3597009466DE /* HxbSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignInViewController.m; sourceTree = "<group>"; };
 		E133DCC51EEE3597009466DE /* HXBSignUPRealnameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPRealnameViewController.h; sourceTree = "<group>"; };
 		E133DCC61EEE3597009466DE /* HXBSignUPRealnameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPRealnameViewController.m; sourceTree = "<group>"; };
-		E133DCC71EEE3597009466DE /* HxbSignUpSucceedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignUpSucceedViewController.h; sourceTree = "<group>"; };
-		E133DCC81EEE3597009466DE /* HxbSignUpSucceedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignUpSucceedViewController.m; sourceTree = "<group>"; };
 		E133DCC91EEE3597009466DE /* HxbSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignUpViewController.h; sourceTree = "<group>"; };
 		E133DCCA1EEE3597009466DE /* HxbSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignUpViewController.m; sourceTree = "<group>"; };
 		E133DCCC1EEE3597009466DE /* HXBSignUPViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPViewModel.h; sourceTree = "<group>"; };
@@ -4658,8 +4655,6 @@
 			isa = PBXGroup;
 			children = (
 				E133DCC41EEE3597009466DE /* HXBSignUPRealnameViewController */,
-				E133DCC71EEE3597009466DE /* HxbSignUpSucceedViewController.h */,
-				E133DCC81EEE3597009466DE /* HxbSignUpSucceedViewController.m */,
 				E133DCC91EEE3597009466DE /* HxbSignUpViewController.h */,
 				E133DCCA1EEE3597009466DE /* HxbSignUpViewController.m */,
 			);
@@ -5639,7 +5634,6 @@
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfoAgent.m in Sources */,
 				9AE0326E2022C317006D6140 /* HXBMyModel_MainLoanModel.m in Sources */,
 				9AE0338E2022C422006D6140 /* HXBHXBBorrowUserinforView.m in Sources */,
-				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
 				9AE032322022C317006D6140 /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				9AE0337E2022C422006D6140 /* HXBFin_LoanTruansferBuyView.m in Sources */,
 				8D36109D204FDAD7009E8505 /* HXBCheckCaptchaViewModel.m in Sources */,

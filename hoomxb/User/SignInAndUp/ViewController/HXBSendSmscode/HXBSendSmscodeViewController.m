@@ -8,8 +8,6 @@
 
 #import "HXBSendSmscodeViewController.h"
 #import "HXBSendSmscodeView.h"///发送短信的view
-
-//#import "HxbSignUpSucceedViewController.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBBindBankCardViewController.h"
 #import "HXBSignInWaterView.h"
