@@ -6,13 +6,13 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFin_LoanTransferTableView.h"
+#import "HXBFinancting_LoanTransferTableView.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 #import "HXBFin_TableViewCell_LoanTransfer.h"
 static NSString *const kcellClass = @"HXBFin_TableViewCell_LoanTransfer";
 
 
-@interface HXBFin_LoanTransferTableView()<
+@interface HXBFinancting_LoanTransferTableView()<
 UITableViewDelegate,UITableViewDataSource
 >
 /**
@@ -23,7 +23,7 @@ UITableViewDelegate,UITableViewDataSource
 @property (nonatomic,strong) HXBNoDataView *nodataView;
 @end
 
-@implementation HXBFin_LoanTransferTableView
+@implementation HXBFinancting_LoanTransferTableView
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUPViews];

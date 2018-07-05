@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
-@interface HXBFin_LoanTransferTableView : HXBBaseTableView
+@interface HXBFinancting_LoanTransferTableView : HXBBaseTableView
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel*> *loanTruansferViewModel;
 /**
  点击了cell

@@ -371,7 +371,7 @@
 		9AE0338E2022C422006D6140 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033012022C421006D6140 /* HXBHXBBorrowUserinforView.m */; };
 		9AE0338F2022C422006D6140 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033032022C421006D6140 /* HXBLoanInformation.m */; };
 		9AE033902022C422006D6140 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033052022C421006D6140 /* HXBLoanInstructionView.m */; };
-		9AE033912022C422006D6140 /* HXBFin_LoanTransferTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033072022C421006D6140 /* HXBFin_LoanTransferTableView.m */; };
+		9AE033912022C422006D6140 /* HXBFinancting_LoanTransferTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033072022C421006D6140 /* HXBFinancting_LoanTransferTableView.m */; };
 		9AE033922022C422006D6140 /* HXBFin_TableViewCell_LoanTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033092022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.m */; };
 		9AE033932022C422006D6140 /* HXBFinancting_LoanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0330B2022C421006D6140 /* HXBFinancting_LoanListTableView.m */; };
 		9AE033942022C422006D6140 /* HXBFinancting_PlanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0330D2022C421006D6140 /* HXBFinancting_PlanListTableView.m */; };
@@ -1283,8 +1283,8 @@
 		9AE033032022C421006D6140 /* HXBLoanInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInformation.m; sourceTree = "<group>"; };
 		9AE033042022C421006D6140 /* HXBLoanInstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInstructionView.h; sourceTree = "<group>"; };
 		9AE033052022C421006D6140 /* HXBLoanInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInstructionView.m; sourceTree = "<group>"; };
-		9AE033062022C421006D6140 /* HXBFin_LoanTransferTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTransferTableView.h; sourceTree = "<group>"; };
-		9AE033072022C421006D6140 /* HXBFin_LoanTransferTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTransferTableView.m; sourceTree = "<group>"; };
+		9AE033062022C421006D6140 /* HXBFinancting_LoanTransferTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancting_LoanTransferTableView.h; sourceTree = "<group>"; };
+		9AE033072022C421006D6140 /* HXBFinancting_LoanTransferTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancting_LoanTransferTableView.m; sourceTree = "<group>"; };
 		9AE033082022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_TableViewCell_LoanTransfer.h; sourceTree = "<group>"; };
 		9AE033092022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_TableViewCell_LoanTransfer.m; sourceTree = "<group>"; };
 		9AE0330A2022C421006D6140 /* HXBFinancting_LoanListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancting_LoanListTableView.h; sourceTree = "<group>"; };
@@ -3895,8 +3895,8 @@
 				9AE0330D2022C421006D6140 /* HXBFinancting_PlanListTableView.m */,
 				9AE0330A2022C421006D6140 /* HXBFinancting_LoanListTableView.h */,
 				9AE0330B2022C421006D6140 /* HXBFinancting_LoanListTableView.m */,
-				9AE033062022C421006D6140 /* HXBFin_LoanTransferTableView.h */,
-				9AE033072022C421006D6140 /* HXBFin_LoanTransferTableView.m */,
+				9AE033062022C421006D6140 /* HXBFinancting_LoanTransferTableView.h */,
+				9AE033072022C421006D6140 /* HXBFinancting_LoanTransferTableView.m */,
 				9AE033082022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.h */,
 				9AE033092022C421006D6140 /* HXBFin_TableViewCell_LoanTransfer.m */,
 				9AE032F92022C421006D6140 /* BorrowingInformation */,
@@ -5799,7 +5799,7 @@
 				9AE0326B2022C317006D6140 /* HXBMYModel_AssetStatistics_Loan.m in Sources */,
 				E1C0147120523AE100995860 /* HXBMyPlanBuyViewModel.m in Sources */,
 				E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */,
-				9AE033912022C422006D6140 /* HXBFin_LoanTransferTableView.m in Sources */,
+				9AE033912022C422006D6140 /* HXBFinancting_LoanTransferTableView.m in Sources */,
 				9AE032622022C317006D6140 /* HXBBaseView_HaveLabel_TopBottomView.m in Sources */,
 				8DAD30801FBA8F8C00E2AEE8 /* HXBBaseViewConcentricCirclesView.m in Sources */,
 				E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */,

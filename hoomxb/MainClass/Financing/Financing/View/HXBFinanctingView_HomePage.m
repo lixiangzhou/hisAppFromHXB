@@ -14,7 +14,7 @@
 #import "HXBFinancing_PlanDetailsViewController.h"//红利详情页
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
 #import "HXBFinancting_PlanListTableViewCell.h"//红利计划的cell
-#import "HXBFin_LoanTransferTableView.h"//债转
+#import "HXBFinancting_LoanTransferTableView.h"//债转
 
 
 @interface HXBFinanctingView_HomePage()
@@ -27,7 +27,7 @@
 //散标列表View
 @property (nonatomic,strong) HXBFinancting_LoanListTableView *loanListTableView;
 //债转
-@property (nonatomic,strong) HXBFin_LoanTransferTableView *loanTruansferTableView;
+@property (nonatomic,strong) HXBFinancting_LoanTransferTableView *loanTruansferTableView;
 @end
 
 @implementation HXBFinanctingView_HomePage
@@ -152,7 +152,7 @@
 //MARK: 债转
 - (void)setUPLoanTransferTableView {
     kWeakSelf
-    self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.loanTruansferTableView = [[HXBFinancting_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     //上拉刷新，下拉加载（判断条数是否）
     [self.loanTruansferTableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.loanTruansferHeaderBlock) weakSelf.loanTruansferHeaderBlock();
