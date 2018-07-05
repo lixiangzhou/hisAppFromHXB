@@ -152,38 +152,38 @@
 
 - (void) setLoanTruansferViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)LoanTruansferViewModel {
     _LoanTruansferViewModel = LoanTruansferViewModel;
-    [self.stutasButton setTitleColor:LoanTruansferViewModel.addButtonTitleColor forState:UIControlStateNormal];
-    self.stutasButton.backgroundColor = LoanTruansferViewModel.addButtonBackgroundColor;
-    self.stutasButton.layer.borderColor = LoanTruansferViewModel.addButtonBorderColor.CGColor;
-    self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
-    [self.stutasButton setTitle:LoanTruansferViewModel.loanTruansferListModel.statusText forState:UIControlStateNormal];
-    
-    [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = LoanTruansferViewModel.interest;
-        viewModelVM.rightLabelStr = @"年利率";
-        viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
-        viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
-        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
-        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
-        viewModelVM.leftViewColor = kHXBColor_Red_090202;
-        viewModelVM.rightViewColor = kHXBColor_Font0_6;
-        return viewModelVM;
-    }];
-    [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = LoanTruansferViewModel.loanTruansferListModel.leftMonths;
-        viewModelVM.rightLabelStr = @"期限(月)";
-        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
-        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
-        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
-        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(18);
-        viewModelVM.leftViewColor = kHXBColor_Grey_Font0_3;
-        viewModelVM.rightViewColor = kHXBColor_Font0_6;
-        return viewModelVM;
-    }];
-
-    self.amountTransferLabel.text = LoanTruansferViewModel.leftTransAmount_YUAN;
-    self.loanLable.text = LoanTruansferViewModel.title;
-    self.loanImageView.image = [UIImage imageNamed:@"LoanTruansfer"];
+//    [self.stutasButton setTitleColor:LoanTruansferViewModel.statusTitleColor forState:UIControlStateNormal];
+//    self.stutasButton.backgroundColor = LoanTruansferViewModel.statusBackgroundImage;
+//    self.stutasButton.layer.borderColor = LoanTruansferViewModel.addButtonBorderColor.CGColor;
+//    self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
+//    [self.stutasButton setTitle:LoanTruansferViewModel.loanTruansferListModel.statusText forState:UIControlStateNormal];
+//    
+//    [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+//        viewModelVM.leftLabelStr = LoanTruansferViewModel.interest;
+//        viewModelVM.rightLabelStr = @"年利率";
+//        viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
+//        viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
+//        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+//        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
+//        viewModelVM.leftViewColor = kHXBColor_Red_090202;
+//        viewModelVM.rightViewColor = kHXBColor_Font0_6;
+//        return viewModelVM;
+//    }];
+//    [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+//        viewModelVM.leftLabelStr = LoanTruansferViewModel.loanTruansferListModel.leftMonths;
+//        viewModelVM.rightLabelStr = @"期限(月)";
+//        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+//        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+//        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
+//        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(18);
+//        viewModelVM.leftViewColor = kHXBColor_Grey_Font0_3;
+//        viewModelVM.rightViewColor = kHXBColor_Font0_6;
+//        return viewModelVM;
+//    }];
+//
+//    self.amountTransferLabel.text = LoanTruansferViewModel.leftTransAmount_YUAN;
+//    self.loanLable.text = LoanTruansferViewModel.title;
+//    self.loanImageView.image = [UIImage imageNamed:@"LoanTruansfer"];
 //    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
 //    self.interestView.leftLabel.text = LoanTruansferViewModel.interest;
 }

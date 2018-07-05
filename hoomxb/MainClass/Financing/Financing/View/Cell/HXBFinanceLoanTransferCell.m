@@ -100,7 +100,14 @@
 - (void)setLoanTruansferViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTruansferViewModel {
     _loanTruansferViewModel = loanTruansferViewModel;
     
+    self.nameLabel.text = loanTruansferViewModel.title;
+    self.leftMoneyLabel.text = loanTruansferViewModel.leftTransAmount_YUAN;
+    self.interestLabel.text = loanTruansferViewModel.interest;
+    self.leftMonthLabel.text = loanTruansferViewModel.leftMonths;
     
+    [self.statusView setBackgroundImage:loanTruansferViewModel.statusBackgroundImage forState:UIControlStateNormal];
+    [self.statusView setTitleColor:loanTruansferViewModel.statusTitleColor forState:UIControlStateNormal];
+    [self.statusView setTitle:loanTruansferViewModel.loanTruansferListModel.statusText forState:UIControlStateNormal];
 }
 
 // MARK: - Getter

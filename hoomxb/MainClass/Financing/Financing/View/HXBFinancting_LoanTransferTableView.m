@@ -7,10 +7,7 @@
 //
 
 #import "HXBFinancting_LoanTransferTableView.h"
-#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
-#import "HXBFin_TableViewCell_LoanTransfer.h"
-static NSString *const kcellClass = @"HXBFin_TableViewCell_LoanTransfer";
-
+#import "HXBFinanceLoanTransferCell.h"
 
 @interface HXBFinancting_LoanTransferTableView()<
 UITableViewDelegate,UITableViewDataSource
@@ -28,17 +25,17 @@ UITableViewDelegate,UITableViewDataSource
     if (self = [super initWithFrame:frame style:style]) {
         [self setUPViews];
         self.nodataView.hidden = NO;
-        self.backgroundColor = kHXBColor_BackGround;
     }
     return self;
 }
 - (void)setUPViews {
     self.delegate = self;
     self.dataSource = self;
-    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self registerClass:NSClassFromString(kcellClass) forCellReuseIdentifier:kcellClass];
+    self.backgroundColor = [UIColor whiteColor];
+    [self registerClass:[HXBFinanceLoanTransferCell class] forCellReuseIdentifier:HXBFinanceLoanTransferCellID];
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableFooterView = [[UIView alloc]init];
-    self.rowHeight = kScrAdaptationH750(219);
+    self.rowHeight = kScrAdaptationH750(220);
 }
 - (void)setLoanTruansferViewModel:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)loanTruansferViewModel {
     _loanTruansferViewModel = loanTruansferViewModel;
@@ -57,43 +54,18 @@ UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.clickCellBlock) {
-        HXBFin_TableViewCell_LoanTransfer *cell = [tableView cellForRowAtIndexPath:indexPath];
-        self.clickCellBlock(cell.LoanTruansferViewModel, indexPath);
+        HXBFinanceLoanTransferCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        self.clickCellBlock(cell.loanTruansferViewModel, indexPath);
     }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kScrAdaptationH750(20);
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headView = [[UIView alloc] init];
-    headView.backgroundColor = BACKGROUNDCOLOR;
-    return headView;
-}
-
 #pragma mark - tableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.loanTruansferViewModel.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
-    
-    cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.section];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.clickStutasButtonBlock = ^(id model) {
-//        if (self.clickCellBlock) {
-//            self.clickCellBlock(self.loanTruansferViewModel[indexPath.row], indexPath);
-//        }
-//    };
+    HXBFinanceLoanTransferCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBFinanceLoanTransferCellID forIndexPath:indexPath];
+    cell.loanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
     return cell;
 }
 - (HXBNoDataView *)nodataView {

@@ -87,7 +87,7 @@
 /**
 剩余金额 (元)
  */
-- (NSString *) leftTransAmount_YUAN {
+- (NSString *)leftTransAmount_YUAN {
     if (!_leftTransAmount_YUAN) {
          _leftTransAmount_YUAN = [NSString stringWithFormat:@"待转让金额：%@",self.leftTransAmount];
     }
@@ -111,16 +111,15 @@
     }
     return _status;
 }
+
 - (void)setUPAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
-        self.addButtonTitleColor = kHXBColor_Font0_6;
-        self.addButtonBackgroundColor = kHXBColor_Grey090909;
-        self.addButtonBorderColor = kHXBColor_Font0_6;
-        return;
+        self.statusTitleColor = UIColorFromRGB(0x9295A2);
+        self.statusBackgroundImage = [UIImage imageNamed:@"list_bt_bg_dis"];
+    } else {
+        self.statusBackgroundImage = [UIImage imageNamed:@"bt_bg_nor"];
+        self.statusTitleColor = [UIColor whiteColor];
     }
-    self.addButtonTitleColor = [UIColor whiteColor];
-    self.addButtonBackgroundColor = kHXBColor_Red_090303;
-    self.addButtonBorderColor = kHXBColor_Red_090303;
-    
 }
+
 @end

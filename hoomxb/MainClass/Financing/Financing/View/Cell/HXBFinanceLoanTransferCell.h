@@ -9,6 +9,7 @@
 #import "HXBBaseTableViewCell.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 
+#define HXBFinanceLoanTransferCellID @"HXBFinanceLoanTransferCellID"
 @interface HXBFinanceLoanTransferCell : HXBBaseTableViewCell
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *loanTruansferViewModel;
 @end
