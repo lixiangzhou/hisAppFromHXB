@@ -29,9 +29,9 @@
 
 @property (nonatomic,strong) UIButton *countDownView;           //倒计时label
 
-@property (nonatomic, strong) UIView *bottomLine;
-
 @property (nonatomic, strong) UIView *happyView;    // 加息、满减、抵扣
+
+@property (nonatomic, strong) UIView *bottomLine;
 
 @end
 @implementation HXBFinancting_PlanListTableViewCell
@@ -158,8 +158,8 @@
     // 状态
     
     [self.statusView setTitle:finPlanListViewModel.unifyStatus forState:UIControlStateNormal];
-    [self.statusView setBackgroundImage:finPlanListViewModel.addButtonBackgroundImage forState:UIControlStateNormal];
-    [self.statusView setTitleColor:finPlanListViewModel.addButtonTitleColor forState:UIControlStateNormal];
+    [self.statusView setBackgroundImage:finPlanListViewModel.statusBackgroundImage forState:UIControlStateNormal];
+    [self.statusView setTitleColor:finPlanListViewModel.statusTitleColor forState:UIControlStateNormal];
     
     // 利率
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
@@ -263,20 +263,6 @@
     }
 }
 
-- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
-    _loanListViewModel = loanListViewModel;
-    HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
-    self.nameLabel.text = model.title;
-    
-    self.statusView.backgroundColor = loanListViewModel.addButtonBackgroundColor;
-    [self.statusView setTitleColor:loanListViewModel.addButtonTitleColor forState:UIControlStateNormal];
-
-    
-    self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
-    self.lockPeriodLabel.text = model.months;
-    [self.statusView setTitle:loanListViewModel.status forState:UIControlStateNormal];
-}
-
 //设置等待加入label的背景颜色
 - (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
     if ([status isEqualToString:@"等待加入"]) {
@@ -340,7 +326,7 @@
 - (UILabel *)expectedYearRateLable{
     if (!_expectedYearRateLable) {
         _expectedYearRateLable = [[UILabel alloc]init];
-        _expectedYearRateLable.font = [UIFont boldSystemFontOfSize:kScrAdaptationW(25)];
+        _expectedYearRateLable.font = [UIFont systemFontOfSize:kScrAdaptationW(25)];
         _expectedYearRateLable.textColor = UIColorFromRGB(0xFF3B2D);
     }
     return _expectedYearRateLable;

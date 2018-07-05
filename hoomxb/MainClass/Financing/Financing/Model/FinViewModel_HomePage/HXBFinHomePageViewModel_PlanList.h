@@ -34,9 +34,9 @@ typedef enum : NSUInteger {
 /// 等待加入的时候，剩余时间大于一小时
 @property (nonatomic,copy) NSString *remainTimeString;
 /// 加入按钮的图片
-@property (nonatomic,strong) UIImage *addButtonBackgroundImage;
+@property (nonatomic,strong) UIImage *statusBackgroundImage;
 ///加入按钮的字体颜色
-@property (nonatomic,strong) UIColor *addButtonTitleColor;
+@property (nonatomic,strong) UIColor *statusTitleColor;
 
 #pragma mark --- 新手专区新增辅助属性
 // 计划类型

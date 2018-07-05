@@ -32,17 +32,19 @@ typedef enum : NSUInteger {
 
 
 
-///散标列表页- 一级界面ViewModel
+/// 散标列表页- 一级界面ViewModel
 @interface HXBFinHomePageViewModel_LoanList : NSObject
 @property (nonatomic,strong) HXBFinHomePageModel_LoanList *loanListModel;
-///状态
+/// 状态
 @property (nonatomic,copy) NSString *status;
-///年计划利率
-@property (nonatomic,copy) NSAttributedString *expectedYearRateAttributedStr;
+/// 年计划利率
+@property (nonatomic,copy) NSString *interest;
 /// 加入按钮的颜色
-@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
-///加入按钮的字体颜色
-@property (nonatomic,strong) UIColor *addButtonTitleColor;
-///addbutton 边缘的颜色
-@property (nonatomic,strong) UIColor *addButtonBorderColor;
+@property (nonatomic,strong) UIImage *statusBackgroundImage;
+/// 加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *statusTitleColor;
+/// 剩余购买月数
+@property (nonatomic, copy) NSAttributedString *leftMonthAttributeString;
+/// 剩余金额
+@property (nonatomic, copy) NSString *leftMoney;
 @end

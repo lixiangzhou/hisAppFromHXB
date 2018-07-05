@@ -44,16 +44,28 @@ typedef enum : NSUInteger {
 - (void) setLoanListModel:(HXBFinHomePageModel_LoanList *)loanListModel {
     _loanListModel = loanListModel;
     //状态的处理
+    
+    self.leftMoney = @"";
+    if ([loanListModel.status isEqualToString:@"OPEN"]) {
+//        self.leftMoney = [NSString stringWithFormat:@"剩余金额：%@", loanListModel.]
+    }
+    
+    self.interest = [NSString stringWithFormat:@"%.2f%%",loanListModel.interest.floatValue];
+    
+    NSMutableAttributedString *leftMonthAttributeString = [[NSMutableAttributedString alloc] initWithAttributedString:[[NSAttributedString alloc] initWithString:loanListModel.months attributes:@{NSFontAttributeName: kHXBFont_34}]];
+    [leftMonthAttributeString appendAttributedString:[[NSAttributedString alloc] initWithString:@"个月" attributes:@{NSFontAttributeName: kHXBFont_24}]];
+    self.leftMonthAttributeString = leftMonthAttributeString;
+    
     [self setupStatusWithLoanListModelStatus:loanListModel.status];
-    NSString *str = [NSString stringWithFormat:@"%.2f%%",loanListModel.interest.floatValue];
-    self.expectedYearRateAttributedStr = [self setupExpectedYearRateAttributedStrWithStr:str  WithFont:kHXBFont_PINGFANGSC_REGULAR(24) andColor:kHXBColor_Red_090202 andRange:NSMakeRange(0, str.length)];
 }
 
 
 
 ///状态的处理
 - (void)setupStatusWithLoanListModelStatus: (NSString *) status{
+    
     [self setUPAddButtonColorWithType:YES];
+    
     if ([status isEqualToString:@"OPEN"]) {
         self.status = @"立即投标";//投标中
         [self setUPAddButtonColorWithType:NO];
@@ -74,24 +86,12 @@ typedef enum : NSUInteger {
 }
 - (void)setUPAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
-        self.addButtonTitleColor = kHXBColor_Font0_6;
-        self.addButtonBackgroundColor = kHXBColor_Grey090909;
-        self.addButtonBorderColor = kHXBColor_Font0_5;
-        return;
+        self.statusTitleColor = UIColorFromRGB(0x9295A2);
+        self.statusBackgroundImage = [UIImage imageNamed:@"list_bt_bg_dis"];
+    } else {
+        self.statusBackgroundImage = [UIImage imageNamed:@"bt_bg_nor"];
+        self.statusTitleColor = [UIColor whiteColor];
     }
-    self.addButtonTitleColor = [UIColor whiteColor];
-    self.addButtonBackgroundColor = kHXBColor_Red_090303;
-    self.addButtonBorderColor = kHXBColor_Red_090303;
-    
 }
-
-- (NSMutableAttributedString *)setupExpectedYearRateAttributedStrWithStr: (NSString *)str WithFont: (UIFont *)font andColor: (UIColor *)color andRange: (NSRange)range{
-    NSMutableAttributedString *expecetedAttributedStr = [[NSMutableAttributedString alloc]initWithString:str];
-    [expecetedAttributedStr addAttribute:NSFontAttributeName value:font range:range];
-    [expecetedAttributedStr addAttribute:NSForegroundColorAttributeName value:color range:range];
-    return expecetedAttributedStr;
-}
-
-
 
 @end

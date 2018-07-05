@@ -54,10 +54,9 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
-    self.backgroundColor = kHXBColor_BackGround;
+    self.backgroundColor = [UIColor whiteColor];
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.backgroundColor = kHXBColor_BackGround;
     self.nodataView.hidden = NO;
 }
 

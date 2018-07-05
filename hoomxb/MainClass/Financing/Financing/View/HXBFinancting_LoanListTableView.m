@@ -8,10 +8,7 @@
 
 #import "HXBFinancting_LoanListTableView.h"
 
-#import "HXBFinancting_PlanListTableViewCell.h"
-#import "HXBFinHomePageViewModel_LoanList.h"
-#import "HXBFinHomePageViewModel_LoanList.h"
-
+#import "HXBFinanceLoanCell.h"
 
 @interface HXBFinancting_LoanListTableView ()
 <
@@ -45,34 +42,22 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
-    self.backgroundColor = kHXBColor_BackGround;
-    [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
-    self.separatorColor = kHXBColor_Font0_5;
-    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
-        [self setLayoutMargins:UIEdgeInsetsZero];
-    }
-    self.rowHeight = kScrAdaptationH750(219);
+    self.backgroundColor = [UIColor whiteColor];
+    [self registerClass:[HXBFinanceLoanCell class] forCellReuseIdentifier:HXBFinanceLoanCellID];
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.rowHeight = kScrAdaptationH750(220);
     self.nodataView.hidden = NO;
 }
 
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.loanListViewModelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.loanListViewModel = self.loanListViewModelArray[indexPath.section];
-    cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
-    cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
+    HXBFinanceLoanCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBFinanceLoanCellID forIndexPath:indexPath];
+    cell.loanListViewModel = self.loanListViewModelArray[indexPath.row];
     return cell;
 }
 
@@ -80,28 +65,13 @@ static NSString *CELLID = @"CELLID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     //拿到cell的model
-    HXBFinancting_PlanListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    HXBFinanceLoanCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   
     //点击后的block回调给了HomePageView
     if (self.clickLoanListCellBlock) {
         self.clickLoanListCellBlock(indexPath, cell.loanListViewModel);
     }
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kScrAdaptationH750(20);
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headView = [[UIView alloc] init];
-    headView.backgroundColor = BACKGROUNDCOLOR;
-    return headView;
-}
-
 
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {

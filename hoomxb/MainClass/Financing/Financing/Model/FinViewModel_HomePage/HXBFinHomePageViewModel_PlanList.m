@@ -213,12 +213,11 @@ typedef enum : NSUInteger {
 }
 - (void)setupAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
-        self.addButtonTitleColor = UIColorFromRGB(0x9295A2);
-        self.addButtonBackgroundImage = [UIImage imageNamed:@"list_bt_bg_dis"];
-        return;
+        self.statusTitleColor = UIColorFromRGB(0x9295A2);
+        self.statusBackgroundImage = [UIImage imageNamed:@"list_bt_bg_dis"];
     } else {
-        self.addButtonBackgroundImage = [UIImage imageNamed:@"bt_bg_nor"];
-        self.addButtonTitleColor = [UIColor whiteColor];
+        self.statusBackgroundImage = [UIImage imageNamed:@"bt_bg_nor"];
+        self.statusTitleColor = [UIColor whiteColor];
     }
 }
 //红利计划列表的年利率计算
