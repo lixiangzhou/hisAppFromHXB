@@ -7,7 +7,7 @@
 //
 
 #import "HXBMY_LoanTruansferTableView.h"
-#import "HXBFin_TableViewCell_LoanTransfer.h"
+
 #import "HXBBaseViewCell_MYListCellTableViewCell.h"
 static NSString *const CELLID = @"CELLID";
 @interface HXBMY_LoanTruansferTableView () <UITableViewDelegate,UITableViewDataSource>

@@ -366,7 +366,6 @@
 		9AE033882022C422006D6140 /* HXBFinHomePageModel_LoanList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032F22022C421006D6140 /* HXBFinHomePageModel_LoanList.m */; };
 		9AE033892022C422006D6140 /* HXBFinHomePageModel_LoanTruansferList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032F42022C421006D6140 /* HXBFinHomePageModel_LoanTruansferList.m */; };
 		9AE0338A2022C422006D6140 /* HXBFinHomePageModel_PlanList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032F62022C421006D6140 /* HXBFinHomePageModel_PlanList.m */; };
-		9AE0338B2022C422006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032FB2022C421006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */; };
 		9AE0338C2022C422006D6140 /* HXBFin_LoanInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032FD2022C421006D6140 /* HXBFin_LoanInfoView.m */; };
 		9AE0338D2022C422006D6140 /* HXBFin_LoanPerson_Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE032FF2022C421006D6140 /* HXBFin_LoanPerson_Info.m */; };
 		9AE0338E2022C422006D6140 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE033012022C421006D6140 /* HXBHXBBorrowUserinforView.m */; };
@@ -1274,8 +1273,6 @@
 		9AE032F42022C421006D6140 /* HXBFinHomePageModel_LoanTruansferList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinHomePageModel_LoanTruansferList.m; sourceTree = "<group>"; };
 		9AE032F52022C421006D6140 /* HXBFinHomePageModel_PlanList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageModel_PlanList.h; sourceTree = "<group>"; };
 		9AE032F62022C421006D6140 /* HXBFinHomePageModel_PlanList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinHomePageModel_PlanList.m; sourceTree = "<group>"; };
-		9AE032FA2022C421006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanDetail_LoanInfoCertifyButton.h; sourceTree = "<group>"; };
-		9AE032FB2022C421006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanDetail_LoanInfoCertifyButton.m; sourceTree = "<group>"; };
 		9AE032FC2022C421006D6140 /* HXBFin_LoanInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanInfoView.h; sourceTree = "<group>"; };
 		9AE032FD2022C421006D6140 /* HXBFin_LoanInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanInfoView.m; sourceTree = "<group>"; };
 		9AE032FE2022C421006D6140 /* HXBFin_LoanPerson_Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanPerson_Info.h; sourceTree = "<group>"; };
@@ -3914,8 +3911,6 @@
 		9AE032F92022C421006D6140 /* BorrowingInformation */ = {
 			isa = PBXGroup;
 			children = (
-				9AE032FA2022C421006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.h */,
-				9AE032FB2022C421006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */,
 				9AE032FC2022C421006D6140 /* HXBFin_LoanInfoView.h */,
 				9AE032FD2022C421006D6140 /* HXBFin_LoanInfoView.m */,
 				9AE032FE2022C421006D6140 /* HXBFin_LoanPerson_Info.h */,
@@ -5868,7 +5863,6 @@
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				9AE0321F2022C317006D6140 /* HXBMY_LoanListViewModel.m in Sources */,
 				9AE034A820232B0F006D6140 /* HXBHomeTitleModel.m in Sources */,
-				9AE0338B2022C422006D6140 /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */,
 				9AE033AB2022C423006D6140 /* HXBFinanctingDetail_progressCell.m in Sources */,
 				9AE033732022C422006D6140 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1FCA43C204F8E70002A0523 /* HXBChooseDiscountCouponViewModel.m in Sources */,
