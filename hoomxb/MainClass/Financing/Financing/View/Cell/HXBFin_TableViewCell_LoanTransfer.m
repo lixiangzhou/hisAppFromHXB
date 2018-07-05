@@ -187,41 +187,6 @@
 //    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
 //    self.interestView.leftLabel.text = LoanTruansferViewModel.interest;
 }
-- (void)setManager:(HXBFin_TableViewCell_LoanTransferManager *)manager {
-    _manager = manager;
-    [self.stutasButton setTitleColor:manager.addButtonTitleColor forState:UIControlStateNormal];
-    self.stutasButton.backgroundColor = manager.addButtonBackgroundColor;
-    self.stutasButton.layer.borderColor = manager.addButtonBorderColor.CGColor;
-    self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
-    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
-    
-    [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = manager.interest;
-        viewModelVM.rightLabelStr = @"年利率";
-        viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
-        viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
-        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
-        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
-        viewModelVM.leftViewColor = kHXBColor_Red_090202;
-        viewModelVM.rightViewColor = kHXBColor_Font0_6;
-        return viewModelVM;
-    }];
-    [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = manager.remainMonthStr;
-        viewModelVM.rightLabelStr = @"剩余期限(月)";
-        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
-        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
-        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
-        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
-        viewModelVM.leftViewColor = kHXBColor_Grey_Font0_3;
-        viewModelVM.rightViewColor = kHXBColor_Font0_6;
-        return viewModelVM;
-    }];
-    
-    self.amountTransferLabel.text = manager.amountTransferStr;
-    self.loanLable.text = manager.loanTitle;
-    self.loanImageView.image = [UIImage imageNamed:@"LoanTruansfer"];
-}
 
 @end
 @implementation HXBFin_TableViewCell_LoanTransferManager

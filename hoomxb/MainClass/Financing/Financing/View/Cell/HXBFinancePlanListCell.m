@@ -8,13 +8,13 @@
 
 #define DottedLineHeight 1
 
-#import "HXBFinancting_PlanListTableViewCell.h"
+#import "HXBFinancePlanListCell.h"
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFinHomePageViewModel_LoanList.h"
 #import "HXBFinHomePageModel_LoanList.h"
 #import "SVGKit/SVGKImage.h"
-@interface HXBFinancting_PlanListTableViewCell ()
+@interface HXBFinancePlanListCell ()
 
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic,strong) UILabel *nameLabel;                //计划名称
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) UIView *bottomLine;
 
 @end
-@implementation HXBFinancting_PlanListTableViewCell
+@implementation HXBFinancePlanListCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -344,7 +344,6 @@
 - (UILabel *)lockPeriodLabel_Const {
     if (!_lockPeriodLabel_Const) {
         _lockPeriodLabel_Const = [[UILabel alloc]init];
-        _lockPeriodLabel_Const.text = self.lockPeriodLabel_ConstStr;
         _lockPeriodLabel_Const.textColor = kHXBColor_333333_100;
         _lockPeriodLabel_Const.font = kHXBFont_24;
     }

@@ -16,7 +16,7 @@
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *LoanTruansferViewModel;
 //@property (nonatomic,copy) void(^clickStutasButtonBlock)(id model);
 
-@property (nonatomic,strong) HXBFin_TableViewCell_LoanTransferManager*manager;
+//@property (nonatomic,strong) HXBFin_TableViewCell_LoanTransferManager*manager;
 @end
 @interface HXBFin_TableViewCell_LoanTransferManager : NSObject
 /**

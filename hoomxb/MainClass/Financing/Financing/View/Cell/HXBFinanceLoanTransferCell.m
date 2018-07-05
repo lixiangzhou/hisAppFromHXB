@@ -1,15 +1,14 @@
 //
-//  HXBFinanceLoanCell.m
+//  HXBFinanceLoanTransferCell.m
 //  hoomxb
 //
-//  Created by lxz on 2018/7/4.
+//  Created by lxz on 2018/7/5.
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinanceLoanListCell.h"
-#import "HXBFinHomePageModel_LoanList.h"
+#import "HXBFinanceLoanTransferCell.h"
 
-@interface HXBFinanceLoanListCell()
+@interface HXBFinanceLoanTransferCell()
 /// 名称
 @property (nonatomic, strong) UILabel *nameLabel;
 /// 剩余金额
@@ -27,8 +26,7 @@
 @property (nonatomic, strong) UIView *bottomLine;
 @end
 
-@implementation HXBFinanceLoanListCell
-
+@implementation HXBFinanceLoanTransferCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -99,20 +97,10 @@
 
 // MARK: - Setter
 
-- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+- (void)setLoanTruansferViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTruansferViewModel {
+    _loanTruansferViewModel = loanTruansferViewModel;
     
-    _loanListViewModel = loanListViewModel;
     
-    self.nameLabel.text = loanListViewModel.loanListModel.title;
-    
-    self.leftMoneyLabel.text = @"剩余金额：10000.00";
-    
-    self.interestLabel.text = loanListViewModel.interest;
-    self.leftMonthLabel.attributedText = loanListViewModel.leftMonthAttributeString;
-    
-    [self.statusView setBackgroundImage:loanListViewModel.statusBackgroundImage forState:UIControlStateNormal];
-    [self.statusView setTitleColor:loanListViewModel.statusTitleColor forState:UIControlStateNormal];
-    [self.statusView setTitle:loanListViewModel.status forState:UIControlStateNormal];
 }
 
 // MARK: - Getter

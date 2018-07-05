@@ -8,7 +8,7 @@
 
 #import "HXBFinancting_LoanListTableView.h"
 
-#import "HXBFinanceLoanCell.h"
+#import "HXBFinanceLoanListCell.h"
 
 @interface HXBFinancting_LoanListTableView ()
 <
@@ -43,7 +43,7 @@ static NSString *CELLID = @"CELLID";
     self.delegate = self;
     self.dataSource = self;
     self.backgroundColor = [UIColor whiteColor];
-    [self registerClass:[HXBFinanceLoanCell class] forCellReuseIdentifier:HXBFinanceLoanCellID];
+    [self registerClass:[HXBFinanceLoanListCell class] forCellReuseIdentifier:HXBFinanceLoanListCellID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.rowHeight = kScrAdaptationH750(220);
     self.nodataView.hidden = NO;
@@ -56,7 +56,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFinanceLoanCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBFinanceLoanCellID forIndexPath:indexPath];
+    HXBFinanceLoanListCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBFinanceLoanListCellID forIndexPath:indexPath];
     cell.loanListViewModel = self.loanListViewModelArray[indexPath.row];
     return cell;
 }
@@ -65,7 +65,7 @@ static NSString *CELLID = @"CELLID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     //拿到cell的model
-    HXBFinanceLoanCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    HXBFinanceLoanListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   
     //点击后的block回调给了HomePageView
     if (self.clickLoanListCellBlock) {

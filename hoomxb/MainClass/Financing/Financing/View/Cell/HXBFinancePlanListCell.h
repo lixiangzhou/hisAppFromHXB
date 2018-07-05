@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HXBFinHomePageViewModel_PlanList.h"
 
-@class HXBFinHomePageViewModel_LoanList;
-
 @interface HXBFinancePlanListCell : HXBBaseTableViewCell
-
-@property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewModel;
 
 @property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *finPlanListViewModel;
 ///用于倒计时的string
