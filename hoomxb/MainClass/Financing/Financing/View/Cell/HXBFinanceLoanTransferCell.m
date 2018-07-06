@@ -103,7 +103,10 @@
     self.nameLabel.text = loanTruansferViewModel.title;
     self.leftMoneyLabel.text = loanTruansferViewModel.leftTransAmount_YUAN;
     self.interestLabel.text = loanTruansferViewModel.interest;
-    self.leftMonthLabel.text = loanTruansferViewModel.leftMonths;
+    
+    NSMutableAttributedString *leftMonths = [[NSMutableAttributedString alloc] initWithString:loanTruansferViewModel.loanTruansferListModel.leftMonths];
+    [leftMonths appendAttributedString:[[NSAttributedString alloc] initWithString:@"个月" attributes:@{NSFontAttributeName: kHXBFont_24}]];
+    self.leftMonthLabel.attributedText = leftMonths;
     
     [self.statusView setBackgroundImage:loanTruansferViewModel.statusBackgroundImage forState:UIControlStateNormal];
     [self.statusView setTitleColor:loanTruansferViewModel.statusTitleColor forState:UIControlStateNormal];
