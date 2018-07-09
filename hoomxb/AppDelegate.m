@@ -22,7 +22,7 @@
 #import "HXBBaseUrlSettingView.h"
 #import "HXBVersionUpdateManager.h"
 
-#import "HXBGarbageCodeEnter.h"
+//#import "HXBGarbageCodeEnter.h"
 
 @interface AppDelegate ()
 
@@ -66,8 +66,8 @@
         [HXBBaseUrlSettingView attatchToWindow];
     }
     
-    // 垃圾代码
-    [[HXBGarbageCodeEnter shared] forWordCup];
+//    // 垃圾代码
+//    [[HXBGarbageCodeEnter shared] forWordCup];
     
     return YES;
 }
