@@ -126,14 +126,20 @@ typedef enum : NSUInteger {
         } else {
             lock = self.planListModel.extendLockPeriod;
         }
+        
+        if (lock) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:lock attributes:@{NSFontAttributeName: kHXBFont_34}];
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:@"个月" attributes:@{NSFontAttributeName: kHXBFont_24}]];
+            return attr;
+        }
     } else if (self.planListModel.lockDays) {
         lock = [NSString stringWithFormat:@"%d", self.planListModel.lockDays];
-    }
-    
-    if (lock) {
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:lock attributes:@{NSFontAttributeName: kHXBFont_34}];
-        [attr appendAttributedString:[[NSAttributedString alloc] initWithString:@"个月" attributes:@{NSFontAttributeName: kHXBFont_24}]];
-        return attr;
+        
+        if (lock) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:lock attributes:@{NSFontAttributeName: kHXBFont_34}];
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:@"天" attributes:@{NSFontAttributeName: kHXBFont_24}]];
+            return attr;
+        }
     }
     
     return [[NSMutableAttributedString alloc] initWithString:@"--" attributes:@{NSFontAttributeName: kHXBFont_34}];;

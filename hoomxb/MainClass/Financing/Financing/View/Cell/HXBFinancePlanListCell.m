@@ -166,11 +166,6 @@
     
     // 锁定期
     self.lockPeriodLabel.attributedText = finPlanListViewModel.lockPeriod;
-    if (finPlanListViewModel.planListModel.novice == 1) {
-        self.lockPeriodLabel_Const.text = finPlanListViewModel.planListModel.lockPeriod.length ? @"锁定期(月)" : @"锁定期(天)";
-    } else {
-        self.lockPeriodLabel_Const.text =  finPlanListViewModel.planListModel.lockPeriod.length ? @"适用期限(月)" : @"期限(天)";
-    }
     
     // 加息、抵扣、满减
     [self setHappyViews];
@@ -346,6 +341,7 @@
         _lockPeriodLabel_Const = [[UILabel alloc]init];
         _lockPeriodLabel_Const.textColor = kHXBColor_333333_100;
         _lockPeriodLabel_Const.font = kHXBFont_24;
+        _lockPeriodLabel_Const.text = @"适用出借期限";
     }
     return _lockPeriodLabel_Const;
 }
