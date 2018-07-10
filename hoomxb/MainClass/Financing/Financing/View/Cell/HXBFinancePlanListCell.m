@@ -360,6 +360,7 @@
     if (!_statusView) {
         _statusView = [[UIButton alloc] init];
         _statusView.titleLabel.font = kHXBFont_28;
+        _statusView.userInteractionEnabled = NO;
         _statusView.layer.cornerRadius = 2;
         _statusView.layer.masksToBounds = YES;
     }

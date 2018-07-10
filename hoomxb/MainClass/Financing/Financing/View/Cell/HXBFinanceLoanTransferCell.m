@@ -175,6 +175,7 @@
         _statusView.titleLabel.font = kHXBFont_28;
         [_statusView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_statusView setBackgroundImage:[UIImage imageNamed:@"bt_bg_nor"] forState:UIControlStateNormal];
+        _statusView.userInteractionEnabled = NO;
         _statusView.layer.cornerRadius = 2;
         _statusView.layer.masksToBounds = YES;
     }
