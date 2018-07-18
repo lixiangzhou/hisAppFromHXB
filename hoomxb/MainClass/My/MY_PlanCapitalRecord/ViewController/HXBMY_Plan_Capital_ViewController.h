@@ -28,4 +28,6 @@
 @property (nonatomic,copy) NSString *loanAoumt;
 @property (nonatomic,copy) NSString *time;
 @property (nonatomic,copy) NSString *type;
+
+@property (nonatomic, strong) void (^agreementAct)(NSString *pId);
 @end
