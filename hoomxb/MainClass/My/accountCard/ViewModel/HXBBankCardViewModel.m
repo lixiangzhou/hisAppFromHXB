@@ -95,6 +95,7 @@
     bindAPI.requestUrl = kHXBUserInfo_UnbindBankCard;
     bindAPI.requestMethod = NYRequestMethodPost;
     bindAPI.requestArgument = param;
+    bindAPI.showHud = YES;
     kWeakSelf
     [bindAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         if (finishBlock) {
@@ -109,6 +110,9 @@
                 }
             } else {
                 [weakSelf showToast:responseObject.message];
+                if (finishBlock) {
+                    finishBlock(NO, nil, NO);
+                }
             }
         }
         else{

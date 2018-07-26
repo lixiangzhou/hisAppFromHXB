@@ -268,7 +268,10 @@
 
 - (HXBBankCardViewModel *)bankCardViewModel {
     if (_bankCardViewModel == nil) {
-        _bankCardViewModel = [HXBBankCardViewModel new];
+        kWeakSelf
+        _bankCardViewModel = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     return _bankCardViewModel;
 }
