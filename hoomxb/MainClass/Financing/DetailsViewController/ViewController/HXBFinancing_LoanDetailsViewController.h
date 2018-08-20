@@ -23,4 +23,7 @@
 @property (nonatomic,copy) NSString *loanID;
 
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewMode;
+
+///是否隐藏底部按钮
+@property (nonatomic, assign) BOOL isHidebottomButton;
 @end

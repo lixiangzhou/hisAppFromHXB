@@ -30,6 +30,7 @@
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     if (self = [super initWithBlock:hugViewBlock]) {
+
     }
     return self;
 }
@@ -58,6 +59,7 @@
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.bestCouponModel = [[HXBBestCouponModel alloc] init];
         NSDictionary *data = responseObject[kResponseData];
+        weakSelf.bestCouponModel = [[HXBBestCouponModel alloc] init];
         [weakSelf.bestCouponModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -84,6 +86,7 @@
         weakSelf.resultModel = [[HXBLazyCatRequestModel alloc] init];
         [weakSelf hiddenHFBank];
         NSDictionary *data = responseObject[kResponseData];
+        weakSelf.resultModel = [[HXBLazyCatRequestModel alloc] init];
         [weakSelf.resultModel yy_modelSetWithDictionary:data];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {

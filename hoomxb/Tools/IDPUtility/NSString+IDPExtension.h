@@ -27,4 +27,12 @@
 
 - (NSString *)URLEncoding;
 - (NSString *)URLDecoding;
+/**
+ 银行家算法
+
+ @param position 小数点位数
+ @return 转换后的结果
+ */
+- (NSString *)notRounding:(int)position;
++ (NSString *)notRounding:(int)position price:(float)price;
 @end

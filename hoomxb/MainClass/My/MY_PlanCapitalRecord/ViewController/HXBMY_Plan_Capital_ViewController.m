@@ -10,6 +10,8 @@
 #import "HXBMY_PlanViewModel_LoanRecordViewModel.h"
 #import "HXBNoDataView.h"
 #import "HXBMyPlanCapitalRecordViewModel.h"
+#import "HXBBaseWKWebViewController.h"
+#import "HXBFinancing_LoanDetailsViewController.h"
 
 static NSString *const cellID = @"cellID";
 
@@ -101,31 +103,38 @@ static NSString *const cellID = @"cellID";
     UILabel *amountLabel = [[UILabel alloc]init];
     UILabel *timeLabel = [[UILabel alloc]init];
     UILabel *typeLabel = [[UILabel alloc]init];
-    
+    UILabel *agreementLabel = [[UILabel alloc]init];
     
     [headView addSubview:planIDLabel];
     [headView addSubview:amountLabel];
     [headView addSubview:timeLabel];
     [headView addSubview:typeLabel];
+    [headView addSubview:agreementLabel];
     
     [planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(headView);
-        make.left.equalTo(headView).offset(kScrAdaptationH750(30));
+        make.left.equalTo(headView).offset(kScrAdaptationW750(29));
         make.width.offset(kScrAdaptationW750(84));
     }];
     [amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(headView);
-        make.right.equalTo(headView).offset(-kScrAdaptationW750(413));
+        make.left.equalTo(planIDLabel.mas_right).offset(kScrAdaptationW(20.5));
+        make.width.offset(kScrAdaptationW(82));
     }];
     [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(headView);
-        make.left.equalTo(amountLabel.mas_right).offset(kScrAdaptationW750(128));
-//        make.right.equalTo(typeLabel.mas_left);
+        make.left.equalTo(amountLabel.mas_right).offset(kScrAdaptationW(41.3));
+        make.width.offset(kScrAdaptationW(29));
     }];
     [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(headView);
-        make.right.equalTo(headView).offset(-kScrAdaptationH750(30));
-        make.width.offset(kScrAdaptationW750(57));
+        make.left.equalTo(timeLabel.mas_right).offset(kScrAdaptationW(52.5));
+        make.width.offset(kScrAdaptationW(28));
+    }];
+    [agreementLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(headView);
+        make.left.equalTo(typeLabel.mas_right).offset(kScrAdaptationW(20.5));
+        make.width.offset(kScrAdaptationW(28));
     }];
     
     
@@ -133,18 +142,22 @@ static NSString *const cellID = @"cellID";
     amountLabel.text =  @"出借金额(元)";
     timeLabel.text =  @"时间";
     typeLabel.text =  @"状态";
+    agreementLabel.text = @"合同";
     planIDLabel.textAlignment = NSTextAlignmentCenter;
     amountLabel.textAlignment = planIDLabel.textAlignment;
     timeLabel.textAlignment = planIDLabel.textAlignment;
     typeLabel.textAlignment = planIDLabel.textAlignment;
+    agreementLabel.textAlignment = planIDLabel.textAlignment;
     planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     amountLabel.font = planIDLabel.font;
     timeLabel.font = planIDLabel.font;
     typeLabel.font = planIDLabel.font;
+    agreementLabel.font = planIDLabel.font;
     planIDLabel.textColor = COR10;
     amountLabel.textColor = planIDLabel.textColor;
     timeLabel.textColor = planIDLabel.textColor;
     typeLabel.textColor = planIDLabel.textColor;
+    agreementLabel.textColor = planIDLabel.textColor;
     return headView;
 }
 
@@ -211,7 +224,21 @@ static NSString *const cellID = @"cellID";
     }else{
         cell.type = _dataArray[indexPath.row].status;
     }
+    
+    kWeakSelf
+    cell.agreementAct = ^(NSString *pId) {
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServeLoan_AccountURL(pId)] fromController:weakSelf];
+    };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *loanId = _dataArray[indexPath.row].loanId;
+    
+    HXBFinancing_LoanDetailsViewController *vc = [[HXBFinancing_LoanDetailsViewController alloc] init];
+    vc.loanID = loanId;
+    vc.isHidebottomButton = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -237,6 +264,10 @@ static NSString *const cellID = @"cellID";
  状态
  */
 @property (nonatomic,strong) UILabel *typeLabel;
+/**
+ 合同查看按钮
+ */
+@property (nonatomic, strong) UIButton *agreementBtn;
 //line
 @property (nonatomic, strong) UIView *line;
 @end
@@ -253,22 +284,28 @@ static NSString *const cellID = @"cellID";
     self.amountLabel = [[UILabel alloc]init];
     self.timeLabel = [[UILabel alloc]init];
     self.typeLabel = [[UILabel alloc]init];
+    self.agreementBtn = [[UIButton alloc] init];
+    [self.agreementBtn addTarget:self action:@selector(agreementButtonAct:) forControlEvents:UIControlEventTouchUpInside];
+    [self.agreementBtn setTitle:@"合同" forState:UIControlStateNormal];
     
     self.planIDLabel.textAlignment = NSTextAlignmentCenter;
     self.amountLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
-    self.typeLabel.textAlignment = NSTextAlignmentCenter;
+    self.typeLabel.textAlignment = NSTextAlignmentRight;
     self.planIDLabel.textColor = self.amountLabel.textColor = self.timeLabel.textColor = self.typeLabel.textColor = COR6;
+    [self.agreementBtn setTitleColor:kHXBColor_4D88FA_100 forState:UIControlStateNormal];
     
     self.planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.amountLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.timeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.typeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.agreementBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     
     [self.contentView addSubview:self.planIDLabel];
     [self.contentView addSubview:self.amountLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.typeLabel];
+    [self.contentView addSubview:self.agreementBtn];
     [self.contentView addSubview:self.line];
 
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,23 +315,36 @@ static NSString *const cellID = @"cellID";
         make.height.offset(kHXBDivisionLineHeight);
     }];
     [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).offset(kScrAdaptationH750(30));
+        make.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+        make.width.offset(kScrAdaptationW(48));
     }];
     [self.amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.right.equalTo(self.contentView).offset(-kScrAdaptationW750(413));
-    }];
-    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.right.equalTo(self.contentView).offset(-kScrAdaptationH750(30));
+        make.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.planIDLabel.mas_right).offset(kScrAdaptationW(15));
+        make.width.offset(kScrAdaptationW(81));
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.amountLabel.mas_right);
-        make.right.equalTo(self.typeLabel.mas_left);
+        make.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.amountLabel.mas_right).offset(kScrAdaptationW(20));
+        make.width.offset(kScrAdaptationW(72));
     }];
-   
+    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.timeLabel.mas_right).offset(kScrAdaptationW(10));
+        make.width.offset(kScrAdaptationW(49));
+    }];
+    [self.agreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.typeLabel.mas_right).offset(kScrAdaptationW(12));
+        make.width.offset(kScrAdaptationW(48));
+    }];
+}
+
+- (void)agreementButtonAct:(UIButton*)button {
+    if(self.agreementAct) {
+        self.agreementAct(self.ID);
+    }
 }
 
 - (UIView *)line

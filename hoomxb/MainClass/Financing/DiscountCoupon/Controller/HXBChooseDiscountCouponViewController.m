@@ -16,6 +16,8 @@
 @property (nonatomic, strong) HXBBaseTableView *tableView;
 // 提示Label
 @property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
+// 无数据
+@property (nonatomic, strong) HXBNoDataView *nodataView;
 // 是否选中
 @property (nonatomic, assign) BOOL hasSelect;
 //判断第几个是选择的优惠券
@@ -50,6 +52,13 @@
     
     [self.view addSubview:_tableView];
     [self.view addSubview:self.notifitionView];
+    [self.view addSubview:self.nodataView];
+    [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(kScrAdaptationH(140));
+        make.height.width.equalTo(@(kScrAdaptationH(184)));
+        make.centerX.equalTo(self.view);
+    }];
+    self.nodataView.hidden = YES;
     
     kWeakSelf
     self.noDataView.imageName = @"noCoupons";
@@ -222,25 +231,19 @@
 }
 
 - (void)setUpDate {
-    if (!_planid.length) {
-        self.noDataView.hidden = NO;
-        self.tableView.hidden = YES;
-        self.notifitionView.hidden = YES;
-    } else {
-        NSDictionary *dic_post = @{
-                                   @"id": _planid,
-                                   @"amount": _investMoney,
-                                   @"type": _type
-                                   };
-        kWeakSelf
-        [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
-            if (isSuccess) {
-                [weakSelf displaySuccessData];
-            } else {
-                weakSelf.noDataView.hidden = NO;
-            }
-        }];
-    }
+    NSDictionary *dic_post = @{
+                          @"id": _planid,
+                          @"amount": _investMoney,
+                          @"type": _type
+                          };
+    kWeakSelf
+    [_viewModel chooseCouponListWithParams:dic_post resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf displaySuccessData];
+        } else {
+            weakSelf.nodataView.hidden = NO;
+        }
+    }];
 }
 
 - (void)displaySuccessData {
@@ -252,9 +255,7 @@
         }
     }
     if (self.viewModel.chooseCouponModel.dataList.count == 0 && self.viewModel.chooseCouponModel.unusableList.count == 0) {
-        self.noDataView.hidden = NO;
-        self.tableView.hidden = YES;
-        self.notifitionView.hidden = YES;
+        self.nodataView.hidden = NO;
     } else {
         self.tableView.hidden = NO;
         self.noDataView.hidden = YES;
@@ -262,6 +263,14 @@
     [self.tableView reloadData];
 }
 
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        _nodataView.imageName = @"noCoupons";
+        _nodataView.noDataMassage = @"暂无优惠券";
+    }
+    return _nodataView;
+}
 
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     if (!_notifitionView) {

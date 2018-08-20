@@ -11,6 +11,7 @@
 #import "HXBBaseView_MoreTopBottomView.h"///多个上下 层的view
 
 @class HXBMY_Loan_DetailViewManager;
+
 @interface HXBMY_Loan_DetailView : UIView
 - (void)setUPValueWithManagerBlock: (HXBMY_Loan_DetailViewManager *(^)(HXBMY_Loan_DetailViewManager *manager))managerBlock;
 /**

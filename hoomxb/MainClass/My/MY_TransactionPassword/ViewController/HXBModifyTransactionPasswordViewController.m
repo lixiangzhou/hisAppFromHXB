@@ -70,7 +70,7 @@
 {
     kWeakSelf
     if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && self.type == HXBModifyTransactionPasswordType) {
-        
+
         [self.viewModel modifyTransactionPasswordWithIdCard:IDCard resultBlock:^(BOOL isSuccess) {
             if (isSuccess) {
                 [weakSelf.homeView idcardWasSuccessfully];
@@ -90,7 +90,7 @@
  */
 - (void)getValidationCode {
     // fixme : 暂时获取验证码的action只有两个，目前处理为修改交易密码用前面的，其他均为解绑原手机号。
-    NSString *action = self.type == HXBModifyTransactionPasswordType ? kTypeKey_tradpwd : kTypeKey_oldmobile;
+     NSString *action = self.type == HXBModifyTransactionPasswordType ? kTypeKey_tradpwd : kTypeKey_oldmobile;
     kWeakSelf
     [_viewModel myTraderPasswordGetverifyCodeWithAction:action resultBlock:^(BOOL isSuccess) {
         if (!isSuccess) {

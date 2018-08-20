@@ -39,6 +39,7 @@
     }
     return _viewModel;
 }
+
 - (HXBModifyPhoneView *)homeView
 {
     if (!_homeView) {
@@ -54,7 +55,6 @@
             if (weakSelf.checkPaptcha.length == 0) {
                 [HxbHUDProgress showTextWithMessage:@"请输入正确的短信验证码"];
             } else {
-            
                 [weakSelf.viewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
                         KeyChain.mobile = weakSelf.viewModel.modifyPhoneModel.mobile;//phoneNumber;

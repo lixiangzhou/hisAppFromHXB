@@ -121,6 +121,9 @@
                 }
             } else {
                 [weakSelf showToast:responseObject.message];
+                if (finishBlock) {
+                    finishBlock(NO, nil, NO);
+                }
             }
         }
         else{

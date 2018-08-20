@@ -15,6 +15,7 @@
 #import "HxbMyAccountSecurityViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBGeneralAlertVC.h"
+#import "HXBAdvertiseManager.h"
 
 @interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
@@ -76,9 +77,9 @@
     [super viewDidAppear:animated];
     self.isHiddenNavigationBar = YES;
     
-    if (self.type == GestureViewControllerTypeSetting && self.switchType == HXBAccountSecureSwitchTypeNone) {
-        [self alertSkipSetting];
-    }
+//    if (self.type == GestureViewControllerTypeSetting && self.switchType == HXBAccountSecureSwitchTypeNone) {
+//        [self alertSkipSetting];
+//    }
 }
 
 
@@ -200,8 +201,6 @@
             [self.msgLabel showNormalMsg:gestureTextConnectLess];
             self.titleLabel.text = gestureTextBeforeSet;
             // 4.清除之前存储的密码
-//            [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
-//            KeyChain.gesturePwd = nil;
             [self.lockView resetGesturePassword];
         }
             break;
@@ -209,7 +208,9 @@
         {
             NSLog(@"点击了账户密码登录");
             [KeyChain signOut];
-            [[HXBRootVCManager manager] makeTabbarRootVC];
+            [self.view removeFromSuperview];
+            [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
             break;
@@ -272,13 +273,14 @@
         
         KeyChain.skipGesture = kHXBGesturePwdSkipeNO;
        
-        
         if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
             [self.navigationController popToViewController:popToVC animated:YES];
         } else if (self.switchType == HXBAccountSecureSwitchTypeChange) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
-            [[HXBRootVCManager manager] makeTabbarRootVC];
+            if (self.dismissBlock) {
+                self.dismissBlock(NO, NO, YES);
+            }
         }
         
     } else {
@@ -297,10 +299,10 @@
         if (equal) {
             NSLog(@"登陆成功！");
             KeyChain.gesturePwdCount = @"5";
-            [[HXBRootVCManager manager] makeTabbarRootVC];
+            if (self.dismissBlock) {
+                self.dismissBlock(YES, YES, YES);
+            }
         } else {
-           
-            
             NSLog(@"密码错误！");
             int cout = [KeyChain.gesturePwdCount intValue];
             cout--;
@@ -312,10 +314,16 @@
                 KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                 [KeyChain signOut];
                 alertVC.leftBtnBlock = ^{
-                    [[HXBRootVCManager manager] makeTabbarRootVC];
+                    if (self.dismissBlock) {
+                        self.dismissBlock(NO, NO, YES);
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
                 };
                 alertVC.rightBtnBlock = ^{
-                    [[HXBRootVCManager manager] makeTabbarRootVC];
+                    if (self.dismissBlock) {
+                        self.dismissBlock(NO, NO, NO);
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_RefreshHomeData object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 };
                 
@@ -337,6 +345,12 @@
 }
 
 #pragma mark - Helper
+- (void)checkAlertSkipSetting {
+    if (self.type == GestureViewControllerTypeSetting && self.switchType == HXBAccountSecureSwitchTypeNone) {
+        [self alertSkipSetting];
+    }
+}
+
 - (void)alertSkipSetting {
     // 忽略手势密码弹窗提示
     BOOL appeared = KeyChain.skipGestureAlertAppeared;
@@ -347,7 +361,9 @@
         alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
-            [[HXBRootVCManager manager] makeTabbarRootVC];
+            if (self.dismissBlock) {
+                self.dismissBlock(NO, NO, YES);
+            }
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };

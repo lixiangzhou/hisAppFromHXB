@@ -44,5 +44,5 @@
 #define kHXBColor_000000_30                 RGBA(0, 0, 0, 0.3)
 #define kHXBColor_000000_10                 RGBA(0, 0, 0, 0.1)
 
-
+#define kHXBColor_4D88FA_100                RGBA(77, 136, 250, 1)
 #endif /* HXBBackgroundColorMacros_h */

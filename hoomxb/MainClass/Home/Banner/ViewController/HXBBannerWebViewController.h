@@ -8,7 +8,8 @@
 
 #import "HXBBaseWebViewController.h"
 
-@interface HXBBannerWebViewController : HXBBaseWebViewController
-
+@class BannerModel;
+@interface HXBBannerWebViewController : HXBBaseWKWebViewController
+@property (nonatomic, strong) BannerModel *model;
 
 @end

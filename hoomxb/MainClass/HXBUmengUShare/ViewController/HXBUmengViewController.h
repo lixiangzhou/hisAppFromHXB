@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class HXBUMShareViewModel;
-@interface HXBUmengViewController : UIViewController
 
+@interface HXBUmengViewController : UIViewController
 /**
  分享的数据
  */

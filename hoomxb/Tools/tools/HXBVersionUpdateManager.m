@@ -10,6 +10,7 @@
 #import "HXBVersionUpdateModel.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
+#import "HXBAdvertiseManager.h"
 
 @interface HXBVersionUpdateManager ()
 
@@ -17,8 +18,7 @@
  是否为强制升级
  */
 @property (nonatomic, assign) BOOL isMandatoryUpdate;
-//是否已经被弹出
-@property (nonatomic, assign) BOOL isPoped;
+
 //只在appdelegate里面使用
 @property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
 
@@ -73,14 +73,9 @@
 }
 
 - (void)show {
-    if (self.versionUpdateModel && !self.isPoped) {
-        self.isPoped = YES;
+    if (self.versionUpdateModel && (!self.isShow) && [HXBAdvertiseManager shared].couldPopAtHomeAfterSlashOrGesturePwd) {
+        self.isShow = YES;
         [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
-    }
-    
-    if(self.isShow) {
-        UIViewController *topVC = ((UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController).topViewController;
-        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:topVC];//展示首页弹窗
     }
 }
 

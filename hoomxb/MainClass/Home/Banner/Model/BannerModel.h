@@ -7,15 +7,17 @@
 //
 
 #import "BaseModel.h"
-
+#import "HXBUMShareModel.h"
 @interface BannerModel : NSObject
 
+//2.9.0新增分享模型
+@property (nonatomic, strong) HXBUMShareModel *share;
 ///标题
 @property (nonatomic, copy) NSString *title;
 ///图片绝对地址
 @property (nonatomic, copy) NSString *image;
-///跳转链接
-@property (nonatomic, copy) NSString *url;
+///跳转链接(2.9.0将该字段废弃)
+//@property (nonatomic, copy) NSString *url;
 /**
  开始时间
  */
