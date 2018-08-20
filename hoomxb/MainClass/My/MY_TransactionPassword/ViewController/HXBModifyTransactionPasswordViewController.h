@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class HXBUserInfoModel;
+
 typedef enum : NSInteger {
     /// 修改交易密码
     HXBModifyTransactionPasswordType,
@@ -17,6 +18,7 @@ typedef enum : NSInteger {
 } HXBModifyTransactionPasswordORModifyPhoneType;
 
 @interface HXBModifyTransactionPasswordViewController : HXBBaseViewController
+
 @property (nonatomic,assign) HXBModifyTransactionPasswordORModifyPhoneType type;
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 

@@ -30,4 +30,8 @@ typedef enum{
 @property (nonatomic, assign) GestureViewControllerType type;
 /// 手势密码开关
 @property (nonatomic, assign) HXBAccountSecureSwitchType switchType;
+
+@property (nonatomic, strong) void (^dismissBlock)(BOOL delay, BOOL toActivity, BOOL popRightNow);
+
+- (void)checkAlertSkipSetting;
 @end

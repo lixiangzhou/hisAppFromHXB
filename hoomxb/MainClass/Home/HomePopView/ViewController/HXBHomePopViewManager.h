@@ -12,7 +12,7 @@
 @interface HXBHomePopViewManager : NSObject
 
 /**
- 是否隐藏首页弹窗
+ 是否要隐藏首页弹窗
  */
 @property (nonatomic,assign) BOOL isHide;
 

@@ -107,6 +107,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect,
     alert.center = CGPointMake(view.center.x, view.frame.size.height*height);
     alert.alpha = 0;
     [view addSubview:alert];
+    [view bringSubviewToFront:alert];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:.3f];
     alert.alpha = 1.0;

@@ -9,6 +9,7 @@
 #import "HxbNotificationMacros.h"
 
 NSString *const kHXBNotification_ShowLoginVC = @"kHXBNotification_ShowLoginVC";
+NSString *const kHXBNotification_RefreshHomeData = @"kHXBNotification_RefreshHomeData";
 NSString *const kHXBNotification_ShowSignUpVC = @"kHXBNotification_ShowSignUpVC";
 NSString *const kHXBNotification_IsLoginToReloadTableView = @"kHXBNotification_IsLoginToReloadTableView";
 NSString *const kHXBNotification_LoginSuccess_PushMYVC = @"kHXBNotification_LoginSuccess_PushMYVC";

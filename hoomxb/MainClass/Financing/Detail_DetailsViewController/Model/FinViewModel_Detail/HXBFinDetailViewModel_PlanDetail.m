@@ -211,13 +211,14 @@
                 self.addButtonStr = @"立即加入";
                 self.isAddButtonInteraction = YES;
             } else {
-                if (self.planDetailModel.isAllowedRepeatPurchase) {
-                    self.addButtonStr = @"追加";
-                    self.isAddButtonInteraction = YES;
-                } else {
+                /// 如果是新手计划，不让追加
+                if ([self.planDetailModel.novice isEqualToString:@"1"] || !self.planDetailModel.isAllowedRepeatPurchase) {
                     self.addButtonStr = @"暂不支持重复购买";
                     [self setUPAddButtonColorWithType:YES];
                     self.isAddButtonInteraction = NO;
+                } else {
+                    self.addButtonStr = @"追加";
+                    self.isAddButtonInteraction = YES;
                 }
             }
             break;

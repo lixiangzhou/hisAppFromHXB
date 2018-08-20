@@ -7,7 +7,18 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "BannerModel.h"
 
 @interface HXBAdvertiseViewModel : HXBBaseViewModel
-- (void)requestSplashImages:(void (^)(NSString *imageUrl))resultBlock;
+/// 闪屏页数据
+@property (nonatomic, strong, readonly) BannerModel *bannerModel;
+
+/// 图片URL
+@property (nonatomic, strong) NSURL *imageUrl;
+
+/// 是否可以跳转到活动页
+@property (nonatomic, assign) BOOL canToActivity;
+
+- (void)getSlash:(void (^)(BOOL isSuccess))resultBlock;
+
 @end

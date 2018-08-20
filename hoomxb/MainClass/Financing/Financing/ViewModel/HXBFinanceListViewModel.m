@@ -66,8 +66,6 @@
 #else
     request.requestArgument = isUpData ? @{@"page": @(page).description,@"cashType":@"HXB"} : @{@"page": @(page).description};
 #endif
-    
-    
     request.showHud = NO;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {

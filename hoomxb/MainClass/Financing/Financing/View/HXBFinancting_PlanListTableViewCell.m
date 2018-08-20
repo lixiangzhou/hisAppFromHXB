@@ -60,21 +60,19 @@
     if (finPlanListViewModel.planType == planType_newComer) { // 如果是新手标，隐藏一些图标
         self.HXBImageView.hidden = YES;
         self.lineImageView.hidden = YES;
-        self.tagLabel.hidden = YES;
-        [self.tagLableImageView setHidden:YES];
         self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
     } else {
-        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
-        if (finPlanListViewModel.planListModel.tag.length > 0) {
-            self.tagLabel.text = finPlanListViewModel.planListModel.tag;
-            self.tagLableImageView.hidden = NO;
-            self.tagLabel.hidden = NO;
-        } else {
-            self.tagLabel.hidden = YES;
-            [self.tagLableImageView setHidden:YES];
-        }
         self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
         self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
+        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
+    }
+    if (finPlanListViewModel.planListModel.tag.length > 0) {
+        self.tagLabel.text = finPlanListViewModel.planListModel.tag;
+        self.tagLableImageView.hidden = NO;
+        self.tagLabel.hidden = NO;
+    } else {
+        self.tagLabel.hidden = YES;
+        [self.tagLableImageView setHidden:YES];
     }
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
     [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];

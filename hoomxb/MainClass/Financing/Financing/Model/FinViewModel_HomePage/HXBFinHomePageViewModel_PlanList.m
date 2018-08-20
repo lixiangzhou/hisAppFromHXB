@@ -76,7 +76,11 @@ typedef enum : NSUInteger {
 // 期限
 - (NSString *)lockPeriod {
     if (self.planListModel.lockPeriod.length) {
-        return self.planListModel.extendLockPeriod;
+        if (self.planListModel.novice == 1) {
+            return self.planListModel.lockPeriod;
+        } else {
+            return self.planListModel.extendLockPeriod;
+        }
     }
     if (self.planListModel.lockDays) {
         return [NSString stringWithFormat:@"%d", self.planListModel.lockDays];

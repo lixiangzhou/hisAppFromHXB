@@ -123,7 +123,7 @@ static NSString *const exitTitle = @"已退出";
             manager.planStatus = viewModel.planModelDataList.status;
         }
         else {
-            manager.title_RightLabelStr = viewModel.status;
+            manager.title_RightLabelStr = viewModel.status;            
         }
         manager.requestType = viewModel.requestType;
         manager.bottomViewManager.leftStrArray = titleArray;
@@ -144,7 +144,7 @@ static NSString *const exitTitle = @"已退出";
         manager.title_ImageName = lanTruansferImageName;
         return manager;
     }];
-
+    
     if ([viewModel.planModelDataList.novice isEqualToString:@"1"]) {
         UILabel *label = nil;
         if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN && [[titleArray lastObject] isEqualToString:AverageHistoricalAnnualIncome]) { //持有中 平均历史年化收益 tips
@@ -171,7 +171,7 @@ static NSString *const exitTitle = @"已退出";
             }
         }
     }
-    
+
     return cell;
 }
 
@@ -186,7 +186,7 @@ static NSString *const exitTitle = @"已退出";
     }
     if((indexPath = objc_getAssociatedObject(tap.view, (__bridge const void * _Nonnull)(WithdrawnFromIncomeKey)))) { //暂时等是否有新字段
         HXBMYViewModel_MianPlanViewModel *viewModel = self.mainPlanViewModelArray[indexPath.section];
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:viewModel.planModelDataList.newbieQuitEarningsTips force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];

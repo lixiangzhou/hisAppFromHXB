@@ -23,6 +23,8 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"ID" : @"id"};
 }
+
+
 - (NSString *)description {
     return [self yy_modelDescription];
 }

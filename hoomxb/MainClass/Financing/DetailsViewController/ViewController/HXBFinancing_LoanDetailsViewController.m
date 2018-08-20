@@ -82,6 +82,7 @@
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
     [self.view addSubview:self.loanDetailsView.addButton];
+    self.loanDetailsView.addButton.hidden = self.isHidebottomButton;
 
     [self.loanDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);

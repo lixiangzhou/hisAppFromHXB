@@ -131,11 +131,9 @@
             // 没有实名
             self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
             self.afterLoginView.tipString = @"完善存管信息";
-        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && (self.homeBaseModel.newbieProductData.dataList.count > 0)) {
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && (self.homeBaseModel.newbieProductData.maxRate.length > 0)) {
             //已经投资显示的界面
-            HxbHomePageModel_DataList *homePageModel = self.homeBaseModel.newbieProductData.dataList.firstObject;
-            CGFloat rate = [homePageModel.baseInterestRate doubleValue] + [homePageModel.subsidyInterestRate doubleValue];
-            NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%0.1f年化产品",rate];
+            NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%@%%年化产品",self.homeBaseModel.newbieProductData.maxRate];
             
             self.afterLoginView.headTipString = newbieSubsidyInterestRate;
             self.afterLoginView.tipString = @"立即出借";
@@ -187,7 +185,7 @@
     NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
     [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
     [self showSecurityCertificationOrInvest:self.userInfoViewModel];
-    if (homeBaseModel.newbieProductData.img.length > 0) {
+    if (homeBaseModel.newbieProductData.dataList.count > 0) {
         self.newbieView.hidden = NO;
     } else {
         self.newbieView.hidden = YES;

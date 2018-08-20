@@ -12,5 +12,6 @@
 
 @interface HxbHomeViewController : HXBBaseViewController
 
+- (void)getData:(BOOL)isUPReloadData;
 
 @end

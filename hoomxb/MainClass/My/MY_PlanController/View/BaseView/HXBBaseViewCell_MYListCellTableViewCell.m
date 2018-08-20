@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UIImageView *planStatusIamgeView;
 
+
 @property (nonatomic,strong) HXBBaseViewCell_MYListCellTableViewCellManager *myListCellManager;
 
 /**
@@ -50,6 +51,7 @@
     else {
         self.insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(15));
     }
+    
     if (myListCellManager.title_ImageName.length) {
        UIImage *image = [UIImage imageNamed:myListCellManager.title_ImageName];
         if (!image) {

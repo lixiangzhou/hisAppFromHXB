@@ -14,6 +14,12 @@
 @implementation HXBUMShareViewModel
 
 
+/**
+ @return 返回分享类型
+ */
+- (HXBShareType)getShareType {
+    return [self.shareModel.status isEqualToString:@"link"] ? HXBShareTypeWebPage : HXBShareTypeImage;
+}
 
 - (NSString *)getShareLink:(UMSocialPlatformType)type {
     NSString *shareURL = @"";
